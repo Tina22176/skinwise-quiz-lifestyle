@@ -3,9 +3,20 @@ import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
-import { Check, Loader2, Mail, Instagram, Sparkles } from "lucide-react";
+import { Check, Loader2, Mail, Instagram, Sparkles, Wand2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
+
+const getSkinTypeText = (skinType: string) => {
+  const texts: Record<string, string> = {
+    "combination": "Mixte",
+    "dry": "Sèche",
+    "oily": "Grasse",
+    "sensitive": "Sensible",
+    "normal": "Normale"
+  };
+  return texts[skinType] || texts["normal"];
+};
 
 const getSkinTypeDetails = (skinType: string) => {
   const details: Record<string, { characteristics: string[]; factors: string[] }> = {
@@ -111,7 +122,7 @@ export const Results = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors", // Pour gérer les problèmes CORS avec Zapier
+        mode: "no-cors",
         body: JSON.stringify({
           email,
           quizAnswers: state.answers,
@@ -137,7 +148,7 @@ export const Results = () => {
   };
 
   const handleShare = () => {
-    const shareText = "Je viens de découvrir mon type de peau avec Majoliepeau ! 💖";
+    const shareText = `Je viens de découvrir mon type de peau avec Majoliepeau ! 💖 Mon diagnostic : Peau ${getSkinTypeText(state.result || "normal")}`;
     window.open(`https://www.instagram.com/create/story?text=${encodeURIComponent(shareText)}`, '_blank');
   };
 
@@ -165,10 +176,10 @@ export const Results = () => {
             }}
             className="relative w-16 h-16"
           >
-            <Sparkles className="w-16 h-16 text-pink-400 animate-pulse" />
+            <Wand2 className="w-16 h-16 text-pink-400 animate-pulse" />
           </motion.div>
           <p className="text-lg text-center text-muted-foreground">
-            Nous analysons tes réponses pour trouver ta routine parfaite... ✨
+            ✨ La magie opère... nous préparons ton diagnostic beauté personnalisé ✨
           </p>
         </motion.div>
       ) : (
@@ -177,32 +188,60 @@ export const Results = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-2xl mx-auto px-4"
+          className="max-w-3xl mx-auto px-4"
         >
-          <div className="glass rounded-2xl p-8 md:p-10 mb-8 bg-gradient-to-br from-pink-50/90 to-white/90">
+          <div className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/90 to-white/90 shadow-[0_8px_32px_rgba(255,192,203,0.15)]">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="space-y-8"
+              className="space-y-10"
             >
-              <h2 className="text-3xl md:text-4xl font-semibold mb-6 text-center bg-gradient-to-r from-pink-600 to-amber-500 text-transparent bg-clip-text">
-                Ton Type de Peau : {skinType.charAt(0).toUpperCase() + skinType.slice(1)}
-              </h2>
+              <div className="text-center space-y-6 relative">
+                <motion.div
+                  animate={{ 
+                    opacity: [0.5, 1, 0.5],
+                    scale: [0.98, 1, 0.98],
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-pink-100/30 via-pink-200/30 to-pink-100/30 blur-xl"
+                />
+                <motion.div className="relative">
+                  <h1 className="text-2xl md:text-3xl font-medium text-pink-600/90 mb-4">
+                    ✨ Résultat : Voici ton diagnostic beauté personnalisé ✨
+                  </h1>
+                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-600 to-amber-500 text-transparent bg-clip-text">
+                    💖 Ton type de peau : {getSkinTypeText(skinType)}
+                  </h2>
+                </motion.div>
+              </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="space-y-4"
+                  className="space-y-4 bg-white/50 p-6 rounded-2xl"
                 >
-                  <h3 className="text-xl font-medium text-pink-700">Caractéristiques Principales</h3>
-                  <ul className="space-y-2">
+                  <h3 className="text-xl font-semibold text-pink-700 flex items-center gap-2">
+                    <span className="h-8 w-1 bg-gradient-to-b from-pink-400 to-pink-200 rounded-full"/>
+                    Caractéristiques Principales
+                  </h3>
+                  <ul className="space-y-3">
                     {details.characteristics.map((char, index) => (
-                      <li key={index} className="flex items-center text-muted-foreground">
-                        <span className="mr-2">•</span> {char}
-                      </li>
+                      <motion.li 
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 + index * 0.1 }}
+                        className="flex items-center text-muted-foreground"
+                      >
+                        <span className="mr-2 text-pink-400">•</span> {char}
+                      </motion.li>
                     ))}
                   </ul>
                 </motion.div>
@@ -211,46 +250,60 @@ export const Results = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="space-y-4"
+                  className="space-y-4 bg-white/50 p-6 rounded-2xl"
                 >
-                  <h3 className="text-xl font-medium text-pink-700">Facteurs Influents</h3>
-                  <ul className="space-y-2">
+                  <h3 className="text-xl font-semibold text-pink-700 flex items-center gap-2">
+                    <span className="h-8 w-1 bg-gradient-to-b from-pink-400 to-pink-200 rounded-full"/>
+                    Facteurs Influents
+                  </h3>
+                  <ul className="space-y-3">
                     {details.factors.map((factor, index) => (
-                      <li key={index} className="flex items-center text-muted-foreground">
-                        <span className="mr-2">•</span> {factor}
-                      </li>
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.7 + index * 0.1 }}
+                        className="flex items-center text-muted-foreground"
+                      >
+                        <span className="mr-2 text-pink-400">•</span> {factor}
+                      </motion.li>
                     ))}
                   </ul>
                 </motion.div>
               </div>
 
               {!isSubscribed ? (
-                <form onSubmit={handleEmailSubmit} className="space-y-6 mt-8">
+                <form onSubmit={handleEmailSubmit} className="space-y-8 mt-10">
                   <motion.div 
-                    className="flex flex-col gap-3"
+                    className="flex flex-col gap-6"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
                   >
-                    <h3 className="text-xl font-medium text-center text-pink-700">
-                      Reçois ta routine personnalisée 💝
-                    </h3>
+                    <div className="text-center space-y-3">
+                      <h3 className="text-2xl font-semibold text-pink-700">
+                        🌟 Reçois ton plan skincare exclusif directement par email ! 🌟
+                      </h3>
+                      <p className="text-muted-foreground">
+                        Accède à des conseils inédits et des astuces que tu ne trouveras nulle part ailleurs.
+                      </p>
+                    </div>
                     
                     <Input
                       type="email"
-                      placeholder="Entre ton email pour recevoir ta routine complète"
+                      placeholder="Entre ton email pour recevoir ta routine sur-mesure 🎀"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="premium-input"
+                      className="premium-input text-lg py-6"
                     />
                     
-                    <div className="flex items-start space-x-2">
+                    <div className="flex items-start space-x-3 bg-pink-50/50 p-4 rounded-xl">
                       <Checkbox
                         id="gdpr"
                         checked={gdprConsent}
                         onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-                        className="mt-1"
+                        className="mt-1 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500"
                       />
                       <label 
                         htmlFor="gdpr" 
@@ -263,15 +316,26 @@ export const Results = () => {
 
                     <Button 
                       type="submit" 
-                      className="premium-button w-full transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-amber-300 active:scale-95"
+                      className="premium-button w-full text-lg py-6 relative overflow-hidden group active:scale-95 transition-all duration-200"
                       disabled={isLoading || !email || !gdprConsent}
                     >
+                      <motion.span
+                        className="absolute inset-0 bg-gradient-to-r from-pink-200/20 to-transparent"
+                        animate={{
+                          x: ["0%", "200%"],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
                       {isLoading ? (
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                       ) : (
-                        <Mail className="w-4 h-4 mr-2" />
+                        <Mail className="w-5 h-5 mr-2" />
                       )}
-                      Recevoir Ma Routine Personnalisée
+                      💖 Je veux ma routine personnalisée !
                     </Button>
                   </motion.div>
                 </form>
@@ -281,7 +345,7 @@ export const Results = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                 >
-                  <div className="flex items-center gap-2 text-green-600">
+                  <div className="flex items-center gap-2 text-green-600 font-medium">
                     <Check className="w-5 h-5" />
                     <span>Ta routine personnalisée est en route ! 💌</span>
                   </div>
@@ -291,10 +355,10 @@ export const Results = () => {
                   <Button
                     onClick={handleShare}
                     variant="outline"
-                    className="flex items-center gap-2 hover:bg-pink-50"
+                    className="flex items-center gap-2 hover:bg-pink-50 text-pink-700"
                   >
                     <Instagram className="w-4 h-4" />
-                    Partager mes résultats
+                    Partager mes résultats sur Instagram
                   </Button>
                 </motion.div>
               )}
