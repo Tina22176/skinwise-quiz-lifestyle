@@ -3,36 +3,25 @@ import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
 import { questions } from "./questions";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const QuizQuestion = () => {
   const { state, dispatch } = useQuiz();
-  const navigate = useNavigate();
 
   // Si nous avons dépassé le nombre de questions, nous passons aux résultats
-  useEffect(() => {
-    if (state.currentQuestion >= questions.length) {
-      // Analyse des réponses et détermination du type de peau
-      const skinType = calculateSkinType(state.answers);
-      dispatch({ type: "SET_RESULT", payload: skinType });
-      return;
-    }
-  }, [state.currentQuestion, dispatch]);
-
-  // Si nous n'avons plus de questions, ne rien afficher
-  if (state.currentQuestion >= questions.length) {
-    return null;
-  }
-
-  const currentQuestion = questions[state.currentQuestion];
-  const progress = ((state.currentQuestion + 1) / questions.length) * 100;
-
   const handleAnswer = (answer: string) => {
+    const currentQuestion = questions[state.currentQuestion];
     dispatch({
       type: "SET_ANSWER",
       payload: { questionId: currentQuestion.id, answer },
     });
+
+    // Si c'est la dernière question, calculons le résultat
+    if (state.currentQuestion === questions.length - 1) {
+      const skinType = calculateSkinType(state.answers);
+      dispatch({ type: "SET_RESULT", payload: skinType });
+    }
+    
     dispatch({ type: "NEXT_QUESTION" });
   };
 
@@ -77,6 +66,14 @@ export const QuizQuestion = () => {
 
     return skinType;
   };
+
+  // Si nous n'avons plus de questions, ne rien afficher
+  if (state.currentQuestion >= questions.length) {
+    return null;
+  }
+
+  const currentQuestion = questions[state.currentQuestion];
+  const progress = ((state.currentQuestion + 1) / questions.length) * 100;
 
   const motivationalTexts = [
     "Prends soin de toi...",

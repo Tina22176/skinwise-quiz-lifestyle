@@ -12,6 +12,7 @@ const QuizContent = () => {
   const [stage, setStage] = useState<"welcome" | "questions" | "results">("welcome");
 
   useEffect(() => {
+    // Passer aux résultats quand toutes les questions sont répondues
     if (state.currentQuestion >= questions.length) {
       setStage("results");
     }
@@ -23,8 +24,12 @@ const QuizContent = () => {
         {stage === "welcome" && (
           <Welcome onStart={() => setStage("questions")} />
         )}
-        {stage === "questions" && <QuizQuestion />}
-        {stage === "results" && <Results />}
+        {stage === "questions" && state.currentQuestion < questions.length && (
+          <QuizQuestion />
+        )}
+        {(stage === "results" || state.currentQuestion >= questions.length) && (
+          <Results />
+        )}
       </AnimatePresence>
     </div>
   );
