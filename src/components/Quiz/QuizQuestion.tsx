@@ -18,10 +18,10 @@ export const QuizQuestion = () => {
   };
 
   const motivationalTexts = [
-    "Prenez soin de vous...",
-    "Votre peau mérite le meilleur...",
+    "Prends soin de toi...",
+    "Ta peau mérite le meilleur...",
     "En route vers une peau rayonnante...",
-    "Découvrons ensemble votre routine idéale..."
+    "Découvrons ensemble ta routine idéale..."
   ];
 
   return (

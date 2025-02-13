@@ -57,20 +57,34 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-semibold mb-6 text-balance leading-tight">
-          Découvrez Votre Routine de Soin Personnalisée
+          ✨ Découvre ton type de peau & ta routine idéale ✨
         </h1>
-        
-        <p className="text-lg md:text-xl text-muted-foreground mb-10 text-balance max-w-xl mx-auto">
-          Transformez votre peau de l'intérieur vers l'extérieur avec notre approche holistique. 
-          Répondez à ce questionnaire pour recevoir des recommandations personnalisées pour votre peau et votre style de vie.
-        </p>
+
+        <div className="space-y-6 mb-10">
+          <h2 className="text-2xl text-pink-600/90 font-medium">
+            Ta peau te parle… mais la comprends-tu vraiment ? 💖
+          </h2>
+          
+          <p className="text-lg md:text-xl text-muted-foreground text-balance max-w-xl mx-auto">
+            Ce quiz unique te permet d'identifier ton type de peau et d'explorer les facteurs de ton mode de vie qui influencent son éclat.
+            En moins de 2 minutes, reçois un bilan personnalisé et des conseils adaptés à TA réalité.
+          </p>
+
+          <p className="text-xl text-pink-500/90 font-medium">
+            🌸 Prête à révéler ce que ta peau a à te dire ? 🌸
+          </p>
+          
+          <p className="text-lg text-pink-400/80 italic">
+            👉 Clique sur "Commencer" et trouve ta routine parfaite !
+          </p>
+        </div>
         
         <button
           onClick={onStart}
           className="premium-button group"
         >
           <span className="relative inline-flex items-center">
-            Commencer le Quiz
+            Commencer
             <motion.span
               className="ml-2 opacity-0 group-hover:opacity-100"
               initial={{ x: -10 }}
