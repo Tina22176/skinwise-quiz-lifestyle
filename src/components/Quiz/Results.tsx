@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -78,14 +77,13 @@ const getSkinTypeDetails = (skinType: string) => {
 export const Results = () => {
   const { state } = useQuiz();
   const [email, setEmail] = useState("");
-  const [webhookUrl, setWebhookUrl] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
+  const webhookUrl = "https://hooks.zapier.com/hooks/catch/14381563/2w2elvt/";
 
-  // Simuler le temps d'analyse
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowResults(true);
@@ -100,15 +98,6 @@ export const Results = () => {
       toast({
         title: "Consentement requis",
         description: "Merci d'accepter les conditions d'utilisation pour recevoir ta routine personnalisée.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!webhookUrl) {
-      toast({
-        title: "Configuration requise",
-        description: "Veuillez configurer l'URL du webhook Zapier",
         variant: "destructive",
       });
       return;
@@ -248,15 +237,6 @@ export const Results = () => {
                     </h3>
                     
                     <Input
-                      type="url"
-                      placeholder="URL du webhook Zapier"
-                      value={webhookUrl}
-                      onChange={(e) => setWebhookUrl(e.target.value)}
-                      required
-                      className="premium-input"
-                    />
-                    
-                    <Input
                       type="email"
                       placeholder="Entre ton email pour recevoir ta routine complète"
                       value={email}
@@ -284,7 +264,7 @@ export const Results = () => {
                     <Button 
                       type="submit" 
                       className="premium-button w-full transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-amber-300 active:scale-95"
-                      disabled={isLoading || !email || !gdprConsent || !webhookUrl}
+                      disabled={isLoading || !email || !gdprConsent}
                     >
                       {isLoading ? (
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
