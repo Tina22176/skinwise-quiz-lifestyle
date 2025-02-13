@@ -15,7 +15,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         <div 
           className="w-full h-full"
           style={{
-            backgroundImage: "url('/placeholder.svg')",
+            backgroundImage: "url('https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(8px)',
@@ -44,8 +44,8 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           }}
         >
           <img 
-            src="/placeholder.svg"
-            alt="Femme avec une peau lumineuse"
+            src="https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100"
+            alt="Illustration digitale des copines Majoliepeau"
             className="w-full h-64 object-cover"
           />
         </motion.div>
