@@ -213,10 +213,10 @@ export const Results = () => {
                   className="absolute inset-0 bg-gradient-to-r from-pink-100/40 via-pink-200/40 to-pink-100/40 blur-xl"
                 />
                 <motion.div className="relative">
-                  <h1 className="text-2xl md:text-3xl font-medium text-pink-600/90 mb-4">
+                  <h1 className="text-2xl md:text-3xl font-medium text-black mb-4">
                     ✨ Résultat : Voici ton diagnostic beauté personnalisé ✨
                   </h1>
-                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-500 via-pink-400 to-rose-300 text-transparent bg-clip-text">
+                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400/90 via-pink-300/90 to-pink-200/90 text-transparent bg-clip-text">
                     💖 Ton type de peau : {getSkinTypeText(skinType)}
                   </h2>
                 </motion.div>
@@ -229,7 +229,7 @@ export const Results = () => {
                   transition={{ delay: 0.4 }}
                   className="space-y-4 bg-gradient-to-br from-white/80 to-pink-50/80 p-8 rounded-2xl shadow-[0_4px_20px_rgba(255,192,203,0.15)] border border-pink-100/50"
                 >
-                  <h3 className="text-xl font-semibold text-pink-700 flex items-center gap-2">
+                  <h3 className="text-xl font-semibold text-black flex items-center gap-2">
                     <span className="h-8 w-1 bg-gradient-to-b from-pink-400 to-pink-200 rounded-full"/>
                     Caractéristiques Principales
                   </h3>
@@ -240,7 +240,7 @@ export const Results = () => {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.5 + index * 0.1 }}
-                        className="flex items-center text-muted-foreground"
+                        className="flex items-center text-black/70"
                       >
                         <span className="mr-2 text-pink-400">•</span> {char}
                       </motion.li>
@@ -254,7 +254,7 @@ export const Results = () => {
                   transition={{ delay: 0.6 }}
                   className="space-y-4 bg-gradient-to-br from-white/80 to-pink-50/80 p-8 rounded-2xl shadow-[0_4px_20px_rgba(255,192,203,0.15)] border border-pink-100/50"
                 >
-                  <h3 className="text-xl font-semibold text-pink-700 flex items-center gap-2">
+                  <h3 className="text-xl font-semibold text-black flex items-center gap-2">
                     <span className="h-8 w-1 bg-gradient-to-b from-pink-400 to-pink-200 rounded-full"/>
                     Facteurs Influents
                   </h3>
@@ -265,7 +265,7 @@ export const Results = () => {
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.7 + index * 0.1 }}
-                        className="flex items-center text-muted-foreground"
+                        className="flex items-center text-black/70"
                       >
                         <span className="mr-2 text-pink-400">•</span> {factor}
                       </motion.li>
@@ -283,10 +283,10 @@ export const Results = () => {
                     transition={{ delay: 0.8 }}
                   >
                     <div className="text-center space-y-3">
-                      <h3 className="text-2xl font-semibold text-pink-700">
+                      <h3 className="text-2xl font-semibold text-black">
                         🌟 Reçois ton plan skincare exclusif directement par email ! 🌟
                       </h3>
-                      <p className="text-muted-foreground">
+                      <p className="text-black/70">
                         Accède à des conseils inédits et des astuces que tu ne trouveras nulle part ailleurs.
                       </p>
                     </div>
@@ -297,19 +297,19 @@ export const Results = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="premium-input text-lg py-6 bg-white/90 border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
+                      className="premium-input text-lg py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
                     />
                     
-                    <div className="flex items-start space-x-3 bg-gradient-to-br from-white/80 to-pink-50/80 p-4 rounded-xl border border-pink-100/50">
+                    <div className="flex items-start space-x-3 bg-white p-4 rounded-xl border border-pink-100/50 shadow-sm">
                       <Checkbox
                         id="gdpr"
                         checked={gdprConsent}
                         onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-                        className="mt-1 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500"
+                        className="mt-1 data-[state=checked]:bg-black data-[state=checked]:border-black"
                       />
                       <label 
                         htmlFor="gdpr" 
-                        className="text-sm text-muted-foreground"
+                        className="text-sm text-black/70"
                       >
                         J'accepte de recevoir ma routine personnalisée et des conseils adaptés par email. 
                         Je peux me désinscrire à tout moment.
@@ -318,11 +318,11 @@ export const Results = () => {
 
                     <Button 
                       type="submit" 
-                      className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 via-pink-200/90 to-pink-300/90 hover:from-pink-400/90 hover:via-pink-300/90 hover:to-pink-400/90 shadow-[0_4px_16px_rgba(255,192,203,0.3)] hover:shadow-[0_4px_20px_rgba(255,192,203,0.4)] transition-all duration-300"
+                      className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-white hover:bg-gradient-to-r hover:from-pink-100/50 hover:to-pink-50/50 text-black border border-pink-200/50 shadow-[0_4px_16px_rgba(255,192,203,0.2)] hover:shadow-[0_4px_20px_rgba(255,192,203,0.3)] transition-all duration-300"
                       disabled={isLoading || !email || !gdprConsent}
                     >
                       <motion.span
-                        className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                        className="absolute inset-0 bg-gradient-to-r from-pink-100/20 to-transparent"
                         animate={{
                           x: ["0%", "200%"],
                         }}
@@ -333,11 +333,11 @@ export const Results = () => {
                         }}
                       />
                       {isLoading ? (
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin text-black" />
                       ) : (
-                        <Mail className="w-5 h-5 mr-2" />
+                        <Mail className="w-5 h-5 mr-2 text-black" />
                       )}
-                      💖 Je veux ma routine personnalisée !
+                      Je veux ma routine personnalisée ! 💖
                     </Button>
                   </motion.div>
                 </form>
@@ -347,17 +347,17 @@ export const Results = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                 >
-                  <div className="flex items-center gap-2 text-green-600 font-medium">
+                  <div className="flex items-center gap-2 text-black font-medium">
                     <Check className="w-5 h-5" />
                     <span>Ta routine personnalisée est en route ! 💌</span>
                   </div>
-                  <p className="text-sm text-muted-foreground text-center">
+                  <p className="text-sm text-black/70 text-center">
                     N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
                   </p>
                   <Button
                     onClick={handleShare}
                     variant="outline"
-                    className="flex items-center gap-2 hover:bg-pink-50 text-pink-700"
+                    className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50"
                   >
                     <Instagram className="w-4 h-4" />
                     Partager mes résultats sur Instagram
