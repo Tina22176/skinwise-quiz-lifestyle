@@ -318,7 +318,7 @@ export const Results = () => {
 
                     <Button 
                       type="submit" 
-                      className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-white hover:bg-gradient-to-r hover:from-pink-100/50 hover:to-pink-50/50 text-black border border-pink-200/50 shadow-[0_4px_16px_rgba(255,192,203,0.2)] hover:shadow-[0_4px_20px_rgba(255,192,203,0.3)] transition-all duration-300"
+                      className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-white hover:bg-gradient-to-r hover:from-pink-100/50 hover:to-pink-50/50 text-black border border-pink-200/50 shadow-[0_4px_16px_rgba(255,192,203,0.15)] hover:shadow-[0_4px_20px_rgba(255,192,203,0.3)] transition-all duration-300"
                       disabled={isLoading || !email || !gdprConsent}
                     >
                       <motion.span
