@@ -3,9 +3,28 @@ import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
 import { questions } from "./questions";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const QuizQuestion = () => {
   const { state, dispatch } = useQuiz();
+  const navigate = useNavigate();
+
+  // Si nous avons dépassé le nombre de questions, nous passons aux résultats
+  useEffect(() => {
+    if (state.currentQuestion >= questions.length) {
+      // Analyse des réponses et détermination du type de peau
+      const skinType = calculateSkinType(state.answers);
+      dispatch({ type: "SET_RESULT", payload: skinType });
+      return;
+    }
+  }, [state.currentQuestion, dispatch]);
+
+  // Si nous n'avons plus de questions, ne rien afficher
+  if (state.currentQuestion >= questions.length) {
+    return null;
+  }
+
   const currentQuestion = questions[state.currentQuestion];
   const progress = ((state.currentQuestion + 1) / questions.length) * 100;
 
@@ -15,6 +34,48 @@ export const QuizQuestion = () => {
       payload: { questionId: currentQuestion.id, answer },
     });
     dispatch({ type: "NEXT_QUESTION" });
+  };
+
+  // Fonction simple pour déterminer le type de peau
+  const calculateSkinType = (answers: Record<string, string>) => {
+    let points = {
+      oily: 0,
+      dry: 0,
+      combination: 0,
+      sensitive: 0,
+      normal: 0,
+    };
+
+    // Analyse des réponses pour la brillance
+    if (answers.brillance === "constamment") points.oily += 2;
+    if (answers.brillance === "apres_heures") points.combination += 2;
+    if (answers.brillance === "rarement") points.normal += 1;
+    if (answers.brillance === "jamais") points.dry += 2;
+
+    // Analyse des réponses pour l'hydratant
+    if (answers.hydratant === "grasse") points.oily += 2;
+    if (answers.hydratant === "absorbe") points.dry += 2;
+    if (answers.hydratant === "peu_changement") points.normal += 2;
+    if (answers.hydratant === "irritations") points.sensitive += 2;
+
+    // Analyse des réponses pour la sécheresse
+    if (answers.secheresse === "souvent") points.dry += 2;
+    if (answers.secheresse === "parfois") points.combination += 1;
+    if (answers.secheresse === "rarement") points.normal += 1;
+    if (answers.secheresse === "jamais") points.oily += 1;
+
+    // Analyse des réponses pour les rougeurs
+    if (answers.rougeurs === "tres_frequent") points.sensitive += 2;
+    if (answers.rougeurs === "temps_en_temps") points.sensitive += 1;
+    if (answers.rougeurs === "rarement") points.normal += 1;
+    if (answers.rougeurs === "jamais") points.normal += 2;
+
+    // Trouver le type de peau avec le plus de points
+    const skinType = Object.entries(points).reduce((a, b) => 
+      b[1] > a[1] ? b : a
+    )[0] as "oily" | "dry" | "combination" | "sensitive" | "normal";
+
+    return skinType;
   };
 
   const motivationalTexts = [
