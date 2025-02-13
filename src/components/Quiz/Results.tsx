@@ -78,6 +78,7 @@ const getSkinTypeDetails = (skinType: string) => {
 export const Results = () => {
   const { state } = useQuiz();
   const [email, setEmail] = useState("");
+  const [webhookUrl, setWebhookUrl] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
@@ -104,22 +105,30 @@ export const Results = () => {
       return;
     }
 
+    if (!webhookUrl) {
+      toast({
+        title: "Configuration requise",
+        description: "Veuillez configurer l'URL du webhook Zapier",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const response = await fetch("VOTRE_URL_WEBHOOK_ZAPIER", {
+      const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        mode: "no-cors", // Pour gérer les problèmes CORS avec Zapier
         body: JSON.stringify({
           email,
           quizAnswers: state.answers,
           timestamp: new Date().toISOString(),
         }),
       });
-
-      if (!response.ok) throw new Error("Erreur lors de l'envoi");
 
       setIsSubscribed(true);
       toast({
@@ -239,6 +248,15 @@ export const Results = () => {
                     </h3>
                     
                     <Input
+                      type="url"
+                      placeholder="URL du webhook Zapier"
+                      value={webhookUrl}
+                      onChange={(e) => setWebhookUrl(e.target.value)}
+                      required
+                      className="premium-input"
+                    />
+                    
+                    <Input
                       type="email"
                       placeholder="Entre ton email pour recevoir ta routine complète"
                       value={email}
@@ -266,7 +284,7 @@ export const Results = () => {
                     <Button 
                       type="submit" 
                       className="premium-button w-full transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-amber-300 active:scale-95"
-                      disabled={isLoading || !email || !gdprConsent}
+                      disabled={isLoading || !email || !gdprConsent || !webhookUrl}
                     >
                       {isLoading ? (
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
