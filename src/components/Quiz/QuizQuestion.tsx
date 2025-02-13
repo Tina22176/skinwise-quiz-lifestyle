@@ -17,6 +17,13 @@ export const QuizQuestion = () => {
     dispatch({ type: "NEXT_QUESTION" });
   };
 
+  const motivationalTexts = [
+    "Prenez soin de vous...",
+    "Votre peau mérite le meilleur...",
+    "En route vers une peau rayonnante...",
+    "Découvrons ensemble votre routine idéale..."
+  ];
+
   return (
     <motion.div
       key={state.currentQuestion}
@@ -35,9 +42,18 @@ export const QuizQuestion = () => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
           />
         </div>
-        <p className="text-sm text-muted-foreground mt-3 text-center">
-          Question {state.currentQuestion + 1} sur {questions.length}
-        </p>
+        <div className="flex justify-between items-center mt-3">
+          <p className="text-sm text-muted-foreground">
+            Question {state.currentQuestion + 1} sur {questions.length}
+          </p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-sm italic text-pink-400/80"
+          >
+            {motivationalTexts[state.currentQuestion % motivationalTexts.length]}
+          </motion.p>
+        </div>
       </div>
 
       <motion.h2
