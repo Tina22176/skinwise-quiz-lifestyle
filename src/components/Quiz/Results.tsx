@@ -43,54 +43,78 @@ export const Results = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-2xl mx-auto px-4"
     >
-      <div className="glass rounded-2xl p-8 mb-8">
-        <h2 className="text-3xl font-semibold mb-6">Vos Résultats Personnalisés</h2>
-        <div className="space-y-6">
-          <p className="text-lg text-muted-foreground">
-            Selon vos réponses, nous avons créé un programme de soin et de style de vie
-            personnalisé rien que pour vous.
-          </p>
-          
-          {!isSubscribed ? (
-            <form onSubmit={handleEmailSubmit} className="space-y-4">
-              <div className="flex gap-3">
-                <Input
-                  type="email"
-                  placeholder="Entrez votre email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="flex-1"
-                />
-                <Button type="submit">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Recevoir mes résultats
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                En soumettant, vous acceptez de recevoir des conseils de soin et des mises à jour.
-                Vous pouvez vous désabonner à tout moment.
-              </p>
-            </form>
-          ) : (
-            <div className="flex items-center gap-2 text-green-600">
-              <Check className="w-5 h-5" />
-              <span>Vérifiez votre boîte mail pour votre routine personnalisée !</span>
-            </div>
-          )}
-        </div>
+      <div className="glass rounded-2xl p-8 md:p-10 mb-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-semibold mb-6 text-center">
+            Vos Résultats Personnalisés
+          </h2>
+          <div className="space-y-6">
+            <p className="text-lg text-muted-foreground text-center">
+              Selon vos réponses, nous avons créé un programme de soin et de style de vie
+              personnalisé rien que pour vous.
+            </p>
+            
+            {!isSubscribed ? (
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
+                <motion.div 
+                  className="flex flex-col md:flex-row gap-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Input
+                    type="email"
+                    placeholder="Entrez votre email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="premium-input flex-1"
+                  />
+                  <Button type="submit" className="premium-button whitespace-nowrap">
+                    <Mail className="w-4 h-4 mr-2" />
+                    Recevoir mes résultats
+                  </Button>
+                </motion.div>
+                <p className="text-sm text-muted-foreground text-center">
+                  En soumettant, vous acceptez de recevoir des conseils de soin et des mises à jour.
+                  Vous pouvez vous désabonner à tout moment.
+                </p>
+              </form>
+            ) : (
+              <motion.div 
+                className="flex items-center justify-center gap-2 text-green-600"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+              >
+                <Check className="w-5 h-5" />
+                <span>Vérifiez votre boîte mail pour votre routine personnalisée !</span>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
       </div>
 
-      <Button
-        onClick={handleShare}
-        variant="outline"
-        className="w-full card-hover"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
       >
-        <Share2 className="w-4 h-4 mr-2" />
-        Partager Mes Résultats
-      </Button>
+        <Button
+          onClick={handleShare}
+          variant="outline"
+          className="w-full glass card-hover"
+        >
+          <Share2 className="w-4 h-4 mr-2" />
+          Partager Mes Résultats
+        </Button>
+      </motion.div>
     </motion.div>
   );
 };

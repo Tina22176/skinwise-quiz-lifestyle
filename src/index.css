@@ -5,44 +5,65 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 34 33% 98%;
+    --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 20 14.3% 4.1%;
     --radius: 1rem;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-[#FAF7F2] text-foreground antialiased min-h-screen;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    background-image: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(250, 247, 242, 0.4) 100%
+    );
   }
 }
 
 @layer utilities {
   .glass {
-    @apply backdrop-blur-md bg-white/30 border border-white/40;
+    @apply backdrop-blur-md bg-white/70 border border-white/40 shadow-lg;
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-primary/5;
   }
   
   .text-balance {
     text-wrap: balance;
+  }
+
+  .premium-button {
+    @apply glass px-8 py-3 rounded-full text-lg font-medium 
+           text-primary-foreground transition-all duration-300
+           hover:shadow-lg hover:-translate-y-1 hover:bg-primary/20
+           active:translate-y-0 active:shadow-md;
+  }
+
+  .premium-input {
+    @apply glass rounded-lg px-4 py-2 
+           focus:ring-2 focus:ring-primary/20 focus:outline-none;
+  }
+
+  .progress-bar {
+    @apply h-1.5 rounded-full bg-gradient-to-r from-primary/40 to-primary;
   }
 }
