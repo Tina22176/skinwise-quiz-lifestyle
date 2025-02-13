@@ -190,12 +190,14 @@ export const Results = () => {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mx-auto px-4"
         >
-          <div className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/90 to-white/90 shadow-[0_8px_32px_rgba(255,192,203,0.15)]">
+          <div className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/95 to-white/95 shadow-[0_8px_32px_rgba(255,192,203,0.2)] relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-100/10 to-pink-200/15 pointer-events-none" />
+            
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="space-y-10"
+              className="space-y-10 relative"
             >
               <div className="text-center space-y-6 relative">
                 <motion.div
@@ -208,13 +210,13 @@ export const Results = () => {
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="absolute inset-0 bg-gradient-to-r from-pink-100/30 via-pink-200/30 to-pink-100/30 blur-xl"
+                  className="absolute inset-0 bg-gradient-to-r from-pink-100/40 via-pink-200/40 to-pink-100/40 blur-xl"
                 />
                 <motion.div className="relative">
                   <h1 className="text-2xl md:text-3xl font-medium text-pink-600/90 mb-4">
                     ✨ Résultat : Voici ton diagnostic beauté personnalisé ✨
                   </h1>
-                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-600 to-amber-500 text-transparent bg-clip-text">
+                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-500 via-pink-400 to-rose-300 text-transparent bg-clip-text">
                     💖 Ton type de peau : {getSkinTypeText(skinType)}
                   </h2>
                 </motion.div>
@@ -225,7 +227,7 @@ export const Results = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="space-y-4 bg-white/50 p-6 rounded-2xl"
+                  className="space-y-4 bg-gradient-to-br from-white/80 to-pink-50/80 p-8 rounded-2xl shadow-[0_4px_20px_rgba(255,192,203,0.15)] border border-pink-100/50"
                 >
                   <h3 className="text-xl font-semibold text-pink-700 flex items-center gap-2">
                     <span className="h-8 w-1 bg-gradient-to-b from-pink-400 to-pink-200 rounded-full"/>
@@ -250,7 +252,7 @@ export const Results = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="space-y-4 bg-white/50 p-6 rounded-2xl"
+                  className="space-y-4 bg-gradient-to-br from-white/80 to-pink-50/80 p-8 rounded-2xl shadow-[0_4px_20px_rgba(255,192,203,0.15)] border border-pink-100/50"
                 >
                   <h3 className="text-xl font-semibold text-pink-700 flex items-center gap-2">
                     <span className="h-8 w-1 bg-gradient-to-b from-pink-400 to-pink-200 rounded-full"/>
@@ -295,10 +297,10 @@ export const Results = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="premium-input text-lg py-6"
+                      className="premium-input text-lg py-6 bg-white/90 border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
                     />
                     
-                    <div className="flex items-start space-x-3 bg-pink-50/50 p-4 rounded-xl">
+                    <div className="flex items-start space-x-3 bg-gradient-to-br from-white/80 to-pink-50/80 p-4 rounded-xl border border-pink-100/50">
                       <Checkbox
                         id="gdpr"
                         checked={gdprConsent}
@@ -316,11 +318,11 @@ export const Results = () => {
 
                     <Button 
                       type="submit" 
-                      className="premium-button w-full text-lg py-6 relative overflow-hidden group active:scale-95 transition-all duration-200"
+                      className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 via-pink-200/90 to-pink-300/90 hover:from-pink-400/90 hover:via-pink-300/90 hover:to-pink-400/90 shadow-[0_4px_16px_rgba(255,192,203,0.3)] hover:shadow-[0_4px_20px_rgba(255,192,203,0.4)] transition-all duration-300"
                       disabled={isLoading || !email || !gdprConsent}
                     >
                       <motion.span
-                        className="absolute inset-0 bg-gradient-to-r from-pink-200/20 to-transparent"
+                        className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
                         animate={{
                           x: ["0%", "200%"],
                         }}
