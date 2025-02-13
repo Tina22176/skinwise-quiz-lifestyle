@@ -17,12 +17,12 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
       </div>
       
       <h1 className="text-4xl font-semibold mb-4 text-balance">
-        Discover Your Perfect Skincare Journey
+        Découvrez Votre Routine de Soin Personnalisée
       </h1>
       
       <p className="text-lg text-muted-foreground mb-8 text-balance">
-        Transform your skin from the inside out with our holistic approach. 
-        Take this quiz to receive personalized skincare and lifestyle recommendations.
+        Transformez votre peau de l'intérieur vers l'extérieur avec notre approche holistique. 
+        Répondez à ce questionnaire pour recevoir des recommandations personnalisées pour votre peau et votre style de vie.
       </p>
       
       <button
@@ -30,7 +30,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         className="glass px-8 py-3 rounded-full text-lg font-medium 
                  text-primary-foreground card-hover"
       >
-        Start Your Journey
+        Commencer le Quiz
       </button>
     </motion.div>
   );

@@ -15,11 +15,10 @@ export const Results = () => {
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the email to your backend
     setIsSubscribed(true);
     toast({
-      title: "Success!",
-      description: "Your personalized routine has been sent to your email.",
+      title: "Succès !",
+      description: "Votre routine personnalisée a été envoyée à votre email.",
       duration: 5000,
     });
   };
@@ -27,14 +26,14 @@ export const Results = () => {
   const handleShare = async () => {
     try {
       await navigator.share({
-        title: "My Skincare Results",
-        text: "I just discovered my perfect skincare routine! Take the quiz to find yours:",
+        title: "Mes Résultats Skincare",
+        text: "Je viens de découvrir ma routine de soin parfaite ! Faites le quiz pour trouver la vôtre :",
         url: window.location.href,
       });
     } catch (err) {
       toast({
-        title: "Sharing not supported",
-        description: "Your browser doesn't support direct sharing.",
+        title: "Partage non supporté",
+        description: "Votre navigateur ne supporte pas le partage direct.",
         duration: 3000,
       });
     }
@@ -47,11 +46,11 @@ export const Results = () => {
       className="max-w-2xl mx-auto px-4"
     >
       <div className="glass rounded-2xl p-8 mb-8">
-        <h2 className="text-3xl font-semibold mb-6">Your Personalized Results</h2>
+        <h2 className="text-3xl font-semibold mb-6">Vos Résultats Personnalisés</h2>
         <div className="space-y-6">
           <p className="text-lg text-muted-foreground">
-            Based on your responses, we've created a customized skincare and
-            lifestyle plan just for you.
+            Selon vos réponses, nous avons créé un programme de soin et de style de vie
+            personnalisé rien que pour vous.
           </p>
           
           {!isSubscribed ? (
@@ -59,7 +58,7 @@ export const Results = () => {
               <div className="flex gap-3">
                 <Input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Entrez votre email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -67,18 +66,18 @@ export const Results = () => {
                 />
                 <Button type="submit">
                   <Mail className="w-4 h-4 mr-2" />
-                  Send Results
+                  Recevoir mes résultats
                 </Button>
               </div>
               <p className="text-sm text-muted-foreground">
-                By submitting, you agree to receive skincare tips and updates.
-                You can unsubscribe at any time.
+                En soumettant, vous acceptez de recevoir des conseils de soin et des mises à jour.
+                Vous pouvez vous désabonner à tout moment.
               </p>
             </form>
           ) : (
             <div className="flex items-center gap-2 text-green-600">
               <Check className="w-5 h-5" />
-              <span>Check your inbox for your personalized routine!</span>
+              <span>Vérifiez votre boîte mail pour votre routine personnalisée !</span>
             </div>
           )}
         </div>
@@ -90,7 +89,7 @@ export const Results = () => {
         className="w-full card-hover"
       >
         <Share2 className="w-4 h-4 mr-2" />
-        Share Your Results
+        Partager Mes Résultats
       </Button>
     </motion.div>
   );

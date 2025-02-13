@@ -1,112 +1,366 @@
 
 export const questions = [
   {
-    id: "skin_feel",
-    question: "How does your skin feel by the end of the day?",
+    id: "brillance",
+    question: "À quelle fréquence ta peau présente-t-elle une brillance excessive ?",
     options: [
       {
-        value: "oily",
-        label: "Shiny and oily all over",
-        description: "Your skin produces excess oil throughout the day"
+        value: "constamment",
+        label: "Constamment",
+        description: "La peau est brillante tout au long de la journée"
       },
       {
-        value: "combination",
-        label: "Oily in T-zone, normal elsewhere",
-        description: "Your forehead, nose, and chin are oily, but cheeks are normal"
+        value: "apres_heures",
+        label: "Après quelques heures",
+        description: "La brillance apparaît au fil de la journée"
       },
       {
-        value: "dry",
-        label: "Tight and dry",
-        description: "Your skin feels uncomfortable and may show flaky patches"
+        value: "rarement",
+        label: "Rarement",
+        description: "La peau reste mate la plupart du temps"
       },
       {
-        value: "normal",
-        label: "Comfortable and balanced",
-        description: "Your skin feels neither too oily nor too dry"
+        value: "jamais",
+        label: "Jamais",
+        description: "La peau est toujours mate"
       }
     ]
   },
   {
-    id: "sensitivity",
-    question: "How does your skin react to new products?",
+    id: "hydratant",
+    question: "Comment réagit ta peau après l'application d'un produit hydratant ?",
     options: [
       {
-        value: "sensitive",
-        label: "Very reactive",
-        description: "Your skin often becomes red, itchy, or irritated"
+        value: "grasse",
+        label: "Elle semble grasse",
+        description: "La peau devient huileuse après application"
       },
       {
-        value: "somewhat_sensitive",
-        label: "Occasionally reactive",
-        description: "Your skin sometimes shows mild irritation"
+        value: "absorbe",
+        label: "Absorbe rapidement l'hydratant",
+        description: "Le produit pénètre facilement"
       },
       {
-        value: "not_sensitive",
-        label: "Rarely reactive",
-        description: "Your skin adapts well to new products"
+        value: "peu_changement",
+        label: "Peu de changement",
+        description: "L'effet est minimal"
+      },
+      {
+        value: "irritations",
+        label: "Provoque des irritations",
+        description: "La peau réagit négativement"
       }
     ]
   },
   {
-    id: "sleep",
-    question: "How would you describe your sleep pattern?",
+    id: "secheresse",
+    question: "As-tu des zones de sécheresse ou des desquamations visibles ?",
     options: [
       {
-        value: "poor",
-        label: "Poor quality sleep",
-        description: "Less than 6 hours or irregular sleep schedule"
+        value: "souvent",
+        label: "Oui, souvent",
+        description: "Présence régulière de zones sèches"
       },
       {
-        value: "moderate",
-        label: "Moderate quality sleep",
-        description: "6-7 hours with some consistency"
+        value: "parfois",
+        label: "Parfois autour du nez ou des joues",
+        description: "Zones sèches occasionnelles"
       },
       {
-        value: "good",
-        label: "Good quality sleep",
-        description: "7-9 hours with regular sleep schedule"
+        value: "rarement",
+        label: "Rarement",
+        description: "Peu de zones sèches"
+      },
+      {
+        value: "jamais",
+        label: "Jamais",
+        description: "Aucune zone sèche"
       }
     ]
   },
   {
-    id: "diet",
-    question: "How would you describe your diet?",
+    id: "rougeurs",
+    question: "Quelle est la fréquence des rougeurs ou des réactions allergiques sur ta peau ?",
     options: [
       {
-        value: "processed",
-        label: "Mostly processed foods",
-        description: "High in sugar and processed ingredients"
+        value: "tres_frequent",
+        label: "Très fréquemment",
+        description: "Réactions régulières"
       },
       {
-        value: "mixed",
-        label: "Mixed diet",
-        description: "Balance of whole and processed foods"
+        value: "temps_en_temps",
+        label: "De temps en temps",
+        description: "Réactions occasionnelles"
       },
       {
-        value: "whole",
-        label: "Mostly whole foods",
-        description: "Rich in vegetables, fruits, and whole grains"
+        value: "rarement",
+        label: "Rarement",
+        description: "Peu de réactions"
+      },
+      {
+        value: "jamais",
+        label: "Jamais",
+        description: "Aucune réaction"
       }
     ]
   },
   {
-    id: "water",
-    question: "How much water do you drink daily?",
+    id: "nettoyage",
+    question: "Ta peau semble-t-elle tendue ou inconfortable après le nettoyage ?",
     options: [
       {
-        value: "low",
-        label: "Less than 4 glasses",
-        description: "You often forget to drink water"
+        value: "toujours",
+        label: "Toujours",
+        description: "Sensation constante de tension"
       },
       {
-        value: "moderate",
-        label: "4-6 glasses",
-        description: "You drink water occasionally throughout the day"
+        value: "parfois",
+        label: "Parfois",
+        description: "Tension occasionnelle"
       },
       {
-        value: "high",
-        label: "8+ glasses",
-        description: "You consistently stay hydrated"
+        value: "rarement",
+        label: "Rarement",
+        description: "Peu de tension"
+      },
+      {
+        value: "jamais",
+        label: "Jamais",
+        description: "Aucune tension"
+      }
+    ]
+  },
+  {
+    id: "pores",
+    question: "Quelle est la taille de tes pores dans les zones comme le nez ou les joues ?",
+    options: [
+      {
+        value: "tres_visibles",
+        label: "Très visibles",
+        description: "Pores dilatés et apparents"
+      },
+      {
+        value: "moyennement",
+        label: "Moyennement visibles",
+        description: "Pores modérément visibles"
+      },
+      {
+        value: "peu_visibles",
+        label: "Peu visibles",
+        description: "Pores fins"
+      },
+      {
+        value: "invisibles",
+        label: "Invisibles",
+        description: "Pores très fins"
+      }
+    ]
+  },
+  {
+    id: "climat",
+    question: "Comment ta peau réagit-elle aux variations climatiques ?",
+    options: [
+      {
+        value: "tres_reactive",
+        label: "Elle devient très sèche ou très grasse",
+        description: "Forte réaction aux changements"
+      },
+      {
+        value: "legerement",
+        label: "Elle est légèrement affectée",
+        description: "Réaction modérée"
+      },
+      {
+        value: "stable",
+        label: "Pas de changement notable",
+        description: "Peau stable"
+      },
+      {
+        value: "irritations",
+        label: "Elle réagit avec des irritations",
+        description: "Réactions sensibles"
+      }
+    ]
+  },
+  {
+    id: "hydratation",
+    question: "Évalue ta consommation quotidienne de liquides.",
+    options: [
+      {
+        value: "eau_pure",
+        label: "Majoritairement de l'eau",
+        description: "Consommation principale d'eau"
+      },
+      {
+        value: "equilibre",
+        label: "Équilibré entre eau et autres",
+        description: "Mix de boissons varié"
+      },
+      {
+        value: "autres_boissons",
+        label: "Principalement des boissons non aqueuses",
+        description: "Peu d'eau pure"
+      },
+      {
+        value: "non_surveille",
+        label: "Je ne surveille pas",
+        description: "Pas d'attention particulière"
+      }
+    ]
+  },
+  {
+    id: "alimentation_bio",
+    question: "Quelle importance accordes-tu à l'origine biologique de tes aliments ?",
+    options: [
+      {
+        value: "tres_important",
+        label: "Très importante, je choisis bio quand c'est possible",
+        description: "Préférence forte pour le bio"
+      },
+      {
+        value: "assez_important",
+        label: "Assez importante",
+        description: "Attention modérée au bio"
+      },
+      {
+        value: "peu_important",
+        label: "Pas très importante",
+        description: "Peu d'attention au bio"
+      },
+      {
+        value: "aucune_attention",
+        label: "Je n'y prête pas attention",
+        description: "Pas de préférence particulière"
+      }
+    ]
+  },
+  {
+    id: "saisons",
+    question: "Comment ta peau réagit-elle aux changements saisonniers et à l'exposition au soleil ?",
+    options: [
+      {
+        value: "tres_sensible",
+        label: "Très sensible et réactive",
+        description: "Forte réactivité aux changements"
+      },
+      {
+        value: "legerement_sensible",
+        label: "Légèrement sensible",
+        description: "Sensibilité modérée"
+      },
+      {
+        value: "stable",
+        label: "Stabilité avec peu de changements",
+        description: "Bonne adaptation"
+      },
+      {
+        value: "aucune_sensibilite",
+        label: "Aucune sensibilité notable",
+        description: "Très bonne adaptation"
+      }
+    ]
+  },
+  {
+    id: "sommeil",
+    question: "Quel est l'impact de ton sommeil sur ton bien-être général et l'apparence de ta peau ?",
+    options: [
+      {
+        value: "impact_direct",
+        label: "Impact direct et notable",
+        description: "Forte influence du sommeil"
+      },
+      {
+        value: "quelque_impact",
+        label: "Quelque impact",
+        description: "Influence modérée"
+      },
+      {
+        value: "peu_impact",
+        label: "Peu d'impact",
+        description: "Faible influence"
+      },
+      {
+        value: "aucun_impact",
+        label: "Aucun impact apparent",
+        description: "Pas d'influence visible"
+      }
+    ]
+  },
+  {
+    id: "activite_physique",
+    question: "Décris ton niveau d'activité physique en considérant à la fois l'exercice et les mouvements quotidiens.",
+    options: [
+      {
+        value: "tres_actif",
+        label: "Très actif",
+        description: "Exercice régulier et mode de vie actif"
+      },
+      {
+        value: "moderement",
+        label: "Modérément actif",
+        description: "Activité physique modérée"
+      },
+      {
+        value: "peu_actif",
+        label: "Peu actif",
+        description: "Activité limitée"
+      },
+      {
+        value: "sedentaire",
+        label: "Sédentaire",
+        description: "Très peu d'activité physique"
+      }
+    ]
+  },
+  {
+    id: "stress",
+    question: "Comment gères-tu le stress au quotidien ? Quelles techniques utilises-tu ?",
+    options: [
+      {
+        value: "meditation",
+        label: "Méditation et relaxation",
+        description: "Pratiques régulières de bien-être"
+      },
+      {
+        value: "activite_physique",
+        label: "Activité physique",
+        description: "Gestion par le sport"
+      },
+      {
+        value: "aucune_technique",
+        label: "Aucune technique particulière",
+        description: "Pas de pratique spécifique"
+      },
+      {
+        value: "difficulte",
+        label: "Je ne gère pas bien le stress",
+        description: "Difficultés à gérer le stress"
+      }
+    ]
+  },
+  {
+    id: "alimentation_grasse",
+    question: "Comment réagis-tu aux aliments riches en graisses et en sucre ?",
+    options: [
+      {
+        value: "aucun_probleme",
+        label: "Aucun problème",
+        description: "Bonne tolérance"
+      },
+      {
+        value: "reactions_digestives",
+        label: "Petites réactions digestives",
+        description: "Légère sensibilité"
+      },
+      {
+        value: "reactions_inflammatoires",
+        label: "Réactions inflammatoires visibles",
+        description: "Réactions cutanées"
+      },
+      {
+        value: "evitement",
+        label: "Je les évite pour des raisons de santé",
+        description: "Évitement préventif"
       }
     ]
   }
