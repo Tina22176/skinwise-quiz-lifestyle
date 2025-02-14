@@ -54,7 +54,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
             <img 
               src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
               alt="Logo Majoliepeau"
-              className="w-48 h-48"
+              className="w-144 h-144" // Augmenté de w-48/h-48 à w-144/h-144 (3x plus grand)
             />
           </span>
         </div>
