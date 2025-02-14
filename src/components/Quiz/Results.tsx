@@ -103,6 +103,38 @@ export const Results = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const processLifestyleFactors = (answers: Record<string, string>) => {
+    const factors: string[] = [];
+    
+    // Traitement du stress
+    if (answers.stress === "difficulte") {
+      factors.push("stress");
+    }
+
+    // Traitement de l'hydratation
+    if (answers.hydratation === "non_surveille" || answers.hydratation === "autres_boissons") {
+      factors.push("mauvaise_hydratation");
+    }
+
+    // Traitement du sommeil
+    if (answers.sommeil === "impact_direct" || answers.sommeil === "quelque_impact") {
+      factors.push("manque_sommeil");
+    }
+
+    // Traitement de l'activité physique
+    if (answers.activite_physique === "peu_actif" || answers.activite_physique === "sedentaire") {
+      factors.push("sedentarite");
+    }
+
+    // Traitement de l'alimentation
+    if (answers.alimentation_bio === "peu_important" || answers.alimentation_bio === "aucune_attention" ||
+        answers.alimentation_grasse === "reactions_inflammatoires" || answers.alimentation_grasse === "reactions_digestives") {
+      factors.push("alimentation_desequilibree");
+    }
+
+    return factors;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -121,6 +153,9 @@ export const Results = () => {
       dispatch({ type: "SET_EMAIL", payload: email });
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
+      // Traitement des facteurs lifestyle
+      const lifestyleFactors = processLifestyleFactors(state.answers);
+
       const quizData = {
         email,
         first_name: firstName,
@@ -135,7 +170,7 @@ export const Results = () => {
           quiz_completed: true,
           quiz_completion_date: new Date().toISOString(),
           skin_type: state.result,
-          lifestyle_factors: state.answers.lifestyle || [],
+          lifestyle_factors: lifestyleFactors,
           skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
           skin_factors: getSkinTypeDetails(state.result || "normal").factors,
         }
