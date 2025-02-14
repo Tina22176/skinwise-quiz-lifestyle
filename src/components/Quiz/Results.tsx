@@ -130,8 +130,10 @@ export const Results = () => {
         body: JSON.stringify({
           email,
           firstName,
+          skinType: state.result,
           quizAnswers: state.answers,
           timestamp: new Date().toISOString(),
+          skinDetails: getSkinTypeDetails(state.result || "normal"),
         }),
       });
 
