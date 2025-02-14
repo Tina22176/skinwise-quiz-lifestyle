@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 export const Welcome = ({ onStart }: { onStart: () => void }) => {
   return (
     <div className="relative">
-      {/* Image de fond immersive */}
       <motion.div 
         className="absolute inset-0 -z-10 opacity-20"
         initial={{ scale: 1 }}
@@ -26,11 +25,11 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-2xl mx-auto text-center px-4 py-12"
+        className="max-w-2xl mx-auto text-center px-4 py-8"
       >
         {/* Image principale avec effet shake */}
         <motion.div 
-          className="mb-12 rounded-3xl overflow-hidden shadow-[0_8px_24px_rgba(255,192,203,0.2)] mx-auto max-w-md"
+          className="mb-6 rounded-3xl overflow-hidden shadow-[0_8px_24px_rgba(255,192,203,0.2)] mx-auto max-w-md"
           whileHover={{ 
             scale: 1.02,
             rotate: [0, -1, 1, -1, 0],
@@ -45,25 +44,25 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           <img 
             src="https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100"
             alt="Illustration digitale des copines Majoliepeau"
-            className="w-full h-64 object-cover"
+            className="w-full h-56 object-cover" // Réduit de h-64 à h-56
           />
         </motion.div>
 
-        <div className="mb-8">
+        <div className="mb-4"> {/* Réduit de mb-8 à mb-4 */}
           <span className="inline-block animate-glow">
             <img 
               src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
               alt="Logo Majoliepeau"
-              className="w-144 h-144" // Augmenté de w-48/h-48 à w-144/h-144 (3x plus grand)
+              className="w-96 h-96" // Ajusté pour une taille plus appropriée
             />
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl">
+        <h1 className="text-4xl md:text-5xl font-semibold mb-4 leading-tight mx-auto max-w-xl">
           ✨ Découvre ton type de peau & ta routine idéale ✨
         </h1>
 
-        <div className="space-y-6 mb-10">
+        <div className="space-y-4 mb-8"> {/* Réduit de space-y-6 à space-y-4 */}
           <h2 className="text-2xl text-pink-600/90 font-medium">
             Ta peau te parle… mais la comprends-tu vraiment ? 💖
           </h2>
