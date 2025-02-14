@@ -50,11 +50,11 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         </motion.div>
 
         <div className="mb-8">
-          <span className="inline-block p-6 rounded-full bg-white/80 shadow-[0_8px_24px_rgba(255,192,203,0.2)] animate-glow">
+          <span className="inline-block animate-glow">
             <img 
               src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
               alt="Logo Majoliepeau"
-              className="w-16 h-16"
+              className="w-48 h-48"
             />
           </span>
         </div>
