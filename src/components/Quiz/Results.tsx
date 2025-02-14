@@ -123,16 +123,19 @@ export const Results = () => {
 
       const quizData = {
         email,
-        firstName,
-        skinType: state.result,
+        first_name: firstName,
+        skin_type: state.result,
         quizAnswers: state.answers,
         timestamp: new Date().toISOString(),
         skinDetails: getSkinTypeDetails(state.result || "normal"),
         properties: {
+          $email: email,
+          $first_name: firstName,
           $consent: gdprConsent,
           quiz_completed: true,
           quiz_completion_date: new Date().toISOString(),
-          recommended_routine: state.result,
+          skin_type: state.result,
+          lifestyle_factors: state.answers.lifestyle || [],
           skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
           skin_factors: getSkinTypeDetails(state.result || "normal").factors,
         }
@@ -380,7 +383,7 @@ export const Results = () => {
                     <span>Ta routine personnalisée est en route ! 💌</span>
                   </div>
                   <p className="text-sm text-black/70 text-center">
-                    N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
+                    N'oublie pas de v��rifier tes spams si tu ne reçois rien d'ici quelques minutes.
                   </p>
                   <Button
                     onClick={handleShare}
