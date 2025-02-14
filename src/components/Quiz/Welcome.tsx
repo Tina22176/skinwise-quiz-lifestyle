@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { Leaf } from "lucide-react";
 
 export const Welcome = ({ onStart }: { onStart: () => void }) => {
   return (
@@ -52,7 +51,11 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
 
         <div className="mb-8">
           <span className="inline-block p-4 rounded-full bg-primary/10 animate-glow">
-            <Leaf className="w-8 h-8 text-primary-foreground" />
+            <img 
+              src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
+              alt="Logo Majoliepeau"
+              className="w-8 h-8"
+            />
           </span>
         </div>
         
@@ -81,7 +84,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         
         <button
           onClick={onStart}
-          className="premium-button group"
+          className="premium-button group border border-black/10"
         >
           <span className="relative inline-flex items-center">
             Commencer
