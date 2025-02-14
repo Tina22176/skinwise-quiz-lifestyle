@@ -121,20 +121,30 @@ export const Results = () => {
       dispatch({ type: "SET_EMAIL", payload: email });
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
+      const quizData = {
+        email,
+        firstName,
+        skinType: state.result,
+        quizAnswers: state.answers,
+        timestamp: new Date().toISOString(),
+        skinDetails: getSkinTypeDetails(state.result || "normal"),
+        properties: {
+          $consent: gdprConsent,
+          quiz_completed: true,
+          quiz_completion_date: new Date().toISOString(),
+          recommended_routine: state.result,
+          skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
+          skin_factors: getSkinTypeDetails(state.result || "normal").factors,
+        }
+      };
+
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         mode: "no-cors",
-        body: JSON.stringify({
-          email,
-          firstName,
-          skinType: state.result,
-          quizAnswers: state.answers,
-          timestamp: new Date().toISOString(),
-          skinDetails: getSkinTypeDetails(state.result || "normal"),
-        }),
+        body: JSON.stringify(quizData),
       });
 
       setIsSubscribed(true);
