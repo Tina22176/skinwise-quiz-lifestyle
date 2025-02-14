@@ -8,6 +8,7 @@ interface QuizState {
   answers: Record<string, string>;
   result: SkinType | null;
   email: string;
+  firstName: string;
 }
 
 type QuizAction =
@@ -16,6 +17,7 @@ type QuizAction =
   | { type: 'SET_ANSWER'; payload: { questionId: string; answer: string } }
   | { type: 'SET_RESULT'; payload: SkinType }
   | { type: 'SET_EMAIL'; payload: string }
+  | { type: 'SET_FIRST_NAME'; payload: string }
   | { type: 'RESET' };
 
 const initialState: QuizState = {
@@ -23,6 +25,7 @@ const initialState: QuizState = {
   answers: {},
   result: null,
   email: '',
+  firstName: '',
 };
 
 const QuizContext = createContext<{
@@ -45,6 +48,8 @@ const quizReducer = (state: QuizState, action: QuizAction): QuizState => {
       return { ...state, result: action.payload };
     case 'SET_EMAIL':
       return { ...state, email: action.payload };
+    case 'SET_FIRST_NAME':
+      return { ...state, firstName: action.payload };
     case 'RESET':
       return initialState;
     default:

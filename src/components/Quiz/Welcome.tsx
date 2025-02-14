@@ -56,7 +56,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-semibold mb-6 text-balance leading-tight">
+        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl">
           ✨ Découvre ton type de peau & ta routine idéale ✨
         </h1>
 
@@ -65,7 +65,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
             Ta peau te parle… mais la comprends-tu vraiment ? 💖
           </h2>
           
-          <p className="text-lg md:text-xl text-muted-foreground text-balance max-w-xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground mx-auto max-w-xl">
             Ce quiz unique te permet d'identifier ton type de peau et d'explorer les facteurs de ton mode de vie qui influencent son éclat.
             En moins de 2 minutes, reçois un bilan personnalisé et des conseils adaptés à TA réalité.
           </p>

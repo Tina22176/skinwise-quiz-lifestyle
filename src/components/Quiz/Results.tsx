@@ -86,8 +86,9 @@ const getSkinTypeDetails = (skinType: string) => {
 };
 
 export const Results = () => {
-  const { state } = useQuiz();
+  const { state, dispatch } = useQuiz();
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
@@ -102,7 +103,7 @@ export const Results = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!gdprConsent) {
@@ -117,6 +118,9 @@ export const Results = () => {
     setIsLoading(true);
 
     try {
+      dispatch({ type: "SET_EMAIL", payload: email });
+      dispatch({ type: "SET_FIRST_NAME", payload: firstName });
+
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -125,6 +129,7 @@ export const Results = () => {
         mode: "no-cors",
         body: JSON.stringify({
           email,
+          firstName,
           quizAnswers: state.answers,
           timestamp: new Date().toISOString(),
         }),
@@ -275,7 +280,7 @@ export const Results = () => {
               </div>
 
               {!isSubscribed ? (
-                <form onSubmit={handleEmailSubmit} className="space-y-8 mt-10">
+                <form onSubmit={handleSubmit} className="space-y-8 mt-10">
                   <motion.div 
                     className="flex flex-col gap-6"
                     initial={{ opacity: 0, y: 10 }}
@@ -291,15 +296,26 @@ export const Results = () => {
                       </p>
                     </div>
                     
-                    <Input
-                      type="email"
-                      placeholder="Entre ton email pour recevoir ta routine sur-mesure 🎀"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="premium-input text-lg py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
-                    />
-                    
+                    <div className="space-y-4">
+                      <Input
+                        type="text"
+                        placeholder="Ton prénom 💝"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                        className="premium-input text-lg py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
+                      />
+                      
+                      <Input
+                        type="email"
+                        placeholder="Ton email pour recevoir ta routine sur-mesure 🎀"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="premium-input text-lg py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
+                      />
+                    </div>
+
                     <div className="flex items-start space-x-3 bg-white p-4 rounded-xl border border-pink-100/50 shadow-sm">
                       <Checkbox
                         id="gdpr"
