@@ -1,5 +1,5 @@
 
-import { Shield, Star, Heart } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 
 const GuaranteeSection = () => {
@@ -24,7 +24,7 @@ const GuaranteeSection = () => {
           className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl border border-white/50 shadow-[0_8px_32px_rgba(255,192,203,0.15)] hover:shadow-[0_12px_48px_rgba(255,192,203,0.25)] transition-shadow duration-300"
         >
           <div className="flex items-center gap-4 mb-6">
-            <Shield className="w-8 h-8 text-pink-500" />
+            <Star className="w-6 h-6 text-pink-500 flex-shrink-0" />
             <h3 className="text-2xl font-semibold">
               0 Risque, 100% Confiance !
             </h3>
@@ -32,7 +32,7 @@ const GuaranteeSection = () => {
           
           <div className="space-y-6">
             <div className="flex gap-4">
-              <Star className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
+              <Star className="w-6 h-6 text-pink-500 flex-shrink-0" />
               <div>
                 <h4 className="text-lg font-medium mb-2">
                   Garantie satisfaction 30 jours
@@ -44,7 +44,7 @@ const GuaranteeSection = () => {
             </div>
 
             <div className="flex gap-4">
-              <Heart className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
+              <Heart className="w-6 h-6 text-pink-500 flex-shrink-0" />
               <p className="text-lg font-medium">
                 Ton glow est ma priorité !
               </p>
