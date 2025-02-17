@@ -1,5 +1,5 @@
 
-import { LockKeyhole, Sparkles, Heart } from "lucide-react";
+import { Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -16,12 +16,9 @@ const GuaranteeSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <LockKeyhole className="w-6 h-6 text-pink-500" />
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
-              Garantie Glow 100% – Zéro Risque, 100% Confiance !
-            </h2>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
+            Garantie Glow 100% – Zéro Risque, 100% Confiance !
+          </h2>
         </motion.div>
 
         <motion.div
@@ -31,8 +28,8 @@ const GuaranteeSection = () => {
           className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl border border-white/50 shadow-[0_8px_32px_rgba(255,192,203,0.15)] hover:shadow-[0_12px_48px_rgba(255,192,203,0.25)] transition-shadow duration-300"
         >
           <div className="space-y-8">
-            <div className="flex gap-4">
-              <Heart className="w-6 h-6 text-pink-500 flex-shrink-0" />
+            <div className="flex items-start gap-4">
+              <Heart className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
               <div>
                 <h4 className="text-xl font-medium mb-2">
                   Satisfait(e) ou accompagné(e) !
@@ -43,7 +40,7 @@ const GuaranteeSection = () => {
               </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4">
               <Sparkles className="w-6 h-6 text-pink-500 flex-shrink-0" />
               <p className="text-xl font-medium">
                 Ton glow est ma priorité ! ✨
