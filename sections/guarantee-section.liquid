@@ -1,40 +1,39 @@
-
 <style>
 .guarantee-section {
-  padding: 4rem 1rem;
+  padding: 6rem 1rem; /* Augmenté de 4rem à 6rem */
 }
 
 .guarantee-container {
-  max-width: 56rem;
+  max-width: 40rem; /* Réduit de 56rem à 40rem pour un contenu plus compact */
   margin: 0 auto;
 }
 
 .guarantee-title {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem; /* Augmenté de 3rem à 4rem */
 }
 
 .guarantee-title h2 {
   background: linear-gradient(90deg, #F472B6 0%, #9333EA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: clamp(1.875rem, 5vw, 2.25rem);
+  font-size: clamp(2.25rem, 6vw, 2.75rem); /* Augmenté la taille */
   line-height: 1.2;
   font-weight: 700;
 }
 
 .guarantee-title h3 {
-  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  font-size: clamp(1.75rem, 5vw, 2rem); /* Augmenté la taille */
   color: #374151;
-  margin-top: 0.5rem;
+  margin-top: 1rem; /* Augmenté de 0.5rem à 1rem */
   font-weight: 500;
 }
 
 .guarantee-card {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95); /* Plus opaque */
   backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 1rem;
+  padding: 3rem; /* Augmenté de 2rem à 3rem */
+  border-radius: 1.5rem; /* Augmenté de 1rem à 1.5rem */
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 32px rgba(255,192,203,0.15);
   transition: box-shadow 0.3s ease;
@@ -53,39 +52,57 @@
 .guarantee-item {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 1.5rem; /* Augmenté de 1rem à 1.5rem */
+}
+
+.guarantee-icon {
+  font-size: 2rem; /* Augmenté de 1.5rem à 2rem */
+  line-height: 1;
+  padding-top: 0.25rem;
+  flex-shrink: 0;
 }
 
 .guarantee-item-content h4 {
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Augmenté de 1.25rem à 1.5rem */
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem; /* Augmenté de 0.5rem à 0.75rem */
 }
 
 .guarantee-item-content p {
   color: #4B5563;
+  font-size: 1.125rem; /* Ajouté une taille de police spécifique */
+  line-height: 1.6;
 }
 
-.cta-button {
+.guarantee-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem; /* Augmenté de 0.5rem à 0.75rem */
   background: linear-gradient(to right, #EC4899, #9333EA);
   color: white;
   font-weight: 600;
-  padding: 1.5rem 2rem;
+  padding: 1.75rem 3rem; /* Augmenté padding horizontal et vertical */
   border-radius: 9999px;
-  font-size: 1.125rem;
+  font-size: 1.25rem; /* Augmenté de 1.125rem à 1.25rem */
   transition: all 0.3s ease;
   text-align: center;
   border: none;
   cursor: pointer;
+  text-decoration: none;
+  margin-top: 1rem; /* Ajouté une marge supplémentaire */
 }
 
-.cta-button:hover {
+.guarantee-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.3);
   background: linear-gradient(to right, #DB2777, #7E22CE);
+}
+
+.guarantee-button-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  color: #EC4899;
 }
 
 .icon {
@@ -125,7 +142,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">
-          <a href="{{ section.settings.button_link }}" class="cta-button">
+          <a href="{{ section.settings.button_link }}" class="guarantee-button">
             {% render 'icon', icon: 'heart', class: 'icon' %}
             {{ section.settings.button_text }}
           </a>
