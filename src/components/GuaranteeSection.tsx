@@ -17,8 +17,11 @@ const GuaranteeSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
-            Garantie Glow 100% – Zéro Risque, 100% Confiance !
+            Garantie Glow 100%
           </h2>
+          <h3 className="text-2xl md:text-3xl font-medium text-gray-700 mt-2">
+            Zéro Risque, 100% Confiance !
+          </h3>
         </motion.div>
 
         <motion.div
