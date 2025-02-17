@@ -7,13 +7,13 @@ const QuizPromo = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
       {/* Hero Section */}
-      <section className="py-16 px-4">
+      <section className="py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center space-y-6"
+            className="text-center space-y-4"
           >
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 via-pink-500 to-pink-400 text-transparent bg-clip-text">
               Découvre ta Routine Skincare Idéale
@@ -26,18 +26,18 @@ const QuizPromo = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 bg-white/50">
+      <section className="py-8 px-4 bg-white/50">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
+              className="bg-white p-6 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
             >
-              <div className="h-12 w-12 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
-                <Sparkles className="h-6 w-6 text-pink-500" />
+              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-3">
+                <Sparkles className="h-5 w-5 text-pink-500" />
               </div>
               <h3 className="text-xl font-semibold mb-2">2 Minutes Chrono</h3>
               <p className="text-gray-600">
@@ -50,10 +50,10 @@ const QuizPromo = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
+              className="bg-white p-6 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
             >
-              <div className="h-12 w-12 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
-                <Heart className="h-6 w-6 text-pink-500" />
+              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-3">
+                <Heart className="h-5 w-5 text-pink-500" />
               </div>
               <h3 className="text-xl font-semibold mb-2">100% Personnalisé</h3>
               <p className="text-gray-600">
@@ -66,10 +66,10 @@ const QuizPromo = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
+              className="bg-white p-6 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
             >
-              <div className="h-12 w-12 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
-                <Star className="h-6 w-6 text-pink-500" />
+              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-3">
+                <Star className="h-5 w-5 text-pink-500" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Routine Sur-Mesure</h3>
               <p className="text-gray-600">
@@ -81,19 +81,19 @@ const QuizPromo = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4">
+      <section className="py-10 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-pink-50 to-pink-100 p-12 rounded-3xl shadow-[0_8px_32px_rgba(255,192,203,0.15)]"
+            className="bg-gradient-to-r from-pink-50 to-pink-100 p-8 rounded-3xl shadow-[0_8px_32px_rgba(255,192,203,0.15)]"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Prête à découvrir ta routine idéale ? 💖
             </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-xl mx-auto">
+            <p className="text-xl text-gray-600 mb-6 max-w-xl mx-auto">
               Rejoins des milliers de personnes qui ont déjà trouvé leur routine parfaite grâce à notre quiz !
             </p>
             <a 
