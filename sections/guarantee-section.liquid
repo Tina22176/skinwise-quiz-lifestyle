@@ -1,0 +1,158 @@
+
+<style>
+.guarantee-section {
+  padding: 4rem 1rem;
+}
+
+.guarantee-container {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.guarantee-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.guarantee-title h2 {
+  background: linear-gradient(90deg, #F472B6 0%, #9333EA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(1.875rem, 5vw, 2.25rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.guarantee-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(255,192,203,0.15);
+}
+
+.guarantee-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.guarantee-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.guarantee-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.guarantee-item-content h4 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.guarantee-item-content p {
+  color: #4B5563;
+}
+
+.glow-effect {
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 8px 32px rgba(255,192,203,0.15);
+  }
+  50% { 
+    box-shadow: 0 12px 48px rgba(255,192,203,0.25);
+  }
+}
+</style>
+
+<section class="guarantee-section">
+  <div class="guarantee-container">
+    <div class="guarantee-title">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="guarantee-card glow-effect">
+      <div class="guarantee-header">
+        {% render 'icon', icon: 'shield', class: 'w-8 h-8 text-pink-500' %}
+        <h3>{{ section.settings.card_title }}</h3>
+      </div>
+      
+      <div class="guarantee-content">
+        <div class="guarantee-item">
+          {% render 'icon', icon: 'sparkles', class: 'w-6 h-6 text-pink-500' %}
+          <div class="guarantee-item-content">
+            <h4>{{ section.settings.item_1_title }}</h4>
+            <p>{{ section.settings.item_1_text }}</p>
+          </div>
+        </div>
+
+        <div class="guarantee-item">
+          {% render 'icon', icon: 'message-circle', class: 'w-6 h-6 text-pink-500' %}
+          <div class="guarantee-item-content">
+            <p class="text-lg font-medium">{{ section.settings.item_2_text }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section Garantie",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre principal",
+      "default": "Preuve Sociale Massive & Garantie"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Titre de la carte",
+      "default": "Garantie Glow 100% - 0 Risque, 100% Confiance !"
+    },
+    {
+      "type": "text",
+      "id": "item_1_title",
+      "label": "Titre du premier point",
+      "default": "Tu veux essayer sans stress ?"
+    },
+    {
+      "type": "textarea",
+      "id": "item_1_text",
+      "label": "Texte du premier point",
+      "default": "Si après 30 jours, tu ne vois aucune amélioration sur ta peau, contacte-moi et je t'accompagnerons personnellement pour optimiser tes résultats."
+    },
+    {
+      "type": "text",
+      "id": "item_2_text",
+      "label": "Texte du second point",
+      "default": "Ton glow est ma priorité !"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Garantie",
+      "settings": {
+      }
+    }
+  ]
+}
+{% endschema %}
