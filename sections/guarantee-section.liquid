@@ -23,6 +23,13 @@
   font-weight: 700;
 }
 
+.guarantee-title h3 {
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  color: #374151;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
 .guarantee-card {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -30,24 +37,17 @@
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 32px rgba(255,192,203,0.15);
+  transition: box-shadow 0.3s ease;
 }
 
-.guarantee-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.guarantee-header h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+.guarantee-card:hover {
+  box-shadow: 0 12px 48px rgba(255,192,203,0.25);
 }
 
 .guarantee-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .guarantee-item {
@@ -57,7 +57,7 @@
 }
 
 .guarantee-item-content h4 {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
@@ -66,17 +66,37 @@
   color: #4B5563;
 }
 
-.glow-effect {
-  animation: glow 3s ease-in-out infinite;
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(to right, #EC4899, #9333EA);
+  color: white;
+  font-weight: 600;
+  padding: 1.5rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: none;
+  cursor: pointer;
 }
 
-@keyframes glow {
-  0%, 100% { 
-    box-shadow: 0 8px 32px rgba(255,192,203,0.15);
-  }
-  50% { 
-    box-shadow: 0 12px 48px rgba(255,192,203,0.25);
-  }
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.3);
+  background: linear-gradient(to right, #DB2777, #7E22CE);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  color: #EC4899;
+}
+
+.icon-heart {
+  margin-top: 0.25rem;
 }
 </style>
 
@@ -84,28 +104,31 @@
   <div class="guarantee-container">
     <div class="guarantee-title">
       <h2>{{ section.settings.title }}</h2>
+      <h3>{{ section.settings.subtitle }}</h3>
     </div>
 
-    <div class="guarantee-card glow-effect">
-      <div class="guarantee-header">
-        {% render 'icon', icon: 'shield', class: 'w-8 h-8 text-pink-500' %}
-        <h3>{{ section.settings.card_title }}</h3>
-      </div>
-      
+    <div class="guarantee-card">
       <div class="guarantee-content">
         <div class="guarantee-item">
-          {% render 'icon', icon: 'sparkles', class: 'w-6 h-6 text-pink-500' %}
+          {% render 'icon', icon: 'heart', class: 'icon icon-heart' %}
           <div class="guarantee-item-content">
-            <h4>{{ section.settings.item_1_title }}</h4>
-            <p>{{ section.settings.item_1_text }}</p>
+            <h4>{{ section.settings.satisfaction_title }}</h4>
+            <p>{{ section.settings.satisfaction_text }}</p>
           </div>
         </div>
 
         <div class="guarantee-item">
-          {% render 'icon', icon: 'message-circle', class: 'w-6 h-6 text-pink-500' %}
+          {% render 'icon', icon: 'sparkles', class: 'icon' %}
           <div class="guarantee-item-content">
-            <p class="text-lg font-medium">{{ section.settings.item_2_text }}</p>
+            <p class="text-lg font-medium">{{ section.settings.priority_text }}</p>
           </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="{{ section.settings.button_link }}" class="cta-button">
+            {% render 'icon', icon: 'heart', class: 'icon' %}
+            {{ section.settings.button_text }}
+          </a>
         </div>
       </div>
     </div>
@@ -120,38 +143,48 @@
       "type": "text",
       "id": "title",
       "label": "Titre principal",
-      "default": "Preuve Sociale Massive & Garantie"
+      "default": "Garantie Glow"
     },
     {
       "type": "text",
-      "id": "card_title",
-      "label": "Titre de la carte",
-      "default": "Garantie Glow 100% - 0 Risque, 100% Confiance !"
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Zéro Risque, 100% Confiance !"
     },
     {
       "type": "text",
-      "id": "item_1_title",
-      "label": "Titre du premier point",
-      "default": "Tu veux essayer sans stress ?"
+      "id": "satisfaction_title",
+      "label": "Titre satisfaction",
+      "default": "Satisfait(e) ou accompagné(e) !"
     },
     {
       "type": "textarea",
-      "id": "item_1_text",
-      "label": "Texte du premier point",
-      "default": "Si après 30 jours, tu ne vois aucune amélioration sur ta peau, contacte-moi et je t'accompagnerons personnellement pour optimiser tes résultats."
+      "id": "satisfaction_text",
+      "label": "Texte satisfaction",
+      "default": "Si après 30 jours, tu ne constates aucune amélioration sur ta peau, contacte-moi et je t'accompagnerai personnellement pour ajuster ta routine et maximiser tes résultats."
     },
     {
       "type": "text",
-      "id": "item_2_text",
-      "label": "Texte du second point",
-      "default": "Ton glow est ma priorité !"
+      "id": "priority_text",
+      "label": "Texte priorité",
+      "default": "Ton glow est ma priorité ! ✨"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texte du bouton",
+      "default": "Je commence ma transformation aujourd'hui !"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien du bouton"
     }
   ],
   "presets": [
     {
       "name": "Section Garantie",
-      "settings": {
-      }
+      "settings": {}
     }
   ]
 }
