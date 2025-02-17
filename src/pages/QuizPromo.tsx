@@ -37,10 +37,10 @@ const QuizPromo = () => {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
             >
-              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-3">
+              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-2">
                 <Sparkles className="h-5 w-5 text-pink-500" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">2 Minutes Chrono</h3>
+              <h3 className="text-xl font-semibold mb-1.5">2 Minutes Chrono</h3>
               <p className="text-gray-600">
                 Un quiz rapide et efficace pour découvrir ton type de peau
               </p>
@@ -53,10 +53,10 @@ const QuizPromo = () => {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
             >
-              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-3">
+              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-2">
                 <Heart className="h-5 w-5 text-pink-500" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">100% Personnalisé</h3>
+              <h3 className="text-xl font-semibold mb-1.5">100% Personnalisé</h3>
               <p className="text-gray-600">
                 Des conseils adaptés à TA peau et à TON mode de vie
               </p>
@@ -69,10 +69,10 @@ const QuizPromo = () => {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-2xl shadow-[0_8px_24px_rgba(255,192,203,0.2)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.3)] transition-all duration-300"
             >
-              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-3">
+              <div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center mb-2">
                 <Star className="h-5 w-5 text-pink-500" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Routine Sur-Mesure</h3>
+              <h3 className="text-xl font-semibold mb-1.5">Routine Sur-Mesure</h3>
               <p className="text-gray-600">
                 Reçois ta routine beauté personnalisée par email
               </p>
@@ -91,10 +91,10 @@ const QuizPromo = () => {
             viewport={{ once: true }}
             className="bg-gradient-to-r from-pink-50 to-pink-100 p-8 rounded-3xl shadow-[0_8px_32px_rgba(255,192,203,0.15)]"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
               Prête à découvrir ta routine idéale ? 💖
             </h2>
-            <p className="text-xl text-gray-600 mb-6 max-w-xl mx-auto">
+            <p className="text-xl text-gray-600 mb-5 max-w-xl mx-auto">
               Rejoins des milliers de personnes qui ont déjà trouvé leur routine parfaite grâce à notre quiz !
             </p>
             <a 
