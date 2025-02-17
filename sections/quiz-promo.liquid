@@ -1,0 +1,281 @@
+
+<style>
+.quiz-promo {
+  background: linear-gradient(180deg, #FFF5F7 0%, #FFFFFF 100%);
+  min-height: 100vh;
+}
+
+.section-spacing {
+  padding: 24px 16px;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.container--narrow {
+  max-width: 48rem;
+}
+
+.container--medium {
+  max-width: 56rem;
+}
+
+.hero-title {
+  background: linear-gradient(90deg, #F472B6 0%, #EC4899 50%, #F472B6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(1.875rem, 5vw, 3rem);
+  line-height: 1.2;
+  font-weight: 700;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feature-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(255,192,203,0.15);
+  transition: all 300ms ease;
+}
+
+.feature-card:hover {
+  box-shadow: 0 8px 16px rgba(255,192,203,0.2);
+}
+
+.feature-icon {
+  width: 2rem;
+  height: 2rem;
+  background: #FCE7F3;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-section {
+  background: linear-gradient(90deg, #FFF5F7 0%, #FCE7F3 100%);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(255,192,203,0.12);
+  text-align: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: black;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 300ms ease;
+}
+
+.btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+.btn-icon {
+  transition: transform 300ms ease;
+}
+</style>
+
+<div class="quiz-promo">
+  {%- # Hero Section -%}
+  <div class="section-spacing">
+    <div class="container container--medium">
+      <h1 class="hero-title">
+        {{ section.settings.title }}
+      </h1>
+      <p class="text-center text-lg text-gray-600 mx-auto" style="max-width: 32rem; margin-top: 0.75rem;">
+        {{ section.settings.subtitle }}
+      </p>
+    </div>
+  </div>
+
+  {%- # Features Section -%}
+  <div class="section-spacing" style="background: rgba(255, 255, 255, 0.5);">
+    <div class="container container--medium">
+      <div class="features-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <div class="feature-card" {{ block.shopify_attributes }}>
+              <div class="feature-icon">
+                {%- render 'icon', icon: block.settings.icon, class: 'w-4 h-4 text-pink-500' -%}
+              </div>
+              <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem;">
+                {{ block.settings.title }}
+              </h3>
+              <p style="font-size: 0.875rem; color: #4B5563;">
+                {{ block.settings.description }}
+              </p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- # CTA Section -%}
+  <div class="section-spacing">
+    <div class="container container--narrow">
+      <div class="cta-section">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">
+          {{ section.settings.cta_title }}
+        </h2>
+        <p style="font-size: 1.125rem; color: #4B5563; margin-bottom: 1rem; max-width: 32rem; margin-left: auto; margin-right: auto;">
+          {{ section.settings.cta_text }}
+        </p>
+        <a href="{{ section.settings.cta_link }}" class="btn">
+          {{ section.settings.cta_button_text }}
+          {%- render 'icon', icon: 'arrow-right', class: 'w-4 h-4 btn-icon' -%}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Quiz Landing Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Héro"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre principal",
+      "default": "Découvre ta Routine Skincare Idéale"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Un quiz personnalisé pour révéler tous les secrets de ta peau et obtenir des conseils sur-mesure ✨"
+    },
+    {
+      "type": "header",
+      "content": "Section CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre CTA",
+      "default": "Prête à découvrir ta routine idéale ? 💖"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Texte CTA",
+      "default": "Rejoins des milliers de personnes qui ont déjà trouvé leur routine parfaite grâce à notre quiz !"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton",
+      "default": "https://quiz.majoliepeau.com"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Texte du bouton",
+      "default": "Je découvre mon type de peau"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Caractéristique",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "sparkles",
+              "label": "✨ Étoiles"
+            },
+            {
+              "value": "heart",
+              "label": "💖 Cœur"
+            },
+            {
+              "value": "star",
+              "label": "⭐ Étoile"
+            }
+          ],
+          "default": "sparkles"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "2 Minutes Chrono"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Un quiz rapide et efficace pour découvrir ton type de peau"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz Landing Page",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkles",
+            "title": "2 Minutes Chrono",
+            "description": "Un quiz rapide et efficace pour découvrir ton type de peau"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "100% Personnalisé",
+            "description": "Des conseils adaptés à TA peau et à TON mode de vie"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "Routine Sur-Mesure",
+            "description": "Reçois ta routine beauté personnalisée par email"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
