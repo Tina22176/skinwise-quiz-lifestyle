@@ -1,7 +1,7 @@
-
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight, Sparkles, Heart, Star } from "lucide-react"
+import GuaranteeSection from "@/components/GuaranteeSection"
 
 const QuizPromo = () => {
   return (
@@ -79,6 +79,9 @@ const QuizPromo = () => {
           </div>
         </div>
       </section>
+
+      {/* Guarantee Section */}
+      <GuaranteeSection />
 
       {/* CTA Section */}
       <section className="py-6 px-4">
