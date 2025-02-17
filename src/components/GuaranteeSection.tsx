@@ -1,5 +1,5 @@
 
-import { Shield, Sparkles, MessageCircle } from "lucide-react";
+import { Shield, Star, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 
 const GuaranteeSection = () => {
@@ -13,7 +13,7 @@ const GuaranteeSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
-            Preuve Sociale Massive & Garantie
+            Garantie Glow 100%
           </h2>
         </motion.div>
 
@@ -26,16 +26,16 @@ const GuaranteeSection = () => {
           <div className="flex items-center gap-4 mb-6">
             <Shield className="w-8 h-8 text-pink-500" />
             <h3 className="text-2xl font-semibold">
-              Garantie Glow 100% - 0 Risque, 100% Confiance !
+              0 Risque, 100% Confiance !
             </h3>
           </div>
           
           <div className="space-y-6">
             <div className="flex gap-4">
-              <Sparkles className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
+              <Star className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
               <div>
                 <h4 className="text-lg font-medium mb-2">
-                  Tu veux essayer sans stress ?
+                  Garantie satisfaction 30 jours
                 </h4>
                 <p className="text-gray-600">
                   Si après 30 jours, tu ne vois aucune amélioration sur ta peau, contacte-moi et je t'accompagnerai personnellement pour optimiser tes résultats.
@@ -44,7 +44,7 @@ const GuaranteeSection = () => {
             </div>
 
             <div className="flex gap-4">
-              <MessageCircle className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
+              <Heart className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
               <p className="text-lg font-medium">
                 Ton glow est ma priorité !
               </p>
