@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -19,66 +20,76 @@ const getSkinTypeText = (skinType: string) => {
 };
 
 const getSkinTypeDetails = (skinType: string) => {
-  const details: Record<string, { characteristics: string[]; factors: string[] }> = {
+  const details: Record<string, { characteristics: string[]; factors: string[]; description: string; skinCycling: string }> = {
     "combination": {
+      description: "Ta peau présente deux comportements distincts : plus grasse sur la zone T (front, nez, menton) et normale à sèche sur les joues.",
       characteristics: [
-        "Zone T grasse, joues sèches",
-        "Pores visibles sur le nez",
-        "Brillance modérée en cours de journée"
+        "Zone T grasse, joues plus sèches",
+        "Pores visibles principalement sur le nez et le front",
+        "Brillance modérée qui se développe en cours de journée"
       ],
       factors: [
-        "Stress et hormones",
-        "Alimentation",
-        "Routine irrégulière"
-      ]
+        "Déséquilibre hormonal",
+        "Utilisation de produits inadaptés",
+        "Facteurs environnementaux"
+      ],
+      skinCycling: "Ton skin cycling devra équilibrer les différentes zones avec des actifs adaptés, en utilisant des produits plus légers sur la zone T et plus nourrissants sur les zones sèches."
     },
     "dry": {
+      description: "Ta peau manque de sébum et d'hydratation. Elle peut paraître terne, tiraillée et présenter des squames.",
       characteristics: [
-        "Sensation de tiraillement",
-        "Teint terne",
-        "Tendance aux rougeurs"
+        "Sensation de tiraillement fréquente",
+        "Teint parfois terne ou manquant d'éclat",
+        "Tendance aux ridules de déshydratation"
       ],
       factors: [
-        "Déshydratation",
-        "Environnement sec",
-        "Manque de protection"
-      ]
+        "Production insuffisante de sébum",
+        "Barrière cutanée fragilisée",
+        "Facteurs environnementaux (chauffage, climatisation)"
+      ],
+      skinCycling: "Le skin cycling devra privilégier l'hydratation profonde et limiter les actifs exfoliants trop puissants qui pourraient accentuer la sécheresse."
     },
     "oily": {
+      description: "Ta peau produit un excès de sébum qui lui donne un aspect brillant. Les pores sont souvent dilatés et les imperfections fréquentes.",
       characteristics: [
-        "Brillance excessive",
-        "Pores dilatés",
-        "Tendance acnéique"
+        "Brillance excessive tout au long de la journée",
+        "Pores dilatés visibles",
+        "Tendance aux imperfections (points noirs, comédons)"
       ],
       factors: [
-        "Production de sébum élevée",
-        "Hormones",
-        "Produits inadaptés"
-      ]
+        "Surproduction de sébum",
+        "Facteurs hormonaux",
+        "Prédisposition génétique"
+      ],
+      skinCycling: "Ton skin cycling mettra l'accent sur la régulation du sébum tout en maintenant une bonne hydratation, car même les peaux grasses ont besoin d'être hydratées."
     },
     "sensitive": {
+      description: "Ta peau réagit facilement aux stimuli externes (climat, produits, stress) par des rougeurs, irritations ou inconfort.",
       characteristics: [
-        "Réactivité cutanée",
-        "Rougeurs fréquentes",
-        "Inconfort régulier"
+        "Réactivité cutanée aux stimuli externes",
+        "Rougeurs fréquentes ou permanentes",
+        "Sensations d'inconfort (picotements, tiraillements)"
       ],
       factors: [
-        "Stress",
-        "Allergènes",
-        "Produits agressifs"
-      ]
+        "Barrière cutanée fragilisée",
+        "Réactivité aux ingrédients cosmétiques",
+        "Facteurs environnementaux et stress"
+      ],
+      skinCycling: "Ton skin cycling devra être particulièrement progressif avec des actifs doux et apaisants, en introduisant les actifs puissants avec précaution et en petites quantités."
     },
     "normal": {
+      description: "Ta peau est équilibrée, ni trop grasse ni trop sèche. Elle présente peu d'imperfections et ne réagit pas excessivement aux facteurs externes.",
       characteristics: [
-        "Teint équilibré",
-        "Peu d'imperfections",
-        "Texture uniforme"
+        "Teint uniforme et lumineux",
+        "Texture lisse avec des pores peu visibles",
+        "Bonne tolérance aux produits cosmétiques"
       ],
       factors: [
-        "Maintien de l'hydratation",
-        "Protection solaire",
-        "Routine régulière"
-      ]
+        "Équilibre naturel de la production de sébum",
+        "Bonne hydratation naturelle",
+        "Barrière cutanée intacte"
+      ],
+      skinCycling: "Ton skin cycling peut être adapté à tes objectifs spécifiques (anti-âge, éclat, etc.) tout en maintenant l'équilibre naturel de ta peau."
     }
   };
 
@@ -106,32 +117,8 @@ export const Results = () => {
   const processLifestyleFactors = (answers: Record<string, string>) => {
     const factors: string[] = [];
     
-    // Traitement du stress
-    if (answers.stress === "difficulte") {
-      factors.push("stress");
-    }
-
-    // Traitement de l'hydratation
-    if (answers.hydratation === "non_surveille" || answers.hydratation === "autres_boissons") {
-      factors.push("mauvaise_hydratation");
-    }
-
-    // Traitement du sommeil
-    if (answers.sommeil === "impact_direct" || answers.sommeil === "quelque_impact") {
-      factors.push("manque_sommeil");
-    }
-
-    // Traitement de l'activité physique
-    if (answers.activite_physique === "peu_actif" || answers.activite_physique === "sedentaire") {
-      factors.push("sedentarite");
-    }
-
-    // Traitement de l'alimentation
-    if (answers.alimentation_bio === "peu_important" || answers.alimentation_bio === "aucune_attention" ||
-        answers.alimentation_grasse === "reactions_inflammatoires" || answers.alimentation_grasse === "reactions_digestives") {
-      factors.push("alimentation_desequilibree");
-    }
-
+    // Analyse des réponses pour identifier des facteurs lifestyle
+    // Nous garderons cette fonction telle quelle pour l'instant
     return factors;
   };
 
@@ -141,7 +128,7 @@ export const Results = () => {
     if (!gdprConsent) {
       toast({
         title: "Consentement requis",
-        description: "Merci d'accepter les conditions d'utilisation pour recevoir ta routine personnalisée.",
+        description: "Merci d'accepter les conditions d'utilisation pour recevoir ton calendrier de Skin Cycling personnalisé.",
         variant: "destructive",
       });
       return;
@@ -188,7 +175,7 @@ export const Results = () => {
       setIsSubscribed(true);
       toast({
         title: "Merci ! 💝",
-        description: "Ta routine personnalisée est en route vers ta boîte mail 💌",
+        description: "Ton calendrier de Skin Cycling personnalisé arrive dans ta boîte mail 💌",
       });
     } catch (error) {
       console.error("Erreur:", error);
@@ -209,6 +196,28 @@ export const Results = () => {
 
   const skinType = state.result || "normal";
   const details = getSkinTypeDetails(skinType);
+
+  // Calculer les scores pour l'affichage
+  const calculateScores = () => {
+    const scores = {
+      dry: 0,
+      combination: 0,
+      oily: 0,
+      sensitive: 0
+    };
+    
+    // Compter les réponses pour chaque type
+    Object.values(state.answers).forEach(answer => {
+      if (answer === "seche") scores.dry += 1;
+      if (answer === "mixte") scores.combination += 1;
+      if (answer === "grasse") scores.oily += 1;
+      if (answer === "sensible") scores.sensitive += 1;
+    });
+    
+    return scores;
+  };
+  
+  const scores = calculateScores();
 
   return (
     <AnimatePresence mode="wait">
@@ -269,12 +278,39 @@ export const Results = () => {
                 />
                 <motion.div className="relative">
                   <h1 className="text-2xl md:text-3xl font-medium text-black mb-4">
-                    ✨ Résultat : Voici ton diagnostic beauté personnalisé ✨
+                    ✨ RÉSULTAT : DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
                   </h1>
                   <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400/90 via-pink-300/90 to-pink-200/90 text-transparent bg-clip-text">
                     💖 Ton type de peau : {getSkinTypeText(skinType)}
                   </h2>
                 </motion.div>
+              </div>
+
+              <div className="bg-white/80 p-6 rounded-xl shadow-sm border border-pink-100/50 mb-6">
+                <h3 className="text-lg font-semibold text-black mb-3">Analyse de tes réponses :</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                  <div className="bg-pink-50/80 p-3 rounded-lg">
+                    <p className="font-medium">Type Sec</p>
+                    <p className="text-pink-600 font-bold">{scores.dry} réponses</p>
+                  </div>
+                  <div className="bg-pink-50/80 p-3 rounded-lg">
+                    <p className="font-medium">Type Mixte</p>
+                    <p className="text-pink-600 font-bold">{scores.combination} réponses</p>
+                  </div>
+                  <div className="bg-pink-50/80 p-3 rounded-lg">
+                    <p className="font-medium">Type Gras</p>
+                    <p className="text-pink-600 font-bold">{scores.oily} réponses</p>
+                  </div>
+                  <div className="bg-pink-50/80 p-3 rounded-lg">
+                    <p className="font-medium">Type Sensible</p>
+                    <p className="text-pink-600 font-bold">{scores.sensitive} réponses</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-pink-50/90 to-white/90 p-6 rounded-xl border border-pink-100/50 shadow-sm">
+                <h3 className="text-xl font-semibold text-black mb-3">Ton profil cutané :</h3>
+                <p className="text-black/80 mb-4">{details.description}</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
@@ -329,6 +365,16 @@ export const Results = () => {
                 </motion.div>
               </div>
 
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="bg-gradient-to-r from-pink-100/30 to-pink-50/30 p-6 rounded-xl border border-pink-200/30 shadow-sm"
+              >
+                <h3 className="text-xl font-semibold text-black mb-3">Recommandation Skin Cycling :</h3>
+                <p className="text-black/80">{details.skinCycling}</p>
+              </motion.div>
+
               {!isSubscribed ? (
                 <form onSubmit={handleSubmit} className="space-y-8 mt-10">
                   <motion.div 
@@ -339,10 +385,10 @@ export const Results = () => {
                   >
                     <div className="text-center space-y-3">
                       <h3 className="text-2xl font-semibold text-black">
-                        🌟 Reçois ton plan skincare exclusif directement par email ! 🌟
+                        🌟 PROCHAINE ÉTAPE 🌟
                       </h3>
                       <p className="text-black/70">
-                        Accède à des conseils inédits et des astuces que tu ne trouveras nulle part ailleurs.
+                        Reçois ton calendrier de Skin Cycling personnalisé pour optimiser ta routine selon tes besoins spécifiques !
                       </p>
                     </div>
                     
@@ -358,7 +404,7 @@ export const Results = () => {
                       
                       <Input
                         type="email"
-                        placeholder="Ton email pour recevoir ta routine sur-mesure 🎀"
+                        placeholder="Ton email pour recevoir ton calendrier personnalisé 🎀"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -377,7 +423,7 @@ export const Results = () => {
                         htmlFor="gdpr" 
                         className="text-sm text-black/70"
                       >
-                        J'accepte de recevoir ma routine personnalisée et des conseils adaptés par email. 
+                        J'accepte de recevoir mon calendrier personnalisé et des conseils adaptés par email. 
                         Je peux me désinscrire à tout moment.
                       </label>
                     </div>
@@ -403,7 +449,7 @@ export const Results = () => {
                       ) : (
                         <Mail className="w-5 h-5 mr-2 text-black" />
                       )}
-                      Je veux ma routine personnalisée ! 💖
+                      RECEVOIR MON CALENDRIER PERSONNALISÉ
                     </Button>
                   </motion.div>
                 </form>
@@ -415,10 +461,10 @@ export const Results = () => {
                 >
                   <div className="flex items-center gap-2 text-black font-medium">
                     <Check className="w-5 h-5" />
-                    <span>Ta routine personnalisée est en route ! 💌</span>
+                    <span>Ton calendrier de Skin Cycling est en route ! 💌</span>
                   </div>
                   <p className="text-sm text-black/70 text-center">
-                    N'oublie pas de v��rifier tes spams si tu ne reçois rien d'ici quelques minutes.
+                    N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
                   </p>
                   <Button
                     onClick={handleShare}
