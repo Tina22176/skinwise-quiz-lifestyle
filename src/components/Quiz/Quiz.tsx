@@ -6,10 +6,12 @@ import { QuizQuestion } from "./QuizQuestion";
 import { Results } from "./Results";
 import { questions } from "./questions";
 import { AnimatePresence } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const QuizContent = () => {
   const { state, resetQuiz } = useQuiz();
   const [stage, setStage] = useState<"welcome" | "questions" | "results">("welcome");
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Passer aux résultats quand toutes les questions sont répondues
@@ -24,8 +26,13 @@ const QuizContent = () => {
     setStage("welcome");
   };
 
+  // Ajuster le padding pour les appareils mobiles
+  const containerClasses = isMobile 
+    ? "min-h-screen py-6 px-3" 
+    : "min-h-screen py-12";
+
   return (
-    <div className="min-h-screen py-12">
+    <div className={containerClasses}>
       <AnimatePresence mode="wait">
         {stage === "welcome" && (
           <Welcome onStart={() => setStage("questions")} />
