@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -37,7 +38,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           </motion.div>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl">
+        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl text-pink-500">
           ✨ DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
         </h1>
 
@@ -92,7 +93,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         <div className="mt-10 flex flex-col items-center">
           <button
             onClick={onStart}
-            className="premium-button group flex items-center gap-2 border border-black/10"
+            className="premium-button group flex items-center gap-2 border border-black/10 bg-pink-100 hover:bg-pink-200"
           >
             <span className="relative inline-flex items-center">
               👉 COMMENCER LE QUIZ
