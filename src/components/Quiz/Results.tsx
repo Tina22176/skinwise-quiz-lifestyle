@@ -1,5 +1,6 @@
+
 import { motion, AnimatePresence } from "framer-motion";
-import { useQuiz } from "./QuizContext";
+import { useQuiz, getSkinTypeFormatted } from "./QuizContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
@@ -139,11 +140,17 @@ export const Results = () => {
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
       const lifestyleFactors = processLifestyleFactors(state.answers);
+      const formattedSkinType = getSkinTypeFormatted(state.result);
 
+      // Format data properly for Klaviyo
       const quizData = {
         email,
         first_name: firstName,
-        skin_type: state.result,
+        skinType: formattedSkinType, // Cette propriété sera accessible via {{ skinType }} dans Klaviyo
+        skin_type: formattedSkinType, // Alternative format
+        property: {
+          skinType: formattedSkinType // Cette propriété sera accessible via {{ property.skinType }} dans Klaviyo
+        },
         quizAnswers: state.answers,
         timestamp: new Date().toISOString(),
         skinDetails: getSkinTypeDetails(state.result || "normal"),
@@ -153,7 +160,8 @@ export const Results = () => {
           $consent: gdprConsent,
           quiz_completed: true,
           quiz_completion_date: new Date().toISOString(),
-          skin_type: state.result,
+          skin_type: formattedSkinType,
+          skinType: formattedSkinType,
           lifestyle_factors: lifestyleFactors,
           skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
           skin_factors: getSkinTypeDetails(state.result || "normal").factors,
