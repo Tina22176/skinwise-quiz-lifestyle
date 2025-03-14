@@ -131,6 +131,7 @@ export const Results = () => {
     }
 
     setIsLoading(true);
+    console.log("🚀 Préparation de l'envoi de données à Zapier");
 
     try {
       dispatch({ type: "SET_EMAIL", payload: email });
@@ -158,6 +159,9 @@ export const Results = () => {
         }
       };
 
+      console.log("📤 Envoi des données au webhook Zapier:", webhookUrl);
+      console.log("📦 Données envoyées:", quizData);
+
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -167,16 +171,17 @@ export const Results = () => {
         body: JSON.stringify(quizData),
       });
 
+      console.log("✅ Données envoyées avec succès à Zapier");
       setIsSubscribed(true);
       toast({
         title: "Merci ! 💝",
         description: "Ton calendrier de Skin Cycling personnalisé arrive dans ta boîte mail 💌",
       });
     } catch (error) {
-      console.error("Erreur:", error);
+      console.error("❌ Erreur lors de l'envoi des données à Zapier:", error);
       toast({
         title: "Oups !",
-        description: "Une erreur est survenue. Merci de réessayer.",
+        description: "Une erreur est survenue lors de l'envoi de tes données. Merci de réessayer.",
         variant: "destructive",
       });
     } finally {
