@@ -59,25 +59,38 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-semibold mb-2 leading-tight mx-auto max-w-xl">
-          ✨ Découvre ton type de peau & ta routine idéale ✨
+          ✨ DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
         </h1>
 
-        <div className="space-y-2 mb-6">
+        <div className="space-y-3 mb-6">
           <h2 className="text-2xl text-pink-600/90 font-medium">
-            Ta peau te parle… mais la comprends-tu vraiment ? 💖
+            Ta peau te parle... mais la comprends-tu vraiment ? 💖
           </h2>
           
           <p className="text-lg md:text-xl text-muted-foreground mx-auto max-w-xl">
-            Ce quiz unique te permet d'identifier ton type de peau et d'explorer les facteurs de ton mode de vie qui influencent son éclat.
-            En moins de 2 minutes, reçois un bilan personnalisé et des conseils adaptés à TA réalité.
-          </p>
-
-          <p className="text-xl text-pink-500/90 font-medium">
-            🌸 Prête à révéler ce que ta peau a à te dire ? 🌸
+            Ce quiz unique te permet d'identifier précisément ton type de peau et de comprendre les facteurs de ton mode de vie qui influencent son éclat.
           </p>
           
-          <p className="text-lg text-pink-400/80 italic">
-            👉 Clique sur "Commencer" et trouve ta routine parfaite !
+          <p className="text-lg md:text-xl text-muted-foreground mx-auto max-w-xl">
+            En seulement 2 minutes, tu vas recevoir :
+          </p>
+          
+          <ul className="text-lg md:text-xl text-muted-foreground mx-auto max-w-xl list-disc list-inside space-y-2 text-left pl-4">
+            <li>Un diagnostic précis de ton type de peau</li>
+            <li>Des conseils personnalisés adaptés à TES besoins spécifiques</li>
+            <li>Ton calendrier de Skin Cycling sur 28 jours prêt à l'emploi</li>
+          </ul>
+
+          <p className="text-xl text-pink-500/90 font-medium mt-4">
+            🌸 Le secret d'une peau rayonnante n'est pas d'utiliser plus de produits, mais les BONS produits dans le BON ordre 🌸
+          </p>
+          
+          <p className="text-lg text-muted-foreground mx-auto max-w-xl">
+            Tes réponses sont confidentielles et te permettront de recevoir un plan d'action parfaitement adapté à ta peau.
+          </p>
+          
+          <p className="text-lg text-pink-400/80 italic font-medium mt-2">
+            👉 COMMENCER LE QUIZ →
           </p>
         </div>
         

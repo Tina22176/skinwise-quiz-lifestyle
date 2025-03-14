@@ -12,7 +12,7 @@ const Index = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-3xl md:text-4xl font-bold text-pink-500"
         >
-          Découvre ton véritable type de peau ✨
+          ✨ DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0 }}
@@ -29,7 +29,7 @@ const Index = () => {
       </main>
       
       <footer className="mt-16 py-8 text-center text-sm text-muted-foreground">
-        <p>© 2023 Majolie Peau. Tous droits réservés.</p>
+        <p>© 2023 Majoliepeau. Tous droits réservés.</p>
       </footer>
     </div>
   );
