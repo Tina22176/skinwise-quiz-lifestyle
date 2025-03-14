@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -28,7 +27,20 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-2xl mx-auto text-center px-4 py-4"
       >
-        {/* Image principale */}
+        <div className="mb-8">
+          <motion.div className="inline-block animate-glow">
+            <img 
+              src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
+              alt="Logo Majoliepeau"
+              className="w-48 h-auto mx-auto"
+            />
+          </motion.div>
+        </div>
+        
+        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl">
+          ✨ DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
+        </h1>
+
         <motion.div 
           className="mb-8 rounded-3xl overflow-hidden shadow-[0_8px_24px_rgba(255,192,203,0.2)] mx-auto max-w-md"
           whileHover={{ 
@@ -48,21 +60,6 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
             className="w-full h-48 object-cover"
           />
         </motion.div>
-
-        {/* Logo */}
-        <div className="mb-10">
-          <motion.div className="inline-block animate-glow">
-            <img 
-              src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
-              alt="Logo Majoliepeau"
-              className="w-48 h-auto mx-auto"
-            />
-          </motion.div>
-        </div>
-        
-        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl">
-          ✨ DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
-        </h1>
 
         <div className="space-y-4 mb-8 text-left">
           <h2 className="text-2xl text-pink-600/90 font-medium text-center">
@@ -92,18 +89,13 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           </p>
         </div>
         
-        {/* Bouton Commencer */}
         <div className="mt-10 flex flex-col items-center">
-          <p className="text-lg text-pink-400/80 italic font-medium mb-4">
-            👉 COMMENCER LE QUIZ
-          </p>
-          
           <button
             onClick={onStart}
             className="premium-button group flex items-center gap-2 border border-black/10"
           >
             <span className="relative inline-flex items-center">
-              Commencer
+              👉 COMMENCER LE QUIZ
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </span>
           </button>
