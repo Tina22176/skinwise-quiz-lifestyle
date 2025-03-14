@@ -1,366 +1,262 @@
 
 export const questions = [
   {
-    id: "brillance",
-    question: "À quelle fréquence ta peau présente-t-elle une brillance excessive ?",
+    id: "sensation_apres_nettoyage",
+    question: "Comment se sent ta peau 2 heures après l'avoir nettoyée (sans appliquer de produits) ?",
     options: [
       {
-        value: "constamment",
-        label: "Constamment",
-        description: "La peau est brillante tout au long de la journée"
+        value: "seche",
+        label: "Tiraillements, sensation d'inconfort et de sécheresse",
+        description: "Ta peau manque d'hydratation"
       },
       {
-        value: "apres_heures",
-        label: "Après quelques heures",
-        description: "La brillance apparaît au fil de la journée"
+        value: "mixte",
+        label: "Brillance sur la zone T (front, nez, menton), normale ailleurs",
+        description: "Ta peau présente deux comportements différents"
       },
-      {
-        value: "rarement",
-        label: "Rarement",
-        description: "La peau reste mate la plupart du temps"
-      },
-      {
-        value: "jamais",
-        label: "Jamais",
-        description: "La peau est toujours mate"
-      }
-    ]
-  },
-  {
-    id: "hydratant",
-    question: "Comment réagit ta peau après l'application d'un produit hydratant ?",
-    options: [
       {
         value: "grasse",
-        label: "Elle semble grasse",
-        description: "La peau devient huileuse après application"
+        label: "Brillante et luisante sur tout le visage",
+        description: "Ta peau produit un excès de sébum"
       },
       {
-        value: "absorbe",
-        label: "Absorbe rapidement l'hydratant",
-        description: "Le produit pénètre facilement"
-      },
-      {
-        value: "peu_changement",
-        label: "Peu de changement",
-        description: "L'effet est minimal"
-      },
-      {
-        value: "irritations",
-        label: "Provoque des irritations",
-        description: "La peau réagit négativement"
-      }
-    ]
-  },
-  {
-    id: "secheresse",
-    question: "As-tu des zones de sécheresse ou des desquamations visibles ?",
-    options: [
-      {
-        value: "souvent",
-        label: "Oui, souvent",
-        description: "Présence régulière de zones sèches"
-      },
-      {
-        value: "parfois",
-        label: "Parfois autour du nez ou des joues",
-        description: "Zones sèches occasionnelles"
-      },
-      {
-        value: "rarement",
-        label: "Rarement",
-        description: "Peu de zones sèches"
-      },
-      {
-        value: "jamais",
-        label: "Jamais",
-        description: "Aucune zone sèche"
-      }
-    ]
-  },
-  {
-    id: "rougeurs",
-    question: "Quelle est la fréquence des rougeurs ou des réactions allergiques sur ta peau ?",
-    options: [
-      {
-        value: "tres_frequent",
-        label: "Très fréquemment",
-        description: "Réactions régulières"
-      },
-      {
-        value: "temps_en_temps",
-        label: "De temps en temps",
-        description: "Réactions occasionnelles"
-      },
-      {
-        value: "rarement",
-        label: "Rarement",
-        description: "Peu de réactions"
-      },
-      {
-        value: "jamais",
-        label: "Jamais",
-        description: "Aucune réaction"
-      }
-    ]
-  },
-  {
-    id: "nettoyage",
-    question: "Ta peau semble-t-elle tendue ou inconfortable après le nettoyage ?",
-    options: [
-      {
-        value: "toujours",
-        label: "Toujours",
-        description: "Sensation constante de tension"
-      },
-      {
-        value: "parfois",
-        label: "Parfois",
-        description: "Tension occasionnelle"
-      },
-      {
-        value: "rarement",
-        label: "Rarement",
-        description: "Peu de tension"
-      },
-      {
-        value: "jamais",
-        label: "Jamais",
-        description: "Aucune tension"
+        value: "sensible",
+        label: "Rougeurs, picotements ou sensations de brûlure",
+        description: "Ta peau réagit facilement aux stimuli externes"
       }
     ]
   },
   {
     id: "pores",
-    question: "Quelle est la taille de tes pores dans les zones comme le nez ou les joues ?",
+    question: "Comment décrirais-tu tes pores ?",
     options: [
       {
-        value: "tres_visibles",
-        label: "Très visibles",
-        description: "Pores dilatés et apparents"
+        value: "seche",
+        label: "Pratiquement invisibles",
+        description: "Caractéristique des peaux sèches avec peu de sébum"
       },
       {
-        value: "moyennement",
-        label: "Moyennement visibles",
-        description: "Pores modérément visibles"
+        value: "mixte",
+        label: "Visibles sur la zone T, discrets sur les joues",
+        description: "Typique des peaux mixtes"
       },
       {
-        value: "peu_visibles",
-        label: "Peu visibles",
-        description: "Pores fins"
+        value: "grasse",
+        label: "Larges et visibles sur la majorité du visage",
+        description: "Caractéristique des peaux à forte production de sébum"
       },
       {
-        value: "invisibles",
-        label: "Invisibles",
-        description: "Pores très fins"
+        value: "sensible",
+        label: "Variables, parfois dilatés, parfois resserrés selon les réactions de ma peau",
+        description: "Caractéristique d'une peau réactive"
       }
     ]
   },
   {
-    id: "climat",
-    question: "Comment ta peau réagit-elle aux variations climatiques ?",
+    id: "reaction_soleil",
+    question: "Comment réagit ta peau face au soleil ?",
     options: [
       {
-        value: "tres_reactive",
-        label: "Elle devient très sèche ou très grasse",
-        description: "Forte réaction aux changements"
+        value: "seche",
+        label: "Rougit facilement, brûle souvent, se dessèche",
+        description: "Les peaux sèches sont souvent plus sensibles au soleil"
       },
       {
-        value: "legerement",
-        label: "Elle est légèrement affectée",
-        description: "Réaction modérée"
+        value: "mixte",
+        label: "Bronze progressivement, peut brûler si exposition prolongée",
+        description: "Réaction équilibrée au soleil"
       },
       {
-        value: "stable",
-        label: "Pas de changement notable",
-        description: "Peau stable"
+        value: "grasse",
+        label: "Bronze facilement, brûle rarement",
+        description: "Les peaux grasses ont souvent une meilleure tolérance au soleil"
       },
       {
-        value: "irritations",
-        label: "Elle réagit avec des irritations",
-        description: "Réactions sensibles"
+        value: "sensible",
+        label: "Réaction imprévisible, souvent avec des rougeurs ou éruptions",
+        description: "Les peaux sensibles réagissent fortement aux UV"
       }
     ]
   },
   {
-    id: "hydratation",
-    question: "Évalue ta consommation quotidienne de liquides.",
+    id: "imperfections",
+    question: "As-tu tendance à avoir des imperfections ?",
     options: [
       {
-        value: "eau_pure",
-        label: "Majoritairement de l'eau",
-        description: "Consommation principale d'eau"
+        value: "seche",
+        label: "Rarement ou jamais",
+        description: "Les peaux sèches produisent peu de sébum"
       },
       {
-        value: "equilibre",
-        label: "Équilibré entre eau et autres",
-        description: "Mix de boissons varié"
+        value: "mixte",
+        label: "Occasionnellement sur la zone T, surtout avant les règles",
+        description: "Imperfections localisées, souvent hormonales"
       },
       {
-        value: "autres_boissons",
-        label: "Principalement des boissons non aqueuses",
-        description: "Peu d'eau pure"
+        value: "grasse",
+        label: "Régulièrement, surtout des points noirs et comédons",
+        description: "L'excès de sébum favorise les imperfections"
       },
       {
-        value: "non_surveille",
-        label: "Je ne surveille pas",
-        description: "Pas d'attention particulière"
+        value: "sensible",
+        label: "Parfois, souvent sous forme de boutons inflammatoires ou réactionnels",
+        description: "Imperfections liées aux réactions cutanées"
       }
     ]
   },
   {
-    id: "alimentation_bio",
-    question: "Quelle importance accordes-tu à l'origine biologique de tes aliments ?",
+    id: "nouveaux_produits",
+    question: "Comment ta peau réagit-elle aux nouveaux produits ?",
     options: [
       {
-        value: "tres_important",
-        label: "Très importante, je choisis bio quand c'est possible",
-        description: "Préférence forte pour le bio"
+        value: "seche",
+        label: "Peut se déshydrater davantage si le produit n'est pas assez nourrissant",
+        description: "Les peaux sèches requièrent des produits riches"
       },
       {
-        value: "assez_important",
-        label: "Assez importante",
-        description: "Attention modérée au bio"
+        value: "mixte",
+        label: "Généralement bien, sauf si le produit est trop riche pour ma zone T",
+        description: "Réaction variable selon les zones du visage"
       },
       {
-        value: "peu_important",
-        label: "Pas très importante",
-        description: "Peu d'attention au bio"
+        value: "grasse",
+        label: "Peut devenir plus grasse ou développer des imperfections si le produit est trop riche",
+        description: "L'excès de sébum peut s'aggraver avec des produits trop riches"
       },
       {
-        value: "aucune_attention",
-        label: "Je n'y prête pas attention",
-        description: "Pas de préférence particulière"
+        value: "sensible",
+        label: "Souvent par des rougeurs, démangeaisons ou irritations",
+        description: "Forte réactivité aux ingrédients nouveaux"
       }
     ]
   },
   {
-    id: "saisons",
-    question: "Comment ta peau réagit-elle aux changements saisonniers et à l'exposition au soleil ?",
+    id: "fin_journee",
+    question: "Après une journée complète, comment se sent ta peau ?",
     options: [
       {
-        value: "tres_sensible",
-        label: "Très sensible et réactive",
-        description: "Forte réactivité aux changements"
+        value: "seche",
+        label: "Encore plus sèche, parfois des squames (peaux mortes) sont visibles",
+        description: "Le manque d'hydratation s'accentue durant la journée"
       },
       {
-        value: "legerement_sensible",
-        label: "Légèrement sensible",
-        description: "Sensibilité modérée"
+        value: "mixte",
+        label: "Légèrement brillante sur la zone T, normale à sèche sur les joues",
+        description: "Contraste entre différentes zones du visage"
       },
       {
-        value: "stable",
-        label: "Stabilité avec peu de changements",
-        description: "Bonne adaptation"
+        value: "grasse",
+        label: "Très brillante, nécessite souvent de tamponner l'excès de sébum",
+        description: "Production excessive de sébum au cours de la journée"
       },
       {
-        value: "aucune_sensibilite",
-        label: "Aucune sensibilité notable",
-        description: "Très bonne adaptation"
+        value: "sensible",
+        label: "Inconfortable, tendue ou irritée par moments",
+        description: "Réactions cutanées qui évoluent durant la journée"
       }
     ]
   },
   {
-    id: "sommeil",
-    question: "Quel est l'impact de ton sommeil sur ton bien-être général et l'apparence de ta peau ?",
+    id: "souci_principal",
+    question: "Quel est ton principal souci de peau ?",
     options: [
       {
-        value: "impact_direct",
-        label: "Impact direct et notable",
-        description: "Forte influence du sommeil"
+        value: "seche",
+        label: "Manque d'éclat, tiraillements, ridules de déshydratation",
+        description: "Problématiques liées au manque d'hydratation"
       },
       {
-        value: "quelque_impact",
-        label: "Quelque impact",
-        description: "Influence modérée"
+        value: "mixte",
+        label: "Gérer l'équilibre entre zones grasses et zones sèches",
+        description: "Difficulté à équilibrer les différentes zones"
       },
       {
-        value: "peu_impact",
-        label: "Peu d'impact",
-        description: "Faible influence"
+        value: "grasse",
+        label: "Excès de sébum, brillance, imperfections",
+        description: "Problématiques liées à l'excès de sébum"
       },
       {
-        value: "aucun_impact",
-        label: "Aucun impact apparent",
-        description: "Pas d'influence visible"
+        value: "sensible",
+        label: "Rougeurs, réactivité, intolérances à certains ingrédients",
+        description: "Problématiques liées à la sensibilité cutanée"
       }
     ]
   },
   {
-    id: "activite_physique",
-    question: "Décris ton niveau d'activité physique en considérant à la fois l'exercice et les mouvements quotidiens.",
+    id: "texture_creme",
+    question: "Quelle texture de crème préfères-tu instinctivement ?",
     options: [
       {
-        value: "tres_actif",
-        label: "Très actif",
-        description: "Exercice régulier et mode de vie actif"
+        value: "seche",
+        label: "Riche et nourrissante",
+        description: "Les textures riches conviennent aux peaux déshydratées"
       },
       {
-        value: "moderement",
-        label: "Modérément actif",
-        description: "Activité physique modérée"
+        value: "mixte",
+        label: "Légère sur la zone T, plus riche sur les joues",
+        description: "Préférence pour des textures adaptées selon les zones"
       },
       {
-        value: "peu_actif",
-        label: "Peu actif",
-        description: "Activité limitée"
+        value: "grasse",
+        label: "Très légère, gel ou fluide",
+        description: "Les textures légères évitent de surcharger les peaux grasses"
       },
       {
-        value: "sedentaire",
-        label: "Sédentaire",
-        description: "Très peu d'activité physique"
+        value: "sensible",
+        label: "Sans parfum, hypoallergénique, apaisante",
+        description: "Les formules minimalistes conviennent aux peaux réactives"
       }
     ]
   },
   {
-    id: "stress",
-    question: "Comment gères-tu le stress au quotidien ? Quelles techniques utilises-tu ?",
+    id: "maquillage_journee",
+    question: "Comment se comporte ton maquillage au cours de la journée ?",
     options: [
       {
-        value: "meditation",
-        label: "Méditation et relaxation",
-        description: "Pratiques régulières de bien-être"
+        value: "seche",
+        label: "A tendance à marquer les ridules ou zones sèches",
+        description: "Le maquillage peut accentuer les zones déshydratées"
       },
       {
-        value: "activite_physique",
-        label: "Activité physique",
-        description: "Gestion par le sport"
+        value: "mixte",
+        label: "Tient bien sur les joues mais peut glisser sur la zone T",
+        description: "Tenue variable selon les zones du visage"
       },
       {
-        value: "aucune_technique",
-        label: "Aucune technique particulière",
-        description: "Pas de pratique spécifique"
+        value: "grasse",
+        label: "A tendance à \"fondre\" ou devenir brillant rapidement",
+        description: "L'excès de sébum peut altérer la tenue du maquillage"
       },
       {
-        value: "difficulte",
-        label: "Je ne gère pas bien le stress",
-        description: "Difficultés à gérer le stress"
+        value: "sensible",
+        label: "Peut accentuer les rougeurs ou créer des irritations",
+        description: "Les peaux sensibles peuvent réagir aux produits de maquillage"
       }
     ]
   },
   {
-    id: "alimentation_grasse",
-    question: "Comment réagis-tu aux aliments riches en graisses et en sucre ?",
+    id: "sensation_inconfort",
+    question: "Ressens-tu souvent des sensations d'inconfort cutané ?",
     options: [
       {
-        value: "aucun_probleme",
-        label: "Aucun problème",
-        description: "Bonne tolérance"
+        value: "seche",
+        label: "Sensation de tiraillement fréquente",
+        description: "Les tiraillements sont typiques des peaux déshydratées"
       },
       {
-        value: "reactions_digestives",
-        label: "Petites réactions digestives",
-        description: "Légère sensibilité"
+        value: "mixte",
+        label: "Parfois des inconforts sur certaines zones, pas sur d'autres",
+        description: "Sensations variables selon les zones du visage"
       },
       {
-        value: "reactions_inflammatoires",
-        label: "Réactions inflammatoires visibles",
-        description: "Réactions cutanées"
+        value: "grasse",
+        label: "Rarement, sauf si ma peau est trop nettoyée",
+        description: "Les peaux grasses tolèrent bien la plupart des produits"
       },
       {
-        value: "evitement",
-        label: "Je les évite pour des raisons de santé",
-        description: "Évitement préventif"
+        value: "sensible",
+        label: "Souvent des picotements, brûlures ou démangeaisons",
+        description: "Les sensations d'inconfort sont fréquentes sur peaux sensibles"
       }
     ]
   }

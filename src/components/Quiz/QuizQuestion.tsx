@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
 import { questions } from "./questions";
-import { useEffect } from "react";
 
 export const QuizQuestion = () => {
   const { state, dispatch } = useQuiz();
@@ -25,46 +24,36 @@ export const QuizQuestion = () => {
     dispatch({ type: "NEXT_QUESTION" });
   };
 
-  // Fonction simple pour déterminer le type de peau
+  // Fonction pour déterminer le type de peau basée sur les réponses
   const calculateSkinType = (answers: Record<string, string>) => {
     let points = {
-      oily: 0,
-      dry: 0,
-      combination: 0,
-      sensitive: 0,
-      normal: 0,
+      seche: 0,
+      mixte: 0,
+      grasse: 0,
+      sensible: 0,
     };
 
-    // Analyse des réponses pour la brillance
-    if (answers.brillance === "constamment") points.oily += 2;
-    if (answers.brillance === "apres_heures") points.combination += 2;
-    if (answers.brillance === "rarement") points.normal += 1;
-    if (answers.brillance === "jamais") points.dry += 2;
+    // Compter les points pour chaque type de peau
+    Object.values(answers).forEach(answer => {
+      if (answer === "seche") points.seche += 1;
+      if (answer === "mixte") points.mixte += 1;
+      if (answer === "grasse") points.grasse += 1;
+      if (answer === "sensible") points.sensible += 1;
+    });
 
-    // Analyse des réponses pour l'hydratant
-    if (answers.hydratant === "grasse") points.oily += 2;
-    if (answers.hydratant === "absorbe") points.dry += 2;
-    if (answers.hydratant === "peu_changement") points.normal += 2;
-    if (answers.hydratant === "irritations") points.sensitive += 2;
-
-    // Analyse des réponses pour la sécheresse
-    if (answers.secheresse === "souvent") points.dry += 2;
-    if (answers.secheresse === "parfois") points.combination += 1;
-    if (answers.secheresse === "rarement") points.normal += 1;
-    if (answers.secheresse === "jamais") points.oily += 1;
-
-    // Analyse des réponses pour les rougeurs
-    if (answers.rougeurs === "tres_frequent") points.sensitive += 2;
-    if (answers.rougeurs === "temps_en_temps") points.sensitive += 1;
-    if (answers.rougeurs === "rarement") points.normal += 1;
-    if (answers.rougeurs === "jamais") points.normal += 2;
-
-    // Trouver le type de peau avec le plus de points
-    const skinType = Object.entries(points).reduce((a, b) => 
-      b[1] > a[1] ? b : a
-    )[0] as "oily" | "dry" | "combination" | "sensitive" | "normal";
-
-    return skinType;
+    // Déterminer le type de peau dominant
+    const maxPoints = Math.max(points.seche, points.mixte, points.grasse, points.sensible);
+    
+    // Vérification des types combinés
+    const skinTypes = [];
+    
+    if (points.seche === maxPoints) skinTypes.push("dry");
+    if (points.mixte === maxPoints) skinTypes.push("combination");
+    if (points.grasse === maxPoints) skinTypes.push("oily");
+    if (points.sensible === maxPoints) skinTypes.push("sensitive");
+    
+    // Retourner le premier type dominant, ou "combination" s'il y a une égalité
+    return skinTypes[0] || "normal";
   };
 
   // Si nous n'avons plus de questions, ne rien afficher
