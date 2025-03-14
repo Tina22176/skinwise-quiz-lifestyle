@@ -21,7 +21,8 @@ export const QuizQuestion = () => {
       const currentQuestion = questions[state.currentQuestion];
       dispatch({
         type: "SET_ANSWER",
-        payload: { questionId: currentQuestion.id, answer },
+        questionId: currentQuestion.id,
+        answer: answer,
       });
   
       // Si c'est la dernière question, calculons le résultat
