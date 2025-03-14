@@ -4,7 +4,7 @@ import { questions } from "./questions";
 
 export type QuizState = {
   step: number;
-  currentQuestion: number; // Add this property to align with usage in components
+  currentQuestion: number;
   result: string | null;
   answers: Record<string, string>;
   email: string | null;
@@ -14,7 +14,7 @@ export type QuizState = {
 type QuizAction =
   | { type: "NEXT_STEP" }
   | { type: "PREV_STEP" }
-  | { type: "NEXT_QUESTION" } // Add this action type
+  | { type: "NEXT_QUESTION" }
   | { type: "SET_RESULT"; payload: string }
   | { type: "SET_ANSWER"; questionId: string; answer: string }
   | { type: "SET_EMAIL"; payload: string }
@@ -28,7 +28,7 @@ type QuizContextType = {
 
 const initialState: QuizState = {
   step: 0,
-  currentQuestion: 0, // Initialize currentQuestion
+  currentQuestion: 0,
   result: null,
   answers: {},
   email: null,
@@ -100,4 +100,10 @@ export const useQuiz = () => {
     throw new Error("useQuiz must be used within a QuizProvider");
   }
   return context;
+};
+
+// Helper function to convert the result value to the exact format Klaviyo expects
+export const getSkinTypeFormatted = (skinType: string | null): string => {
+  if (!skinType) return "normal";
+  return skinType.toLowerCase();
 };
