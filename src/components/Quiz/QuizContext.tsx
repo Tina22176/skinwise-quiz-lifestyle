@@ -4,6 +4,7 @@ import { questions } from "./questions";
 
 export type QuizState = {
   step: number;
+  currentQuestion: number; // Add this property to align with usage in components
   result: string | null;
   answers: Record<string, string>;
   email: string | null;
@@ -13,6 +14,7 @@ export type QuizState = {
 type QuizAction =
   | { type: "NEXT_STEP" }
   | { type: "PREV_STEP" }
+  | { type: "NEXT_QUESTION" } // Add this action type
   | { type: "SET_RESULT"; payload: string }
   | { type: "SET_ANSWER"; questionId: string; answer: string }
   | { type: "SET_EMAIL"; payload: string }
@@ -26,6 +28,7 @@ type QuizContextType = {
 
 const initialState: QuizState = {
   step: 0,
+  currentQuestion: 0, // Initialize currentQuestion
   result: null,
   answers: {},
   email: null,
@@ -45,6 +48,11 @@ const quizReducer = (state: QuizState, action: QuizAction): QuizState => {
       return {
         ...state,
         step: Math.max(0, state.step - 1),
+      };
+    case "NEXT_QUESTION":
+      return {
+        ...state,
+        currentQuestion: state.currentQuestion + 1,
       };
     case "SET_RESULT":
       return {
