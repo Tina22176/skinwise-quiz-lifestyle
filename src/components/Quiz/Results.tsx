@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -197,7 +196,6 @@ export const Results = () => {
   const skinType = state.result || "normal";
   const details = getSkinTypeDetails(skinType);
 
-  // Calculer les scores pour l'affichage
   const calculateScores = () => {
     const scores = {
       dry: 0,
@@ -284,28 +282,6 @@ export const Results = () => {
                     💖 Ton type de peau : {getSkinTypeText(skinType)}
                   </h2>
                 </motion.div>
-              </div>
-
-              <div className="bg-white/80 p-6 rounded-xl shadow-sm border border-pink-100/50 mb-6">
-                <h3 className="text-lg font-semibold text-black mb-3">Analyse de tes réponses :</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                  <div className="bg-pink-50/80 p-3 rounded-lg">
-                    <p className="font-medium">Type Sec</p>
-                    <p className="text-pink-600 font-bold">{scores.dry} réponses</p>
-                  </div>
-                  <div className="bg-pink-50/80 p-3 rounded-lg">
-                    <p className="font-medium">Type Mixte</p>
-                    <p className="text-pink-600 font-bold">{scores.combination} réponses</p>
-                  </div>
-                  <div className="bg-pink-50/80 p-3 rounded-lg">
-                    <p className="font-medium">Type Gras</p>
-                    <p className="text-pink-600 font-bold">{scores.oily} réponses</p>
-                  </div>
-                  <div className="bg-pink-50/80 p-3 rounded-lg">
-                    <p className="font-medium">Type Sensible</p>
-                    <p className="text-pink-600 font-bold">{scores.sensitive} réponses</p>
-                  </div>
-                </div>
               </div>
 
               <div className="bg-gradient-to-br from-pink-50/90 to-white/90 p-6 rounded-xl border border-pink-100/50 shadow-sm">
