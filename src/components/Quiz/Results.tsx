@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -116,9 +115,6 @@ export const Results = () => {
 
   const processLifestyleFactors = (answers: Record<string, string>) => {
     const factors: string[] = [];
-    
-    // Analyse des réponses pour identifier des facteurs lifestyle
-    // Nous garderons cette fonction telle quelle pour l'instant
     return factors;
   };
 
@@ -140,7 +136,6 @@ export const Results = () => {
       dispatch({ type: "SET_EMAIL", payload: email });
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
-      // Traitement des facteurs lifestyle
       const lifestyleFactors = processLifestyleFactors(state.answers);
 
       const quizData = {
@@ -197,27 +192,6 @@ export const Results = () => {
   const skinType = state.result || "normal";
   const details = getSkinTypeDetails(skinType);
 
-  const calculateScores = () => {
-    const scores = {
-      dry: 0,
-      combination: 0,
-      oily: 0,
-      sensitive: 0
-    };
-    
-    // Compter les réponses pour chaque type
-    Object.values(state.answers).forEach(answer => {
-      if (answer === "seche") scores.dry += 1;
-      if (answer === "mixte") scores.combination += 1;
-      if (answer === "grasse") scores.oily += 1;
-      if (answer === "sensible") scores.sensitive += 1;
-    });
-    
-    return scores;
-  };
-  
-  const scores = calculateScores();
-
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -252,22 +226,64 @@ export const Results = () => {
           exit={{ opacity: 0 }}
           className="flex flex-col items-center justify-center min-h-[400px] space-y-6"
         >
-          <motion.div
-            animate={{ 
-              rotate: 360,
-              scale: [1, 1.1, 1],
-            }}
-            transition={{ 
-              rotate: { duration: 2, repeat: Infinity, ease: "linear" },
-              scale: { duration: 1, repeat: Infinity }
-            }}
-            className="relative w-16 h-16"
+          <div className="relative">
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-200/30 to-pink-300/30 blur-xl"
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div
+              animate={{ 
+                rotate: 360,
+                scale: [1, 1.1, 1],
+              }}
+              transition={{ 
+                rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+                scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="relative w-20 h-20 flex items-center justify-center"
+            >
+              <Sparkles className="absolute w-24 h-24 text-pink-200 animate-pulse" />
+              <Wand2 className="w-16 h-16 text-pink-400 z-10" />
+            </motion.div>
+          </div>
+          
+          <div className="space-y-4 text-center">
+            <motion.p 
+              className="text-xl font-medium text-pink-600"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ✨ La magie opère... ✨
+            </motion.p>
+            <p className="text-lg text-center text-muted-foreground max-w-md">
+              Nous préparons ton diagnostic beauté personnalisé avec amour...
+            </p>
+          </div>
+          
+          <motion.div 
+            className="w-64 h-2 bg-pink-100 rounded-full overflow-hidden mt-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
           >
-            <Wand2 className="w-16 h-16 text-pink-400 animate-pulse" />
+            <motion.div 
+              className="h-full bg-gradient-to-r from-pink-300 to-pink-400"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ 
+                duration: 2.2,
+                ease: "easeInOut"
+              }}
+            />
           </motion.div>
-          <p className="text-lg text-center text-muted-foreground">
-            ✨ La magie opère... nous préparons ton diagnostic beauté personnalisé ✨
-          </p>
         </motion.div>
       ) : (
         <motion.div
@@ -311,9 +327,19 @@ export const Results = () => {
                   <h1 className="text-2xl md:text-3xl font-medium text-black mb-4">
                     ✨ RÉSULTAT : DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
                   </h1>
-                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400/90 via-pink-300/90 to-pink-200/90 text-transparent bg-clip-text">
+                  <motion.h2 
+                    className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400/90 via-pink-300/90 to-pink-200/90 text-transparent bg-clip-text"
+                    animate={{
+                      backgroundPosition: ['0% center', '100% center', '0% center'],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
                     💖 Ton type de peau : {getSkinTypeText(skinType)}
-                  </h2>
+                  </motion.h2>
                 </motion.div>
               </motion.div>
 
@@ -388,9 +414,19 @@ export const Results = () => {
                     className="flex flex-col gap-6"
                   >
                     <div className="text-center space-y-3">
-                      <h3 className="text-2xl font-semibold text-black">
+                      <motion.h3 
+                        className="text-2xl font-semibold text-black"
+                        animate={{ 
+                          scale: [1, 1.03, 1],
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
                         🌟 PROCHAINE ÉTAPE 🌟
-                      </h3>
+                      </motion.h3>
                       <p className="text-black/70">
                         Reçois ton calendrier de Skin Cycling personnalisé pour optimiser ta routine selon tes besoins spécifiques !
                       </p>
@@ -417,9 +453,9 @@ export const Results = () => {
                     </div>
 
                     <motion.div 
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(255,192,203,0.3)" }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                      className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/90 to-white/90 p-4 rounded-xl border border-pink-200/60 shadow-sm hover:shadow-md transition-all duration-300"
+                      className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/90 to-white/90 p-4 rounded-xl border border-pink-200/60 shadow-md hover:shadow-lg transition-all duration-300"
                     >
                       <Checkbox
                         id="gdpr"
@@ -442,7 +478,7 @@ export const Results = () => {
                     >
                       <Button 
                         type="submit" 
-                        className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_4px_16px_rgba(255,192,203,0.25)] hover:shadow-[0_8px_24px_rgba(255,192,203,0.4)] transition-all duration-300"
+                        className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_8px_24px_rgba(255,192,203,0.25)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.4)] transition-all duration-300"
                         disabled={isLoading || !email || !gdprConsent}
                       >
                         <motion.span
@@ -471,21 +507,37 @@ export const Results = () => {
                   variants={itemVariants}
                   className="flex flex-col items-center gap-6 mt-8"
                 >
-                  <div className="flex items-center gap-2 text-black font-medium">
-                    <Check className="w-5 h-5" />
-                    <span>Ton calendrier de Skin Cycling est en route ! 💌</span>
-                  </div>
-                  <p className="text-sm text-black/70 text-center">
-                    N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
-                  </p>
-                  <Button
-                    onClick={handleShare}
-                    variant="outline"
-                    className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50"
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600"
                   >
-                    <Instagram className="w-4 h-4" />
-                    Partager mes résultats sur Instagram
-                  </Button>
+                    <Check className="w-8 h-8" />
+                  </motion.div>
+                  
+                  <div className="space-y-3 text-center">
+                    <p className="text-lg font-medium text-black">
+                      Ton calendrier de Skin Cycling est en route ! 💌
+                    </p>
+                    <p className="text-sm text-black/70">
+                      N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
+                    </p>
+                  </div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="mt-4"
+                  >
+                    <Button
+                      onClick={handleShare}
+                      variant="outline"
+                      className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
+                    >
+                      <Instagram className="w-4 h-4" />
+                      Partager mes résultats sur Instagram
+                    </Button>
+                  </motion.div>
                 </motion.div>
               )}
             </motion.div>

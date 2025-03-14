@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -72,6 +73,22 @@
   .animate-glow {
     @apply animate-[glow_3s_ease-in-out_infinite];
   }
+  
+  .animate-shimmer {
+    @apply relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent;
+  }
+  
+  .animate-pulse-soft {
+    @apply animate-[pulse-soft_2s_infinite_ease-in-out];
+  }
+  
+  .animate-fade-in {
+    @apply animate-[fade-in_0.5s_ease-out_forwards];
+  }
+  
+  .animate-reveal {
+    @apply animate-[reveal_0.7s_ease-out_forwards];
+  }
 }
 
 @keyframes glow {
@@ -80,5 +97,40 @@
   }
   50% { 
     box-shadow: 0 0 25px rgba(255, 192, 203, 0.5);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { 
+    opacity: 1;
+  }
+  50% { 
+    opacity: 0.7;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
