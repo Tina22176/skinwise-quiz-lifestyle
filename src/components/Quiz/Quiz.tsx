@@ -8,7 +8,7 @@ import { questions } from "./questions";
 import { AnimatePresence } from "framer-motion";
 
 const QuizContent = () => {
-  const { state } = useQuiz();
+  const { state, resetQuiz } = useQuiz();
   const [stage, setStage] = useState<"welcome" | "questions" | "results">("welcome");
 
   useEffect(() => {
@@ -17,6 +17,12 @@ const QuizContent = () => {
       setStage("results");
     }
   }, [state.currentQuestion]);
+
+  // Fonction pour gérer la réinitialisation du quiz
+  const handleResetQuiz = () => {
+    resetQuiz();
+    setStage("welcome");
+  };
 
   return (
     <div className="min-h-screen py-12">
@@ -28,7 +34,7 @@ const QuizContent = () => {
           <QuizQuestion />
         )}
         {(stage === "results" || state.currentQuestion >= questions.length) && (
-          <Results />
+          <Results onResetQuiz={handleResetQuiz} />
         )}
       </AnimatePresence>
     </div>

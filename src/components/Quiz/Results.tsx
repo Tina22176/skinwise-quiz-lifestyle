@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz, getSkinTypeFormatted } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -96,7 +95,7 @@ const getSkinTypeDetails = (skinType: string) => {
   return details[skinType] || details["normal"];
 };
 
-export const Results = () => {
+export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
   const { state, dispatch } = useQuiz();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -204,7 +203,7 @@ export const Results = () => {
   };
 
   const handleResetQuiz = () => {
-    dispatch({ type: "RESET_QUIZ" });
+    onResetQuiz();
   };
 
   const visitInstagram = () => {
