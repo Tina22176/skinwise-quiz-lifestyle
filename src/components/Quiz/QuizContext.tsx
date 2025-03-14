@@ -1,56 +1,75 @@
 
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode } from "react";
+import { questions } from "./questions";
 
-type SkinType = 'oily' | 'dry' | 'combination' | 'sensitive' | 'normal';
-
-interface QuizState {
-  currentQuestion: number;
+export type QuizState = {
+  step: number;
+  result: string | null;
   answers: Record<string, string>;
-  result: SkinType | null;
-  email: string;
-  firstName: string;
-}
-
-type QuizAction =
-  | { type: 'NEXT_QUESTION' }
-  | { type: 'PREVIOUS_QUESTION' }
-  | { type: 'SET_ANSWER'; payload: { questionId: string; answer: string } }
-  | { type: 'SET_RESULT'; payload: SkinType }
-  | { type: 'SET_EMAIL'; payload: string }
-  | { type: 'SET_FIRST_NAME'; payload: string }
-  | { type: 'RESET' };
-
-const initialState: QuizState = {
-  currentQuestion: 0,
-  answers: {},
-  result: null,
-  email: '',
-  firstName: '',
+  email: string | null;
+  firstName: string | null;
 };
 
-const QuizContext = createContext<{
+type QuizAction =
+  | { type: "NEXT_STEP" }
+  | { type: "PREV_STEP" }
+  | { type: "SET_RESULT"; payload: string }
+  | { type: "SET_ANSWER"; questionId: string; answer: string }
+  | { type: "SET_EMAIL"; payload: string }
+  | { type: "SET_FIRST_NAME"; payload: string }
+  | { type: "RESET_QUIZ" };
+
+type QuizContextType = {
   state: QuizState;
   dispatch: React.Dispatch<QuizAction>;
-} | null>(null);
+};
+
+const initialState: QuizState = {
+  step: 0,
+  result: null,
+  answers: {},
+  email: null,
+  firstName: null,
+};
+
+const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 const quizReducer = (state: QuizState, action: QuizAction): QuizState => {
   switch (action.type) {
-    case 'NEXT_QUESTION':
-      return { ...state, currentQuestion: state.currentQuestion + 1 };
-    case 'PREVIOUS_QUESTION':
-      return { ...state, currentQuestion: Math.max(0, state.currentQuestion - 1) };
-    case 'SET_ANSWER':
+    case "NEXT_STEP":
       return {
         ...state,
-        answers: { ...state.answers, [action.payload.questionId]: action.payload.answer },
+        step: state.step + 1,
       };
-    case 'SET_RESULT':
-      return { ...state, result: action.payload };
-    case 'SET_EMAIL':
-      return { ...state, email: action.payload };
-    case 'SET_FIRST_NAME':
-      return { ...state, firstName: action.payload };
-    case 'RESET':
+    case "PREV_STEP":
+      return {
+        ...state,
+        step: Math.max(0, state.step - 1),
+      };
+    case "SET_RESULT":
+      return {
+        ...state,
+        result: action.payload,
+      };
+    case "SET_ANSWER":
+      return {
+        ...state,
+        answers: {
+          ...state.answers,
+          [action.questionId]: action.answer,
+        },
+      };
+    case "SET_EMAIL":
+      return {
+        ...state,
+        email: action.payload,
+      };
+    case "SET_FIRST_NAME":
+      return {
+        ...state,
+        firstName: action.payload,
+      };
+    case "RESET_QUIZ":
       return initialState;
     default:
       return state;
@@ -69,8 +88,8 @@ export const QuizProvider = ({ children }: { children: ReactNode }) => {
 
 export const useQuiz = () => {
   const context = useContext(QuizContext);
-  if (!context) {
-    throw new Error('useQuiz must be used within a QuizProvider');
+  if (context === undefined) {
+    throw new Error("useQuiz must be used within a QuizProvider");
   }
   return context;
 };

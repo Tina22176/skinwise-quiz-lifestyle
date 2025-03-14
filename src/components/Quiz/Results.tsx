@@ -3,7 +3,7 @@ import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
-import { Check, Loader2, Mail, Instagram, Sparkles, Wand2 } from "lucide-react";
+import { Check, Loader2, Mail, Instagram, Sparkles, Wand2, RefreshCw } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -105,6 +105,7 @@ export const Results = () => {
   const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
   const webhookUrl = "https://hooks.zapier.com/hooks/catch/14381563/2w2elvt/";
+  const instagramUrl = "https://www.instagram.com/majolie_peau/";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -192,6 +193,14 @@ export const Results = () => {
   const handleShare = () => {
     const shareText = `Je viens de découvrir mon type de peau avec Majoliepeau ! 💖 Mon diagnostic : Peau ${getSkinTypeText(state.result || "normal")}`;
     window.open(`https://www.instagram.com/create/story?text=${encodeURIComponent(shareText)}`, '_blank');
+  };
+
+  const handleResetQuiz = () => {
+    dispatch({ type: "RESET_QUIZ" });
+  };
+
+  const visitInstagram = () => {
+    window.open(instagramUrl, '_blank');
   };
 
   const skinType = state.result || "normal";
@@ -529,18 +538,83 @@ export const Results = () => {
                       N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
                     </p>
                   </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button
+                        onClick={handleShare}
+                        variant="outline"
+                        className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto"
+                      >
+                        <Instagram className="w-4 h-4" />
+                        Partager mes résultats
+                      </Button>
+                    </motion.div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button
+                        onClick={visitInstagram}
+                        variant="outline"
+                        className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto"
+                      >
+                        <Instagram className="w-4 h-4" />
+                        Suivre Majoliepeau
+                      </Button>
+                    </motion.div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button
+                        onClick={handleResetQuiz}
+                        variant="outline"
+                        className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                        Refaire le test
+                      </Button>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              )}
+
+              {!isSubscribed && (
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                >
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
-                    className="mt-4"
                   >
                     <Button
-                      onClick={handleShare}
+                      onClick={visitInstagram}
                       variant="outline"
-                      className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
+                      className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto"
                     >
                       <Instagram className="w-4 h-4" />
-                      Partager mes résultats sur Instagram
+                      Suivre Majoliepeau
+                    </Button>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      onClick={handleResetQuiz}
+                      variant="outline"
+                      className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-auto"
+                    >
+                      <RefreshCw className="w-4 h-4" />
+                      Refaire le test
                     </Button>
                   </motion.div>
                 </motion.div>
