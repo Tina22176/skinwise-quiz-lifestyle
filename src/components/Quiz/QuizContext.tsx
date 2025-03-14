@@ -24,6 +24,7 @@ type QuizAction =
 type QuizContextType = {
   state: QuizState;
   dispatch: React.Dispatch<QuizAction>;
+  resetQuiz: () => void;
 };
 
 const initialState: QuizState = {
@@ -86,9 +87,14 @@ const quizReducer = (state: QuizState, action: QuizAction): QuizState => {
 
 export const QuizProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
+  
+  // Fonction dédiée pour réinitialiser le quiz
+  const resetQuiz = () => {
+    dispatch({ type: "RESET_QUIZ" });
+  };
 
   return (
-    <QuizContext.Provider value={{ state, dispatch }}>
+    <QuizContext.Provider value={{ state, dispatch, resetQuiz }}>
       {children}
     </QuizContext.Provider>
   );
