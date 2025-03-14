@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -217,6 +218,30 @@ export const Results = () => {
   
   const scores = calculateScores();
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        type: "spring", 
+        stiffness: 300,
+        damping: 24
+      }
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
       {!showResults ? (
@@ -252,16 +277,24 @@ export const Results = () => {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mx-auto px-4"
         >
-          <div className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/95 to-white/95 shadow-[0_8px_32px_rgba(255,192,203,0.2)] relative overflow-hidden">
+          <motion.div 
+            className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/95 to-white/95 shadow-[0_8px_32px_rgba(255,192,203,0.2)] relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-100/10 to-pink-200/15 pointer-events-none" />
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
               className="space-y-10 relative"
             >
-              <div className="text-center space-y-6 relative">
+              <motion.div 
+                variants={itemVariants}
+                className="text-center space-y-6 relative"
+              >
                 <motion.div
                   animate={{ 
                     opacity: [0.5, 1, 0.5],
@@ -282,18 +315,19 @@ export const Results = () => {
                     💖 Ton type de peau : {getSkinTypeText(skinType)}
                   </h2>
                 </motion.div>
-              </div>
+              </motion.div>
 
-              <div className="bg-gradient-to-br from-pink-50/90 to-white/90 p-6 rounded-xl border border-pink-100/50 shadow-sm">
+              <motion.div 
+                variants={itemVariants}
+                className="bg-gradient-to-br from-pink-50/90 to-white/90 p-6 rounded-xl border border-pink-100/50 shadow-sm"
+              >
                 <h3 className="text-xl font-semibold text-black mb-3">Ton profil cutané :</h3>
                 <p className="text-black/80 mb-4">{details.description}</p>
-              </div>
+              </motion.div>
 
               <div className="grid md:grid-cols-2 gap-8">
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
+                  variants={itemVariants}
                   className="space-y-4 bg-gradient-to-br from-white/80 to-pink-50/80 p-8 rounded-2xl shadow-[0_4px_20px_rgba(255,192,203,0.15)] border border-pink-100/50"
                 >
                   <h3 className="text-xl font-semibold text-black flex items-center gap-2">
@@ -316,9 +350,7 @@ export const Results = () => {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 }}
+                  variants={itemVariants}
                   className="space-y-4 bg-gradient-to-br from-white/80 to-pink-50/80 p-8 rounded-2xl shadow-[0_4px_20px_rgba(255,192,203,0.15)] border border-pink-100/50"
                 >
                   <h3 className="text-xl font-semibold text-black flex items-center gap-2">
@@ -342,9 +374,7 @@ export const Results = () => {
               </div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
+                variants={itemVariants}
                 className="bg-gradient-to-r from-pink-100/30 to-pink-50/30 p-6 rounded-xl border border-pink-200/30 shadow-sm"
               >
                 <h3 className="text-xl font-semibold text-black mb-3">Recommandation Skin Cycling :</h3>
@@ -354,10 +384,8 @@ export const Results = () => {
               {!isSubscribed ? (
                 <form onSubmit={handleSubmit} className="space-y-8 mt-10">
                   <motion.div 
+                    variants={itemVariants}
                     className="flex flex-col gap-6"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
                   >
                     <div className="text-center space-y-3">
                       <h3 className="text-2xl font-semibold text-black">
@@ -388,52 +416,60 @@ export const Results = () => {
                       />
                     </div>
 
-                    <div className="flex items-start space-x-3 bg-white p-4 rounded-xl border border-pink-100/50 shadow-sm">
+                    <motion.div 
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/90 to-white/90 p-4 rounded-xl border border-pink-200/60 shadow-sm hover:shadow-md transition-all duration-300"
+                    >
                       <Checkbox
                         id="gdpr"
                         checked={gdprConsent}
                         onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-                        className="mt-1 data-[state=checked]:bg-black data-[state=checked]:border-black"
+                        className="mt-1 border-pink-300 h-5 w-5 data-[state=checked]:bg-pink-400 data-[state=checked]:border-pink-400 shadow-sm"
                       />
                       <label 
                         htmlFor="gdpr" 
-                        className="text-sm text-black/70"
+                        className="text-sm text-black/70 cursor-pointer"
                       >
                         J'accepte de recevoir mon calendrier personnalisé et des conseils adaptés par email. 
                         Je peux me désinscrire à tout moment.
                       </label>
-                    </div>
+                    </motion.div>
 
-                    <Button 
-                      type="submit" 
-                      className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-white hover:bg-gradient-to-r hover:from-pink-100/50 hover:to-pink-50/50 text-black border border-pink-200/50 shadow-[0_4px_16px_rgba(255,192,203,0.15)] hover:shadow-[0_4px_20px_rgba(255,192,203,0.3)] transition-all duration-300"
-                      disabled={isLoading || !email || !gdprConsent}
+                    <motion.div
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <motion.span
-                        className="absolute inset-0 bg-gradient-to-r from-pink-100/20 to-transparent"
-                        animate={{
-                          x: ["0%", "200%"],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                      />
-                      {isLoading ? (
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin text-black" />
-                      ) : (
-                        <Mail className="w-5 h-5 mr-2 text-black" />
-                      )}
-                      RECEVOIR MON CALENDRIER PERSONNALISÉ
-                    </Button>
+                      <Button 
+                        type="submit" 
+                        className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_4px_16px_rgba(255,192,203,0.25)] hover:shadow-[0_8px_24px_rgba(255,192,203,0.4)] transition-all duration-300"
+                        disabled={isLoading || !email || !gdprConsent}
+                      >
+                        <motion.span
+                          className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent"
+                          animate={{
+                            x: ["-100%", "200%"],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                        />
+                        {isLoading ? (
+                          <Loader2 className="w-5 h-5 mr-2 animate-spin text-white" />
+                        ) : (
+                          <Mail className="w-5 h-5 mr-2 text-white" />
+                        )}
+                        RECEVOIR MON CALENDRIER PERSONNALISÉ
+                      </Button>
+                    </motion.div>
                   </motion.div>
                 </form>
               ) : (
                 <motion.div 
+                  variants={itemVariants}
                   className="flex flex-col items-center gap-6 mt-8"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
                 >
                   <div className="flex items-center gap-2 text-black font-medium">
                     <Check className="w-5 h-5" />
@@ -453,7 +489,7 @@ export const Results = () => {
                 </motion.div>
               )}
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
