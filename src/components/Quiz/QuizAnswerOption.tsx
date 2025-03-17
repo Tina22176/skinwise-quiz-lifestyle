@@ -26,8 +26,8 @@ export const QuizAnswerOption = ({
   const isMobile = useIsMobile();
   
   const buttonClasses = isMobile
-    ? "w-full text-left justify-start p-2 sm:p-3 h-auto glass card-hover overflow-hidden relative"
-    : "w-full text-left justify-start p-3 sm:p-4 h-auto glass card-hover overflow-hidden relative";
+    ? "w-full text-left justify-start p-3 sm:p-4 h-auto glass card-hover overflow-hidden relative"
+    : "w-full text-left justify-start p-4 sm:p-5 h-auto glass card-hover overflow-hidden relative";
 
   return (
     <motion.div
@@ -55,7 +55,7 @@ export const QuizAnswerOption = ({
             transition={{ duration: 0.3 }}
           />
         )}
-        <div className="flex items-start gap-1.5 w-full min-w-0">
+        <div className="flex items-start gap-3 w-full min-w-0">
           {isSelected && (
             <motion.div 
               initial={{ scale: 0, opacity: 0 }}
@@ -63,13 +63,18 @@ export const QuizAnswerOption = ({
               transition={{ type: "spring", stiffness: 500, damping: 15 }}
               className="flex-shrink-0 mt-0.5"
             >
-              <CheckCircle className="h-3.5 w-3.5 text-pink-500" />
+              <CheckCircle className="h-4 w-4 text-pink-500" />
             </motion.div>
           )}
           <div className={`${isSelected ? "flex-1" : "w-full"} min-w-0`}>
-            <p className={`${isMobile ? "text-sm" : "text-sm sm:text-base"} font-medium ${isSelected ? 'text-pink-600' : ''} break-words`}>
+            <p className={`${isMobile ? "text-sm sm:text-base" : "text-base sm:text-lg"} font-medium ${isSelected ? 'text-pink-600' : ''} break-words leading-relaxed`}>
               {option.label}
             </p>
+            {option.description && (
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 leading-relaxed">
+                {option.description}
+              </p>
+            )}
           </div>
         </div>
       </Button>

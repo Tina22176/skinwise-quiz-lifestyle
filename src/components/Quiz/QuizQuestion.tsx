@@ -61,16 +61,16 @@ export const QuizQuestion = () => {
 
   // Définir des classes adaptées selon l'appareil
   const containerClasses = isMobile 
-    ? "max-w-2xl mx-auto px-1" 
-    : "max-w-2xl mx-auto px-2 sm:px-4";
+    ? "max-w-3xl mx-auto px-4 py-4" 
+    : "max-w-3xl mx-auto px-8 py-6 sm:px-10";
   
   const questionClasses = isMobile
-    ? "text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-4 text-balance text-center px-1"
-    : "text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-6 text-balance text-center";
+    ? "text-base sm:text-lg md:text-xl font-semibold mb-6 sm:mb-8 text-balance text-center px-2"
+    : "text-xl sm:text-2xl md:text-3xl font-semibold mb-8 sm:mb-10 text-balance text-center";
   
   const optionSpacing = isMobile
-    ? "space-y-1.5"
-    : "space-y-2 sm:space-y-3";
+    ? "space-y-3"
+    : "space-y-4 sm:space-y-5";
 
   return (
     <motion.div
