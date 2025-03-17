@@ -1,11 +1,13 @@
 
 import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
-import { Button } from "@/components/ui/button";
 import { questions } from "./questions";
 import { useEffect, useState } from "react";
-import { CheckCircle } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { QuizProgressBar } from "./QuizProgressBar";
+import { QuizAnswerOption } from "./QuizAnswerOption";
+import { calculateSkinType } from "./utils/skinTypeCalculator";
+import { motivationalTexts } from "./constants/quizTexts";
 
 export const QuizQuestion = () => {
   const { state, dispatch } = useQuiz();
@@ -50,61 +52,17 @@ export const QuizQuestion = () => {
     }
   }, [showNextQuestion, dispatch]);
 
-  // Fonction pour déterminer le type de peau basée sur les réponses
-  const calculateSkinType = (answers: Record<string, string>) => {
-    let points = {
-      seche: 0,
-      mixte: 0,
-      grasse: 0,
-      sensible: 0,
-    };
-
-    // Compter les points pour chaque type de peau
-    Object.values(answers).forEach(answer => {
-      if (answer === "seche") points.seche += 1;
-      if (answer === "mixte") points.mixte += 1;
-      if (answer === "grasse") points.grasse += 1;
-      if (answer === "sensible") points.sensible += 1;
-    });
-
-    // Déterminer le type de peau dominant
-    const maxPoints = Math.max(points.seche, points.mixte, points.grasse, points.sensible);
-    
-    // Vérification des types combinés
-    const skinTypes = [];
-    
-    if (points.seche === maxPoints) skinTypes.push("dry");
-    if (points.mixte === maxPoints) skinTypes.push("combination");
-    if (points.grasse === maxPoints) skinTypes.push("oily");
-    if (points.sensible === maxPoints) skinTypes.push("sensitive");
-    
-    // Retourner le premier type dominant, ou "normal" s'il y a une égalité
-    return skinTypes[0] || "normal";
-  };
-
   // Si nous n'avons plus de questions, ne rien afficher
   if (state.currentQuestion >= questions.length) {
     return null;
   }
 
   const currentQuestion = questions[state.currentQuestion];
-  const progress = ((state.currentQuestion + 1) / questions.length) * 100;
-
-  const motivationalTexts = [
-    "Prends soin de toi...",
-    "Ta peau mérite le meilleur...",
-    "En route vers une peau rayonnante...",
-    "Découvrons ensemble ta routine idéale..."
-  ];
 
   // Définir des classes adaptées selon l'appareil
   const containerClasses = isMobile 
     ? "max-w-2xl mx-auto px-1" 
     : "max-w-2xl mx-auto px-2 sm:px-4";
-  
-  const progressBarClasses = isMobile
-    ? "mb-2 mt-1"
-    : "mb-4 sm:mb-6";
   
   const questionClasses = isMobile
     ? "text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-4 text-balance text-center px-1"
@@ -113,10 +71,6 @@ export const QuizQuestion = () => {
   const optionSpacing = isMobile
     ? "space-y-1.5"
     : "space-y-2 sm:space-y-3";
-  
-  const buttonClasses = isMobile
-    ? "w-full text-left justify-start p-2 sm:p-3 h-auto glass card-hover overflow-hidden relative"
-    : "w-full text-left justify-start p-3 sm:p-4 h-auto glass card-hover overflow-hidden relative";
 
   return (
     <motion.div
@@ -127,49 +81,11 @@ export const QuizQuestion = () => {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={containerClasses}
     >
-      <div className={progressBarClasses}>
-        <div className="h-2 w-full bg-pink-100/50 rounded-full overflow-hidden shadow-inner">
-          <motion.div
-            className="h-full bg-gradient-to-r from-pink-300 to-pink-400 rounded-full relative"
-            initial={{ width: 0 }}
-            animate={{ 
-              width: `${progress}%`,
-              transition: { 
-                duration: 0.7, 
-                ease: "easeOut"
-              }
-            }}
-          >
-            <motion.div 
-              className="absolute top-0 right-0 h-full w-8 bg-gradient-to-r from-transparent to-white/30"
-              animate={{ 
-                opacity: [0, 1, 0],
-                x: ['-100%', '100%']
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 1.5,
-                ease: "linear",
-                delay: 0.2
-              }}
-            />
-          </motion.div>
-        </div>
-        <div className="flex justify-between items-center mt-1">
-          <p className="text-xs text-muted-foreground">
-            Question {state.currentQuestion + 1}/{questions.length}
-          </p>
-          {!isMobile && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-xs sm:text-sm italic text-pink-400/80"
-            >
-              {motivationalTexts[state.currentQuestion % motivationalTexts.length]}
-            </motion.p>
-          )}
-        </div>
-      </div>
+      <QuizProgressBar 
+        currentQuestion={state.currentQuestion} 
+        totalQuestions={questions.length}
+        motivationalTexts={motivationalTexts}
+      />
 
       <motion.h2
         initial={{ opacity: 0, y: 10 }}
@@ -181,56 +97,16 @@ export const QuizQuestion = () => {
       </motion.h2>
 
       <div className={optionSpacing}>
-        {currentQuestion.options.map((option, index) => {
-          const isSelected = selectedAnswer === option.value;
-          
-          return (
-            <motion.div
-              key={option.value}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-              whileHover={{ scale: isMobile ? 1 : 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="w-full"
-            >
-              <Button
-                variant="outline"
-                className={`${buttonClasses} ${
-                  isSelected ? 'border-pink-400/70 bg-pink-50/50 shadow-lg' : ''
-                }`}
-                onClick={() => !selectedAnswer && handleAnswer(option.value)}
-                disabled={selectedAnswer !== null}
-              >
-                {isSelected && (
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-r from-pink-100/30 to-transparent"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-                <div className="flex items-start gap-1.5 w-full min-w-0">
-                  {isSelected && (
-                    <motion.div 
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 15 }}
-                      className="flex-shrink-0 mt-0.5"
-                    >
-                      <CheckCircle className="h-3.5 w-3.5 text-pink-500" />
-                    </motion.div>
-                  )}
-                  <div className={`${isSelected ? "flex-1" : "w-full"} min-w-0`}>
-                    <p className={`${isMobile ? "text-sm" : "text-sm sm:text-base"} font-medium ${isSelected ? 'text-pink-600' : ''} break-words`}>
-                      {option.label}
-                    </p>
-                  </div>
-                </div>
-              </Button>
-            </motion.div>
-          );
-        })}
+        {currentQuestion.options.map((option, index) => (
+          <QuizAnswerOption
+            key={option.value}
+            option={option}
+            index={index}
+            isSelected={selectedAnswer === option.value}
+            selectedAnswer={selectedAnswer}
+            onSelect={handleAnswer}
+          />
+        ))}
       </div>
     </motion.div>
   );
