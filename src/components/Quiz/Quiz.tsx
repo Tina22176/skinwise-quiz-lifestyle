@@ -28,8 +28,8 @@ const QuizContent = () => {
 
   // Ajuster le padding pour les appareils mobiles
   const containerClasses = isMobile 
-    ? "min-h-screen py-4" 
-    : "min-h-screen py-8 sm:py-12";
+    ? "min-h-screen py-2" 
+    : "min-h-screen py-6 sm:py-8";
 
   return (
     <div className={containerClasses}>
