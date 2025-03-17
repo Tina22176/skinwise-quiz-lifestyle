@@ -89,6 +89,10 @@
   .animate-reveal {
     @apply animate-[reveal_0.7s_ease-out_forwards];
   }
+  
+  .animate-bounce-subtle {
+    @apply animate-[bounce-subtle_2s_infinite_ease-in-out];
+  }
 }
 
 @keyframes glow {
@@ -132,5 +136,14 @@
   }
   to {
     clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
   }
 }

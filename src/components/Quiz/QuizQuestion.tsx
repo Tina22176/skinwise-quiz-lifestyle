@@ -8,6 +8,7 @@ import { QuizProgressBar } from "./QuizProgressBar";
 import { QuizAnswerOption } from "./QuizAnswerOption";
 import { calculateSkinType } from "./utils/skinTypeCalculator";
 import { motivationalTexts } from "./constants/quizTexts";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export const QuizQuestion = () => {
   const { state, dispatch } = useQuiz();
@@ -37,7 +38,7 @@ export const QuizQuestion = () => {
       } else {
         setShowNextQuestion(true);
       }
-    }, 600);
+    }, 800); // Increased delay for a more satisfying animation
   };
 
   // Passer à la question suivante après l'animation
@@ -47,7 +48,7 @@ export const QuizQuestion = () => {
         dispatch({ type: "NEXT_QUESTION" });
         setSelectedAnswer(null);
         setShowNextQuestion(false);
-      }, 300);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [showNextQuestion, dispatch]);
@@ -72,13 +73,62 @@ export const QuizQuestion = () => {
     ? "space-y-3.5"
     : "space-y-4 sm:space-y-5";
 
+  // Animation variants for the question container
+  const containerVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { 
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.15
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      x: -50, 
+      transition: { 
+        duration: 0.4, 
+        ease: [0.22, 1, 0.36, 1] 
+      }
+    }
+  };
+
+  // Animation variants for the question text
+  const questionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.5, 
+        ease: [0.22, 1, 0.36, 1] 
+      }
+    }
+  };
+
+  // Animation for next button
+  const nextButtonVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        delay: 0.8, 
+        duration: 0.4, 
+        ease: "easeOut" 
+      }
+    }
+  };
+
   return (
     <motion.div
       key={state.currentQuestion}
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
       className={containerClasses}
     >
       <QuizProgressBar 
@@ -88,12 +138,18 @@ export const QuizQuestion = () => {
       />
 
       <motion.h2
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className={questionClasses}
+        variants={questionVariants}
+        className={`${questionClasses} relative`}
       >
         {currentQuestion.question}
+        <motion.span 
+          className="absolute -top-1 -right-1 text-pink-400"
+          initial={{ scale: 0 }}
+          animate={{ scale: [0, 1.2, 1] }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <Sparkles className="h-5 w-5" />
+        </motion.span>
       </motion.h2>
 
       <div className={optionSpacing}>
@@ -108,6 +164,19 @@ export const QuizQuestion = () => {
           />
         ))}
       </div>
+
+      {selectedAnswer && (
+        <motion.div
+          variants={nextButtonVariants}
+          initial="hidden"
+          animate="visible" 
+          className="mt-8 flex justify-center"
+        >
+          <div className="animate-bounce-subtle">
+            <ArrowRight className="h-6 w-6 text-pink-400" />
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 };
