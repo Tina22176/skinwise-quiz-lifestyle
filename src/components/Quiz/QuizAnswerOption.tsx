@@ -70,11 +70,6 @@ export const QuizAnswerOption = ({
             <p className={`${isMobile ? "text-sm sm:text-base" : "text-base sm:text-lg"} font-medium ${isSelected ? 'text-pink-600' : ''} break-words leading-relaxed`}>
               {option.label}
             </p>
-            {option.description && (
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 leading-relaxed">
-                {option.description}
-              </p>
-            )}
           </div>
         </div>
       </Button>
