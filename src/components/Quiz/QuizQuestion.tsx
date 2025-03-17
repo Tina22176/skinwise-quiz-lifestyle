@@ -61,15 +61,15 @@ export const QuizQuestion = () => {
 
   // Définir des classes adaptées selon l'appareil
   const containerClasses = isMobile 
-    ? "max-w-3xl mx-auto px-4 py-4" 
-    : "max-w-3xl mx-auto px-8 py-6 sm:px-10";
+    ? "max-w-3xl mx-auto px-4 py-6" 
+    : "max-w-4xl mx-auto px-8 py-8 sm:px-10";
   
   const questionClasses = isMobile
     ? "text-base sm:text-lg md:text-xl font-semibold mb-6 sm:mb-8 text-balance text-center px-2"
     : "text-xl sm:text-2xl md:text-3xl font-semibold mb-8 sm:mb-10 text-balance text-center";
   
   const optionSpacing = isMobile
-    ? "space-y-3"
+    ? "space-y-3.5"
     : "space-y-4 sm:space-y-5";
 
   return (
