@@ -26,8 +26,8 @@ export const QuizAnswerOption = ({
   const isMobile = useIsMobile();
   
   const buttonClasses = isMobile
-    ? "w-full text-left justify-start p-3 sm:p-4 h-auto glass card-hover overflow-hidden relative"
-    : "w-full text-left justify-start p-4 sm:p-5 h-auto glass card-hover overflow-hidden relative";
+    ? "w-full text-left justify-start p-3 sm:p-4 h-auto glass card-hover overflow-visible relative"
+    : "w-full text-left justify-start p-4 sm:p-5 h-auto glass card-hover overflow-visible relative";
 
   return (
     <motion.div
@@ -67,7 +67,7 @@ export const QuizAnswerOption = ({
             </motion.div>
           )}
           <div className={`${isSelected ? "flex-1" : "w-full"} min-w-0`}>
-            <p className={`${isMobile ? "text-sm sm:text-base" : "text-base sm:text-lg"} font-medium ${isSelected ? 'text-pink-600' : ''} break-words leading-relaxed`}>
+            <p className={`${isMobile ? "text-sm sm:text-base" : "text-base sm:text-lg"} font-medium ${isSelected ? 'text-pink-600' : ''} whitespace-normal break-words leading-relaxed`}>
               {option.label}
             </p>
           </div>
