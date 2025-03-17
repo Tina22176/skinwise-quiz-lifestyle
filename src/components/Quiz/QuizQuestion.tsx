@@ -104,7 +104,7 @@ export const QuizQuestion = () => {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-2xl mx-auto px-4"
     >
-      <div className="mb-10">
+      <div className="mb-8">
         <div className="h-2.5 w-full bg-pink-100/50 rounded-full overflow-hidden shadow-inner">
           <motion.div
             className="h-full bg-gradient-to-r from-pink-300 to-pink-400 rounded-full relative"
@@ -132,7 +132,7 @@ export const QuizQuestion = () => {
             />
           </motion.div>
         </div>
-        <div className="flex justify-between items-center mt-3">
+        <div className="flex justify-between items-center mt-2">
           <p className="text-sm text-muted-foreground">
             Question {state.currentQuestion + 1} sur {questions.length}
           </p>
@@ -150,12 +150,12 @@ export const QuizQuestion = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-2xl md:text-3xl font-semibold mb-8 text-balance text-center"
+        className="text-xl md:text-2xl font-semibold mb-6 text-balance text-center"
       >
         {currentQuestion.question}
       </motion.h2>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {currentQuestion.options.map((option, index) => {
           const isSelected = selectedAnswer === option.value;
           
@@ -170,7 +170,7 @@ export const QuizQuestion = () => {
             >
               <Button
                 variant="outline"
-                className={`w-full text-left justify-start p-6 h-auto glass card-hover overflow-hidden relative ${
+                className={`w-full text-left justify-start p-4 h-auto glass card-hover overflow-hidden relative ${
                   isSelected ? 'border-pink-400/70 bg-pink-50/50 shadow-lg' : ''
                 }`}
                 onClick={() => !selectedAnswer && handleAnswer(option.value)}
@@ -184,19 +184,19 @@ export const QuizQuestion = () => {
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <div className="flex items-start gap-3 w-full">
+                <div className="flex items-start gap-2 w-full">
                   {isSelected && (
                     <motion.div 
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ type: "spring", stiffness: 500, damping: 15 }}
-                      className="flex-shrink-0 mt-1"
+                      className="flex-shrink-0 mt-0.5"
                     >
-                      <CheckCircle className="h-5 w-5 text-pink-500" />
+                      <CheckCircle className="h-4 w-4 text-pink-500" />
                     </motion.div>
                   )}
                   <div className={isSelected ? "flex-1" : "w-full"}>
-                    <p className={`font-medium ${isSelected ? 'text-pink-600' : ''}`}>
+                    <p className={`font-medium text-sm md:text-base ${isSelected ? 'text-pink-600' : ''}`}>
                       {option.label}
                     </p>
                   </div>
