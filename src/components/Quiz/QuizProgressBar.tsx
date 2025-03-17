@@ -17,12 +17,12 @@ export const QuizProgressBar = ({
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
   
   const progressBarClasses = isMobile
-    ? "mb-2 mt-1"
-    : "mb-4 sm:mb-6";
+    ? "mb-4 mt-2"
+    : "mb-6 sm:mb-8 mt-2";
 
   return (
     <div className={progressBarClasses}>
-      <div className="h-2 w-full bg-pink-100/50 rounded-full overflow-hidden shadow-inner">
+      <div className="h-2.5 w-full bg-pink-100/50 rounded-full overflow-hidden shadow-inner">
         <motion.div
           className="h-full bg-gradient-to-r from-pink-300 to-pink-400 rounded-full relative"
           initial={{ width: 0 }}
@@ -49,8 +49,8 @@ export const QuizProgressBar = ({
           />
         </motion.div>
       </div>
-      <div className="flex justify-between items-center mt-1">
-        <p className="text-xs text-muted-foreground">
+      <div className="flex justify-between items-center mt-2">
+        <p className="text-xs sm:text-sm text-muted-foreground">
           Question {currentQuestion + 1}/{totalQuestions}
         </p>
         {!isMobile && (
