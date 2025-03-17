@@ -102,9 +102,9 @@ export const QuizQuestion = () => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="max-w-2xl mx-auto px-4"
+      className="max-w-2xl mx-auto px-2 sm:px-4" // Réduit la marge horizontale sur mobile
     >
-      <div className="mb-8">
+      <div className="mb-4 sm:mb-6"> {/* Réduit l'espacement sur mobile */}
         <div className="h-2.5 w-full bg-pink-100/50 rounded-full overflow-hidden shadow-inner">
           <motion.div
             className="h-full bg-gradient-to-r from-pink-300 to-pink-400 rounded-full relative"
@@ -132,14 +132,14 @@ export const QuizQuestion = () => {
             />
           </motion.div>
         </div>
-        <div className="flex justify-between items-center mt-2">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex justify-between items-center mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Question {state.currentQuestion + 1} sur {questions.length}
           </p>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-sm italic text-pink-400/80"
+            className="text-xs sm:text-sm italic text-pink-400/80"
           >
             {motivationalTexts[state.currentQuestion % motivationalTexts.length]}
           </motion.p>
@@ -150,12 +150,12 @@ export const QuizQuestion = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-xl md:text-2xl font-semibold mb-6 text-balance text-center"
+        className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-6 text-balance text-center"
       >
         {currentQuestion.question}
       </motion.h2>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {currentQuestion.options.map((option, index) => {
           const isSelected = selectedAnswer === option.value;
           
@@ -165,12 +165,13 @@ export const QuizQuestion = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              className="w-full"
             >
               <Button
                 variant="outline"
-                className={`w-full text-left justify-start p-4 h-auto glass card-hover overflow-hidden relative ${
+                className={`w-full text-left justify-start p-3 sm:p-4 h-auto glass card-hover overflow-hidden relative ${
                   isSelected ? 'border-pink-400/70 bg-pink-50/50 shadow-lg' : ''
                 }`}
                 onClick={() => !selectedAnswer && handleAnswer(option.value)}
@@ -184,7 +185,7 @@ export const QuizQuestion = () => {
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <div className="flex items-start gap-2 w-full">
+                <div className="flex items-start gap-2 w-full min-w-0"> {/* min-w-0 pour éviter les débordements */}
                   {isSelected && (
                     <motion.div 
                       initial={{ scale: 0, opacity: 0 }}
@@ -195,8 +196,8 @@ export const QuizQuestion = () => {
                       <CheckCircle className="h-4 w-4 text-pink-500" />
                     </motion.div>
                   )}
-                  <div className={isSelected ? "flex-1" : "w-full"}>
-                    <p className={`font-medium text-sm md:text-base ${isSelected ? 'text-pink-600' : ''}`}>
+                  <div className={`${isSelected ? "flex-1" : "w-full"} min-w-0`}> {/* min-w-0 pour gérer les longs textes */}
+                    <p className={`font-medium text-sm sm:text-base ${isSelected ? 'text-pink-600' : ''} break-words`}>
                       {option.label}
                     </p>
                   </div>
