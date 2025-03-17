@@ -1,6 +1,5 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
-import { questions } from "./questions";
+import { questions } from "./questions/index";
 
 export type QuizState = {
   step: number;
