@@ -196,14 +196,9 @@ export const QuizQuestion = () => {
                     </motion.div>
                   )}
                   <div className={isSelected ? "flex-1" : "w-full"}>
-                    <p className={`font-medium mb-2 ${isSelected ? 'text-pink-600' : ''}`}>
+                    <p className={`font-medium ${isSelected ? 'text-pink-600' : ''}`}>
                       {option.label}
                     </p>
-                    {option.description && (
-                      <p className="text-sm text-muted-foreground">
-                        {option.description}
-                      </p>
-                    )}
                   </div>
                 </div>
               </Button>
