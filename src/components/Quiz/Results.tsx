@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz, getSkinTypeFormatted } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -140,15 +141,19 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
 
       const lifestyleFactors = processLifestyleFactors(state.answers);
       const formattedSkinType = getSkinTypeFormatted(state.result);
+      const skinTypeInFrench = getSkinTypeText(formattedSkinType);
 
       // Format data properly for Klaviyo
       const quizData = {
         email,
         first_name: firstName,
-        skinType: formattedSkinType, // Cette propriété sera accessible via {{ skinType }} dans Klaviyo
-        skin_type: formattedSkinType, // Alternative format
+        skinType: formattedSkinType,
+        skinTypeFrench: skinTypeInFrench, // Ajout du type de peau en français
+        skin_type: formattedSkinType,
+        skin_type_french: skinTypeInFrench, // Version alternative
         property: {
-          skinType: formattedSkinType // Cette propriété sera accessible via {{ property.skinType }} dans Klaviyo
+          skinType: formattedSkinType,
+          skinTypeFrench: skinTypeInFrench // Type de peau en français pour Klaviyo
         },
         quizAnswers: state.answers,
         timestamp: new Date().toISOString(),
@@ -160,7 +165,9 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
           quiz_completed: true,
           quiz_completion_date: new Date().toISOString(),
           skin_type: formattedSkinType,
+          skin_type_french: skinTypeInFrench,
           skinType: formattedSkinType,
+          skinTypeFrench: skinTypeInFrench,
           lifestyle_factors: lifestyleFactors,
           skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
           skin_factors: getSkinTypeDetails(state.result || "normal").factors,
@@ -499,7 +506,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                     >
                       <Button 
                         type="submit" 
-                        className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_8px_24px_rgba(255,192,203,0.25)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.4)] transition-all duration-300"
+                        className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_8px_24px_rgba(255,192,203,0.25)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.4)] transition-all duration-300 flex-shrink-0 flex-wrap"
                         disabled={isLoading || !email || !gdprConsent}
                       >
                         <motion.span
@@ -518,7 +525,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                         ) : (
                           <Mail className="w-5 h-5 mr-2 text-white" />
                         )}
-                        RECEVOIR MON CALENDRIER PERSONNALISÉ
+                        <span className="whitespace-normal">RECEVOIR MON CALENDRIER PERSONNALISÉ</span>
                       </Button>
                     </motion.div>
                   </motion.div>
