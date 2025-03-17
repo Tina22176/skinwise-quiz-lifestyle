@@ -1,7 +1,7 @@
 
 import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
-import { questions } from "./questions";
+import { questions } from "./questions/index";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { QuizProgressBar } from "./QuizProgressBar";

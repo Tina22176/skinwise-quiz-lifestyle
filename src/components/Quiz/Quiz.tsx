@@ -4,7 +4,7 @@ import { QuizProvider, useQuiz } from "./QuizContext";
 import { Welcome } from "./Welcome";
 import { QuizQuestion } from "./QuizQuestion";
 import { Results } from "./Results";
-import { questions } from "./questions";
+import { questions } from "./questions/index";
 import { AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
