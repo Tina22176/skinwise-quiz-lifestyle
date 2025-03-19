@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { SkinTypeHeader } from "./SkinTypeHeader";
 import { SkinProfileCard } from "./SkinProfileCard";
@@ -7,7 +6,7 @@ import { RoutineRecommendation } from "./RoutineRecommendation";
 import { SubscriptionForm } from "./SubscriptionForm";
 import { SubscribedActions } from "./SubscribedActions";
 import { UnsubscribedActions } from "./UnsubscribedActions";
-import { getSkinTypeText, getSkinTypeDetails } from "./Results";
+import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
 
 // Animation variants
 const containerVariants = {
