@@ -26,11 +26,11 @@ export const SkinTypeHeader = ({ skinType, variants }: SkinTypeHeaderProps) => {
         className="absolute inset-0 bg-gradient-to-r from-pink-100/40 via-pink-200/40 to-pink-100/40 blur-xl"
       />
       <motion.div className="relative">
-        <h1 className="text-2xl md:text-3xl font-medium text-pink-500 mb-4">
-          RÉSULTAT DE TON DIAGNOSTIC
+        <h1 className="text-2xl md:text-3xl font-medium text-black mb-4">
+          ✨ RÉSULTAT : DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
         </h1>
         <motion.h2 
-          className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-500 via-pink-400 to-pink-300 text-transparent bg-clip-text"
+          className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400/90 via-pink-300/90 to-pink-200/90 text-transparent bg-clip-text"
           animate={{
             backgroundPosition: ['0% center', '100% center', '0% center'],
           }}
@@ -40,7 +40,7 @@ export const SkinTypeHeader = ({ skinType, variants }: SkinTypeHeaderProps) => {
             ease: "easeInOut",
           }}
         >
-          Tu as une peau {getSkinTypeText(skinType)}
+          💖 Ton type de peau : {getSkinTypeText(skinType)}
         </motion.h2>
       </motion.div>
     </motion.div>
