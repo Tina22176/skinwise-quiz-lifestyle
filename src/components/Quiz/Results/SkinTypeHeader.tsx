@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { getSkinTypeText } from "./Results";
+import { getSkinTypeText } from "./SkinTypeDetails";
 
 interface SkinTypeHeaderProps {
   skinType: string;
