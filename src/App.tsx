@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import QuizPromo from "./pages/QuizPromo";
 import Guarantee from "./pages/Guarantee";
+import QuizResults from "./pages/QuizResults";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/promo" element={<QuizPromo />} />
           <Route path="/garantie" element={<Guarantee />} />
+          <Route path="/results" element={<QuizResults />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

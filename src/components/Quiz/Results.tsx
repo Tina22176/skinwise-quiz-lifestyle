@@ -126,7 +126,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
     if (!gdprConsent) {
       toast({
         title: "Consentement requis",
-        description: "Merci d'accepter les conditions d'utilisation pour recevoir ton calendrier de Skin Cycling personnalisé.",
+        description: "Merci d'accepter les conditions d'utilisation pour recevoir ta routine personnalisée.",
         variant: "destructive",
       });
       return;
@@ -190,7 +190,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
       setIsSubscribed(true);
       toast({
         title: "Merci ! 💝",
-        description: "Ton calendrier de Skin Cycling personnalisé arrive dans ta boîte mail 💌",
+        description: "Ta routine personnalisée arrive dans ta boîte mail 💌",
       });
     } catch (error) {
       console.error("❌ Erreur lors de l'envoi des données à Zapier:", error);
@@ -431,7 +431,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                 variants={itemVariants}
                 className="bg-gradient-to-r from-pink-100/30 to-pink-50/30 p-6 rounded-xl border border-pink-200/30 shadow-sm"
               >
-                <h3 className="text-xl font-semibold text-black mb-3">Recommandation Skin Cycling :</h3>
+                <h3 className="text-xl font-semibold text-black mb-3">Recommandation pour ta routine :</h3>
                 <p className="text-black/80">{details.skinCycling}</p>
               </motion.div>
 
@@ -456,7 +456,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                         🌟 PROCHAINE ÉTAPE 🌟
                       </motion.h3>
                       <p className="text-black/70">
-                        Reçois ton calendrier de Skin Cycling personnalisé pour optimiser ta routine selon tes besoins spécifiques !
+                        Reçois ta routine personnalisée gratuite adaptée à tes besoins spécifiques !
                       </p>
                     </div>
                     
@@ -472,7 +472,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                       
                       <Input
                         type="email"
-                        placeholder="Ton email pour recevoir ton calendrier personnalisé 🎀"
+                        placeholder="Ton email pour recevoir ta routine personnalisée 🎀"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -495,7 +495,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                         htmlFor="gdpr" 
                         className="text-sm text-black/70 cursor-pointer"
                       >
-                        J'accepte de recevoir mon calendrier personnalisé et des conseils adaptés par email. 
+                        J'accepte de recevoir ma routine personnalisée et des conseils adaptés par email. 
                         Je peux me désinscrire à tout moment.
                       </label>
                     </motion.div>
@@ -525,7 +525,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                         ) : (
                           <Mail className="w-5 h-5 mr-2 text-white" />
                         )}
-                        <span className="whitespace-normal">RECEVOIR MON CALENDRIER PERSONNALISÉ</span>
+                        <span className="whitespace-normal">RECEVOIR MA ROUTINE PERSONNALISÉE</span>
                       </Button>
                     </motion.div>
                   </motion.div>
@@ -546,7 +546,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                   
                   <div className="space-y-3 text-center">
                     <p className="text-lg font-medium text-black">
-                      Ton calendrier de Skin Cycling est en route ! 💌
+                      Ta routine personnalisée est en route ! 💌
                     </p>
                     <p className="text-sm text-black/70">
                       N'oublie pas de vérifier tes spams si tu ne reçois rien d'ici quelques minutes.
