@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuiz, getSkinTypeFormatted } from "../QuizContext";
-import { getSkinTypeText } from "./SkinTypeDetails";
+import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
 
 interface EmailSubscriptionHandlerProps {
   onSubscriptionComplete: () => void;
