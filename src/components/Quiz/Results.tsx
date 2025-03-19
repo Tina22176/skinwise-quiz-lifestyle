@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz, getSkinTypeFormatted } from "./QuizContext";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,7 @@ const getSkinTypeText = (skinType: string) => {
 };
 
 const getSkinTypeDetails = (skinType: string) => {
-  const details: Record<string, { characteristics: string[]; factors: string[]; description: string; skinCycling: string }> = {
+  const details: Record<string, { characteristics: string[]; factors: string[]; description: string; routineRecommendation: string }> = {
     "combination": {
       description: "Ta peau présente deux comportements distincts : plus grasse sur la zone T (front, nez, menton) et normale à sèche sur les joues.",
       characteristics: [
@@ -33,7 +32,7 @@ const getSkinTypeDetails = (skinType: string) => {
         "Utilisation de produits inadaptés",
         "Facteurs environnementaux"
       ],
-      skinCycling: "Ton skin cycling devra équilibrer les différentes zones avec des actifs adaptés, en utilisant des produits plus légers sur la zone T et plus nourrissants sur les zones sèches."
+      routineRecommendation: "Ta routine devra équilibrer les différentes zones avec des actifs adaptés, en utilisant des produits plus légers sur la zone T et plus nourrissants sur les zones sèches."
     },
     "dry": {
       description: "Ta peau manque de sébum et d'hydratation. Elle peut paraître terne, tiraillée et présenter des squames.",
@@ -47,7 +46,7 @@ const getSkinTypeDetails = (skinType: string) => {
         "Barrière cutanée fragilisée",
         "Facteurs environnementaux (chauffage, climatisation)"
       ],
-      skinCycling: "Le skin cycling devra privilégier l'hydratation profonde et limiter les actifs exfoliants trop puissants qui pourraient accentuer la sécheresse."
+      routineRecommendation: "Ta routine devra privilégier l'hydratation profonde et limiter les actifs exfoliants trop puissants qui pourraient accentuer la sécheresse."
     },
     "oily": {
       description: "Ta peau produit un excès de sébum qui lui donne un aspect brillant. Les pores sont souvent dilatés et les imperfections fréquentes.",
@@ -61,7 +60,7 @@ const getSkinTypeDetails = (skinType: string) => {
         "Facteurs hormonaux",
         "Prédisposition génétique"
       ],
-      skinCycling: "Ton skin cycling mettra l'accent sur la régulation du sébum tout en maintenant une bonne hydratation, car même les peaux grasses ont besoin d'être hydratées."
+      routineRecommendation: "Ta routine mettra l'accent sur la régulation du sébum tout en maintenant une bonne hydratation, car même les peaux grasses ont besoin d'être hydratées."
     },
     "sensitive": {
       description: "Ta peau réagit facilement aux stimuli externes (climat, produits, stress) par des rougeurs, irritations ou inconfort.",
@@ -75,7 +74,7 @@ const getSkinTypeDetails = (skinType: string) => {
         "Réactivité aux ingrédients cosmétiques",
         "Facteurs environnementaux et stress"
       ],
-      skinCycling: "Ton skin cycling devra être particulièrement progressif avec des actifs doux et apaisants, en introduisant les actifs puissants avec précaution et en petites quantités."
+      routineRecommendation: "Ta routine devra être particulièrement douce avec des actifs apaisants, en introduisant progressivement les actifs plus puissants en petites quantités."
     },
     "normal": {
       description: "Ta peau est équilibrée, ni trop grasse ni trop sèche. Elle présente peu d'imperfections et ne réagit pas excessivement aux facteurs externes.",
@@ -89,7 +88,7 @@ const getSkinTypeDetails = (skinType: string) => {
         "Bonne hydratation naturelle",
         "Barrière cutanée intacte"
       ],
-      skinCycling: "Ton skin cycling peut être adapté à tes objectifs spécifiques (anti-âge, éclat, etc.) tout en maintenant l'équilibre naturel de ta peau."
+      routineRecommendation: "Ta routine peut être adaptée à tes objectifs spécifiques (anti-âge, éclat, etc.) tout en maintenant l'équilibre naturel de ta peau."
     }
   };
 
@@ -432,7 +431,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
                 className="bg-gradient-to-r from-pink-100/30 to-pink-50/30 p-6 rounded-xl border border-pink-200/30 shadow-sm"
               >
                 <h3 className="text-xl font-semibold text-black mb-3">Recommandation pour ta routine :</h3>
-                <p className="text-black/80">{details.skinCycling}</p>
+                <p className="text-black/80">{details.routineRecommendation}</p>
               </motion.div>
 
               {!isSubscribed ? (
