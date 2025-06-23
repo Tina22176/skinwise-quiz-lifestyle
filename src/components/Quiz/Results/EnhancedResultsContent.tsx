@@ -108,7 +108,7 @@ Facteurs influents :
 ${skinDetails.factors.map(factor => `• ${factor}`).join('\n')}
 
 Recommandation :
-${skinDetails.recommendation}
+${skinDetails.routineRecommendation}
 
 Généré le : ${new Date().toLocaleDateString('fr-FR')}
     `;
@@ -127,6 +127,15 @@ Généré le : ${new Date().toLocaleDateString('fr-FR')}
       title: "Téléchargement réussi !",
       description: "Tes résultats ont été sauvegardés",
     });
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSubmit(e);
+  };
+
+  const visitInstagram = () => {
+    window.open(instagramUrl, '_blank');
   };
 
   return (
@@ -211,10 +220,15 @@ Généré le : ${new Date().toLocaleDateString('fr-FR')}
               isLoading={isLoading}
               gdprConsent={gdprConsent}
               setGdprConsent={setGdprConsent}
-              handleSubmit={handleSubmit}
+              handleSubmit={handleFormSubmit}
             />
           ) : (
-            <SubscribedActions instagramUrl={instagramUrl} onResetQuiz={onResetQuiz} />
+            <SubscribedActions 
+              handleShare={handleShare}
+              visitInstagram={visitInstagram}
+              onResetQuiz={onResetQuiz}
+              variants={itemVariants}
+            />
           )}
         </motion.div>
       </div>
