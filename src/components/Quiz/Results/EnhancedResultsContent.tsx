@@ -10,34 +10,40 @@ import { SubscribedActions } from "./SubscribedActions";
 import { ResultsActionButtons } from "./components/ResultsActionButtons";
 import { useResultsActions } from "./hooks/useResultsActions";
 import { useResultsAnimations } from "./hooks/useResultsAnimations";
-import { useKlaviyoIntegration } from "./hooks/useKlaviyoIntegration";
 import { useQuiz } from "../QuizContext";
 
 interface EnhancedResultsContentProps {
   skinType: string;
+  email: string;
+  setEmail: (email: string) => void;
+  firstName: string;
+  setFirstName: (firstName: string) => void;
+  isSubscribed: boolean;
+  isLoading: boolean;
+  gdprConsent: boolean;
+  setGdprConsent: (consent: boolean) => void;
+  handleSubmit: (e: React.FormEvent) => Promise<void>;
   onResetQuiz: () => void;
   instagramUrl: string;
 }
 
 export const EnhancedResultsContent = ({
   skinType,
+  email,
+  setEmail,
+  firstName,
+  setFirstName,
+  isSubscribed,
+  isLoading,
+  gdprConsent,
+  setGdprConsent,
+  handleSubmit,
   onResetQuiz,
   instagramUrl,
 }: EnhancedResultsContentProps) => {
   const { state } = useQuiz();
   const { containerVariants, itemVariants } = useResultsAnimations();
   const { handleShare, handleDownload } = useResultsActions(skinType);
-  const {
-    email,
-    setEmail,
-    firstName,
-    setFirstName,
-    isSubscribed,
-    isLoading,
-    gdprConsent,
-    setGdprConsent,
-    handleSubmit
-  } = useKlaviyoIntegration();
 
   const visitInstagram = () => {
     window.open(instagramUrl, '_blank');
