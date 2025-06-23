@@ -221,6 +221,7 @@ Généré le : ${new Date().toLocaleDateString('fr-FR')}
               gdprConsent={gdprConsent}
               setGdprConsent={setGdprConsent}
               handleSubmit={handleFormSubmit}
+              variants={itemVariants}
             />
           ) : (
             <SubscribedActions 
