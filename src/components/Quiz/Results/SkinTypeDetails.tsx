@@ -1,5 +1,6 @@
 
 interface SkinTypeDetail {
+  title: string;
   description: string;
   characteristics: string[];
   factors: string[];
@@ -20,6 +21,7 @@ export const getSkinTypeText = (skinType: string) => {
 export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
   const details: Record<string, SkinTypeDetail> = {
     "combination": {
+      title: "Peau Mixte",
       description: "Ta peau présente deux comportements distincts : plus grasse sur la zone T (front, nez, menton) et normale à sèche sur les joues.",
       characteristics: [
         "Zone T grasse, joues plus sèches",
@@ -34,6 +36,7 @@ export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
       routineRecommendation: "Ta routine devra équilibrer les différentes zones avec des actifs adaptés, en utilisant des produits plus légers sur la zone T et plus nourrissants sur les zones sèches."
     },
     "dry": {
+      title: "Peau Sèche",
       description: "Ta peau manque de sébum et d'hydratation. Elle peut paraître terne, tiraillée et présenter des squames.",
       characteristics: [
         "Sensation de tiraillement fréquente",
@@ -48,6 +51,7 @@ export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
       routineRecommendation: "Ta routine devra privilégier l'hydratation profonde et limiter les actifs exfoliants trop puissants qui pourraient accentuer la sécheresse."
     },
     "oily": {
+      title: "Peau Grasse",
       description: "Ta peau produit un excès de sébum qui lui donne un aspect brillant. Les pores sont souvent dilatés et les imperfections fréquentes.",
       characteristics: [
         "Brillance excessive tout au long de la journée",
@@ -62,6 +66,7 @@ export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
       routineRecommendation: "Ta routine mettra l'accent sur la régulation du sébum tout en maintenant une bonne hydratation, car même les peaux grasses ont besoin d'être hydratées."
     },
     "sensitive": {
+      title: "Peau Sensible",
       description: "Ta peau réagit facilement aux stimuli externes (climat, produits, stress) par des rougeurs, irritations ou inconfort.",
       characteristics: [
         "Réactivité cutanée aux stimuli externes",
@@ -76,6 +81,7 @@ export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
       routineRecommendation: "Ta routine devra être particulièrement douce avec des actifs apaisants, en introduisant progressivement les actifs plus puissants en petites quantités."
     },
     "normal": {
+      title: "Peau Normale",
       description: "Ta peau est équilibrée, ni trop grasse ni trop sèche. Elle présente peu d'imperfections et ne réagit pas excessivement aux facteurs externes.",
       characteristics: [
         "Teint uniforme et lumineux",
