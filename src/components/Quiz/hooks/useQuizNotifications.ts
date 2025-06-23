@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -40,7 +39,7 @@ export const useQuizNotifications = () => {
     const thirtyDays = 30 * 24 * 60 * 60 * 1000;
     
     setTimeout(() => {
-      if (notificationPermission === 'grante') {
+      if (notificationPermission === 'granted') {
         new Notification('Quiz Peau - Rappel', {
           body: 'Il est temps de refaire ton quiz peau ! 🌸',
           icon: '/favicon.ico',
