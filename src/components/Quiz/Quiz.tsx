@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { Welcome } from "./Welcome";
-import { QuizQuestion } from "./QuizQuestion";
+import { EnhancedQuizQuestion } from "./EnhancedQuizQuestion";
 import { Results } from "./Results";
 import { questions } from "./questions/index";
 import { AnimatePresence } from "framer-motion";
@@ -14,19 +14,16 @@ const QuizContent = () => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    // Passer aux résultats quand toutes les questions sont répondues
     if (state.currentQuestion >= questions.length) {
       setStage("results");
     }
   }, [state.currentQuestion]);
 
-  // Fonction pour gérer la réinitialisation du quiz
   const handleResetQuiz = () => {
     resetQuiz();
     setStage("welcome");
   };
 
-  // Ajuster le padding pour les appareils mobiles
   const containerClasses = isMobile 
     ? "min-h-screen py-2" 
     : "min-h-screen py-6 sm:py-8";
@@ -38,7 +35,7 @@ const QuizContent = () => {
           <Welcome onStart={() => setStage("questions")} />
         )}
         {stage === "questions" && state.currentQuestion < questions.length && (
-          <QuizQuestion />
+          <EnhancedQuizQuestion />
         )}
         {(stage === "results" || state.currentQuestion >= questions.length) && (
           <Results onResetQuiz={handleResetQuiz} />
