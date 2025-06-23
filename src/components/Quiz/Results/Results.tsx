@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useQuiz } from "../QuizContext";
 import { ResultsLoading } from "./ResultsLoading";
-import { ResultsContent } from "./ResultsContent";
+import { EnhancedResultsContent } from "./EnhancedResultsContent";
 import { AnimatePresence } from "framer-motion";
 import { useEmailSubscription } from "./EmailSubscriptionHandler";
 
@@ -11,7 +11,6 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
   const [showResults, setShowResults] = useState(false);
   const instagramUrl = "https://www.instagram.com/majolie_peau/";
   
-  // Get subscription handling logic from the custom hook
   const {
     email, 
     setEmail,
@@ -27,7 +26,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowResults(true);
-    }, 2500);
+    }, 3000); // Increased loading time for better suspense
     return () => clearTimeout(timer);
   }, []);
 
@@ -36,7 +35,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
       {!showResults ? (
         <ResultsLoading />
       ) : (
-        <ResultsContent 
+        <EnhancedResultsContent 
           skinType={state.result || "normal"}
           email={email}
           setEmail={setEmail}
