@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { Welcome } from "./Welcome";
@@ -7,6 +6,7 @@ import { Results } from "./Results";
 import { questions } from "./questions/index";
 import { AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { InstallPWA } from "../PWA/InstallPWA";
 
 const QuizContent = () => {
   const { state, resetQuiz } = useQuiz();
@@ -49,6 +49,7 @@ export const Quiz = () => {
   return (
     <QuizProvider>
       <QuizContent />
+      <InstallPWA />
     </QuizProvider>
   );
 };
