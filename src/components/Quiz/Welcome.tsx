@@ -1,106 +1,195 @@
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star, Users, Clock, Heart } from "lucide-react";
 
 export const Welcome = ({ onStart }: { onStart: () => void }) => {
+  const stats = [
+    { icon: Users, value: "50K+", label: "Peaux analysées" },
+    { icon: Star, value: "4.9/5", label: "Note moyenne" },
+    { icon: Clock, value: "2 min", label: "Temps moyen" }
+  ];
+
   return (
-    <div className="relative">
-      <motion.div 
-        className="absolute inset-0 -z-10 opacity-20"
-        initial={{ scale: 1 }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div 
-          className="w-full h-full"
-          style={{
-            backgroundImage: "url('https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(8px)',
+    <div className="relative min-h-screen flex flex-col justify-center">
+      {/* Background decoratif */}
+      <div className="absolute inset-0 -z-10">
+        <motion.div 
+          className="absolute top-20 left-10 w-32 h-32 bg-pink-200/20 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
           }}
+          transition={{ duration: 4, repeat: Infinity }}
         />
-      </motion.div>
+        <motion.div 
+          className="absolute bottom-20 right-10 w-40 h-40 bg-pink-300/20 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            opacity: [0.5, 0.3, 0.5]
+          }}
+          transition={{ duration: 5, repeat: Infinity }}
+        />
+      </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-2xl mx-auto text-center px-4 py-4"
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-4xl mx-auto text-center px-4 py-8"
       >
-        <div className="mb-8">
-          <motion.div className="inline-block animate-glow">
+        {/* Badge premium */}
+        <motion.div 
+          className="inline-flex items-center space-x-2 glass px-4 py-2 rounded-full mb-8 border border-pink-200/30"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+        >
+          <Star className="w-4 h-4 text-yellow-500 fill-current" />
+          <span className="text-sm font-medium text-pink-700">Quiz Premium Gratuit</span>
+        </motion.div>
+
+        {/* Logo avec effet glow */}
+        <motion.div 
+          className="mb-8"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.div 
+            className="inline-block relative"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <div className="absolute inset-0 bg-pink-300/20 rounded-full blur-2xl animate-pulse-soft" />
             <img 
               src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
               alt="Logo Majoliepeau"
-              className="w-48 h-auto mx-auto"
+              className="relative w-56 h-auto mx-auto"
             />
           </motion.div>
-        </div>
+        </motion.div>
         
-        <h1 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight mx-auto max-w-xl text-pink-500">
-          ✨ DÉCOUVRE TON VÉRITABLE TYPE DE PEAU ✨
-        </h1>
+        {/* Titre principal avec gradient */}
+        <motion.h1 
+          className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.8 }}
+        >
+          <span className="bg-gradient-to-r from-pink-600 via-pink-500 to-pink-600 bg-clip-text text-transparent">
+            Révèle le Secret
+          </span>
+          <br />
+          <span className="text-gray-800">de ta Peau ✨</span>
+        </motion.h1>
 
+        {/* Statistiques */}
         <motion.div 
-          className="mb-8 rounded-3xl overflow-hidden shadow-[0_8px_24px_rgba(255,192,203,0.2)] mx-auto max-w-md"
+          className="flex justify-center items-center space-x-8 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+        >
+          {stats.map((stat, index) => (
+            <motion.div 
+              key={index}
+              className="text-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="flex items-center justify-center w-12 h-12 bg-pink-100 rounded-full mx-auto mb-2">
+                <stat.icon className="w-5 h-5 text-pink-600" />
+              </div>
+              <div className="font-semibold text-gray-800">{stat.value}</div>
+              <div className="text-sm text-gray-600">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Image principale avec overlay */}
+        <motion.div 
+          className="mb-8 relative max-w-md mx-auto"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.1, duration: 0.8 }}
           whileHover={{ 
             scale: 1.02,
-            rotate: [0, -1, 1, -1, 0],
-            transition: {
-              rotate: {
-                duration: 0.3,
-                repeat: 0,
-              }
-            }
+            transition: { type: "spring", stiffness: 300 }
           }}
         >
+          <div className="absolute inset-0 bg-gradient-to-t from-pink-200/30 to-transparent rounded-3xl" />
           <img 
             src="https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100"
             alt="Illustration digitale des copines Majoliepeau"
-            className="w-full h-48 object-cover"
+            className="w-full rounded-3xl shadow-[0_20px_40px_rgba(255,192,203,0.3)]"
           />
         </motion.div>
 
-        <div className="space-y-4 mb-8 text-left">
-          <h2 className="text-2xl text-pink-600/90 font-medium text-center">
+        {/* Description premium */}
+        <motion.div 
+          className="space-y-6 mb-10 text-left max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.3, duration: 0.6 }}
+        >
+          <h2 className="text-2xl md:text-3xl text-center font-semibold text-gray-800 mb-6">
             Ta peau te parle... mais la comprends-tu vraiment ? 💖
           </h2>
           
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Ce quiz unique te permet d'identifier précisément ton type de peau et de comprendre les facteurs de ton mode de vie qui influencent son éclat.
-          </p>
-          
-          <p className="text-lg md:text-xl text-muted-foreground font-medium">
-            En seulement 2 minutes, tu vas recevoir :
-          </p>
-          
-          <ul className="text-lg md:text-xl text-muted-foreground list-disc list-inside space-y-2 pl-4">
-            <li>Un diagnostic précis de ton type de peau</li>
-            <li>Des conseils personnalisés adaptés à TES besoins spécifiques</li>
-            <li>Ton calendrier de Skin Cycling sur 28 jours prêt à l'emploi</li>
-          </ul>
-
-          <p className="text-xl text-pink-500/90 font-medium mt-6 text-center">
-            🌸 Le secret d'une peau rayonnante n'est pas d'utiliser plus de produits, mais les BONS produits dans le BON ordre 🌸
-          </p>
-          
-          <p className="text-lg text-muted-foreground mt-4">
-            Tes réponses sont confidentielles et te permettront de recevoir un plan d'action parfaitement adapté à ta peau.
-          </p>
-        </div>
+          <div className="glass p-6 rounded-2xl border border-pink-100/50">
+            <p className="text-lg text-gray-700 mb-4">
+              Ce quiz unique te permet d'identifier précisément ton type de peau et de comprendre 
+              les facteurs de ton mode de vie qui influencent son éclat.
+            </p>
+            
+            <div className="flex items-start space-x-3 mb-4">
+              <Heart className="w-5 h-5 text-pink-500 mt-0.5 flex-shrink-0" />
+              <p className="text-gray-700">
+                <strong>En seulement 2 minutes</strong>, reçois ton diagnostic complet avec des conseils personnalisés
+              </p>
+            </div>
+            
+            <div className="bg-pink-50/50 rounded-xl p-4 mt-4">
+              <p className="text-center text-pink-700 font-medium">
+                🌸 Le secret d'une peau rayonnante n'est pas d'utiliser plus de produits, 
+                mais les BONS produits dans le BON ordre 🌸
+              </p>
+            </div>
+          </div>
+        </motion.div>
         
-        <div className="mt-10 flex flex-col items-center">
-          <button
+        {/* CTA Button premium */}
+        <motion.div 
+          className="flex flex-col items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+        >
+          <motion.button
             onClick={onStart}
-            className="premium-button group flex items-center gap-2 border border-black/10 bg-pink-100 hover:bg-pink-200"
+            className="group relative overflow-hidden bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-[0_10px_30px_rgba(255,192,203,0.4)] transition-all duration-300"
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 15px 40px rgba(255,192,203,0.6)"
+            }}
+            whileTap={{ scale: 0.98 }}
           >
-            <span className="relative inline-flex items-center">
-              👉 COMMENCER LE QUIZ
+            <span className="relative z-10 flex items-center">
+              ✨ DÉCOUVRIR MON TYPE DE PEAU
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </span>
-          </button>
-        </div>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-pink-600 to-pink-700"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "0%" }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.button>
+          
+          <p className="mt-4 text-sm text-gray-500">
+            🔒 Gratuit • Sans engagement • Résultats instantanés
+          </p>
+        </motion.div>
       </motion.div>
     </div>
   );
