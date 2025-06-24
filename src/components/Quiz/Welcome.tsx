@@ -1,10 +1,9 @@
-
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Users, Clock, Heart } from "lucide-react";
 
 export const Welcome = ({ onStart }: { onStart: () => void }) => {
   const stats = [
-    { icon: Users, value: "50K+", label: "Peaux analysées" },
+    { icon: Users, value: "18K+", label: "Peaux analysées" },
     { icon: Star, value: "4.9/5", label: "Note moyenne" },
     { icon: Clock, value: "2 min", label: "Temps moyen" }
   ];
