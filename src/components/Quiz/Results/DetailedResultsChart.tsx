@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from "recharts";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
@@ -226,7 +226,7 @@ export const DetailedResultsChart = ({ skinType, answers }: DetailedResultsChart
           💡 <strong>Ces scores reflètent l'état actuel de ta peau</strong> basé sur tes réponses. 
           Avec une routine adaptée, tu peux améliorer ces caractéristiques !
         </p>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
