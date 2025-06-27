@@ -1,6 +1,7 @@
 import { Quiz } from "@/components/Quiz/Quiz";
 import { motion } from "framer-motion";
 import { Sparkles, Shield, Award } from "lucide-react";
+import { OptimizedImage } from "@/components/OptimizedImage";
 
 const Index = () => {
   return (
@@ -11,17 +12,21 @@ const Index = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        style={{ minHeight: '64px' }}
       >
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center" style={{ minHeight: '64px' }}>
           <motion.div 
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <img 
+            <OptimizedImage 
               src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
               alt="Logo Majoliepeau"
+              width={56}
+              height={56}
               className="h-10 sm:h-12 md:h-14 w-auto"
+              priority={true}
             />
           </motion.div>
           
