@@ -1,37 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz Peau - Majoliepeau</title>
-    <meta name="description" content="Découvre ton véritable type de peau avec notre quiz personnalisé et reçois des conseils adaptés à tes besoins spécifiques." />
-    <meta name="author" content="Majoliepeau" />
+    <title>Quiz Type de Peau - Majoliepeau</title>
+    <meta name="description" content="Découvre ton type de peau en 2 minutes avec notre quiz personnalisé. Reçois ta routine gratuite adaptée à tes besoins spécifiques." />
     
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <!-- CSS critique inline optimisé pour LCP -->
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box}
+      body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:linear-gradient(135deg,#fdf4f6 0%,#ffffff 50%,#fdf4f6 100%);min-height:100vh;overflow-x:hidden;line-height:1.6;color:#1f2937}
+      .header-critical{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(236,72,153,0.1);height:64px;display:flex;align-items:center}
+      .container-critical{max-width:1200px;margin:0 auto;padding:0 1rem;display:flex;justify-content:space-between;align-items:center;width:100%;height:100%}
+      .logo-critical{height:40px;width:40px;object-fit:contain;display:block}
+      .header-info{display:flex;gap:1.5rem;font-size:0.875rem;color:#ec4899;font-weight:500}
+      .main-critical{padding-top:80px;min-height:calc(100vh - 80px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 1rem 2rem}
+      .lcp-content{max-width:600px;margin:0 auto;padding:2rem 1rem}
+      .lcp-title{font-size:2.5rem;font-weight:700;color:#1f2937;margin-bottom:1.5rem;line-height:1.2;background:linear-gradient(135deg,#ec4899,#be185d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+      .lcp-subtitle{font-size:1.25rem;color:#6b7280;margin-bottom:2rem;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto}
+      .lcp-description{font-size:1rem;color:#4b5563;line-height:1.7;margin-bottom:2rem;max-width:450px;margin-left:auto;margin-right:auto}
+      .cta-button{background:linear-gradient(135deg,#ec4899,#be185d);color:white;padding:1rem 2rem;border-radius:50px;font-size:1.125rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.2s ease;box-shadow:0 4px 15px rgba(236,72,153,0.3);display:inline-block;text-decoration:none}
+      .cta-button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(236,72,153,0.4)}
+      @media (max-width:768px){.lcp-title{font-size:2rem}.lcp-subtitle{font-size:1.125rem}.lcp-description{font-size:0.95rem}.cta-button{padding:0.875rem 1.75rem;font-size:1rem}}
+    </style>
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://quiz.majoliepeau.com/" />
-    <meta property="og:title" content="Quiz Peau - Majoliepeau" />
-    <meta property="og:description" content="Découvre ton véritable type de peau et reçois ton calendrier de Skin Cycling personnalisé." />
-    <meta property="og:image" content="https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100" />
+    <!-- Preload des ressources critiques -->
+    <link rel="preload" href="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png" as="image" type="image/png">
     
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://quiz.majoliepeau.com/" />
-    <meta property="twitter:title" content="Quiz Peau - Majoliepeau" />
-    <meta property="twitter:description" content="Découvre ton véritable type de peau et reçois ton calendrier de Skin Cycling personnalisé." />
-    <meta property="twitter:image" content="https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=1100" />
+    <!-- Preconnect uniquement aux domaines utilisés -->
+    <link rel="preconnect" href="https://majoliepeau.com">
+    <link rel="preconnect" href="https://instagram.com">
+    <link rel="preconnect" href="https://cdn.gpteng.co">
+    
+    <!-- Meta tags pour SEO et performance -->
+    <meta name="theme-color" content="#ec4899">
+    
+    <!-- CSS non-critique différé -->
+    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
     
     <!-- Lovable Script -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
   </head>
 
   <body>
-    <div id="root"></div>
+    <!-- Contenu critique inline pour LCP -->
+    <header class="header-critical">
+      <div class="container-critical">
+        <div class="logo-container">
+          <img 
+            src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
+            alt="Logo Majoliepeau"
+            class="logo-critical"
+            width="40"
+            height="40"
+            loading="eager"
+          />
+        </div>
+        <div class="header-info">
+          <span>100% Gratuit</span>
+          <span>2 min</span>
+        </div>
+      </div>
+    </header>
+    
+    <main class="main-critical">
+      <!-- Contenu LCP critique inline -->
+      <div class="lcp-content">
+        <h1 class="lcp-title">Découvre ton type de peau</h1>
+        <p class="lcp-subtitle">Quiz personnalisé en 2 minutes</p>
+        <p class="lcp-description">L'accompagnement haut de gamme pour bâtir ou repositionner une marque claire, éthique et rentable.</p>
+        <button class="cta-button" onclick="startQuiz()">Commencer le quiz</button>
+      </div>
+      
+      <!-- Container pour React -->
+      <div id="root" style="display: none;">
+        <div class="loading-critical">Chargement du quiz...</div>
+      </div>
+    </main>
+    
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Script pour démarrer le quiz -->
+    <script>
+      function startQuiz() {
+        const root = document.getElementById('root');
+        const lcpContent = document.querySelector('.lcp-content');
+        if (root && lcpContent) {
+          lcpContent.style.display = 'none';
+          root.style.display = 'block';
+        }
+      }
+    </script>
+    
+    <!-- Enregistrement du service worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
