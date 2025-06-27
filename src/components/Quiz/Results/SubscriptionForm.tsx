@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -29,14 +28,14 @@ export const SubscriptionForm = ({
   variants
 }: SubscriptionFormProps) => {
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 mt-10">
+    <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 mt-8 sm:mt-10">
       <motion.div 
         variants={variants}
-        className="flex flex-col gap-6"
+        className="flex flex-col gap-4 sm:gap-6"
       >
         <div className="text-center space-y-3">
           <motion.h3 
-            className="text-2xl font-semibold text-black"
+            className="text-xl sm:text-2xl font-semibold text-black"
             animate={{ 
               scale: [1, 1.03, 1],
             }}
@@ -48,7 +47,7 @@ export const SubscriptionForm = ({
           >
             🌟 PROCHAINE ÉTAPE 🌟
           </motion.h3>
-          <p className="text-black/70">
+          <p className="text-black/70 text-sm sm:text-base">
             Reçois ta routine personnalisée gratuite adaptée à tes besoins spécifiques !
           </p>
         </div>
@@ -60,7 +59,7 @@ export const SubscriptionForm = ({
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="premium-input text-lg py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
+            className="premium-input text-base sm:text-lg py-4 sm:py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
           />
           
           <Input
@@ -69,14 +68,14 @@ export const SubscriptionForm = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="premium-input text-lg py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
+            className="premium-input text-base sm:text-lg py-4 sm:py-6 bg-white border-pink-200/70 shadow-[0_2px_8px_rgba(255,192,203,0.15)] focus:border-pink-300/70 focus:ring-pink-200/50"
           />
         </div>
 
         <motion.div 
           whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(255,192,203,0.3)" }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/90 to-white/90 p-4 rounded-xl border border-pink-200/60 shadow-md hover:shadow-lg transition-all duration-300"
+          className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/90 to-white/90 p-3 sm:p-4 rounded-xl border border-pink-200/60 shadow-md hover:shadow-lg transition-all duration-300"
         >
           <Checkbox
             id="gdpr"
@@ -86,7 +85,7 @@ export const SubscriptionForm = ({
           />
           <label 
             htmlFor="gdpr" 
-            className="text-sm text-black/70 cursor-pointer"
+            className="text-xs sm:text-sm text-black/70 cursor-pointer"
           >
             J'accepte de recevoir ma routine personnalisée et des conseils adaptés par email. 
             Je peux me désinscrire à tout moment.
@@ -99,7 +98,7 @@ export const SubscriptionForm = ({
         >
           <Button 
             type="submit" 
-            className="group premium-button w-full text-lg py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_8px_24px_rgba(255,192,203,0.25)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.4)] transition-all duration-300 flex-shrink-0 flex-wrap"
+            className="group premium-button w-full text-base sm:text-lg py-4 sm:py-6 relative overflow-hidden bg-gradient-to-r from-pink-300/90 to-pink-200/90 hover:from-pink-400/90 hover:to-pink-300/90 text-white border border-pink-200/50 shadow-[0_8px_24px_rgba(255,192,203,0.25)] hover:shadow-[0_12px_32px_rgba(255,192,203,0.4)] transition-all duration-300 flex-shrink-0 flex-wrap"
             disabled={isLoading || !email || !gdprConsent}
           >
             <motion.span

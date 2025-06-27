@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { CheckCircle, Sparkles, Heart } from "lucide-react";
@@ -28,8 +27,8 @@ export const EnhancedAnswerOption = ({
   const [isHovered, setIsHovered] = useState(false);
   
   const buttonClasses = isMobile
-    ? "w-full text-left justify-start p-4 h-auto glass card-hover overflow-visible relative group"
-    : "w-full text-left justify-start p-5 h-auto glass card-hover overflow-visible relative group";
+    ? "w-full text-left justify-start p-5 sm:p-6 h-auto glass card-hover overflow-visible relative group"
+    : "w-full text-left justify-start p-6 sm:p-7 h-auto glass card-hover overflow-visible relative group";
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20, x: -10 },
@@ -63,8 +62,8 @@ export const EnhancedAnswerOption = ({
   const heartVariants = {
     initial: { scale: 0, opacity: 0 },
     animate: { 
-      scale: [0, 1.3, 1], 
-      opacity: [0, 1, 1],
+      scale: [0, 1.3], 
+      opacity: [0, 1],
       transition: { 
         type: "spring", 
         stiffness: 500, 
@@ -141,7 +140,7 @@ export const EnhancedAnswerOption = ({
                 <motion.div
                   className="absolute -top-1 -right-1"
                   initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.5, 1] }}
+                  animate={{ scale: [0, 1.5] }}
                   transition={{ delay: 0.6, duration: 0.4 }}
                 >
                   <Heart className="h-3 w-3 text-pink-400 fill-pink-400" />
@@ -152,11 +151,11 @@ export const EnhancedAnswerOption = ({
           
           <div className={`${isSelected ? "flex-1" : "w-full"} min-w-0`}>
             <motion.p 
-              className={`${isMobile ? "text-sm sm:text-base" : "text-base sm:text-lg"} font-medium ${
+              className={`${isMobile ? "text-base sm:text-lg" : "text-lg sm:text-xl"} font-medium ${
                 isSelected ? 'text-pink-600' : isHovered ? 'text-pink-500' : ''
               } whitespace-normal break-words leading-relaxed transition-colors duration-200`}
-              animate={isSelected ? { scale: [1, 1.02, 1] } : {}}
-              transition={{ duration: 0.3 }}
+              animate={isSelected ? { scale: [1, 1.02] } : {}}
+              transition={{ duration: 0.3, repeatType: "reverse" }}
             >
               {option.label}
             </motion.p>
@@ -178,8 +177,8 @@ export const EnhancedAnswerOption = ({
         {isHovered && !isSelected && (
           <motion.div
             className="absolute inset-0 bg-pink-200/10 rounded-[calc(var(--radius)-2px)]"
-            animate={{ opacity: [0, 0.5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            animate={{ opacity: [0, 0.5] }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
           />
         )}
       </Button>

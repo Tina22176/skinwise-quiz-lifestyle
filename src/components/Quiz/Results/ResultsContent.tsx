@@ -1,145 +1,123 @@
-import { motion } from "framer-motion";
+import React, { useState } from "react";
 import { SkinTypeHeader } from "./SkinTypeHeader";
-import { SkinProfileCard } from "./SkinProfileCard";
-import { SkinCharacteristicsGrid } from "./SkinCharacteristicsGrid";
-import { RoutineRecommendation } from "./RoutineRecommendation";
 import { SubscriptionForm } from "./SubscriptionForm";
+import { SkinProfileCard } from "./SkinProfileCard";
+import { PersonalizedRecommendations } from "./PersonalizedRecommendations";
+import { DetailedResultsChart } from "./DetailedResultsChart";
 import { SubscribedActions } from "./SubscribedActions";
 import { UnsubscribedActions } from "./UnsubscribedActions";
-import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
+import { QuizContext } from "../QuizContext";
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    }
-  }
-};
+export const ResultsContent: React.FC = () => {
+  const { quizState } = React.useContext(QuizContext);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showDetailedResults, setShowDetailedResults ] = useState(false);
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { 
-    opacity: 1, 
-    y: 0,
-    transition: { 
-      type: "spring", 
-      stiffness: 300,
-      damping: 24
-    }
-  }
-};
-
-interface ResultsContentProps {
-  skinType: string;
-  email: string;
-  setEmail: (email: string) => void;
-  firstName: string;
-  setFirstName: (name: string) => void;
-  isSubscribed: boolean;
-  isLoading: boolean;
-  gdprConsent: boolean;
-  setGdprConsent: (consent: boolean) => void;
-  handleSubmit: (e: React.FormEvent) => Promise<void>;
-  onResetQuiz: () => void;
-  instagramUrl: string;
-}
-
-export const ResultsContent = ({
-  skinType,
-  email,
-  setEmail,
-  firstName,
-  setFirstName,
-  isSubscribed,
-  isLoading,
-  gdprConsent,
-  setGdprConsent,
-  handleSubmit,
-  onResetQuiz,
-  instagramUrl
-}: ResultsContentProps) => {
-  const details = getSkinTypeDetails(skinType);
-  
-  const handleShare = () => {
-    const shareText = `Je viens de découvrir mon type de peau avec Majoliepeau ! 💖 Mon diagnostic : Peau ${getSkinTypeText(skinType)}`;
-    window.open(`https://www.instagram.com/create/story?text=${encodeURIComponent(shareText)}`, '_blank');
+  const handleSubscriptionSuccess = () => {
+    setIsSubscribed(true);
+    setShowDetailedResults(true);
   };
 
-  const visitInstagram = () => {
-    window.open(instagramUrl, '_blank');
+  const handleShowDetailedResults = () => {
+    setShowDetailedResults(true);
   };
+
+  if (!quizState.results) {
+    return <div>Chargement des résultats...</div>;
+  }
+
+  const { skinType, skinState, scores, characteristics, concerns, recommendations } = quizState.results;
 
   return (
-    <motion.div
-      key="results"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="max-w-3xl mx-auto px-4"
-    >
-      <motion.div 
-        className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/95 to-white/95 shadow-[0_8px_32px_rgba(255,192,203,0.2)] relative overflow-hidden"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-100/10 to-pink-200/15 pointer-events-none" />
-        
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="space-y-10 relative"
-        >
-          <SkinTypeHeader skinType={skinType} variants={itemVariants} />
-          
-          <SkinProfileCard description={details.description} variants={itemVariants} />
-          
-          <SkinCharacteristicsGrid 
-            characteristics={details.characteristics} 
-            factors={details.factors} 
-            variants={itemVariants} 
-          />
-          
-          <RoutineRecommendation 
-            recommendation={details.routineRecommendation} 
-            variants={itemVariants} 
-          />
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 max-w-4xl">
+        {/* Header avec type de peau */}
+        <SkinTypeHeader skinType={skinType} skinState={skinState} />
+
+        {/* Section d'inscription en premier */}
+        <div className="glass-strong rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center">
+          <div className="mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
+              🌟 PROCHAINE ÉTAPE 🌟
+            </h2>
+            <p className="text-base sm:text-lg text-gray-700 mb-4 sm:mb-6">
+              Reçois ta routine personnalisée gratuite adaptée à tes besoins spécifiques !
+            </p>
+          </div>
 
           {!isSubscribed ? (
             <SubscriptionForm
-              email={email}
-              setEmail={setEmail}
-              firstName={firstName}
-              setFirstName={setFirstName}
-              gdprConsent={gdprConsent}
-              setGdprConsent={setGdprConsent}
-              isLoading={isLoading}
-              handleSubmit={handleSubmit}
-              variants={itemVariants}
+              skinType={skinType}
+              skinState={skinState}
+              onSubscriptionSuccess={handleSubscriptionSuccess}
+              className="max-w-md mx-auto"
             />
           ) : (
-            <SubscribedActions
-              handleShare={handleShare}
-              visitInstagram={visitInstagram}
-              onResetQuiz={onResetQuiz}
-              variants={itemVariants}
-            />
+            <div className="text-center">
+              <div className="text-green-600 text-2xl mb-3 sm:mb-4">✅</div>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
+                Merci ! Ta routine personnalisée arrive bientôt
+              </h3>
+              <p className="text-gray-600 text-sm sm:text-base">
+                Vérifie tes emails pour recevoir tes recommandations détaillées
+              </p>
+            </div>
           )}
+        </div>
 
-          {!isSubscribed && (
-            <UnsubscribedActions
-              visitInstagram={visitInstagram}
-              onResetQuiz={onResetQuiz}
-              variants={itemVariants}
+        {/* Description simple du type de peau */}
+        <div className="glass rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
+            Ton type de peau : {skinType}
+            {skinState && skinState !== "none" && ` (${skinState})`}
+          </h3>
+          <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+            Ta peau présente des caractéristiques uniques qui nécessitent des soins adaptés. 
+            Notre analyse révèle que tu as besoin d'une approche personnalisée pour optimiser 
+            la santé et l'apparence de ta peau.
+          </p>
+        </div>
+
+        {/* Boutons d'action */}
+        <div className="mb-6 sm:mb-8">
+          {isSubscribed ? (
+            <SubscribedActions 
+              skinType={skinType}
+              onShowDetailedResults={handleShowDetailedResults}
+            />
+          ) : (
+            <UnsubscribedActions 
+              skinType={skinType}
+              onShowDetailedResults={handleShowDetailedResults}
             />
           )}
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </div>
+
+        {/* Résultats détaillés (seulement après inscription ou clic) */}
+        {showDetailedResults && (
+          <div className="space-y-6 sm:space-y-8">
+            {/* Profil cutané */}
+            <SkinProfileCard 
+              skinType={skinType}
+              skinState={skinState}
+              characteristics={characteristics}
+              concerns={concerns}
+            />
+
+            {/* Recommandations personnalisées */}
+            <PersonalizedRecommendations 
+              recommendations={recommendations}
+              skinType={skinType}
+            />
+
+            {/* Graphiques détaillés */}
+            <DetailedResultsChart 
+              scores={scores}
+              skinType={skinType}
+            />
+          </div>
+        )}
+      </div>
+    </div>
   );
 };

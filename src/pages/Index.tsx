@@ -1,4 +1,3 @@
-
 import { Quiz } from "@/components/Quiz/Quiz";
 import { motion } from "framer-motion";
 import { Sparkles, Shield, Award } from "lucide-react";
@@ -22,7 +21,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
               alt="Logo Majoliepeau"
-              className="h-8 w-auto"
+              className="h-10 sm:h-12 md:h-14 w-auto"
             />
           </motion.div>
           
@@ -99,7 +98,7 @@ const Index = () => {
                 Boutique
               </motion.a>
               <motion.a
-                href="https://instagram.com/majoliepeau"
+                href="https://instagram.com/majolie_peau"
                 className="text-sm text-pink-600/70 hover:text-pink-600 transition-colors"
                 whileHover={{ scale: 1.05 }}
                 target="_blank"

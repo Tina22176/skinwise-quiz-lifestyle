@@ -1,4 +1,3 @@
-
 import { QuizQuestion } from "./types";
 
 export const skinAppearanceQuestions: QuizQuestion[] = [
@@ -22,9 +21,9 @@ export const skinAppearanceQuestions: QuizQuestion[] = [
         description: "Caractéristique des peaux à forte production de sébum"
       },
       {
-        value: "sensible",
-        label: "Variables, parfois dilatés, parfois resserrés selon les réactions de ma peau",
-        description: "Caractéristique d'une peau réactive"
+        value: "normale",
+        label: "Discrets et uniformes sur tout le visage",
+        description: "Caractéristique des peaux équilibrées"
       }
     ]
   },
@@ -48,9 +47,9 @@ export const skinAppearanceQuestions: QuizQuestion[] = [
         description: "L'excès de sébum favorise les imperfections"
       },
       {
-        value: "sensible",
-        label: "Parfois, souvent sous forme de boutons inflammatoires ou réactionnels",
-        description: "Imperfections liées aux réactions cutanées"
+        value: "normale",
+        label: "Occasionnellement, mais pas de problème majeur",
+        description: "Les peaux normales ont peu d'imperfections"
       }
     ]
   },
@@ -74,9 +73,9 @@ export const skinAppearanceQuestions: QuizQuestion[] = [
         description: "L'excès de sébum peut altérer la tenue du maquillage"
       },
       {
-        value: "sensible",
-        label: "Peut accentuer les rougeurs ou créer des irritations",
-        description: "Les peaux sensibles peuvent réagir aux produits de maquillage"
+        value: "normale",
+        label: "Tient bien et reste naturel tout au long de la journée",
+        description: "Les peaux normales offrent une bonne tenue du maquillage"
       }
     ]
   }

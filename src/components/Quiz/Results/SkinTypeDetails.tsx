@@ -1,4 +1,3 @@
-
 interface SkinTypeDetail {
   title: string;
   description: string;
@@ -7,15 +6,56 @@ interface SkinTypeDetail {
   routineRecommendation: string;
 }
 
+interface SkinStateDetail {
+  title: string;
+  description: string;
+  characteristics: string[];
+  recommendations: string[];
+}
+
 export const getSkinTypeText = (skinType: string) => {
   const texts: Record<string, string> = {
     "combination": "Mixte",
     "dry": "Sèche",
     "oily": "Grasse",
-    "sensitive": "Sensible",
     "normal": "Normale"
   };
   return texts[skinType] || texts["normal"];
+};
+
+export const getSkinStateText = (state: string | null) => {
+  if (!state || state === "normal") return null;
+  
+  const texts: Record<string, string> = {
+    "sensitive": "Sensible"
+  };
+  return texts[state];
+};
+
+export const getSkinStateDetails = (state: string | null): SkinStateDetail | null => {
+  if (!state || state === "normal") return null;
+  
+  const details: Record<string, SkinStateDetail> = {
+    "sensitive": {
+      title: "État Sensible",
+      description: "Ta peau présente une réactivité accrue aux stimuli externes, nécessitant des soins particuliers.",
+      characteristics: [
+        "Réactivité cutanée aux stimuli externes",
+        "Rougeurs fréquentes ou permanentes",
+        "Sensations d'inconfort (picotements, tiraillements)",
+        "Intolérance à certains ingrédients cosmétiques"
+      ],
+      recommendations: [
+        "Privilégier les produits hypoallergéniques",
+        "Tester toujours avant utilisation",
+        "Éviter les parfums et alcools",
+        "Utiliser des produits apaisants",
+        "Protéger des agressions extérieures"
+      ]
+    }
+  };
+
+  return details[state] || null;
 };
 
 export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
@@ -64,21 +104,6 @@ export const getSkinTypeDetails = (skinType: string): SkinTypeDetail => {
         "Prédisposition génétique"
       ],
       routineRecommendation: "Ta routine mettra l'accent sur la régulation du sébum tout en maintenant une bonne hydratation, car même les peaux grasses ont besoin d'être hydratées."
-    },
-    "sensitive": {
-      title: "Peau Sensible",
-      description: "Ta peau réagit facilement aux stimuli externes (climat, produits, stress) par des rougeurs, irritations ou inconfort.",
-      characteristics: [
-        "Réactivité cutanée aux stimuli externes",
-        "Rougeurs fréquentes ou permanentes",
-        "Sensations d'inconfort (picotements, tiraillements)"
-      ],
-      factors: [
-        "Barrière cutanée fragilisée",
-        "Réactivité aux ingrédients cosmétiques",
-        "Facteurs environnementaux et stress"
-      ],
-      routineRecommendation: "Ta routine devra être particulièrement douce avec des actifs apaisants, en introduisant progressivement les actifs plus puissants en petites quantités."
     },
     "normal": {
       title: "Peau Normale",
