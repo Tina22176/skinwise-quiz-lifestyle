@@ -25,8 +25,8 @@ const QuizContent = () => {
   };
 
   const containerClasses = isMobile 
-    ? "min-h-screen py-2" 
-    : "min-h-screen py-6 sm:py-8";
+    ? "min-h-screen py-4 sm:py-6" 
+    : "min-h-screen py-6 sm:py-8 lg:py-10";
 
   return (
     <div className={containerClasses}>

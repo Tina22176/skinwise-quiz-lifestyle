@@ -1,13 +1,15 @@
-
 import { motion } from "framer-motion";
-import { getSkinTypeText } from "./SkinTypeDetails";
+import { getSkinTypeText, getSkinStateText } from "./SkinTypeDetails";
 
 interface SkinTypeHeaderProps {
   skinType: string;
+  skinState?: string | null;
   variants: any;
 }
 
-export const SkinTypeHeader = ({ skinType, variants }: SkinTypeHeaderProps) => {
+export const SkinTypeHeader = ({ skinType, skinState, variants }: SkinTypeHeaderProps) => {
+  const stateText = getSkinStateText(skinState);
+  
   return (
     <motion.div 
       variants={variants}
@@ -32,16 +34,27 @@ export const SkinTypeHeader = ({ skinType, variants }: SkinTypeHeaderProps) => {
         <motion.h2 
           className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-500/90 via-pink-400/90 to-pink-300/90 text-transparent bg-clip-text"
           animate={{
-            backgroundPosition: ['0% center', '100% center', '0% center'],
+            backgroundPosition: ["0% center", "100% center"],
           }}
           transition={{
             duration: 8,
             repeat: Infinity,
+            repeatType: "reverse",
             ease: "easeInOut",
           }}
         >
           💖 Ton type de peau : {getSkinTypeText(skinType)}
         </motion.h2>
+        {stateText && (
+          <motion.h3 
+            className="text-xl md:text-2xl font-semibold text-pink-400 mt-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            🔍 État : {stateText}
+          </motion.h3>
+        )}
       </motion.div>
     </motion.div>
   );

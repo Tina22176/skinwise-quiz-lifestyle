@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useQuiz } from "../QuizContext";
 import { ResultsLoading } from "./ResultsLoading";
@@ -36,7 +35,9 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
         <ResultsLoading />
       ) : (
         <EnhancedResultsContent 
-          skinType={state.result || "normal"}
+          skinType={state.skinTypeScore?.type || state.result || "normal"}
+          skinState={state.skinTypeScore?.state || null}
+          skinTypeScore={state.skinTypeScore}
           email={email}
           setEmail={setEmail}
           firstName={firstName}

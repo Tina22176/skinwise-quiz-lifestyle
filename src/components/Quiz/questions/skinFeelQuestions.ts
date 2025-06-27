@@ -1,4 +1,3 @@
-
 import { QuizQuestion } from "./types";
 
 export const skinFeelQuestions: QuizQuestion[] = [
@@ -22,35 +21,35 @@ export const skinFeelQuestions: QuizQuestion[] = [
         description: "Ta peau produit un excès de sébum"
       },
       {
-        value: "sensible",
-        label: "Rougeurs, picotements ou sensations de brûlure",
-        description: "Ta peau réagit facilement aux stimuli externes"
+        value: "normale",
+        label: "Confortable, ni sèche ni grasse",
+        description: "Ta peau a un équilibre optimal"
       }
     ]
   },
   {
     id: "fin_journee",
-    question: "Après une journée complète, comment se sent ta peau ?",
+    question: "Comment se sent ta peau en fin de journée ?",
     options: [
       {
         value: "seche",
-        label: "Encore plus sèche, parfois des squames (peaux mortes) sont visibles",
-        description: "Le manque d'hydratation s'accentue durant la journée"
+        label: "Tiraillements, sensation de sécheresse",
+        description: "Ta peau manque d'hydratation"
       },
       {
         value: "mixte",
-        label: "Légèrement brillante sur la zone T, normale à sèche sur les joues",
-        description: "Contraste entre différentes zones du visage"
+        label: "Brillance sur la zone T, normale sur les joues",
+        description: "Ta peau présente des zones différentes"
       },
       {
         value: "grasse",
-        label: "Très brillante, nécessite souvent de tamponner l'excès de sébum",
-        description: "Production excessive de sébum au cours de la journée"
+        label: "Brillante et grasse sur tout le visage",
+        description: "Ta peau produit beaucoup de sébum"
       },
       {
-        value: "sensible",
-        label: "Inconfortable, tendue ou irritée par moments",
-        description: "Réactions cutanées qui évoluent durant la journée"
+        value: "normale",
+        label: "Confortable, équilibre maintenu",
+        description: "Ta peau garde son équilibre naturel"
       }
     ]
   },
@@ -74,9 +73,9 @@ export const skinFeelQuestions: QuizQuestion[] = [
         description: "Les peaux grasses tolèrent bien la plupart des produits"
       },
       {
-        value: "sensible",
-        label: "Souvent des picotements, brûlures ou démangeaisons",
-        description: "Les sensations d'inconfort sont fréquentes sur peaux sensibles"
+        value: "normale",
+        label: "Rarement, ma peau est généralement confortable",
+        description: "Les peaux normales sont rarement inconfortables"
       }
     ]
   }

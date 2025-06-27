@@ -1,36 +1,54 @@
-
 import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { questions } from "./questions/index";
+import { dynamicQuestions } from "./questions/dynamicQuestions";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { QuizProgressBar } from "./QuizProgressBar";
 import { EnhancedAnswerOption } from "./EnhancedAnswerOption";
-import { calculateSkinType } from "./utils/skinTypeCalculator";
+import { calculateSkinType, validateAnswers } from "./utils/skinTypeCalculator";
+import { DynamicQuestionEngine } from "./utils/dynamicQuestionEngine";
+import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
 import { motivationalTexts } from "./constants/quizTexts";
-import { ArrowRight, Sparkles, Lightbulb } from "lucide-react";
+import { ArrowRight, Sparkles, Lightbulb, AlertTriangle } from "lucide-react";
 
 export const EnhancedQuizQuestion = () => {
   const { state, dispatch } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showNextQuestion, setShowNextQuestion] = useState(false);
   const [showTip, setShowTip] = useState(false);
+  const [showValidationWarning, setShowValidationWarning] = useState(false);
+  const [dynamicList, setDynamicList] = useState<any[]>([]);
   const isMobile = useIsMobile();
+
+  // Générer la liste des questions dynamiques à chaque réponse
+  useEffect(() => {
+    const engine = new DynamicQuestionEngine(questions, state.answers);
+    const generated = engine.generateQuestions();
+    setDynamicList(generated);
+  }, [state.answers]);
+
+  // Question courante (peut être une question dynamique)
+  const currentQuestion = dynamicList[state.currentQuestion] || questions[state.currentQuestion];
 
   const handleAnswer = (answer: string) => {
     setSelectedAnswer(answer);
     
     setTimeout(() => {
-      const currentQuestion = questions[state.currentQuestion];
       dispatch({
         type: "SET_ANSWER",
         questionId: currentQuestion.id,
         answer: answer,
       });
 
-      if (state.currentQuestion === questions.length - 1) {
-        const skinType = calculateSkinType(state.answers);
-        dispatch({ type: "SET_RESULT", payload: skinType });
+      if (state.currentQuestion === dynamicList.length - 1) {
+        const skinTypeScore = calculateSkinType(state.answers);
+        dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
+        const validation = validateAnswers(state.answers);
+        if (!validation.isValid) {
+          dispatch({ type: "SET_VALIDATION_ERRORS", payload: validation.conflicts });
+          setShowValidationWarning(true);
+        }
         setShowNextQuestion(true);
       } else {
         setShowNextQuestion(true);
@@ -55,24 +73,23 @@ export const EnhancedQuizQuestion = () => {
         setSelectedAnswer(null);
         setShowNextQuestion(false);
         setShowTip(false);
+        setShowValidationWarning(false);
       }, 500);
       return () => clearTimeout(timer);
     }
   }, [showNextQuestion, dispatch]);
 
-  if (state.currentQuestion >= questions.length) {
+  if (state.currentQuestion >= dynamicList.length) {
     return null;
   }
 
-  const currentQuestion = questions[state.currentQuestion];
-
   const containerClasses = isMobile 
-    ? "max-w-3xl mx-auto px-4 py-6" 
-    : "max-w-4xl mx-auto px-8 py-8 sm:px-10";
+    ? "max-w-3xl mx-auto px-6 sm:px-8 py-6 sm:py-8" 
+    : "max-w-4xl mx-auto px-8 sm:px-10 lg:px-12 py-8 sm:py-10 lg:py-12";
   
   const questionClasses = isMobile
-    ? "text-base sm:text-lg md:text-xl font-semibold mb-6 sm:mb-8 text-balance text-center px-2"
-    : "text-xl sm:text-2xl md:text-3xl font-semibold mb-8 sm:mb-10 text-balance text-center";
+    ? "text-lg sm:text-xl md:text-2xl font-semibold mb-6 sm:mb-8 text-balance text-center px-2 text-pink-700"
+    : "text-xl sm:text-2xl md:text-3xl font-semibold mb-8 sm:mb-10 text-balance text-center text-pink-700";
 
   const containerVariants = {
     hidden: { opacity: 0, x: 50 },
@@ -120,6 +137,19 @@ export const EnhancedQuizQuestion = () => {
     }
   };
 
+  const warningVariants = {
+    hidden: { opacity: 0, y: 10, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { 
+        duration: 0.4, 
+        ease: "easeOut" 
+      }
+    }
+  };
+
   const getQuestionTip = (questionId: string) => {
     const tips: Record<string, string> = {
       "sensation_apres_nettoyage": "💡 Pense à ta peau 2h après le nettoyage, sans crème",
@@ -129,7 +159,10 @@ export const EnhancedQuizQuestion = () => {
       "reaction_soleil": "☀️ Comment réagit ta peau aux premiers rayons de soleil ?",
       "nouveaux_produits": "🧴 Que se passe-t-il quand tu testes un nouveau produit ?",
       "souci_principal": "🎯 Quel est ton plus grand défi beauté quotidien ?",
-      "texture_creme": "✨ Quelle texture de crème te fait envie instinctivement ?"
+      "texture_creme": "✨ Quelle texture de crème te fait envie instinctivement ?",
+      "sensation_inconfort": "⚠️ Ressens-tu souvent des sensations d'inconfort cutané ?",
+      "sensible_detail": "🧐 Précise ce qui déclenche ta sensibilité pour des conseils adaptés.",
+      "mixte_detail": "🧐 Précise la fréquence de la brillance pour affiner le diagnostic."
     };
     return tips[questionId] || "💫 Choisis la réponse qui te correspond le mieux";
   };
@@ -145,7 +178,7 @@ export const EnhancedQuizQuestion = () => {
     >
       <QuizProgressBar 
         currentQuestion={state.currentQuestion} 
-        totalQuestions={questions.length}
+        totalQuestions={dynamicList.length}
         motivationalTexts={motivationalTexts}
       />
 
@@ -157,7 +190,7 @@ export const EnhancedQuizQuestion = () => {
         <motion.span 
           className="absolute -top-1 -right-1 text-pink-400"
           initial={{ scale: 0 }}
-          animate={{ scale: [0, 1.2, 1] }}
+          animate={{ scale: [0, 1.2] }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
           <Sparkles className="h-5 w-5" />
@@ -178,18 +211,36 @@ export const EnhancedQuizQuestion = () => {
         </motion.div>
       )}
 
-      <div className="space-y-4">
-        {currentQuestion.options.map((option, index) => (
-          <EnhancedAnswerOption
-            key={option.value}
-            option={option}
-            index={index}
-            isSelected={selectedAnswer === option.value}
-            selectedAnswer={selectedAnswer}
-            onSelect={handleAnswer}
-          />
-        ))}
-      </div>
+      {showValidationWarning && state.validationErrors.length > 0 && (
+        <motion.div
+          variants={warningVariants}
+          initial="hidden"
+          animate="visible"
+          className="mb-6 p-4 bg-gradient-to-r from-yellow-50/80 to-yellow-100/80 rounded-xl border border-yellow-200/50 mx-4"
+        >
+          <div className="flex items-start gap-2 text-yellow-700">
+            <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium mb-1">Attention aux contradictions :</p>
+              <ul className="text-xs space-y-1">
+                {state.validationErrors.map((error, index) => (
+                  <li key={index} className="flex items-start gap-1">
+                    <span className="text-yellow-600">•</span>
+                    <span>{error}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Affichage de la question dynamique */}
+      <DynamicQuestionDisplay
+        question={currentQuestion}
+        selectedAnswer={selectedAnswer}
+        onSelect={handleAnswer}
+      />
 
       {selectedAnswer && (
         <motion.div

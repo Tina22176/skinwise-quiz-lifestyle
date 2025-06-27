@@ -15,8 +15,8 @@ export const ResultsLoading = () => {
         <motion.div
           className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-200/30 to-pink-300/30 blur-xl"
           animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 0.8, 0.5],
+            scale: [1, 1.2],
+            opacity: [0.5, 0.8],
           }}
           transition={{ 
             duration: 3,
@@ -27,11 +27,11 @@ export const ResultsLoading = () => {
         <motion.div
           animate={{ 
             rotate: 360,
-            scale: [1, 1.1, 1],
+            scale: [1, 1.1],
           }}
           transition={{ 
             rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            scale: { duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
           }}
           className="relative w-20 h-20 flex items-center justify-center"
         >
@@ -43,7 +43,7 @@ export const ResultsLoading = () => {
       <div className="space-y-4 text-center">
         <motion.p 
           className="text-xl font-medium text-pink-600"
-          animate={{ opacity: [0.5, 1, 0.5] }}
+          animate={{ opacity: [0.5, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
           ✨ La magie opère... ✨

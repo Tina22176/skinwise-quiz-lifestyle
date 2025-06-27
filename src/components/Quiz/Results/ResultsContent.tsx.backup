@@ -1,0 +1,176 @@
+import { motion } from "framer-motion";
+import { SkinTypeHeader } from "./SkinTypeHeader";
+import { SkinProfileCard } from "./SkinProfileCard";
+import { SkinCharacteristicsGrid } from "./SkinCharacteristicsGrid";
+import { RoutineRecommendation } from "./RoutineRecommendation";
+import { SubscriptionForm } from "./SubscriptionForm";
+import { SubscribedActions } from "./SubscribedActions";
+import { UnsubscribedActions } from "./UnsubscribedActions";
+import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.3,
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      type: "spring", 
+      stiffness: 300,
+      damping: 24
+    }
+  }
+};
+
+interface ResultsContentProps {
+  skinType: string;
+  email: string;
+  setEmail: (email: string) => void;
+  firstName: string;
+  setFirstName: (name: string) => void;
+  isSubscribed: boolean;
+  isLoading: boolean;
+  gdprConsent: boolean;
+  setGdprConsent: (consent: boolean) => void;
+  handleSubmit: (e: React.FormEvent) => Promise<void>;
+  onResetQuiz: () => void;
+  instagramUrl: string;
+}
+
+export const ResultsContent = ({
+  skinType,
+  email,
+  setEmail,
+  firstName,
+  setFirstName,
+  isSubscribed,
+  isLoading,
+  gdprConsent,
+  setGdprConsent,
+  handleSubmit,
+  onResetQuiz,
+  instagramUrl
+}: ResultsContentProps) => {
+  const details = getSkinTypeDetails(skinType);
+  
+  const handleShare = () => {
+    const shareText = `Je viens de découvrir mon type de peau avec Majoliepeau ! 💖 Mon diagnostic : Peau ${getSkinTypeText(skinType)}`;
+    window.open(`https://www.instagram.com/create/story?text=${encodeURIComponent(shareText)}`, '_blank');
+  };
+
+  const visitInstagram = () => {
+    window.open(instagramUrl, '_blank');
+  };
+
+  return (
+    <motion.div
+      key="results"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="max-w-3xl mx-auto px-4"
+    >
+      {/* SECTION PRINCIPALE - FORMULAIRE EN HAUT */}
+      <motion.div 
+        className="glass rounded-3xl p-8 md:p-12 mb-8 bg-gradient-to-br from-pink-50/95 to-white/95 shadow-[0_8px_32px_rgba(255,192,203,0.2)] relative overflow-hidden"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-100/10 to-pink-200/15 pointer-events-none" />
+        
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="space-y-8 relative"
+        >
+          {/* 1. TITRE PRINCIPAL */}
+          <SkinTypeHeader skinType={skinType} variants={itemVariants} />
+          
+          {/* 2. DESCRIPTION SIMPLE */}
+          <SkinProfileCard description={details.description} variants={itemVariants} />
+          
+          {/* 3. FORMULAIRE D'INSCRIPTION EN HAUT - MAXIMISER CONVERSIONS */}
+          {!isSubscribed ? (
+            <motion.div variants={itemVariants} className="space-y-6">
+              <div className="text-center space-y-4">
+                <h3 className="text-2xl font-bold text-pink-600">
+                  🌟 PROCHAINE ÉTAPE 🌟
+                </h3>
+                <p className="text-lg text-gray-700">
+                  Reçois ta routine personnalisée gratuite adaptée à tes besoins spécifiques !
+                </p>
+              </div>
+              
+              <SubscriptionForm
+                email={email}
+                setEmail={setEmail}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                gdprConsent={gdprConsent}
+                setGdprConsent={setGdprConsent}
+                isLoading={isLoading}
+                handleSubmit={handleSubmit}
+                variants={itemVariants}
+              />
+            </motion.div>
+          ) : (
+            <SubscribedActions
+              handleShare={handleShare}
+              visitInstagram={visitInstagram}
+              onResetQuiz={onResetQuiz}
+              variants={itemVariants}
+            />
+          )}
+
+          {/* 4. ACTIONS SI NON INSCRIT */}
+          {!isSubscribed && (
+            <UnsubscribedActions
+              visitInstagram={visitInstagram}
+              onResetQuiz={onResetQuiz}
+              variants={itemVariants}
+            />
+          )}
+        </motion.div>
+      </motion.div>
+
+      {/* SECTION SECONDAIRE - INFORMATIONS DÉTAILLÉES (optionnelles) */}
+      {isSubscribed && (
+        <motion.div 
+          className="glass rounded-3xl p-8 md:p-12 bg-gradient-to-br from-white/95 to-pink-50/95 shadow-[0_8px_32px_rgba(255,192,203,0.15)]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-pink-600 mb-4">
+              📊 Analyse Détaillée de Ta Peau
+            </h3>
+            <p className="text-gray-600">
+              Découvre les détails de ton profil cutané et nos recommandations personnalisées
+            </p>
+          </div>
+          
+          {/* Ici on peut ajouter les composants détaillés si nécessaire */}
+          <div className="text-center">
+            <p className="text-gray-500 italic">
+              Ton analyse détaillée sera envoyée par email avec ta routine personnalisée !
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </motion.div>
+  );
+};

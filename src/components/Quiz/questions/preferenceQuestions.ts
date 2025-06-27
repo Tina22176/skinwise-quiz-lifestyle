@@ -1,4 +1,3 @@
-
 import { QuizQuestion } from "./types";
 
 export const preferenceQuestions: QuizQuestion[] = [
@@ -22,9 +21,9 @@ export const preferenceQuestions: QuizQuestion[] = [
         description: "Problématiques liées à l'excès de sébum"
       },
       {
-        value: "sensible",
-        label: "Rougeurs, réactivité, intolérances à certains ingrédients",
-        description: "Problématiques liées à la sensibilité cutanée"
+        value: "normale",
+        label: "Maintenir l'équilibre et prévenir le vieillissement",
+        description: "Préoccupations liées à la préservation de l'équilibre naturel"
       }
     ]
   },
@@ -48,9 +47,9 @@ export const preferenceQuestions: QuizQuestion[] = [
         description: "Les textures légères évitent de surcharger les peaux grasses"
       },
       {
-        value: "sensible",
-        label: "Sans parfum, hypoallergénique, apaisante",
-        description: "Les formules minimalistes conviennent aux peaux réactives"
+        value: "normale",
+        label: "Équilibrée, ni trop légère ni trop riche",
+        description: "Les textures équilibrées conviennent aux peaux normales"
       }
     ]
   }

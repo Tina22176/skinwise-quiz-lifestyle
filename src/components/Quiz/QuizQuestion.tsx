@@ -145,7 +145,7 @@ export const QuizQuestion = () => {
         <motion.span 
           className="absolute -top-1 -right-1 text-pink-400"
           initial={{ scale: 0 }}
-          animate={{ scale: [0, 1.2, 1] }}
+          animate={{ scale: [0, 1.2] }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
           <Sparkles className="h-5 w-5" />

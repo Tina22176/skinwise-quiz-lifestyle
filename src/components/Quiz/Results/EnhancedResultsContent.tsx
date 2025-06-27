@@ -1,13 +1,15 @@
-
 import { ResultsContainer } from "./components/ResultsContainer";
 import { ResultsMainContent } from "./components/ResultsMainContent";
 import { ResultsSubscriptionSection } from "./components/ResultsSubscriptionSection";
 import { useResultsActions } from "./hooks/useResultsActions";
 import { useResultsAnimations } from "./hooks/useResultsAnimations";
 import { useQuiz } from "../QuizContext";
+import { SkinTypeScore } from "../utils/skinTypeCalculator";
 
 interface EnhancedResultsContentProps {
   skinType: string;
+  skinState?: string | null;
+  skinTypeScore?: SkinTypeScore | null;
   email: string;
   setEmail: (email: string) => void;
   firstName: string;
@@ -23,6 +25,8 @@ interface EnhancedResultsContentProps {
 
 export const EnhancedResultsContent = ({
   skinType,
+  skinState,
+  skinTypeScore,
   email,
   setEmail,
   firstName,
@@ -47,6 +51,8 @@ export const EnhancedResultsContent = ({
     <ResultsContainer containerVariants={containerVariants}>
       <ResultsMainContent
         skinType={skinType}
+        skinState={skinState}
+        skinTypeScore={skinTypeScore}
         answers={state.answers}
         itemVariants={itemVariants}
         onShare={handleShare}

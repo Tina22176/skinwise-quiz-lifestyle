@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Heart, Star, Sparkles, BadgeCheck } from "lucide-react";
@@ -18,7 +17,7 @@ export const QuizProgressBar = ({
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
   
   const progressBarClasses = isMobile
-    ? "mb-4 mt-2"
+    ? "mb-4 sm:mb-6 mt-2"
     : "mb-6 sm:mb-8 mt-2";
 
   // Determine which milestone icon to show
@@ -102,13 +101,14 @@ export const QuizProgressBar = ({
               repeat: Infinity, 
               duration: 1.5,
               ease: "linear",
-              delay: 0.2
+              delay: 0.2,
+              type: "tween"
             }}
           />
         </motion.div>
       </div>
       
-      <div className="flex justify-between items-center mt-2">
+      <div className="flex justify-between items-center mt-2 sm:mt-3">
         <div className="flex items-center">
           <p className="text-xs sm:text-sm text-muted-foreground">
             Question {currentQuestion + 1}/{totalQuestions}

@@ -1,5 +1,5 @@
-
 import { QuizState, QuizAction } from "../types/quizTypes";
+import { SkinTypeScore } from "../utils/skinTypeCalculator";
 
 export const quizReducer = (state: QuizState, action: QuizAction): QuizState => {
   switch (action.type) {
@@ -23,6 +23,13 @@ export const quizReducer = (state: QuizState, action: QuizAction): QuizState => 
         ...state,
         result: action.payload,
       };
+    case "SET_SKIN_TYPE_SCORE":
+      return {
+        ...state,
+        skinTypeScore: action.payload,
+        result: action.payload.type,
+        confidence: action.payload.confidence,
+      };
     case "SET_ANSWER":
       return {
         ...state,
@@ -41,14 +48,39 @@ export const quizReducer = (state: QuizState, action: QuizAction): QuizState => 
         ...state,
         firstName: action.payload,
       };
+    case "SET_VALIDATION_ERRORS":
+      return {
+        ...state,
+        validationErrors: action.payload,
+      };
+    case "SET_CONFIDENCE":
+      return {
+        ...state,
+        confidence: action.payload,
+      };
+    case "SET_PERSONALIZATION_LEVEL":
+      return {
+        ...state,
+        personalizationLevel: action.payload,
+      };
+    case "ADD_DYNAMIC_QUESTION":
+      return {
+        ...state,
+        dynamicQuestions: [...state.dynamicQuestions, action.payload],
+      };
     case "RESET_QUIZ":
       return {
         step: 0,
         currentQuestion: 0,
         result: null,
+        skinTypeScore: null,
         answers: {},
         email: null,
         firstName: null,
+        validationErrors: [],
+        confidence: 0,
+        personalizationLevel: 'basic',
+        dynamicQuestions: [],
       };
     default:
       return state;
