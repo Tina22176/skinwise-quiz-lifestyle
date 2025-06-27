@@ -3,7 +3,7 @@ import { ArrowRight, Star, Users, Clock, Heart } from "lucide-react";
 
 export const Welcome = ({ onStart }: { onStart: () => void }) => {
   const stats = [
-    { icon: Users, value: "18K+", label: "Peaux analysées" },
+    { icon: Users, value: "2,500+", label: "Peaux analysées" },
     { icon: Star, value: "4.9/5", label: "Note moyenne" },
     { icon: Clock, value: "2 min", label: "Temps moyen" }
   ];
@@ -63,7 +63,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
 
         {/* Statistiques */}
         <motion.div 
-          className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-6 sm:mb-8"
+          className="grid grid-cols-3 gap-4 sm:flex sm:justify-center sm:items-center sm:space-x-8 mb-6 sm:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
@@ -75,11 +75,11 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-pink-100 rounded-full mx-auto mb-2">
-                <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" />
+              <div className="flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 bg-pink-100 rounded-full mx-auto mb-2">
+                <stat.icon className="w-4 h-4 sm:w-6 sm:h-6 text-pink-600" />
               </div>
-              <div className="font-semibold text-gray-800 text-lg sm:text-xl">{stat.value}</div>
-              <div className="text-sm sm:text-base text-gray-600">{stat.label}</div>
+              <div className="font-semibold text-gray-800 text-sm sm:text-xl">{stat.value}</div>
+              <div className="text-xs sm:text-base text-gray-600 leading-tight">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
