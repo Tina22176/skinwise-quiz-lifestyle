@@ -15,6 +15,15 @@ export const ResultsContent: React.FC = () => {
     setIsSubscribed(true);
   };
 
+  const handleShowDetailedResults = () => {
+    // TODO: Implement detailed results view
+    console.log("Show detailed results");
+  };
+
+  const visitInstagram = () => {
+    window.open("https://www.instagram.com/majolie_peau/", "_blank");
+  };
+
   if (!state.skinTypeScore && !state.result) {
     return <div>Chargement des résultats...</div>;
   }
@@ -84,13 +93,15 @@ export const ResultsContent: React.FC = () => {
           {isSubscribed ? (
             <SubscribedActions 
               handleShare={() => {}}
-              visitInstagram={() => {}}
+              visitInstagram={visitInstagram}
               onResetQuiz={() => {}}
               variants={{}}
             />
           ) : (
             <UnsubscribedActions 
+              visitInstagram={visitInstagram}
               onResetQuiz={() => {}}
+              onShowDetailedResults={handleShowDetailedResults}
               variants={{}}
             />
           )}
