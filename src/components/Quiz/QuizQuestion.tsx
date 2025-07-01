@@ -32,8 +32,8 @@ export const QuizQuestion = () => {
   
       // Si c'est la dernière question, calculons le résultat
       if (state.currentQuestion === questions.length - 1) {
-        const skinType = calculateSkinType(state.answers);
-        dispatch({ type: "SET_RESULT", payload: skinType });
+        const skinTypeScore = calculateSkinType(state.answers);
+        dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
         setShowNextQuestion(true);
       } else {
         setShowNextQuestion(true);
