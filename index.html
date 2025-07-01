@@ -7,61 +7,61 @@
     <title>Quiz Type de Peau - Majoliepeau</title>
     <meta name="description" content="Découvre ton type de peau en 2 minutes avec notre quiz personnalisé. Reçois ta routine gratuite adaptée à tes besoins spécifiques." />
     
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
-    
     <!-- CSS critique inline optimisé pour LCP -->
     <style>
       *{margin:0;padding:0;box-sizing:border-box}
       body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:linear-gradient(135deg,#fdf4f6 0%,#ffffff 50%,#fdf4f6 100%);min-height:100vh;overflow-x:hidden;line-height:1.6;color:#1f2937}
-      .loading-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#fdf4f6 0%,#ffffff 50%,#fdf4f6 100%);display:flex;align-items:center;justify-content:center;z-index:9999}
-      .loading-content{text-align:center;max-width:400px;padding:2rem}
-      .loading-title{font-size:1.5rem;font-weight:700;color:#ec4899;margin-bottom:1rem}
-      .loading-subtitle{color:#6b7280;margin-bottom:2rem}
-      .loading-spinner{width:40px;height:40px;border:3px solid #f3f4f6;border-top:3px solid #ec4899;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto}
+      .loading-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#fdf4f6 0%,#ffffff 50%,#fdf4f6 100%);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.2s ease-out}
+      .fade-out{opacity:0!important}
+      .loading-content{text-align:center;max-width:400px;padding:1rem}
+      .loading-title{font-size:1.2rem;font-weight:600;color:#ec4899;margin-bottom:0.5rem}
+      .loading-spinner{width:24px;height:24px;border:2px solid #f3f4f6;border-top:2px solid #ec4899;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto}
       @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-      .fade-out{opacity:0;transition:opacity 0.5s ease-out}
     </style>
     
     <!-- Preload des ressources critiques -->
     <link rel="preload" href="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png" as="image" type="image/png">
+    <link rel="preload" href="https://majoliepeau.com/cdn/shop/files/illustration_digitale_de_copines_majoliepeau.png?v=1738249223&width=600" as="image" type="image/png">
     
-    <!-- Preconnect uniquement aux domaines utilisés -->
+    <!-- Preconnect optimisé -->
     <link rel="preconnect" href="https://majoliepeau.com">
     <link rel="preconnect" href="https://instagram.com">
-    <link rel="preconnect" href="https://cdn.gpteng.co">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
-    <!-- Meta tags pour SEO et performance -->
+    <!-- Meta tags pour performance -->
     <meta name="theme-color" content="#ec4899">
     
     <!-- CSS non-critique différé -->
     <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
     
+    <!-- Google Analytics différé -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
+          document.head.appendChild(script);
+          
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'GA_MEASUREMENT_ID');
+        }, 1000);
+      });
+    </script>
+    
     <!-- Lovable Script -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
   </head>
 
   <body>
-    <!-- Écran de chargement élégant -->
+    <!-- Écran de chargement minimal -->
     <div id="loading-screen" class="loading-screen">
       <div class="loading-content">
-        <img 
-          src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
-          alt="Logo Majoliepeau"
-          style="width: 60px; height: 60px; margin: 0 auto 1rem; display: block;"
-          loading="eager"
-        />
-        <h1 class="loading-title">Quiz Type de Peau</h1>
-        <p class="loading-subtitle">Préparation de ton expérience personnalisée...</p>
         <div class="loading-spinner"></div>
+        <p class="loading-title">Chargement...</p>
       </div>
     </div>
     
@@ -70,17 +70,15 @@
     
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Enregistrement du service worker -->
+    <!-- Service worker différé -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
-            });
+          setTimeout(() => {
+            navigator.serviceWorker.register('/sw.js')
+              .then(() => console.log('SW registered'))
+              .catch(() => console.log('SW registration failed'));
+          }, 2000);
         });
       }
     </script>
