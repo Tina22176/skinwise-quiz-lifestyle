@@ -4,26 +4,27 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Chargement optimisé sans délai artificiel
-const root = document.getElementById('root')
-const loadingScreen = document.getElementById('loading-screen')
+console.log('🚀 Démarrage de l_application...')
 
-if (root) {
-  // Créer le root React
-  const reactRoot = ReactDOM.createRoot(root)
+const root = document.getElementById('root')
+
+if (!root) {
+  console.error('❌ Element root non trouvé')
+} else {
+  console.log('✅ Element root trouvé, création du React root...')
   
-  // Render l'app immédiatement
-  reactRoot.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  )
-  
-  // Supprimer l'écran de chargement dès que React est monté
-  if (loadingScreen) {
-    loadingScreen.classList.add('fade-out')
-    setTimeout(() => {
-      loadingScreen.remove()
-    }, 200) // Délai réduit à 200ms juste pour la transition
+  try {
+    const reactRoot = ReactDOM.createRoot(root)
+    console.log('✅ React root créé, rendu de l_app...')
+    
+    reactRoot.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+    
+    console.log('✅ App rendue avec succès!')
+  } catch (error) {
+    console.error('❌ Erreur lors du rendu:', error)
   }
 }
