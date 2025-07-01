@@ -14,24 +14,10 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center">
-      {/* Background decoratif */}
+      {/* Background decoratif optimisé */}
       <div className="absolute inset-0 -z-10">
-        <motion.div 
-          className="absolute top-20 left-10 w-32 h-32 bg-pink-200/20 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ duration: 4, repeat: Infinity }}
-        />
-        <motion.div 
-          className="absolute bottom-20 right-10 w-40 h-40 bg-pink-300/20 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            opacity: [0.5, 0.3, 0.5]
-          }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
+        <div className="absolute top-20 left-10 w-32 h-32 bg-pink-200/20 rounded-full blur-3xl opacity-30" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-pink-300/20 rounded-full blur-3xl opacity-40" />
       </div>
 
       <motion.div
@@ -101,9 +87,8 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-pink-200/30 to-transparent rounded-3xl" />
           
-          {/* Placeholder pendant le chargement */}
           {!imageLoaded && (
-            <div className="w-full h-64 sm:h-80 bg-pink-100 rounded-3xl animate-pulse flex items-center justify-center">
+            <div className="w-full h-64 sm:h-80 bg-pink-100 rounded-3xl flex items-center justify-center">
               <Heart className="w-8 h-8 text-pink-300" />
             </div>
           )}
