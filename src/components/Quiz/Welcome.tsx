@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Users, Clock, Heart } from "lucide-react";
 import { useState } from "react";
@@ -172,4 +171,4 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
       </motion.div>
     </div>
   );
-};
+}; 
