@@ -1,8 +1,5 @@
-import { ResultsContainer } from "./components/ResultsContainer";
-import { ResultsMainContent } from "./components/ResultsMainContent";
-import { ResultsSubscriptionSection } from "./components/ResultsSubscriptionSection";
-import { useResultsActions } from "./hooks/useResultsActions";
-import { useResultsAnimations } from "./hooks/useResultsAnimations";
+
+import { ConversionOptimizedResults } from "./components/ConversionOptimizedResults";
 import { useQuiz } from "../QuizContext";
 import { SkinTypeScore } from "../utils/skinTypeCalculator";
 
@@ -39,42 +36,21 @@ export const EnhancedResultsContent = ({
   onResetQuiz,
   instagramUrl,
 }: EnhancedResultsContentProps) => {
-  const { state } = useQuiz();
-  const { containerVariants, itemVariants } = useResultsAnimations();
-  const { handleShare, handleDownload } = useResultsActions(skinType);
-
-  const visitInstagram = () => {
-    window.open(instagramUrl, '_blank');
-  };
-
   return (
-    <ResultsContainer containerVariants={containerVariants}>
-      <ResultsMainContent
-        skinType={skinType}
-        skinState={skinState}
-        skinTypeScore={skinTypeScore}
-        answers={state.answers}
-        itemVariants={itemVariants}
-        onShare={handleShare}
-        onDownload={handleDownload}
-        onResetQuiz={onResetQuiz}
-      />
-      
-      <ResultsSubscriptionSection
-        isSubscribed={isSubscribed}
-        email={email}
-        setEmail={setEmail}
-        firstName={firstName}
-        setFirstName={setFirstName}
-        isLoading={isLoading}
-        gdprConsent={gdprConsent}
-        setGdprConsent={setGdprConsent}
-        handleSubmit={handleSubmit}
-        handleShare={handleShare}
-        visitInstagram={visitInstagram}
-        onResetQuiz={onResetQuiz}
-        itemVariants={itemVariants}
-      />
-    </ResultsContainer>
+    <ConversionOptimizedResults
+      skinType={skinType}
+      skinState={skinState}
+      email={email}
+      setEmail={setEmail}
+      firstName={firstName}
+      setFirstName={setFirstName}
+      isSubscribed={isSubscribed}
+      isLoading={isLoading}
+      gdprConsent={gdprConsent}
+      setGdprConsent={setGdprConsent}
+      handleSubmit={handleSubmit}
+      onResetQuiz={onResetQuiz}
+      instagramUrl={instagramUrl}
+    />
   );
 };
