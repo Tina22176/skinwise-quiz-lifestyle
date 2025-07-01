@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { Welcome } from "./Welcome";
