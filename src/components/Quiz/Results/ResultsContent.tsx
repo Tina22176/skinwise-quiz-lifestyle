@@ -1,31 +1,37 @@
+
 import React, { useState } from "react";
 import { SkinTypeHeader } from "./SkinTypeHeader";
 import { SubscriptionForm } from "./SubscriptionForm";
 import { SubscribedActions } from "./SubscribedActions";
 import { UnsubscribedActions } from "./UnsubscribedActions";
-import { QuizContext } from "../QuizContext";
+import { useQuiz } from "../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
 
 export const ResultsContent: React.FC = () => {
-  const { quizState } = React.useContext(QuizContext);
+  const { state } = useQuiz();
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   const handleSubscriptionSuccess = () => {
     setIsSubscribed(true);
   };
 
-  if (!quizState.results) {
+  if (!state.skinTypeScore && !state.result) {
     return <div>Chargement des résultats...</div>;
   }
 
-  const { skinType, skinState } = quizState.results;
+  const skinType = state.skinTypeScore?.type || state.result || "normal";
+  const skinState = state.skinTypeScore?.state || null;
   const details = getSkinTypeDetails(skinType);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 max-w-4xl">
         {/* Header avec type de peau */}
-        <SkinTypeHeader skinType={skinType} skinState={skinState} />
+        <SkinTypeHeader 
+          skinType={skinType} 
+          skinState={skinState}
+          variants={{}}
+        />
         
         {/* Section d'inscription en premier */}
         <div className="glass-strong rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center">
@@ -39,10 +45,15 @@ export const ResultsContent: React.FC = () => {
           </div>
           {!isSubscribed ? (
             <SubscriptionForm
-              skinType={skinType}
-              skinState={skinState}
-              onSubscriptionSuccess={handleSubscriptionSuccess}
-              className="max-w-md mx-auto"
+              email=""
+              setEmail={() => {}}
+              firstName=""
+              setFirstName={() => {}}
+              isLoading={false}
+              gdprConsent={false}
+              setGdprConsent={() => {}}
+              handleSubmit={async () => {}}
+              variants={{}}
             />
           ) : (
             <div className="text-center">
@@ -72,15 +83,15 @@ export const ResultsContent: React.FC = () => {
         <div className="mb-6 sm:mb-8">
           {isSubscribed ? (
             <SubscribedActions 
-              skinType={skinType}
-              skinState={skinState}
-              onShowDetailedResults={() => {}}
+              handleShare={() => {}}
+              visitInstagram={() => {}}
+              onResetQuiz={() => {}}
+              variants={{}}
             />
           ) : (
             <UnsubscribedActions 
-              skinType={skinType}
-              skinState={skinState}
-              onShowDetailedResults={() => {}}
+              onResetQuiz={() => {}}
+              variants={{}}
             />
           )}
         </div>

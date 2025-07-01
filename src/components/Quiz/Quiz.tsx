@@ -20,11 +20,13 @@ const QuizContent = () => {
     if (state.currentQuestion >= questions.length) {
       setStage("results");
       // Track quiz completion with skin type if available
-      if (state.skinType) {
-        trackQuizComplete(state.skinType);
+      if (state.skinTypeScore?.type) {
+        trackQuizComplete(state.skinTypeScore.type);
+      } else if (state.result) {
+        trackQuizComplete(state.result);
       }
     }
-  }, [state.currentQuestion, state.skinType, trackQuizComplete]);
+  }, [state.currentQuestion, state.skinTypeScore, state.result, trackQuizComplete]);
 
   const handleStartQuiz = () => {
     trackQuizStart();
