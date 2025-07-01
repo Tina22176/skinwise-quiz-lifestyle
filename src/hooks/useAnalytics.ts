@@ -1,5 +1,5 @@
 
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 declare global {
   interface Window {
@@ -38,10 +38,12 @@ export const useAnalytics = () => {
   }, [trackEvent]);
 
   const trackPageView = useCallback((pageName: string) => {
-    trackEvent('page_view', {
-      page_title: pageName,
-      page_location: window.location.href
-    });
+    if (typeof window !== 'undefined') {
+      trackEvent('page_view', {
+        page_title: pageName,
+        page_location: window.location.href
+      });
+    }
   }, [trackEvent]);
 
   return {
