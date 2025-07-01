@@ -10,24 +10,30 @@ import QuizPromo from "./pages/QuizPromo";
 import Guarantee from "./pages/Guarantee";
 import QuizResults from "./pages/QuizResults";
 
+console.log('🚀 App module loading...');
+
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ErrorBoundary>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/promo" element={<QuizPromo />} />
-          <Route path="/garantie" element={<Guarantee />} />
-          <Route path="/results" element={<QuizResults />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </ErrorBoundary>
-  </QueryClientProvider>
-);
+const App = () => {
+  console.log('📱 App component rendering...');
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/promo" element={<QuizPromo />} />
+            <Route path="/garantie" element={<Guarantee />} />
+            <Route path="/results" element={<QuizResults />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

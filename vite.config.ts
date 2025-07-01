@@ -28,6 +28,23 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    // Force single instance of React to avoid conflicts
+    dedupe: ['react', 'react-dom'],
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      '@tanstack/react-query',
+      'framer-motion',
+      'recharts',
+      'lucide-react',
+    ],
+    // Optimisations des dépendances
+    esbuildOptions: {
+      target: 'esnext',
+    },
   },
   build: {
     // Optimisations de build
@@ -84,20 +101,5 @@ export default defineConfig(({ mode }) => ({
     // Optimisations de performance
     target: 'esnext',
     sourcemap: false, // Désactive les sourcemaps en production
-  },
-  optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      '@tanstack/react-query',
-      'framer-motion',
-      'recharts',
-      'lucide-react',
-    ],
-    // Optimisations des dépendances
-    esbuildOptions: {
-      target: 'esnext',
-    },
   },
 }));

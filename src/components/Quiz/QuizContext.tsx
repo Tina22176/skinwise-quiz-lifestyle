@@ -1,23 +1,38 @@
-import React, { createContext, useContext, useReducer, ReactNode } from "react";
+
+import { createContext, useContext, useReducer, ReactNode } from "react";
 import { QuizContextType, QuizState, initialState } from "./types/quizTypes";
 import { quizReducer } from "./reducers/quizReducer";
+
+console.log('🔄 QuizContext module loading...');
 
 // Create the context with undefined as initial value
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export const QuizProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(quizReducer, initialState);
+  console.log('🚀 QuizProvider rendering...');
   
-  // Function to reset the quiz
-  const resetQuiz = () => {
-    dispatch({ type: "RESET_QUIZ" });
-  };
+  try {
+    const [state, dispatch] = useReducer(quizReducer, initialState);
+    console.log('✅ useReducer initialized successfully', { state });
+    
+    // Function to reset the quiz
+    const resetQuiz = () => {
+      console.log('🔄 Resetting quiz...');
+      dispatch({ type: "RESET_QUIZ" });
+    };
 
-  return (
-    <QuizContext.Provider value={{ state, dispatch, resetQuiz }}>
-      {children}
-    </QuizContext.Provider>
-  );
+    const contextValue = { state, dispatch, resetQuiz };
+    console.log('✅ Context value created', contextValue);
+
+    return (
+      <QuizContext.Provider value={contextValue}>
+        {children}
+      </QuizContext.Provider>
+    );
+  } catch (error) {
+    console.error('❌ Error in QuizProvider:', error);
+    return <div>Error loading quiz: {String(error)}</div>;
+  }
 };
 
 export const useQuiz = () => {
