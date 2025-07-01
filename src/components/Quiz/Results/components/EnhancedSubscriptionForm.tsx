@@ -1,5 +1,3 @@
-
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -152,7 +150,7 @@ export const EnhancedSubscriptionForm = ({
               </span>
               <span className="flex items-center gap-1">
                 <Users className="w-3 h-3" />
-                +12k femmes satisfaites
+                +18k femmes satisfaites
               </span>
             </div>
           </div>
@@ -196,3 +194,4 @@ export const EnhancedSubscriptionForm = ({
     </form>
   );
 };
+

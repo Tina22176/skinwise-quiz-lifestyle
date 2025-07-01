@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Users, Star, Heart } from "lucide-react";
 
@@ -21,7 +20,7 @@ export const SocialProofBanner = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-green-700">
             <Users className="w-5 h-5" />
-            <span className="font-semibold text-lg">12,847</span>
+            <span className="font-semibold text-lg">+4,500</span>
           </div>
           <span className="text-green-600 text-sm">femmes ont transformé leur peau</span>
         </div>
@@ -45,7 +44,7 @@ export const SocialProofBanner = () => {
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
             </motion.div>
           ))}
-          <span className="text-sm text-gray-600 ml-2">4.9/5 (2,341 avis)</span>
+          <span className="text-sm text-gray-600 ml-2">🌟 4.8/5 (532 avis vérifiés)</span>
         </div>
       </div>
 
