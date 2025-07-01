@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { Welcome } from "./Welcome";
@@ -10,13 +11,18 @@ import { InstallPWA } from "../PWA/InstallPWA";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
 const QuizContent = () => {
+  console.log('🎯 QuizContent rendering...');
+  
   const { state, resetQuiz } = useQuiz();
   const [stage, setStage] = useState<"welcome" | "questions" | "results">("welcome");
   const isMobile = useIsMobile();
   const { trackQuizStart, trackQuizComplete } = useAnalytics();
 
+  console.log('📊 Quiz state:', { stage, currentQuestion: state.currentQuestion, questionsLength: questions.length });
+
   useEffect(() => {
     if (state.currentQuestion >= questions.length) {
+      console.log('🏁 Quiz completed, showing results');
       setStage("results");
       // Track quiz completion with skin type if available
       if (state.skinTypeScore?.type) {
@@ -28,11 +34,13 @@ const QuizContent = () => {
   }, [state.currentQuestion, state.skinTypeScore, state.result, trackQuizComplete]);
 
   const handleStartQuiz = () => {
+    console.log('▶️ Starting quiz...');
     trackQuizStart();
     setStage("questions");
   };
 
   const handleResetQuiz = () => {
+    console.log('🔄 Resetting quiz...');
     resetQuiz();
     setStage("welcome");
   };
@@ -59,6 +67,8 @@ const QuizContent = () => {
 };
 
 export const Quiz = () => {
+  console.log('🎮 Quiz component rendering...');
+  
   return (
     <QuizProvider>
       <QuizContent />
