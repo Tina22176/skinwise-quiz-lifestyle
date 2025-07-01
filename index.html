@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -5,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Type de Peau - Majoliepeau</title>
     <meta name="description" content="Découvre ton type de peau en 2 minutes avec notre quiz personnalisé. Reçois ta routine gratuite adaptée à tes besoins spécifiques." />
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
     
     <!-- CSS critique inline optimisé pour LCP -->
     <style>
@@ -31,6 +41,7 @@
     <link rel="preconnect" href="https://majoliepeau.com">
     <link rel="preconnect" href="https://instagram.com">
     <link rel="preconnect" href="https://cdn.gpteng.co">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     
     <!-- Meta tags pour SEO et performance -->
     <meta name="theme-color" content="#ec4899">
@@ -50,32 +61,38 @@
         <div class="logo-container">
           <img 
             src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
-            alt="Logo Majoliepeau"
+            alt="Logo Majoliepeau - Quiz type de peau personnalisé"
             class="logo-critical"
             width="40"
             height="40"
             loading="eager"
           />
         </div>
-        <div class="header-info">
-          <span>100% Gratuit</span>
-          <span>2 min</span>
+        <div class="header-info" role="banner" aria-label="Informations du quiz">
+          <span aria-label="Quiz gratuit">100% Gratuit</span>
+          <span aria-label="Durée du quiz">2 min</span>
         </div>
       </div>
     </header>
     
-    <main class="main-critical">
+    <main class="main-critical" role="main">
       <!-- Contenu LCP critique inline -->
       <div class="lcp-content">
         <h1 class="lcp-title">Découvre ton type de peau</h1>
         <p class="lcp-subtitle">Quiz personnalisé en 2 minutes</p>
         <p class="lcp-description">L'accompagnement haut de gamme pour bâtir ou repositionner une marque claire, éthique et rentable.</p>
-        <button class="cta-button" onclick="startQuiz()">Commencer le quiz</button>
+        <button 
+          class="cta-button" 
+          onclick="startQuiz()"
+          aria-label="Commencer le quiz de type de peau maintenant"
+        >
+          Commencer le quiz
+        </button>
       </div>
       
       <!-- Container pour React -->
       <div id="root" style="display: none;">
-        <div class="loading-critical">Chargement du quiz...</div>
+        <div class="loading-critical" aria-live="polite">Chargement du quiz...</div>
       </div>
     </main>
     
@@ -84,6 +101,14 @@
     <!-- Script pour démarrer le quiz -->
     <script>
       function startQuiz() {
+        // Track quiz start
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'quiz_started', {
+            event_category: 'engagement',
+            event_label: 'skin_quiz'
+          });
+        }
+        
         const root = document.getElementById('root');
         const lcpContent = document.querySelector('.lcp-content');
         if (root && lcpContent) {

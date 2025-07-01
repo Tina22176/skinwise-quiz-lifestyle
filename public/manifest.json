@@ -15,14 +15,16 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/placeholder.svg",
-      "type": "image/svg+xml",
-      "sizes": "192x192"
+      "src": "/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable any"
     },
     {
-      "src": "/placeholder.svg",
-      "type": "image/svg+xml",
-      "sizes": "512x512"
+      "src": "/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable any"
     }
   ],
   "categories": ["beauty", "lifestyle", "health"],

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { Welcome } from "./Welcome";
@@ -7,17 +8,28 @@ import { questions } from "./questions/index";
 import { AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { InstallPWA } from "../PWA/InstallPWA";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const QuizContent = () => {
   const { state, resetQuiz } = useQuiz();
   const [stage, setStage] = useState<"welcome" | "questions" | "results">("welcome");
   const isMobile = useIsMobile();
+  const { trackQuizStart, trackQuizComplete } = useAnalytics();
 
   useEffect(() => {
     if (state.currentQuestion >= questions.length) {
       setStage("results");
+      // Track quiz completion with skin type if available
+      if (state.skinType) {
+        trackQuizComplete(state.skinType);
+      }
     }
-  }, [state.currentQuestion]);
+  }, [state.currentQuestion, state.skinType, trackQuizComplete]);
+
+  const handleStartQuiz = () => {
+    trackQuizStart();
+    setStage("questions");
+  };
 
   const handleResetQuiz = () => {
     resetQuiz();
@@ -32,7 +44,7 @@ const QuizContent = () => {
     <div className={containerClasses}>
       <AnimatePresence mode="wait">
         {stage === "welcome" && (
-          <Welcome onStart={() => setStage("questions")} />
+          <Welcome onStart={handleStartQuiz} />
         )}
         {stage === "questions" && state.currentQuestion < questions.length && (
           <EnhancedQuizQuestion />

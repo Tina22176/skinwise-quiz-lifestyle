@@ -1,5 +1,6 @@
 
 import { useCallback } from "react";
+import { logger } from "@/utils/logger";
 
 export const useKlaviyoIntegration = () => {
   const klaviyoApiKey = "WMCz9t";
@@ -36,10 +37,10 @@ export const useKlaviyoIntegration = () => {
       }
 
       const result = await response.json();
-      console.log('Profile créé/mis à jour avec succès:', result);
+      logger.log('Profile créé/mis à jour avec succès:', result);
       return { success: true, data: result };
     } catch (error) {
-      console.error('Erreur lors de la création du profil Klaviyo:', error);
+      logger.error('Erreur lors de la création du profil Klaviyo:', error);
       return { success: false, error };
     }
   }, [klaviyoApiKey]);
