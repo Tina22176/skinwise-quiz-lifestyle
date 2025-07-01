@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { QuizContextType, QuizState, initialState } from "./types/quizTypes";
 import { quizReducer } from "./reducers/quizReducer";
