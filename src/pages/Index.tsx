@@ -15,7 +15,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50/30 via-white to-pink-50/20 overflow-x-hidden">
-      {/* Header avec logo flottant */}
+      {/* Header avec logo flottant - simplifié */}
       <motion.header 
         className="fixed top-0 left-0 right-0 z-50 glass backdrop-blur-xl border-b border-pink-100/20"
         initial={{ y: -100, opacity: 0 }}
@@ -84,6 +84,7 @@ const Index = () => {
         ))}
       </div>
 
+      {/* Contenu principal - le Quiz démarre directement */}
       <main className="pt-20" role="main">
         <Quiz />
       </main>

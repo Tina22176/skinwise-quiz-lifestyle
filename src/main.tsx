@@ -1,21 +1,31 @@
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Optimisation du chargement
+// Optimisation du chargement avec écran de loading
 const root = document.getElementById('root')
+const loadingScreen = document.getElementById('loading-screen')
 
 if (root) {
-  // Suppression du loading state une fois React chargé
-  const loadingElement = root.querySelector('.loading-critical')
-  if (loadingElement) {
-    loadingElement.remove()
-  }
+  // Créer le root React
+  const reactRoot = ReactDOM.createRoot(root)
   
-  ReactDOM.createRoot(root).render(
+  // Render l'app
+  reactRoot.render(
     <React.StrictMode>
       <App />
-    </React.StrictMode>,
+    </React.StrictMode>
   )
+  
+  // Supprimer l'écran de chargement après que React soit monté
+  setTimeout(() => {
+    if (loadingScreen) {
+      loadingScreen.classList.add('fade-out')
+      setTimeout(() => {
+        loadingScreen.remove()
+      }, 500)
+    }
+  }, 1000) // Délai minimum pour une expérience fluide
 }
