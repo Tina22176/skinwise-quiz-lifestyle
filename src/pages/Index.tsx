@@ -1,4 +1,3 @@
-
 import { Quiz } from "@/components/Quiz/Quiz";
 import { motion } from "framer-motion";
 import { Sparkles, Shield, Award } from "lucide-react";
@@ -31,7 +30,7 @@ const Index = () => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <OptimizedImage 
-              src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
+              src="https://cdn.shopify.com/s/files/1/0819/8622/4458/files/logo_majoliepeau.png?v=1738319474"
               alt="Logo Majoliepeau - Découvrez votre type de peau"
               width={56}
               height={56}
