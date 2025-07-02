@@ -1,3 +1,4 @@
+import React from "react";
 import { SkinTypeScore } from "../utils/skinTypeCalculator";
 
 // Types for the Quiz context and state management
