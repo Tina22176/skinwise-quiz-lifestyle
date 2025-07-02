@@ -78,7 +78,7 @@ export const EnhancedSubscriptionForm = ({
             onChange={handleNameChange}
             onBlur={() => validateName(firstName)}
             required
-            className={`premium-input text-base md:text-lg py-4 md:py-6 bg-white/95 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
+            className={`premium-input text-sm sm:text-base md:text-lg py-3 sm:py-4 md:py-6 bg-white/95 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
               nameError 
                 ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
                 : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
@@ -88,7 +88,7 @@ export const EnhancedSubscriptionForm = ({
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-sm text-pink-600 ml-1"
+              className="text-xs sm:text-sm text-pink-600 ml-1"
             >
               {nameError}
             </motion.p>
@@ -104,7 +104,7 @@ export const EnhancedSubscriptionForm = ({
             onChange={handleEmailChange}
             onBlur={() => validateEmail(email)}
             required
-            className={`premium-input text-base md:text-lg py-4 md:py-6 bg-white/95 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
+            className={`premium-input text-sm sm:text-base md:text-lg py-3 sm:py-4 md:py-6 bg-white/95 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
               emailError 
                 ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
                 : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
@@ -114,7 +114,7 @@ export const EnhancedSubscriptionForm = ({
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-sm text-pink-600 ml-1"
+              className="text-xs sm:text-sm text-pink-600 ml-1"
             >
               {emailError}
             </motion.p>
@@ -165,7 +165,7 @@ export const EnhancedSubscriptionForm = ({
         >
           <Button 
             type="submit" 
-            className="group premium-button w-full text-base md:text-xl py-5 md:py-7 relative overflow-hidden bg-gradient-to-r from-pink-500/95 to-pink-400/95 hover:from-pink-600/95 hover:to-pink-500/95 text-white border-0 shadow-[0_12px_28px_rgba(255,192,203,0.4)] hover:shadow-[0_16px_36px_rgba(255,192,203,0.5)] transition-all duration-300 rounded-2xl font-semibold"
+            className="group premium-button w-full text-sm sm:text-base md:text-lg py-3 sm:py-4 md:py-5 relative overflow-hidden bg-gradient-to-r from-pink-500/95 to-pink-400/95 hover:from-pink-600/95 hover:to-pink-500/95 text-white border-0 shadow-[0_12px_28px_rgba(255,192,203,0.4)] hover:shadow-[0_16px_36px_rgba(255,192,203,0.5)] transition-all duration-300 rounded-2xl font-semibold"
             disabled={isLoading || !email || !firstName || !gdprConsent || emailError !== "" || nameError !== ""}
           >
             <motion.span
@@ -179,14 +179,14 @@ export const EnhancedSubscriptionForm = ({
                 ease: "linear",
               }}
             />
-            <span className="flex items-center justify-center gap-3">
+            <span className="flex items-center justify-center gap-2 sm:gap-3">
               {isLoading ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
+                <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 animate-spin" />
               ) : (
-                <Sparkles className="w-6 h-6" />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               )}
-              <span>
-                RECEVOIR MA ROUTINE {skinType.toUpperCase()} GRATUITE
+              <span className="whitespace-nowrap">
+                RECEVOIR MA ROUTINE GRATUITE
               </span>
             </span>
           </Button>

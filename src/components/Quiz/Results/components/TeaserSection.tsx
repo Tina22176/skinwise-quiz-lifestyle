@@ -1,7 +1,6 @@
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Instagram, RefreshCw, Eye, Sparkles, ArrowRight } from "lucide-react";
+import { Instagram, RefreshCw, Clock, Star, Shield, Sparkles } from "lucide-react";
 
 interface TeaserSectionProps {
   skinType: string;
@@ -18,79 +17,158 @@ export const TeaserSection = ({
   visitInstagram,
   onResetQuiz
 }: TeaserSectionProps) => {
-  const teaserRecommendations = [
-    `Nettoyant spécial peau ${skinTypeText.toLowerCase()}`,
-    `Sérum adapté à tes besoins`,
-    `Routine matin/soir personnalisée`
-  ];
-
   return (
-    <div className="glass rounded-2xl p-6 md:p-8 bg-gradient-to-br from-white/90 to-pink-50/90 border border-pink-200/40">
-      <div className="text-center space-y-6">
-        <div>
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">
+    <div className="space-y-6">
+      {/* Aperçu de ce qui t'attend - Basé sur l'email réel */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="bg-gradient-to-r from-pink-50/80 to-white/80 p-6 rounded-2xl border border-pink-200/50 shadow-lg"
+      >
+        <div className="text-center mb-6">
+          <h3 className="text-lg sm:text-xl font-bold text-pink-600 mb-2">
             🎯 Aperçu de ce qui t'attend
           </h3>
-          <p className="text-gray-600 text-sm md:text-base">
+          <p className="text-sm sm:text-base text-gray-700">
             Voici un avant-goût de ta routine personnalisée
           </p>
         </div>
 
-        {/* Aperçu des recommandations */}
-        <div className="space-y-3">
-          {teaserRecommendations.map((recommendation, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.2 }}
-              className="flex items-center gap-3 bg-white/70 p-3 rounded-xl border border-pink-100"
-            >
-              <Sparkles className="w-4 h-4 text-pink-500" />
-              <span className="text-gray-700">{recommendation}</span>
-              <div className="ml-auto text-pink-400">
-                <ArrowRight className="w-4 h-4" />
+        {/* Aperçu routine matin/soir */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          {/* Routine du matin */}
+          <div className="bg-white/70 p-4 rounded-xl border border-pink-200/30">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="w-4 h-4 text-pink-500" />
+              <h4 className="font-semibold text-gray-800">Routine du matin</h4>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">1️⃣</span>
+                <span className="text-gray-700">Lait nettoyant ultra-doux</span>
               </div>
-            </motion.div>
-          ))}
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">2️⃣</span>
+                <span className="text-gray-700">Eau thermale réparatrice</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">3️⃣</span>
+                <span className="text-gray-700">Sérum lipidique</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">4️⃣</span>
+                <span className="text-gray-700">Crème riche nourrissante</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">5️⃣</span>
+                <span className="text-gray-700">SPF crème minérale</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Routine du soir */}
+          <div className="bg-white/70 p-4 rounded-xl border border-pink-200/30">
+            <div className="flex items-center gap-2 mb-3">
+              <Star className="w-4 h-4 text-pink-500" />
+              <h4 className="font-semibold text-gray-800">Routine du soir</h4>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">1️⃣</span>
+                <span className="text-gray-700">Baume démaquillant</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">2️⃣</span>
+                <span className="text-gray-700">Lait nettoyant doux</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">3️⃣</span>
+                <span className="text-gray-700">Essence hydratante</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">4️⃣</span>
+                <span className="text-gray-700">Sérum réparateur intensif</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-pink-500 font-bold">5️⃣</span>
+                <span className="text-gray-700">Baume de nuit réparateur</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* CTA pour plus de détails */}
+        {/* Ingrédients stars */}
+        <div className="bg-gradient-to-r from-pink-100/50 to-pink-50/50 p-4 rounded-xl border border-pink-200/40">
+          <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-pink-500" />
+            Les ingrédients stars pour ta peau {skinTypeText}
+          </h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
+            <div className="flex items-center gap-1">
+              <span className="text-pink-500">•</span>
+              <span className="text-gray-700">Céramides</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-pink-500">•</span>
+              <span className="text-gray-700">Acide hyaluronique</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-pink-500">•</span>
+              <span className="text-gray-700">Squalane</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-pink-500">•</span>
+              <span className="text-gray-700">Panthenol</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-pink-500">•</span>
+              <span className="text-gray-700">Beurre de karité</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-pink-500">•</span>
+              <span className="text-gray-700">Allantoïne</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Conseils bonus */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="bg-gradient-to-r from-pink-100/60 to-pink-50/60 p-4 rounded-xl border border-pink-200/50"
+          transition={{ delay: 0.6 }}
+          className="bg-gradient-to-r from-yellow-50/80 to-orange-50/80 p-4 rounded-xl border border-yellow-200/50"
         >
-          <p className="text-sm text-gray-600 mb-3">
-            + conseils d'application détaillés, routine hebdomadaire, 
-            produits recommandés par nos experts...
-          </p>
-          <p className="text-pink-600 font-medium text-sm">
-            💌 Tout cela t'attend dans ta boîte mail !
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="w-4 h-4 text-orange-500" />
+            <h4 className="font-semibold text-orange-700">3 conseils bonus exclusifs</h4>
+          </div>
+          <p className="text-sm text-orange-600">
+            La technique du layering hydratant, le geste SOS tiraillements, 
+            et le masque cocooning hebdomadaire t'attendent dans ton email ! 🎁
           </p>
         </motion.div>
+      </motion.div>
 
-        {/* Boutons d'action */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-          <Button
-            onClick={visitInstagram}
-            variant="outline"
-            className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
-          >
-            <Instagram className="w-4 h-4" />
-            Suivre @majolie_peau
-          </Button>
+      {/* Boutons d'action */}
+      <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+        <Button
+          onClick={visitInstagram}
+          variant="outline"
+          className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base"
+        >
+          <Instagram className="w-4 h-4" />
+          Suivre @majolie_peau
+        </Button>
 
-          <Button
-            onClick={onResetQuiz}
-            variant="outline"
-            className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
-          >
-            <RefreshCw className="w-4 h-4" />
-            Refaire le test
-          </Button>
-        </div>
+        <Button
+          onClick={onResetQuiz}
+          variant="outline"
+          className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base"
+        >
+          <RefreshCw className="w-4 h-4" />
+          Refaire le test
+        </Button>
       </div>
     </div>
   );
