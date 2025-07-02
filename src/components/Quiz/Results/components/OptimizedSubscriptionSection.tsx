@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { EnhancedSubscriptionForm } from "./EnhancedSubscriptionForm";
 import { SubscribedSuccessState } from "./SubscribedSuccessState";
@@ -56,26 +55,45 @@ export const OptimizedSubscriptionSection = ({
               }}
               className="inline-block"
             >
-              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 text-transparent bg-clip-text">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 text-transparent bg-clip-text">
                 💖 TON PLAN BEAUTÉ PERSONNALISÉ
               </h2>
             </motion.div>
             
-            <div className="space-y-2">
-              <p className="text-lg md:text-xl text-gray-800 font-medium">
+            <div className="space-y-3">
+              <p className="text-base sm:text-lg md:text-xl text-gray-800 font-medium">
                 Reçois ta routine <span className="text-pink-600 font-semibold">PEAU {skinTypeText.toUpperCase()}</span> gratuite !
               </p>
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
-                <span className="flex items-center gap-1">
-                  ✨ Routine adaptée en 5 min
-                </span>
-                <span className="flex items-center gap-1">
-                  🎯 Conseils d'experts inclus
-                </span>
-                <span className="flex items-center gap-1">
-                  📱 Suivi personnalisé gratuit
-                </span>
+              
+              {/* Aperçu du contenu de l'email */}
+              <div className="bg-gradient-to-r from-pink-100/60 to-white/60 p-4 rounded-xl border border-pink-200/40">
+                <div className="flex flex-wrap justify-center gap-3 text-xs sm:text-sm text-gray-600">
+                  <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                    🌹 Routine matin/soir détaillée
+                  </span>
+                  <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                    ✨ Ingrédients stars personnalisés
+                  </span>
+                  <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                    💎 3 conseils bonus exclusifs
+                  </span>
+                  <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                    🚫 Ingrédients à éviter
+                  </span>
+                </div>
               </div>
+              
+              {/* FOMO et urgence */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+                className="bg-gradient-to-r from-orange-50/80 to-yellow-50/80 p-3 rounded-lg border border-orange-200/50"
+              >
+                <p className="text-xs sm:text-sm text-orange-700 font-medium">
+                  ⏰ Offre limitée : +18k femmes ont déjà reçu leur routine personnalisée !
+                </p>
+              </motion.div>
             </div>
           </div>
 
