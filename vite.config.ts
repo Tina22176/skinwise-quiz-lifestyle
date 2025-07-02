@@ -46,25 +46,20 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Optimisations de build
+    // Configuration de build simplifiée et stable
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'],
-        passes: 2, // Optimisation multiple
-        unsafe: true, // Optimisations avancées
-        unsafe_comps: true,
-        unsafe_Function: true,
-        unsafe_math: true,
-        unsafe_proto: true,
-        unsafe_regexp: true,
-        unsafe_undefined: true,
+        // Garder les console.error pour débugger
+        drop_console: false,
+        drop_debugger: false,
+        // Optimisations sûres seulement
+        unsafe: false,
+        passes: 1,
       },
       mangle: {
-        toplevel: true, // Mangle les noms de variables globales
-        safari10: true, // Compatibilité Safari
+        toplevel: false, // Plus sûr pour éviter les conflits
+        safari10: true,
       },
       format: {
         comments: false,
@@ -72,33 +67,22 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Séparation des chunks pour optimiser le cache
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-toast', '@radix-ui/react-tooltip', '@radix-ui/react-checkbox'],
-          charts: ['recharts'],
-          animations: ['framer-motion'],
-          router: ['react-router-dom'],
-          query: ['@tanstack/react-query'],
-          icons: ['lucide-react'],
-        },
-        // Optimisation des chunks
+        // Configuration simplifiée des chunks
+        manualChunks: undefined, // Laisser Vite gérer automatiquement
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
-      // Optimisations Rollup
+      // Tree-shaking plus conservateur
       treeshake: {
-        moduleSideEffects: false,
-        propertyReadSideEffects: false,
-        unknownGlobalSideEffects: false,
+        moduleSideEffects: 'no-external',
+        propertyReadSideEffects: true,
+        unknownGlobalSideEffects: true,
       },
     },
-    // Analyse des bundles
     reportCompressedSize: true,
     chunkSizeWarningLimit: 1000,
-    // Optimisations de performance
-    target: 'esnext',
-    sourcemap: false, // Désactive les sourcemaps en production
+    target: 'es2020', // Plus compatible
+    sourcemap: true, // Activer pour débugger
   },
 }));
