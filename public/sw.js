@@ -2,7 +2,6 @@
 const CACHE_NAME = 'skinwise-quiz-v1';
 const urlsToCache = [
   '/',
-  '/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png',
   '/src/index.css'
 ];
 
@@ -10,7 +9,7 @@ const urlsToCache = [
 const externalDomains = [
   'https://majoliepeau.com',
   'https://instagram.com',
-  'https://cdn.gpteng.co'
+  'https://cdn.shopify.com' // Ajout du domaine Shopify
 ];
 
 // Installation du service worker

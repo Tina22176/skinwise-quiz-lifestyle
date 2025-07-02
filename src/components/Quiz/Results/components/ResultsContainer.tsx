@@ -22,7 +22,7 @@ export const ResultsContainer = ({ containerVariants, children }: ResultsContain
             transition={{ type: "spring", stiffness: 300 }}
           >
             <img 
-              src="/lovable-uploads/1f68abeb-6ffc-46ce-8aa4-392f60aecff3.png"
+              src="https://cdn.shopify.com/s/files/1/0819/8622/4458/files/logo_majoliepeau.png?v=1738319474"
               alt="Logo Majoliepeau"
               className="h-10 sm:h-12 md:h-14 w-auto"
             />

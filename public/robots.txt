@@ -9,7 +9,7 @@ Crawl-delay: 1
 
 # Permettre l'indexation des ressources importantes
 Allow: /assets/
-Allow: /lovable-uploads/
+# Supprimé: Allow: /lovable-uploads/
 Allow: /manifest.json
 
 # Bloquer les fichiers de développement
