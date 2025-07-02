@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { Info } from "lucide-react";
 import { useState } from "react";
-import { calculateSkinCharacteristics } from "./utils/SkinScoreCalculator";
+import { calculateImprovedSkinCharacteristics } from "./utils/SkinScoreCalculator";
 import { SkinRadarChart } from "./components/SkinRadarChart";
 import { SkinScoreBars } from "./components/SkinScoreBars";
 
@@ -14,7 +14,7 @@ interface DetailedResultsChartProps {
 export const DetailedResultsChart = ({ skinType, answers }: DetailedResultsChartProps) => {
   const [showExplanations, setShowExplanations] = useState(false);
 
-  const data = calculateSkinCharacteristics(answers);
+  const data = calculateImprovedSkinCharacteristics(answers);
   const barData = data.map(item => ({
     name: item.characteristic,
     score: item.value,

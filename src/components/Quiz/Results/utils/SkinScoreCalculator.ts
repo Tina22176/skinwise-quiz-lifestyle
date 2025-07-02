@@ -1,4 +1,6 @@
 
+import { ImprovedSkinScoreCalculator, ImprovedSkinCharacteristic } from '../../utils/improvedSkinScoreCalculator';
+
 export interface SkinCharacteristic {
   characteristic: string;
   value: number;
@@ -6,7 +8,28 @@ export interface SkinCharacteristic {
   explanation: string;
 }
 
+// Legacy function for backward compatibility
 export const calculateSkinCharacteristics = (answers: Record<string, string>): SkinCharacteristic[] => {
+  const calculator = new ImprovedSkinScoreCalculator();
+  const improvedResults = calculator.calculateSkinCharacteristics(answers);
+  
+  // Convert ImprovedSkinCharacteristic to legacy SkinCharacteristic format
+  return improvedResults.map(result => ({
+    characteristic: result.characteristic,
+    value: result.value,
+    fullMark: result.fullMark,
+    explanation: result.explanation
+  }));
+};
+
+// New improved function that returns the enhanced characteristics with recommendations and confidence
+export const calculateImprovedSkinCharacteristics = (answers: Record<string, string>): ImprovedSkinCharacteristic[] => {
+  const calculator = new ImprovedSkinScoreCalculator();
+  return calculator.calculateSkinCharacteristics(answers);
+};
+
+// Legacy implementation kept for reference (can be removed after migration)
+const calculateSkinCharacteristicsLegacy = (answers: Record<string, string>): SkinCharacteristic[] => {
   let scores = {
     hydratation: 50,
     sensibilite: 30,
