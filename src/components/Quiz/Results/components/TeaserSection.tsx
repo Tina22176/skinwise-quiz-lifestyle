@@ -11,43 +11,39 @@ interface TeaserSectionProps {
   onResetQuiz: () => void;
 }
 
-// Mapping des couleurs par type de peau
+// Mapping des couleurs par type de peau - Classes statiques uniquement
 const COLOR_MAPPINGS = {
   blue: {
     text: 'text-blue-500',
     bg: 'from-blue-50/80',
-    border: 'border-blue-500/20',
-    bgLight: 'from-blue-50/50',
-    bgLighter: 'from-blue-50/10',
+    border: 'border-blue-200/50',
     accent: 'text-blue-600',
-    borderAccent: 'border-blue-200/50'
+    hover: 'hover:bg-blue-50/50',
+    icon: 'text-blue-500'
   },
   green: {
     text: 'text-green-500',
     bg: 'from-green-50/80',
-    border: 'border-green-500/20',
-    bgLight: 'from-green-50/50',
-    bgLighter: 'from-green-50/10',
+    border: 'border-green-200/50',
     accent: 'text-green-600',
-    borderAccent: 'border-green-200/50'
+    hover: 'hover:bg-green-50/50',
+    icon: 'text-green-500'
   },
   purple: {
     text: 'text-purple-500',
     bg: 'from-purple-50/80',
-    border: 'border-purple-500/20',
-    bgLight: 'from-purple-50/50',
-    bgLighter: 'from-purple-50/10',
+    border: 'border-purple-200/50',
     accent: 'text-purple-600',
-    borderAccent: 'border-purple-200/50'
+    hover: 'hover:bg-purple-50/50',
+    icon: 'text-purple-500'
   },
   pink: {
     text: 'text-pink-500',
     bg: 'from-pink-50/80',
-    border: 'border-pink-500/20',
-    bgLight: 'from-pink-50/50',
-    bgLighter: 'from-pink-50/10',
+    border: 'border-pink-200/50',
     accent: 'text-pink-600',
-    borderAccent: 'border-pink-200/50'
+    hover: 'hover:bg-pink-50/50',
+    icon: 'text-pink-500'
   }
 };
 
@@ -78,7 +74,7 @@ export const TeaserSection = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className={`bg-gradient-to-r ${colors.bg} to-white/80 p-6 rounded-2xl border ${colors.borderAccent} shadow-lg`}
+        className={`bg-gradient-to-r ${colors.bg} to-white/80 p-6 rounded-2xl border ${colors.border} shadow-lg`}
       >
         <div className="text-center mb-6">
           <h3 className={`text-lg sm:text-xl font-bold ${colors.accent} mb-2`}>
@@ -92,9 +88,9 @@ export const TeaserSection = ({
         {/* Aperçu routine matin/soir */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           {/* Routine du matin */}
-          <div className={`bg-white/70 p-4 rounded-xl border ${colors.borderAccent}`}>
+          <div className={`bg-white/70 p-4 rounded-xl border ${colors.border}`}>
             <div className="flex items-center gap-2 mb-3">
-              <Clock className={`w-4 h-4 ${colors.text}`} />
+              <Clock className={`w-4 h-4 ${colors.icon}`} />
               <h4 className="font-semibold text-gray-800">Routine du matin</h4>
             </div>
             <div className="space-y-2 text-xs sm:text-sm md:text-base">
@@ -108,9 +104,9 @@ export const TeaserSection = ({
           </div>
 
           {/* Routine du soir */}
-          <div className={`bg-white/70 p-4 rounded-xl border ${colors.borderAccent}`}>
+          <div className={`bg-white/70 p-4 rounded-xl border ${colors.border}`}>
             <div className="flex items-center gap-2 mb-3">
-              <Star className={`w-4 h-4 ${colors.text}`} />
+              <Star className={`w-4 h-4 ${colors.icon}`} />
               <h4 className="font-semibold text-gray-800">Routine du soir</h4>
             </div>
             <div className="space-y-2 text-xs sm:text-sm md:text-base">
@@ -125,9 +121,9 @@ export const TeaserSection = ({
         </div>
 
         {/* Ingrédients stars */}
-        <div className={`bg-gradient-to-r ${colors.bgLight} to-${colors.bgLighter} p-4 rounded-xl border ${colors.borderAccent}`}>
+        <div className={`bg-gradient-to-r ${colors.bg} p-4 rounded-xl border ${colors.border}`}>
           <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-            <Sparkles className={`w-4 h-4 ${colors.text}`} />
+            <Sparkles className={`w-4 h-4 ${colors.icon}`} />
             Les ingrédients stars pour ta peau {skinTypeText}
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm md:text-base">
@@ -192,7 +188,7 @@ export const TeaserSection = ({
         <Button
           onClick={visitInstagram}
           variant="outline"
-          className={`flex items-center gap-2 bg-white hover:${colors.bgLight} text-black ${colors.borderAccent} px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base`}
+          className={`flex items-center gap-2 bg-white ${colors.hover} text-black ${colors.border} px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base`}
         >
           <Instagram className="w-4 h-4" />
           Suivre @majolie_peau
@@ -201,7 +197,7 @@ export const TeaserSection = ({
         <Button
           onClick={onResetQuiz}
           variant="outline"
-          className={`flex items-center gap-2 bg-white hover:${colors.bgLight} text-black ${colors.borderAccent} px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base`}
+          className={`flex items-center gap-2 bg-white ${colors.hover} text-black ${colors.border} px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base`}
         >
           <RefreshCw className="w-4 h-4" />
           Refaire le test
