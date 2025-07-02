@@ -14,7 +14,7 @@ export interface QuestionWeight {
   category: 'primary' | 'secondary' | 'validation' | 'state';
 }
 
-// Pondération des questions par importance
+  // Pondération des questions par importance
 const QUESTION_WEIGHTS: QuestionWeight[] = [
   // Questions primaires (poids élevé) - Type de peau
   { questionId: "sensation_apres_nettoyage", weight: 3.0, category: 'primary' },
@@ -24,12 +24,13 @@ const QUESTION_WEIGHTS: QuestionWeight[] = [
   
   // Questions secondaires (poids moyen) - Type de peau
   { questionId: "reaction_soleil", weight: 1.5, category: 'secondary' },
-  { questionId: "souci_principal", weight: 1.0, category: 'secondary' },
-  { questionId: "texture_creme", weight: 1.0, category: 'secondary' },
+  { questionId: "souci_principal", weight: 1.5, category: 'secondary' },
+  { questionId: "texture_creme", weight: 1.2, category: 'secondary' },
+  { questionId: "tiraillements_frequents", weight: 1.0, category: 'secondary' },
   
-  // Questions d'état (poids moyen) - Sensibilité
-  { questionId: "nouveaux_produits", weight: 1.5, category: 'state' },
-  { questionId: "sensation_inconfort", weight: 1.2, category: 'state' },
+  // Questions d'état (poids élevé) - Sensibilité
+  { questionId: "nouveaux_produits", weight: 2.0, category: 'state' },
+  { questionId: "sensation_inconfort", weight: 1.8, category: 'state' },
   
   // Questions de validation (poids faible)
   { questionId: "maquillage_journee", weight: 0.8, category: 'validation' }
@@ -41,6 +42,9 @@ const ANSWER_MAPPING: Record<string, Record<string, number>> = {
     "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
   },
   "fin_journee": {
+    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+  },
+  "tiraillements_frequents": {
     "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
   },
   "pores": {
@@ -70,6 +74,10 @@ const STATE_MAPPING: Record<string, Record<string, number>> = {
   },
   "sensation_inconfort": {
     "sensible": 3, "normal": 1
+  },
+  // Ajout d'une question de validation pour la sensibilité
+  "tiraillements_frequents": {
+    "sensible": 1, "normal": 2 // Tiraillements peuvent indiquer sensibilité
   }
 };
 
@@ -245,9 +253,11 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
   const maxTypeScore = Math.max(...Object.values(typeScores));
   const dominantType = Object.keys(typeScores).find(type => typeScores[type] === maxTypeScore) || "normal";
   
-  // Déterminer l'état dominant (si applicable)
+  // Déterminer l'état dominant (si applicable) - seuil plus précis
   const maxStateScore = Math.max(...Object.values(stateScores));
-  const dominantState = maxStateScore > 2.0 ? Object.keys(stateScores).find(state => stateScores[state] === maxStateScore) : null;
+  const totalStateWeight = QUESTION_WEIGHTS.filter(w => w.category === 'state').reduce((sum, w) => sum + w.weight, 0);
+  const sensitivityThreshold = totalStateWeight * 0.4; // 40% du score total possible
+  const dominantState = maxStateScore > sensitivityThreshold ? Object.keys(stateScores).find(state => stateScores[state] === maxStateScore) : null;
   
   // Calculer le score de confiance
   const confidence = calculateConfidence(answers, typeScores);

@@ -54,28 +54,28 @@ export const skinFeelQuestions: QuizQuestion[] = [
     ]
   },
   {
-    id: "sensation_inconfort",
-    question: "Ressens-tu souvent des sensations d'inconfort cutané ?",
+    id: "tiraillements_frequents",
+    question: "Ressens-tu des tiraillements après le nettoyage ?",
     options: [
       {
         value: "seche",
-        label: "Sensation de tiraillement fréquente",
-        description: "Les tiraillements sont typiques des peaux déshydratées"
+        label: "Immédiatement et intensément",
+        description: "Tiraillements forts caractéristiques des peaux sèches"
       },
       {
-        value: "mixte",
-        label: "Parfois des inconforts sur certaines zones, pas sur d'autres",
-        description: "Sensations variables selon les zones du visage"
+        value: "mixte", 
+        label: "Sur certaines zones seulement",
+        description: "Tiraillements localisés sur les zones sèches"
       },
       {
         value: "grasse",
-        label: "Rarement, sauf si ma peau est trop nettoyée",
-        description: "Les peaux grasses tolèrent bien la plupart des produits"
+        label: "Rarement ou jamais",
+        description: "Les peaux grasses ne tiraillent généralement pas"
       },
       {
         value: "normale",
-        label: "Rarement, ma peau est généralement confortable",
-        description: "Les peaux normales sont rarement inconfortables"
+        label: "Très légers et temporaires",
+        description: "Sensations minimales et passagères"
       }
     ]
   }
