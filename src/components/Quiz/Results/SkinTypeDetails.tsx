@@ -13,6 +13,138 @@ interface SkinStateDetail {
   recommendations: string[];
 }
 
+interface SkinTypeTeaser {
+  morningRoutine: string[];
+  eveningRoutine: string[];
+  keyIngredients: string[];
+  bonusTips: string[];
+  colorTheme: 'blue' | 'green' | 'purple' | 'pink';
+}
+
+// Configuration des teasers personnalisés par type de peau
+export const SKIN_TYPE_TEASERS: Record<string, SkinTypeTeaser> = {
+  "combination": {
+    morningRoutine: [
+      "Gel nettoyant équilibrant",
+      "Tonique sans alcool",
+      "Sérum hydratant léger",
+      "Crème matifiante zone T",
+      "SPF 50+ non comédogène"
+    ],
+    eveningRoutine: [
+      "Baume démaquillant doux",
+      "Gel nettoyant purifiant",
+      "Essence hydratante",
+      "Sérum anti-imperfections",
+      "Crème de nuit équilibrante"
+    ],
+    keyIngredients: [
+      "Niacinamide",
+      "Acide salicylique",
+      "Acide hyaluronique",
+      "Zinc PCA",
+      "Extrait de thé vert",
+      "Céramides"
+    ],
+    bonusTips: [
+      "Technique du double nettoyage",
+      "Masque argile zone T uniquement",
+      "Geste SOS brillance"
+    ],
+    colorTheme: 'green'
+  },
+  "dry": {
+    morningRoutine: [
+      "Lait nettoyant ultra-doux",
+      "Eau thermale réparatrice",
+      "Sérum lipidique intensif",
+      "Crème riche nourrissante",
+      "SPF crème minérale"
+    ],
+    eveningRoutine: [
+      "Baume démaquillant nourrissant",
+      "Lait nettoyant doux",
+      "Essence hydratante",
+      "Sérum réparateur intensif",
+      "Baume de nuit réparateur"
+    ],
+    keyIngredients: [
+      "Céramides",
+      "Acide hyaluronique",
+      "Squalane",
+      "Beurre de karité",
+      "Panthenol",
+      "Allantoïne"
+    ],
+    bonusTips: [
+      "Technique du layering hydratant",
+      "Geste SOS tiraillements",
+      "Masque cocooning hebdomadaire"
+    ],
+    colorTheme: 'blue'
+  },
+  "oily": {
+    morningRoutine: [
+      "Gel nettoyant purifiant",
+      "Tonique astringent doux",
+      "Sérum matifiant",
+      "Gel hydratant léger",
+      "SPF gel non gras"
+    ],
+    eveningRoutine: [
+      "Huile démaquillante",
+      "Gel nettoyant profond",
+      "Essence purifiante",
+      "Sérum anti-imperfections",
+      "Gel de nuit régulateur"
+    ],
+    keyIngredients: [
+      "Acide salicylique",
+      "Niacinamide",
+      "Zinc PCA",
+      "Extrait de saule",
+      "Argile kaolin",
+      "Probiotiques"
+    ],
+    bonusTips: [
+      "Technique du triple nettoyage",
+      "Masque argile purifiant",
+      "Geste SOS brillance"
+    ],
+    colorTheme: 'purple'
+  },
+  "normal": {
+    morningRoutine: [
+      "Gel nettoyant doux",
+      "Tonique équilibrant",
+      "Sérum antioxydant",
+      "Crème hydratante",
+      "SPF 30+ quotidien"
+    ],
+    eveningRoutine: [
+      "Baume démaquillant",
+      "Gel nettoyant doux",
+      "Essence hydratante",
+      "Sérum réparateur",
+      "Crème de nuit"
+    ],
+    keyIngredients: [
+      "Vitamine C",
+      "Acide hyaluronique",
+      "Peptides",
+      "Antioxydants",
+      "Céramides",
+      "Vitamine E"
+    ],
+    bonusTips: [
+      "Technique du massage facial",
+      "Masque éclat hebdomadaire",
+      "Geste SOS fatigue"
+    ],
+    colorTheme: 'pink'
+  }
+};
+
 export const getSkinTypeText = (skinType: string) => {
   const texts: Record<string, string> = {
     "combination": "Mixte",
