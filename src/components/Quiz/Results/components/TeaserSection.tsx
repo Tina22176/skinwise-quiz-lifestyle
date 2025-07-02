@@ -10,6 +10,48 @@ interface TeaserSectionProps {
   onResetQuiz: () => void;
 }
 
+// Au lieu de classes dynamiques, utiliser des objets de mapping
+const COLOR_MAPPINGS = {
+  blue: {
+    text: 'text-blue-500',
+    bg: 'from-blue-50/80',
+    border: 'border-blue-500/20',
+    bgLight: 'from-blue-50/50',
+    bgLighter: 'from-blue-50/10'
+  },
+  green: {
+    text: 'text-green-500',
+    bg: 'from-green-50/80',
+    border: 'border-green-500/20',
+    bgLight: 'from-green-50/50',
+    bgLighter: 'from-green-50/10'
+  },
+  purple: {
+    text: 'text-purple-500',
+    bg: 'from-purple-50/80',
+    border: 'border-purple-500/20',
+    bgLight: 'from-purple-50/50',
+    bgLighter: 'from-purple-50/10'
+  },
+  pink: {
+    text: 'text-pink-500',
+    bg: 'from-pink-50/80',
+    border: 'border-pink-500/20',
+    bgLight: 'from-pink-50/50',
+    bgLighter: 'from-pink-50/10'
+  }
+};
+
+// Animation pour les étapes cachées
+const hiddenStepVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { delay: 0.8, duration: 0.5 }
+  }
+};
+
 export const TeaserSection = ({
   skinType,
   skinTypeText,
@@ -43,7 +85,7 @@ export const TeaserSection = ({
               <Clock className="w-4 h-4 text-pink-500" />
               <h4 className="font-semibold text-gray-800">Routine du matin</h4>
             </div>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-2 text-xs sm:text-sm md:text-base">
               <div className="flex items-center gap-2">
                 <span className="text-pink-500 font-bold">1️⃣</span>
                 <span className="text-gray-700">Lait nettoyant ultra-doux</span>
@@ -73,7 +115,7 @@ export const TeaserSection = ({
               <Star className="w-4 h-4 text-pink-500" />
               <h4 className="font-semibold text-gray-800">Routine du soir</h4>
             </div>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-2 text-xs sm:text-sm md:text-base">
               <div className="flex items-center gap-2">
                 <span className="text-pink-500 font-bold">1️⃣</span>
                 <span className="text-gray-700">Baume démaquillant</span>
@@ -104,7 +146,7 @@ export const TeaserSection = ({
             <Sparkles className="w-4 h-4 text-pink-500" />
             Les ingrédients stars pour ta peau {skinTypeText}
           </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm md:text-base">
             <div className="flex items-center gap-1">
               <span className="text-pink-500">•</span>
               <span className="text-gray-700">Céramides</span>
@@ -143,32 +185,32 @@ export const TeaserSection = ({
             <Shield className="w-4 h-4 text-orange-500" />
             <h4 className="font-semibold text-orange-700">3 conseils bonus exclusifs</h4>
           </div>
-          <p className="text-sm text-orange-600">
+          <p className="text-xs sm:text-sm md:text-base text-orange-600">
             La technique du layering hydratant, le geste SOS tiraillements, 
             et le masque cocooning hebdomadaire t'attendent dans ton email ! 🎁
           </p>
         </motion.div>
-      </motion.div>
+        </motion.div>
 
-      {/* Boutons d'action */}
-      <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-        <Button
-          onClick={visitInstagram}
-          variant="outline"
+        {/* Boutons d'action */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+          <Button
+            onClick={visitInstagram}
+            variant="outline"
           className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base"
-        >
-          <Instagram className="w-4 h-4" />
-          Suivre @majolie_peau
-        </Button>
+          >
+            <Instagram className="w-4 h-4" />
+            Suivre @majolie_peau
+          </Button>
 
-        <Button
-          onClick={onResetQuiz}
-          variant="outline"
+          <Button
+            onClick={onResetQuiz}
+            variant="outline"
           className="flex items-center gap-2 bg-white hover:bg-pink-50/50 text-black border-pink-200/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base"
-        >
-          <RefreshCw className="w-4 h-4" />
-          Refaire le test
-        </Button>
+          >
+            <RefreshCw className="w-4 h-4" />
+            Refaire le test
+          </Button>
       </div>
     </div>
   );
