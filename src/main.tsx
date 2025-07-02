@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-console.log('🚀 Démarrage de l_application...')
+console.log('🚀 Démarrage de l\'application...')
 
 const root = document.getElementById('root')
 
@@ -15,7 +15,7 @@ if (!root) {
   
   try {
     const reactRoot = ReactDOM.createRoot(root)
-    console.log('✅ React root créé, rendu de l_app...')
+    console.log('✅ React root créé, rendu de l\'app...')
     
     reactRoot.render(
       <React.StrictMode>
