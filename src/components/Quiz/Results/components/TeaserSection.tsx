@@ -1,208 +1,259 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Instagram, RefreshCw, Clock, Star, Shield, Sparkles, Lock } from "lucide-react";
-import { SKIN_TYPE_TEASERS } from "../SkinTypeDetails";
+import { motion } from “framer-motion”;
+import { Button } from “@/components/ui/button”;
+import { Instagram, RefreshCw, Clock, Star, Shield, Sparkles, Lock, Mail } from “lucide-react”;
 
 interface TeaserSectionProps {
-  skinType: string;
-  skinTypeText: string;
-  details: any;
-  visitInstagram: () => void;
-  onResetQuiz: () => void;
+skinType: string;
+skinTypeText: string;
+details: any;
+visitInstagram: () => void;
+onResetQuiz: () => void;
 }
 
-// Mapping des couleurs par type de peau - Classes statiques uniquement
-const COLOR_MAPPINGS = {
-  blue: {
-    text: 'text-blue-500',
-    bg: 'from-blue-50/80',
-    border: 'border-blue-200/50',
-    accent: 'text-blue-600',
-    hover: 'hover:bg-blue-50/50',
-    icon: 'text-blue-500'
-  },
-  green: {
-    text: 'text-green-500',
-    bg: 'from-green-50/80',
-    border: 'border-green-200/50',
-    accent: 'text-green-600',
-    hover: 'hover:bg-green-50/50',
-    icon: 'text-green-500'
-  },
-  purple: {
-    text: 'text-purple-500',
-    bg: 'from-purple-50/80',
-    border: 'border-purple-200/50',
-    accent: 'text-purple-600',
-    hover: 'hover:bg-purple-50/50',
-    icon: 'text-purple-500'
-  },
-  pink: {
-    text: 'text-pink-500',
-    bg: 'from-pink-50/80',
-    border: 'border-pink-200/50',
-    accent: 'text-pink-600',
-    hover: 'hover:bg-pink-50/50',
-    icon: 'text-pink-500'
-  }
+// Configuration personnalisée par type de peau avec classes fixes
+const getSkinTypeTeaser = (skinType: string) => {
+const teasers = {
+dry: {
+morningSteps: [
+“Nettoyant crémeux ultra-doux”,
+“Sérum hydra-réparateur”,
+“Crème riche nourrissante”,
+“Protection SPF adaptée”
+],
+eveningSteps: [
+“Démaquillant onctueux”,
+“Sérum lipidique intensif”,
+“Baume de nuit cocooning”
+],
+keyIngredients: [“Céramides”, “Acide hyaluronique”, “Squalane”],
+urgentTip: “La technique SOS anti-tiraillements”,
+bgClass: “from-blue-50 to-white”,
+borderClass: “border-blue-200”,
+textClass: “text-blue-500”,
+buttonClass: “bg-blue-500”
+},
+oily: {
+morningSteps: [
+“Gel nettoyant purifiant”,
+“Lotion équilibrante”,
+“Crème matifiante légère”,
+“SPF fluide non-comédogène”
+],
+eveningSteps: [
+“Double nettoyage détox”,
+“Sérum régulateur”,
+“Crème nuit purifiante”
+],
+keyIngredients: [“Acide salicylique”, “Niacinamide”, “Zinc”],
+urgentTip: “L’astuce matité 24h sans poudrer”,
+bgClass: “from-green-50 to-white”,
+borderClass: “border-green-200”,
+textClass: “text-green-500”,
+buttonClass: “bg-green-500”
+},
+combination: {
+morningSteps: [
+“Nettoyant équilibrant”,
+“Bi-sérum zone T/joues”,
+“Crème modulable”,
+“SPF universel”
+],
+eveningSteps: [
+“Nettoyage ciblé bi-zone”,
+“Traitement différencié”,
+“Soin nuit harmonisant”
+],
+keyIngredients: [“Acide lactique”, “Bakuchiol”, “Aloe vera”],
+urgentTip: “La méthode multi-zones révolutionnaire”,
+bgClass: “from-purple-50 to-white”,
+borderClass: “border-purple-200”,
+textClass: “text-purple-500”,
+buttonClass: “bg-purple-500”
+},
+normal: {
+morningSteps: [
+“Lait micellaire apaisant”,
+“Eau thermale réparatrice”,
+“Crème barrière protectrice”,
+“SPF minéral doux”
+],
+eveningSteps: [
+“Démaquillage ultra-doux”,
+“Sérum SOS réparateur”,
+“Baume réconfortant”
+],
+keyIngredients: [“Panthenol”, “Bisabolol”, “Allantoïne”],
+urgentTip: “Le protocole anti-réactivité 48h”,
+bgClass: “from-pink-50 to-white”,
+borderClass: “border-pink-200”,
+textClass: “text-pink-500”,
+buttonClass: “bg-pink-500”
+}
 };
 
-// Animation pour les étapes cachées
-const hiddenStepVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { delay: 0.8, duration: 0.5 }
-  }
+return teasers[skinType as keyof typeof teasers] || teasers.normal;
 };
 
 export const TeaserSection = ({
-  skinType,
-  skinTypeText,
-  details,
-  visitInstagram,
-  onResetQuiz
+skinType,
+skinTypeText,
+details,
+visitInstagram,
+onResetQuiz
 }: TeaserSectionProps) => {
-  const teaser = SKIN_TYPE_TEASERS[skinType] || SKIN_TYPE_TEASERS.normal;
-  const colors = COLOR_MAPPINGS[teaser.colorTheme];
+const teaser = getSkinTypeTeaser(skinType);
 
-  return (
-    <div className="space-y-6">
-      {/* Aperçu de ce qui t'attend - Basé sur l'email réel */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className={`bg-gradient-to-r ${colors.bg} to-white/80 p-6 rounded-2xl border ${colors.border} shadow-lg`}
-      >
-        <div className="text-center mb-6">
-          <h3 className={`text-lg sm:text-xl font-bold ${colors.accent} mb-2`}>
-            🎯 Aperçu de ce qui t'attend
-          </h3>
-          <p className="text-sm sm:text-base text-gray-700">
-            Voici un avant-goût de ta routine personnalisée pour peau {skinTypeText}
-          </p>
+return (
+<div className="space-y-6">
+<motion.div
+initial={{ opacity: 0, y: 20 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ delay: 0.3 }}
+className={`bg-gradient-to-r ${teaser.bgClass} p-6 rounded-2xl border ${teaser.borderClass} shadow-lg`}
+>
+<div className="text-center mb-6">
+<h3 className={`text-lg sm:text-xl font-bold ${teaser.textClass} mb-2`}>
+Ton plan d’action personnalisé
+</h3>
+<p className="text-sm sm:text-base text-gray-700">
+Spécialement conçu pour les peaux <strong>{skinTypeText}</strong>
+</p>
+</div>
+
+    {/* Aperçu routine - VERSION TEASER */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      {/* Matin - Partiellement visible */}
+      <div className="bg-white/70 p-4 rounded-xl border border-gray-200 relative">
+        <div className="flex items-center gap-2 mb-3">
+          <Clock className={`w-4 h-4 ${teaser.textClass}`} />
+          <h4 className="font-semibold text-gray-800">Routine du matin</h4>
         </div>
-
-        {/* Aperçu routine matin/soir */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          {/* Routine du matin */}
-          <div className={`bg-white/70 p-4 rounded-xl border ${colors.border}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <Clock className={`w-4 h-4 ${colors.icon}`} />
-              <h4 className="font-semibold text-gray-800">Routine du matin</h4>
+        <div className="space-y-2 text-sm">
+          {teaser.morningSteps.slice(0, 2).map((step, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <span className={`${teaser.textClass} font-bold`}>{index + 1}️⃣</span>
+              <span className="text-gray-700">{step}</span>
             </div>
-            <div className="space-y-2 text-xs sm:text-sm md:text-base">
-              {teaser.morningRoutine.map((step, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <span className={`${colors.text} font-bold`}>{index + 1}️⃣</span>
-                  <span className="text-gray-700">{step}</span>
-                </div>
-              ))}
+          ))}
+          {/* Étapes cachées */}
+          <div className="relative">
+            <div className="flex items-center gap-2 blur-sm">
+              <span className={`${teaser.textClass} font-bold`}>3️⃣</span>
+              <span className="text-gray-400">████████████</span>
             </div>
-          </div>
-
-          {/* Routine du soir */}
-          <div className={`bg-white/70 p-4 rounded-xl border ${colors.border}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <Star className={`w-4 h-4 ${colors.icon}`} />
-              <h4 className="font-semibold text-gray-800">Routine du soir</h4>
+            <div className="flex items-center gap-2 blur-sm">
+              <span className={`${teaser.textClass} font-bold`}>4️⃣</span>
+              <span className="text-gray-400">███████████████</span>
             </div>
-            <div className="space-y-2 text-xs sm:text-sm md:text-base">
-              {teaser.eveningRoutine.map((step, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <span className={`${colors.text} font-bold`}>{index + 1}️⃣</span>
-                  <span className="text-gray-700">{step}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Ingrédients stars */}
-        <div className={`bg-gradient-to-r ${colors.bg} p-4 rounded-xl border ${colors.border}`}>
-          <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-            <Sparkles className={`w-4 h-4 ${colors.icon}`} />
-            Les ingrédients stars pour ta peau {skinTypeText}
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm md:text-base">
-            {teaser.keyIngredients.map((ingredient, index) => (
-              <div key={index} className="flex items-center gap-1">
-                <span className={colors.text}>•</span>
-                <span className="text-gray-700">{ingredient}</span>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={`${teaser.buttonClass} text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1`}>
+                <Lock className="w-3 h-3" />
+                +2 étapes dans l'email
               </div>
-            ))}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Conseils bonus avec effet teaser */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="bg-gradient-to-r from-yellow-50/80 to-orange-50/80 p-4 rounded-xl border border-yellow-200/50 relative overflow-hidden"
-        >
-          {/* Effet de verrouillage */}
-          <div className="absolute top-2 right-2 opacity-60">
-            <Lock className="w-4 h-4 text-orange-500" />
-          </div>
-          
-          <div className="flex items-center gap-2 mb-2">
-            <Shield className="w-4 h-4 text-orange-500" />
-            <h4 className="font-semibold text-orange-700">3 conseils bonus exclusifs</h4>
-          </div>
-          <div className="space-y-1 text-xs sm:text-sm md:text-base">
-            {teaser.bonusTips.map((tip, index) => (
-              <div key={index} className="flex items-center gap-2 opacity-60">
-                <span className="text-orange-500">🔒</span>
-                <span className="text-orange-600">{tip}</span>
+      {/* Soir - Partiellement visible */}
+      <div className="bg-white/70 p-4 rounded-xl border border-gray-200 relative">
+        <div className="flex items-center gap-2 mb-3">
+          <Star className={`w-4 h-4 ${teaser.textClass}`} />
+          <h4 className="font-semibold text-gray-800">Routine du soir</h4>
+        </div>
+        <div className="space-y-2 text-sm">
+          {teaser.eveningSteps.slice(0, 1).map((step, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <span className={`${teaser.textClass} font-bold`}>{index + 1}️⃣</span>
+              <span className="text-gray-700">{step}</span>
+            </div>
+          ))}
+          {/* Étapes cachées */}
+          <div className="relative">
+            <div className="space-y-2 blur-sm">
+              <div className="flex items-center gap-2">
+                <span className={`${teaser.textClass} font-bold`}>2️⃣</span>
+                <span className="text-gray-400">██████████████</span>
               </div>
-            ))}
+              <div className="flex items-center gap-2">
+                <span className={`${teaser.textClass} font-bold`}>3️⃣</span>
+                <span className="text-gray-400">████████████████</span>
+              </div>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={`${teaser.buttonClass} text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1`}>
+                <Mail className="w-3 h-3" />
+                Suite par email
+              </div>
+            </div>
           </div>
-          <p className="text-xs sm:text-sm md:text-base text-orange-600 mt-2 font-medium">
-            Débloque ces secrets dans ton email ! 🎁
-          </p>
-        </motion.div>
-
-        {/* FOMO - Preuve sociale */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="bg-gradient-to-r from-pink-100/50 to-purple-100/50 p-4 rounded-xl border border-pink-200/50"
-        >
-          <div className="text-center">
-            <p className="text-sm sm:text-base text-gray-700 mb-2">
-              <span className="font-semibold text-pink-600">✨ 2,847 personnes</span> ont déjà reçu leur routine personnalisée
-            </p>
-            <p className="text-xs sm:text-sm text-gray-600">
-              Rejoins la communauté Majoliepeau et transforme ta peau ! 💖
-            </p>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Boutons d'action */}
-      <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-        <Button
-          onClick={visitInstagram}
-          variant="outline"
-          className={`flex items-center gap-2 bg-white ${colors.hover} text-black ${colors.border} px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base`}
-        >
-          <Instagram className="w-4 h-4" />
-          Suivre @majolie_peau
-        </Button>
-
-        <Button
-          onClick={onResetQuiz}
-          variant="outline"
-          className={`flex items-center gap-2 bg-white ${colors.hover} text-black ${colors.border} px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base`}
-        >
-          <RefreshCw className="w-4 h-4" />
-          Refaire le test
-        </Button>
+        </div>
       </div>
     </div>
-  );
+
+    {/* Ingrédients personnalisés */}
+    <div className={`bg-gradient-to-r ${teaser.bgClass} p-4 rounded-xl border ${teaser.borderClass}`}>
+      <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+        <Sparkles className={`w-4 h-4 ${teaser.textClass}`} />
+        Tes ingrédients stars (peau {skinTypeText})
+      </h4>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
+        {teaser.keyIngredients.map((ingredient, index) => (
+          <div key={index} className="flex items-center gap-1">
+            <span className={teaser.textClass}>•</span>
+            <span className="text-gray-700">{ingredient}</span>
+          </div>
+        ))}
+        <div className="flex items-center gap-1">
+          <span className={teaser.textClass}>•</span>
+          <span className="text-gray-400">+ 4 autres actifs</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Bonus exclusif */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6 }}
+      className="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-xl border border-yellow-200"
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <Shield className="w-4 h-4 text-orange-500" />
+        <h4 className="font-semibold text-orange-700">Bonus exclusif dans ton email</h4>
+      </div>
+      <p className="text-sm text-orange-600 mb-3">
+        <strong>{teaser.urgentTip}</strong> + le calendrier beauté mensuel 
+        + la liste shopping avec les prix les plus bas trouvés ! 
+      </p>
+      <div className="flex items-center gap-1 text-xs text-orange-500">
+        <Lock className="w-3 h-3" />
+        <span>Contenu réservé aux abonnées</span>
+      </div>
+    </motion.div>
+  </motion.div>
+
+  {/* Boutons d'action */}
+  <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+    <Button
+      onClick={visitInstagram}
+      variant="outline"
+      className="flex items-center gap-2 bg-white hover:bg-pink-50 text-black border-pink-200 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base"
+    >
+      <Instagram className="w-4 h-4" />
+      Suivre @majolie_peau
+    </Button>
+
+    <Button
+      onClick={onResetQuiz}
+      variant="outline"
+      className="flex items-center gap-2 bg-white hover:bg-pink-50 text-black border-pink-200 px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-sm sm:text-base"
+    >
+      <RefreshCw className="w-4 h-4" />
+      Refaire le test
+    </Button>
+  </div>
+</div>
+
+);
 };
