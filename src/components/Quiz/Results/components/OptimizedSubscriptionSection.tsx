@@ -91,7 +91,7 @@ export const OptimizedSubscriptionSection = ({
                 className="bg-gradient-to-r from-orange-50/80 to-yellow-50/80 p-3 rounded-lg border border-orange-200/50"
               >
                 <p className="text-xs sm:text-sm text-orange-700 font-medium">
-                  ⏰ Offre limitée : +18k femmes ont déjà reçu leur routine personnalisée !
+                  ⏰ Offre limitée : +2,847 femmes ont déjà reçu leur routine personnalisée !
                 </p>
               </motion.div>
             </div>
