@@ -3,7 +3,7 @@ import { useState } from “react”;
 import { Input } from “@/components/ui/input”;
 import { Button } from “@/components/ui/button”;
 import { Checkbox } from “@/components/ui/checkbox”;
-import { Loader2, Mail, Sparkles, Shield, Users, User, AlertCircle } from “lucide-react”;
+import { Loader2, Mail, Sparkles, Shield, Users } from “lucide-react”;
 
 interface EnhancedSubscriptionFormProps {
 email: string;
@@ -69,10 +69,8 @@ validateName(value);
 return (
 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
 <motion.div variants={variants} className=“space-y-4”>
-{/* Champ prénom avec icône */}
+{/* Champ prénom */}
 <div className="space-y-2">
-<div className="relative">
-<User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-pink-400" />
 <Input
 type=“text”
 placeholder=“Ton prénom pour personnaliser ta routine”
@@ -80,48 +78,42 @@ value={firstName}
 onChange={handleNameChange}
 onBlur={() => validateName(firstName)}
 required
-className={`premium-input text-sm sm:text-base py-2 sm:py-3 bg-white/95 pl-10 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${ nameError  ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50'  : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50' }`}
+className={`text-sm sm:text-base py-2 sm:py-3 bg-white/95 shadow-lg transition-all duration-300 ${ nameError  ? 'border-pink-400 focus:border-pink-500 focus:ring-pink-300'  : 'border-pink-200 focus:border-pink-400 focus:ring-pink-200' }`}
 />
-</div>
 {nameError && (
-<motion.div
+<motion.p
 initial={{ opacity: 0, y: -10 }}
 animate={{ opacity: 1, y: 0 }}
-className=“flex items-center gap-2 text-xs sm:text-sm text-pink-600 ml-1”
+className=“text-xs sm:text-sm text-pink-600 ml-1”
 >
-<AlertCircle className="w-3 h-3 flex-shrink-0" />
-<span>{nameError}</span>
-</motion.div>
+{nameError}
+</motion.p>
 )}
 </div>
-
-    {/* Champ email avec icône */}
+    
+    {/* Champ email */}
     <div className="space-y-2">
-      <div className="relative">
-        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-pink-400" />
-        <Input
-          type="email"
-          placeholder="Ton email pour recevoir ta routine personnalisée"
-          value={email}
-          onChange={handleEmailChange}
-          onBlur={() => validateEmail(email)}
-          required
-          className={`premium-input text-sm sm:text-base py-2 sm:py-3 bg-white/95 pl-10 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
-            emailError 
-              ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
-              : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
-          }`}
-        />
-      </div>
+      <Input
+        type="email"
+        placeholder="Ton email pour recevoir ta routine personnalisée"
+        value={email}
+        onChange={handleEmailChange}
+        onBlur={() => validateEmail(email)}
+        required
+        className={`text-sm sm:text-base py-2 sm:py-3 bg-white/95 shadow-lg transition-all duration-300 ${
+          emailError 
+            ? 'border-pink-400 focus:border-pink-500 focus:ring-pink-300' 
+            : 'border-pink-200 focus:border-pink-400 focus:ring-pink-200'
+        }`}
+      />
       {emailError && (
-        <motion.div 
+        <motion.p 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 text-xs sm:text-sm text-pink-600 ml-1"
+          className="text-xs sm:text-sm text-pink-600 ml-1"
         >
-          <AlertCircle className="w-3 h-3 flex-shrink-0" />
-          <span>{emailError}</span>
-        </motion.div>
+          {emailError}
+        </motion.p>
       )}
     </div>
 
@@ -129,7 +121,7 @@ className=“flex items-center gap-2 text-xs sm:text-sm text-pink-600 ml-1”
     <motion.div 
       whileHover={{ scale: 1.01, boxShadow: "0 8px 25px rgba(255,192,203,0.25)" }}
       transition={{ type: "spring", stiffness: 400, damping: 15 }}
-      className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/95 to-white/95 p-3 rounded-xl border border-pink-200/60 shadow-lg"
+      className="flex items-start space-x-3 bg-gradient-to-r from-pink-50 to-white p-3 rounded-xl border border-pink-200 shadow-lg"
     >
       <Checkbox
         id="gdpr-enhanced"
@@ -165,7 +157,7 @@ className=“flex items-center gap-2 text-xs sm:text-sm text-pink-600 ml-1”
     >
       <Button 
         type="submit" 
-        className="group premium-button w-full text-sm sm:text-base py-3 relative overflow-hidden bg-gradient-to-r from-pink-500/95 to-pink-400/95 hover:from-pink-600/95 hover:to-pink-500/95 text-white border-0 shadow-[0_12px_28px_rgba(255,192,203,0.4)] hover:shadow-[0_16px_36px_rgba(255,192,203,0.5)] transition-all duration-300 rounded-xl font-semibold"
+        className="w-full text-sm sm:text-base py-3 relative overflow-hidden bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-600 hover:to-pink-500 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl font-semibold"
         disabled={isLoading || !email || !firstName || !gdprConsent || emailError !== "" || nameError !== ""}
       >
         <motion.span
