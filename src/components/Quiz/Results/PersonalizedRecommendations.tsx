@@ -75,31 +75,31 @@ export const PersonalizedRecommendations = ({ skinType, answers }: PersonalizedR
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="grid md:grid-cols-2 gap-6"
+      className="grid md:grid-cols-2 gap-4 sm:gap-6"
     >
       {/* Morning Routine */}
       <motion.div
         variants={itemVariants}
-        className="bg-gradient-to-br from-orange-50/80 to-yellow-50/80 p-6 rounded-2xl border border-orange-100/50 shadow-sm"
+        className="bg-gradient-to-br from-orange-50/80 to-yellow-50/80 p-4 sm:p-6 rounded-2xl border border-orange-100/50 shadow-sm"
       >
         <div className="flex items-center gap-2 mb-4">
           <Sun className="h-5 w-5 text-orange-500" />
-          <h3 className="text-lg font-semibold text-orange-700">Routine Matinale</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-orange-700">Routine Matinale</h3>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-3">
           {routine.morning.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
-              className="flex items-start gap-3 p-3 bg-white/60 rounded-lg"
+              className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-white/60 rounded-lg"
             >
-              <step.icon className="h-4 w-4 text-orange-500 mt-1 flex-shrink-0" />
+              <step.icon className="h-3 w-3 sm:h-4 sm:w-4 text-orange-500 mt-1 flex-shrink-0" />
               <div>
-                <p className="font-medium text-orange-800">{step.step}</p>
-                <p className="text-sm text-orange-700">{step.product}</p>
+                <p className="font-medium text-orange-800 text-sm sm:text-base">{step.step}</p>
+                <p className="text-xs sm:text-sm text-orange-700">{step.product}</p>
                 <p className="text-xs text-orange-600/80 italic mt-1">{step.why}</p>
               </div>
             </motion.div>
@@ -110,26 +110,26 @@ export const PersonalizedRecommendations = ({ skinType, answers }: PersonalizedR
       {/* Evening Routine */}
       <motion.div
         variants={itemVariants}
-        className="bg-gradient-to-br from-purple-50/80 to-blue-50/80 p-6 rounded-2xl border border-purple-100/50 shadow-sm"
+        className="bg-gradient-to-br from-purple-50/80 to-blue-50/80 p-4 sm:p-6 rounded-2xl border border-purple-100/50 shadow-sm"
       >
         <div className="flex items-center gap-2 mb-4">
           <Moon className="h-5 w-5 text-purple-500" />
-          <h3 className="text-lg font-semibold text-purple-700">Routine du Soir</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-purple-700">Routine du Soir</h3>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-3">
           {routine.evening.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
-              className="flex items-start gap-3 p-3 bg-white/60 rounded-lg"
+              className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-white/60 rounded-lg"
             >
-              <step.icon className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
+              <step.icon className="h-3 w-3 sm:h-4 sm:w-4 text-purple-500 mt-1 flex-shrink-0" />
               <div>
-                <p className="font-medium text-purple-800">{step.step}</p>
-                <p className="text-sm text-purple-700">{step.product}</p>
+                <p className="font-medium text-purple-800 text-sm sm:text-base">{step.step}</p>
+                <p className="text-xs sm:text-sm text-purple-700">{step.product}</p>
                 <p className="text-xs text-purple-600/80 italic mt-1">{step.why}</p>
               </div>
             </motion.div>

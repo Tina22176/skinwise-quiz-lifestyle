@@ -90,7 +90,7 @@ export const ConversionOptimizedResults = ({
 
       {/* Titre principal avec animation */}
       <motion.div 
-        className="text-center mb-8"
+        className="text-center mb-4 sm:mb-6"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -104,7 +104,7 @@ export const ConversionOptimizedResults = ({
 
       {/* Section principale - Focus conversion */}
       <motion.div 
-        className="relative mb-8"
+        className="relative mb-4 sm:mb-6"
         variants={containerVariants}
         initial="hidden"
         animate="show"
@@ -117,13 +117,13 @@ export const ConversionOptimizedResults = ({
         {/* Conteneur principal optimisé pour conversion */}
         <motion.div 
           variants={itemVariants}
-          className="glass rounded-3xl p-8 md:p-12 bg-gradient-to-br from-pink-50/98 to-white/98 shadow-[0_12px_40px_rgba(255,192,203,0.25)] relative overflow-hidden border border-pink-200/30"
+          className="glass rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 bg-gradient-to-br from-pink-50/98 to-white/98 shadow-[0_12px_40px_rgba(255,192,203,0.25)] relative overflow-hidden border border-pink-200/30"
         >
           {/* Effets visuels de fond */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-100/8 to-pink-200/12 pointer-events-none" />
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-pink-300 to-pink-400 rounded-full" />
           
-          <div className="relative space-y-8">
+          <div className="relative space-y-4 sm:space-y-6 md:space-y-8">
             {/* Section d'inscription optimisée */}
             <OptimizedSubscriptionSection
               skinType={skinType}

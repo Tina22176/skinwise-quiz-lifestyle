@@ -40,9 +40,9 @@ export const OptimizedSubscriptionSection = ({
   return (
     <>
       {!isSubscribed ? (
-        <motion.div variants={variants} className="space-y-8">
+        <motion.div variants={variants} className="space-y-4 sm:space-y-6">
           {/* Titre optimisé avec personnalisation */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-3">
             <motion.div
               animate={{ 
                 scale: [1, 1.02, 1],
@@ -55,13 +55,13 @@ export const OptimizedSubscriptionSection = ({
               }}
               className="inline-block"
             >
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 text-transparent bg-clip-text">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 text-transparent bg-clip-text">
                 💖 TON PLAN BEAUTÉ PERSONNALISÉ
               </h2>
             </motion.div>
             
             <div className="space-y-3">
-              <p className="text-base sm:text-lg md:text-xl text-gray-800 font-medium">
+              <p className="text-sm sm:text-base md:text-lg text-gray-800 font-medium">
                 Reçois ta routine <span className="text-pink-600 font-semibold">PEAU {skinTypeText.toUpperCase()}</span> gratuite !
               </p>
               
