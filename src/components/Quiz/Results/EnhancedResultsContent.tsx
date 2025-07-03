@@ -1,5 +1,4 @@
-
-import { ConversionOptimizedResults } from "./components/ConversionOptimizedResults";
+import { MobileOptimizedResults } from "./components/MobileOptimizedResults";
 import { useQuiz } from "../QuizContext";
 import { SkinTypeScore } from "../utils/skinTypeCalculator";
 
@@ -37,7 +36,7 @@ export const EnhancedResultsContent = ({
   instagramUrl,
 }: EnhancedResultsContentProps) => {
   return (
-    <ConversionOptimizedResults
+    <MobileOptimizedResults
       skinType={skinType}
       skinState={skinState}
       email={email}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Mail, Sparkles, Shield, Users } from "lucide-react";
+import { Loader2, Mail, Sparkles, Shield, Users, User, AlertCircle } from "lucide-react";
 
 interface EnhancedSubscriptionFormProps {
   email: string;
@@ -36,9 +36,9 @@ export const EnhancedSubscriptionForm = ({
   const validateEmail = (value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!value) {
-      setEmailError("Ton email est nécessaire pour recevoir ta routine 💌");
+      setEmailError("Ton email est nécessaire pour recevoir ta routine");
     } else if (!emailRegex.test(value)) {
-      setEmailError("Assure-toi que ton email est correct 😊");
+      setEmailError("Assure-toi que ton email est correct");
     } else {
       setEmailError("");
     }
@@ -46,9 +46,9 @@ export const EnhancedSubscriptionForm = ({
 
   const validateName = (value: string) => {
     if (!value.trim()) {
-      setNameError("Dis-nous ton prénom pour personnaliser ta routine ✨");
+      setNameError("Dis-nous ton prénom pour personnaliser ta routine");
     } else if (value.trim().length < 2) {
-      setNameError("Ton prénom semble un peu court 😊");
+      setNameError("Ton prénom semble un peu court");
     } else {
       setNameError("");
     }
@@ -67,80 +67,88 @@ export const EnhancedSubscriptionForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <motion.div variants={variants} className="space-y-5">
-        {/* Champ prénom avec validation */}
+    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+      <motion.div variants={variants} className="space-y-4">
+        {/* Champ prénom avec icône */}
         <div className="space-y-2">
-          <Input
-            type="text"
-            placeholder="Ton prénom pour personnaliser ta routine ✨"
-            value={firstName}
-            onChange={handleNameChange}
-            onBlur={() => validateName(firstName)}
-            required
-            className={`premium-input text-sm sm:text-base md:text-lg py-3 sm:py-4 md:py-6 bg-white/95 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
-              nameError 
-                ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
-                : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
-            }`}
-          />
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-pink-400" />
+            <Input
+              type="text"
+              placeholder="Ton prénom pour personnaliser ta routine"
+              value={firstName}
+              onChange={handleNameChange}
+              onBlur={() => validateName(firstName)}
+              required
+              className={`premium-input text-sm sm:text-base py-2 sm:py-3 bg-white/95 pl-10 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
+                nameError 
+                  ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
+                  : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
+              }`}
+            />
+          </div>
           {nameError && (
-            <motion.p 
+            <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-xs sm:text-sm text-pink-600 ml-1"
+              className="flex items-center gap-2 text-xs sm:text-sm text-pink-600 ml-1"
             >
-              {nameError}
-            </motion.p>
+              <AlertCircle className="w-3 h-3 flex-shrink-0" />
+              <span>{nameError}</span>
+            </motion.div>
           )}
         </div>
         
-        {/* Champ email avec validation */}
+        {/* Champ email avec icône */}
         <div className="space-y-2">
-          <Input
-            type="email"
-            placeholder="Ton email pour recevoir ta routine personnalisée 💌"
-            value={email}
-            onChange={handleEmailChange}
-            onBlur={() => validateEmail(email)}
-            required
-            className={`premium-input text-sm sm:text-base md:text-lg py-3 sm:py-4 md:py-6 bg-white/95 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
-              emailError 
-                ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
-                : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
-            }`}
-          />
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-pink-400" />
+            <Input
+              type="email"
+              placeholder="Ton email pour recevoir ta routine personnalisée"
+              value={email}
+              onChange={handleEmailChange}
+              onBlur={() => validateEmail(email)}
+              required
+              className={`premium-input text-sm sm:text-base py-2 sm:py-3 bg-white/95 pl-10 shadow-[0_4px_12px_rgba(255,192,203,0.2)] transition-all duration-300 ${
+                emailError 
+                  ? 'border-pink-400/70 focus:border-pink-500/70 focus:ring-pink-300/50' 
+                  : 'border-pink-200/70 focus:border-pink-400/70 focus:ring-pink-200/50'
+              }`}
+            />
+          </div>
           {emailError && (
-            <motion.p 
+            <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-xs sm:text-sm text-pink-600 ml-1"
+              className="flex items-center gap-2 text-xs sm:text-sm text-pink-600 ml-1"
             >
-              {emailError}
-            </motion.p>
+              <AlertCircle className="w-3 h-3 flex-shrink-0" />
+              <span>{emailError}</span>
+            </motion.div>
           )}
         </div>
 
-        {/* Checkbox RGPD amélioré */}
+        {/* Checkbox RGPD simplifié */}
         <motion.div 
           whileHover={{ scale: 1.01, boxShadow: "0 8px 25px rgba(255,192,203,0.25)" }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/95 to-white/95 p-4 md:p-5 rounded-2xl border border-pink-200/60 shadow-lg"
+          className="flex items-start space-x-3 bg-gradient-to-r from-pink-50/95 to-white/95 p-3 rounded-xl border border-pink-200/60 shadow-lg"
         >
           <Checkbox
             id="gdpr-enhanced"
             checked={gdprConsent}
             onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-            className="mt-1 border-pink-300 h-5 w-5 data-[state=checked]:bg-pink-400 data-[state=checked]:border-pink-400 shadow-sm"
+            className="mt-1 border-pink-300 h-4 w-4 data-[state=checked]:bg-pink-400 data-[state=checked]:border-pink-400 shadow-sm"
           />
           <div className="space-y-2">
             <label 
               htmlFor="gdpr-enhanced" 
-              className="text-sm md:text-base text-gray-700 cursor-pointer leading-relaxed"
+              className="text-xs sm:text-sm text-gray-700 cursor-pointer leading-relaxed"
             >
               J'accepte de recevoir ma routine personnalisée et des conseils adaptés par email.
             </label>
-            <div className="flex items-center gap-4 text-xs text-gray-500">
+            <div className="flex items-center gap-3 text-xs text-gray-500">
               <span className="flex items-center gap-1">
                 <Shield className="w-3 h-3" />
                 100% gratuit
@@ -148,10 +156,6 @@ export const EnhancedSubscriptionForm = ({
               <span className="flex items-center gap-1">
                 <Mail className="w-3 h-3" />
                 0 spam
-              </span>
-              <span className="flex items-center gap-1">
-                <Users className="w-3 h-3" />
-                +2,847 femmes satisfaites
               </span>
             </div>
           </div>
@@ -165,7 +169,7 @@ export const EnhancedSubscriptionForm = ({
         >
           <Button 
             type="submit" 
-            className="group premium-button w-full text-sm sm:text-base md:text-lg py-3 sm:py-4 md:py-5 relative overflow-hidden bg-gradient-to-r from-pink-500/95 to-pink-400/95 hover:from-pink-600/95 hover:to-pink-500/95 text-white border-0 shadow-[0_12px_28px_rgba(255,192,203,0.4)] hover:shadow-[0_16px_36px_rgba(255,192,203,0.5)] transition-all duration-300 rounded-2xl font-semibold"
+            className="group premium-button w-full text-sm sm:text-base py-3 relative overflow-hidden bg-gradient-to-r from-pink-500/95 to-pink-400/95 hover:from-pink-600/95 hover:to-pink-500/95 text-white border-0 shadow-[0_12px_28px_rgba(255,192,203,0.4)] hover:shadow-[0_16px_36px_rgba(255,192,203,0.5)] transition-all duration-300 rounded-xl font-semibold"
             disabled={isLoading || !email || !firstName || !gdprConsent || emailError !== "" || nameError !== ""}
           >
             <motion.span
@@ -179,14 +183,14 @@ export const EnhancedSubscriptionForm = ({
                 ease: "linear",
               }}
             />
-            <span className="flex items-center justify-center gap-2 sm:gap-3">
+            <span className="flex items-center justify-center gap-2">
               {isLoading ? (
-                <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 animate-spin" />
+                <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
               ) : (
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
               )}
-              <span className="whitespace-nowrap">
-                RECEVOIR MA ROUTINE GRATUITE
+              <span className="whitespace-nowrap text-sm sm:text-base">
+                Recevoir ma routine
               </span>
             </span>
           </Button>
