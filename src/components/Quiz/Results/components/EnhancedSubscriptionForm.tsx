@@ -151,7 +151,7 @@ export const EnhancedSubscriptionForm = ({
               </span>
               <span className="flex items-center gap-1">
                 <Users className="w-3 h-3" />
-                +18k femmes satisfaites
+                +2,847 femmes satisfaites
               </span>
             </div>
           </div>
