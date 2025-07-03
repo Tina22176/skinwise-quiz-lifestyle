@@ -58,8 +58,18 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
   // Déterminer l'état dominant (si applicable) - seuil plus précis
   const maxStateScore = Math.max(...Object.values(stateScores));
   const totalStateWeight = QUESTION_WEIGHTS.filter(w => w.category === 'state').reduce((sum, w) => sum + w.weight, 0);
-  const sensitivityThreshold = totalStateWeight * 0.4; // 40% du score total possible
+  const sensitivityThreshold = totalStateWeight * 0.3; // 30% du score total possible (seuil abaissé)
   const dominantState = maxStateScore > sensitivityThreshold ? Object.keys(stateScores).find(state => stateScores[state] === maxStateScore) : null;
+  
+  // Debug logs pour la sensibilité
+  console.log('🔍 Debug Sensibilité:', {
+    stateScores,
+    maxStateScore,
+    totalStateWeight,
+    sensitivityThreshold,
+    dominantState,
+    answers: Object.entries(answers).filter(([id]) => QUESTION_WEIGHTS.find(w => w.questionId === id)?.category === 'state')
+  });
   
   // Calculer le score de confiance
   const confidence = calculateConfidence(answers, typeScores);

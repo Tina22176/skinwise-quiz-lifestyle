@@ -17,6 +17,8 @@ export const QUESTION_WEIGHTS: QuestionWeight[] = [
   // Questions d'état (poids élevé) - Sensibilité
   { questionId: "nouveaux_produits", weight: 2.0, category: 'state' },
   { questionId: "sensation_inconfort", weight: 1.8, category: 'state' },
+  { questionId: "rougeurs_frequentes", weight: 1.5, category: 'state' },
+  { questionId: "reaction_environnement", weight: 1.5, category: 'state' },
   
   // Questions de validation (poids faible)
   { questionId: "maquillage_journee", weight: 0.8, category: 'validation' }
@@ -56,14 +58,20 @@ export const ANSWER_MAPPING: Record<string, Record<string, number>> = {
 // Mapping des réponses vers les états de peau
 export const STATE_MAPPING: Record<string, Record<string, number>> = {
   "nouveaux_produits": {
-    "sensible": 3, "normal": 1
+    "sensible": 3, "normal": 1, "oui": 3, "non": 1, "parfois": 2
   },
   "sensation_inconfort": {
-    "sensible": 3, "normal": 1
+    "sensible": 3, "normal": 1, "oui": 3, "non": 1, "parfois": 2
+  },
+  "rougeurs_frequentes": {
+    "sensible": 3, "normal": 1, "oui": 3, "non": 1, "parfois": 2
+  },
+  "reaction_environnement": {
+    "sensible": 3, "normal": 1, "oui": 3, "non": 1, "parfois": 2
   },
   // Ajout d'une question de validation pour la sensibilité
   "tiraillements_frequents": {
-    "sensible": 1, "normal": 2 // Tiraillements peuvent indiquer sensibilité
+    "sensible": 1, "normal": 2, "seche": 2, "mixte": 1, "grasse": 0, "normale": 1 // Tiraillements peuvent indiquer sensibilité
   }
 };
 

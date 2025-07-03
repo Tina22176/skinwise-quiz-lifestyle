@@ -32,5 +32,37 @@ export const skinStateQuestions: QuizQuestion[] = [
         description: "Les sensations d'inconfort sont rares"
       }
     ]
+  },
+  {
+    id: "rougeurs_frequentes",
+    question: "As-tu souvent des rougeurs sur le visage ?",
+    options: [
+      {
+        value: "sensible",
+        label: "Oui, souvent après le nettoyage ou l'application de produits",
+        description: "Les rougeurs sont fréquentes et réactives"
+      },
+      {
+        value: "normal",
+        label: "Rarement, seulement en cas d'irritation ponctuelle",
+        description: "Les rougeurs sont rares et ponctuelles"
+      }
+    ]
+  },
+  {
+    id: "reaction_environnement",
+    question: "Ta peau réagit-elle aux changements d'environnement ?",
+    options: [
+      {
+        value: "sensible",
+        label: "Oui, au froid, au chaud, au vent ou à la pollution",
+        description: "Ta peau est sensible aux facteurs environnementaux"
+      },
+      {
+        value: "normal",
+        label: "Non, ma peau reste stable dans différents environnements",
+        description: "Ta peau est stable face aux changements"
+      }
+    ]
   }
 ];
