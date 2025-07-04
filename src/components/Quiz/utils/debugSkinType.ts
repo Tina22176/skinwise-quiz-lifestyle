@@ -1,4 +1,5 @@
-import { debugSkinTypeCalculation, validateConfiguration } from './skinTypeConfig';
+
+import { debugSkinTypeCalculation } from './skinTypeConfig';
 
 // Fonction de test pour vérifier les calculs
 export const testSkinTypeCalculation = () => {
@@ -8,15 +9,15 @@ export const testSkinTypeCalculation = () => {
   // Test 1: Peau sèche + sensible
   console.log("\n📋 TEST 1: Peau sèche + sensible");
   const testAnswers1 = {
-    "sensation_apres_nettoyage": "Très sèche",
-    "fin_journee": "Sèche",
-    "tiraillements_frequents": "Oui",
-    "pores": "Très fins",
-    "imperfections": "Aucune",
-    "nouveaux_produits": "Oui",
-    "sensation_inconfort": "Souvent",
-    "rougeurs_frequentes": "Oui",
-    "reaction_environnement": "Oui"
+    "sensation_apres_nettoyage": "seche",
+    "fin_journee": "seche",
+    "tiraillements_frequents": "seche",
+    "pores": "seche",
+    "imperfections": "seche",
+    "nouveaux_produits": "sensible",
+    "sensation_inconfort": "sensible",
+    "rougeurs_frequentes": "sensible",
+    "reaction_environnement": "sensible"
   };
   
   const result1 = debugSkinTypeCalculation(testAnswers1);
@@ -26,15 +27,15 @@ export const testSkinTypeCalculation = () => {
   // Test 2: Peau grasse + normale
   console.log("\n📋 TEST 2: Peau grasse + normale");
   const testAnswers2 = {
-    "sensation_apres_nettoyage": "Grasse",
-    "fin_journee": "Brillante",
-    "tiraillements_frequents": "Non",
-    "pores": "Très visibles",
-    "imperfections": "Beaucoup",
-    "nouveaux_produits": "Non",
-    "sensation_inconfort": "Jamais",
-    "rougeurs_frequentes": "Non",
-    "reaction_environnement": "Non"
+    "sensation_apres_nettoyage": "grasse",
+    "fin_journee": "grasse",
+    "tiraillements_frequents": "grasse",
+    "pores": "grasse",
+    "imperfections": "grasse",
+    "nouveaux_produits": "normal",
+    "sensation_inconfort": "normal",
+    "rougeurs_frequentes": "normal",
+    "reaction_environnement": "normal"
   };
   
   const result2 = debugSkinTypeCalculation(testAnswers2);
@@ -44,24 +45,20 @@ export const testSkinTypeCalculation = () => {
   // Test 3: Peau mixte + sensible
   console.log("\n📋 TEST 3: Peau mixte + sensible");
   const testAnswers3 = {
-    "sensation_apres_nettoyage": "Mixte",
-    "fin_journee": "Zone T brillante",
-    "tiraillements_frequents": "Parfois",
-    "pores": "Zone T visible",
-    "imperfections": "Zone T seulement",
-    "nouveaux_produits": "Souvent",
-    "sensation_inconfort": "Parfois",
-    "rougeurs_frequentes": "Parfois",
-    "reaction_environnement": "Parfois"
+    "sensation_apres_nettoyage": "mixte",
+    "fin_journee": "mixte",
+    "tiraillements_frequents": "mixte",
+    "pores": "mixte",
+    "imperfections": "mixte",
+    "nouveaux_produits": "sensible",
+    "sensation_inconfort": "sensible",
+    "rougeurs_frequentes": "sensible",
+    "reaction_environnement": "sensible"
   };
   
   const result3 = debugSkinTypeCalculation(testAnswers3);
   console.log("Résultat attendu: combination + sensitive");
   console.log("Résultat obtenu:", result3);
-  
-  // Validation de la configuration
-  console.log("\n🔍 VALIDATION CONFIGURATION");
-  validateConfiguration();
 };
 
 // Fonction pour tester avec vos réponses réelles
@@ -74,7 +71,7 @@ export const testUserAnswers = (userAnswers: Record<string, string>) => {
   console.log("\n🏆 DIAGNOSTIC FINAL:");
   console.log(`   Type: ${result.type}`);
   console.log(`   État: ${result.state || 'normal'}`);
-  console.log(`   Score sensible: ${result.stateScores.sensitive.toFixed(2)}`);
+  console.log(`   Score sensibilité: ${result.sensitivityScore.toFixed(2)}`);
   console.log(`   Seuil: ${result.threshold.toFixed(2)}`);
   
   return result;
