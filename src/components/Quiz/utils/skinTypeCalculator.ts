@@ -8,7 +8,7 @@ import {
   SKIN_CONCERNS, 
   SKIN_STATE_CONCERNS 
 } from './skinTypeConfig';
-import { calculateConfidence, convertToEnglish } from './skinTypeValidation';
+import { calculateConfidence } from './skinTypeValidation';
 
 export const calculateSkinType = (answers: Record<string, string>): SkinTypeScore => {
   // Initialiser les scores pondérés pour les types de peau
@@ -34,7 +34,8 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
       // Questions d'état (sensibilité)
       const stateMapping = STATE_MAPPING[questionId];
       if (stateMapping && stateMapping[answer] !== undefined) {
-        const englishAnswer = convertToEnglish(answer);
+        // Utiliser directement la valeur de l'option
+        const englishAnswer = answer === 'sensible' ? 'sensitive' : answer;
         if (englishAnswer && stateScores[englishAnswer] !== undefined) {
           stateScores[englishAnswer] += stateMapping[answer] * weight;
         }
@@ -43,7 +44,11 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
       // Questions de type de peau
       const typeMapping = ANSWER_MAPPING[questionId];
       if (typeMapping && typeMapping[answer] !== undefined) {
-        const englishAnswer = convertToEnglish(answer);
+        // Utiliser directement la valeur de l'option
+        const englishAnswer = answer === 'seche' ? 'dry' : 
+                             answer === 'mixte' ? 'combination' : 
+                             answer === 'grasse' ? 'oily' : 
+                             answer === 'normale' ? 'normal' : answer;
         if (englishAnswer && typeScores[englishAnswer] !== undefined) {
           typeScores[englishAnswer] += typeMapping[answer] * weight;
         }
