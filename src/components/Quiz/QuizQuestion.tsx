@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { questions } from "./questions/index";
@@ -32,13 +31,18 @@ export const QuizQuestion = () => {
   
       // Si c'est la dernière question, calculons le résultat
       if (state.currentQuestion === questions.length - 1) {
-        const skinTypeScore = calculateSkinType(state.answers);
+        console.log("🔥 DERNIÈRE QUESTION - CALCUL DU TYPE DE PEAU");
+        console.log("Réponses complètes:", { ...state.answers, [currentQuestion.id]: answer });
+        
+        const skinTypeScore = calculateSkinType({ ...state.answers, [currentQuestion.id]: answer });
+        console.log("🎯 RÉSULTAT CALCULÉ:", skinTypeScore);
+        
         dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
         setShowNextQuestion(true);
       } else {
         setShowNextQuestion(true);
       }
-    }, 800); // Increased delay for a more satisfying animation
+    }, 800);
   };
 
   // Passer à la question suivante après l'animation

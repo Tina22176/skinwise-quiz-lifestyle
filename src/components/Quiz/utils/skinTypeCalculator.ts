@@ -1,17 +1,25 @@
+
 import { SkinTypeScore } from './skinTypes';
 import { 
   QUESTION_WEIGHTS, 
-  ANSWER_MAPPING, 
-  STATE_MAPPING, 
+  SKIN_TYPE_SCORES,
+  SENSITIVITY_SCORES,
   SKIN_CHARACTERISTICS, 
   SKIN_STATE_CHARACTERISTICS, 
   SKIN_CONCERNS, 
-  SKIN_STATE_CONCERNS 
+  SKIN_STATE_CONCERNS,
+  debugSkinTypeCalculation
 } from './skinTypeConfig';
 import { calculateConfidence } from './skinTypeValidation';
 
 export const calculateSkinType = (answers: Record<string, string>): SkinTypeScore => {
-  // Initialiser les scores pondérés pour les types de peau
+  console.log("🚀 NOUVEAU CALCUL DE TYPE DE PEAU");
+  console.log("Réponses reçues:", answers);
+  
+  // Debug avec la nouvelle fonction
+  const debugResult = debugSkinTypeCalculation(answers);
+  
+  // Initialiser les scores pour les types de peau
   const typeScores: Record<string, number> = {
     "dry": 0,
     "combination": 0,
@@ -19,38 +27,44 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
     "normal": 0
   };
   
-  // Initialiser les scores pour les états de peau
-  const stateScores: Record<string, number> = {
-    "sensitive": 0,
-    "normal": 0
-  };
+  // Score de sensibilité
+  let sensitivityScore = 0;
+  let sensitivityQuestions = 0;
   
-  // Calculer les scores pondérés par type et état
+  // Calculer les scores
   Object.entries(answers).forEach(([questionId, answer]) => {
-    const weight = QUESTION_WEIGHTS.find(w => w.questionId === questionId)?.weight || 1.0;
-    const category = QUESTION_WEIGHTS.find(w => w.questionId === questionId)?.category || 'secondary';
+    const questionWeight = QUESTION_WEIGHTS.find(w => w.questionId === questionId);
+    if (!questionWeight) return;
+    
+    const { weight, category } = questionWeight;
     
     if (category === 'state') {
-      // Questions d'état (sensibilité)
-      const stateMapping = STATE_MAPPING[questionId];
-      if (stateMapping && stateMapping[answer] !== undefined) {
-        // Utiliser directement la valeur de l'option
-        const englishAnswer = answer === 'sensible' ? 'sensitive' : answer;
-        if (englishAnswer && stateScores[englishAnswer] !== undefined) {
-          stateScores[englishAnswer] += stateMapping[answer] * weight;
-        }
+      // Questions de sensibilité
+      const scoreMapping = SENSITIVITY_SCORES[questionId];
+      if (scoreMapping && scoreMapping[answer] !== undefined) {
+        sensitivityScore += scoreMapping[answer] * weight;
+        sensitivityQuestions++;
       }
     } else {
       // Questions de type de peau
-      const typeMapping = ANSWER_MAPPING[questionId];
-      if (typeMapping && typeMapping[answer] !== undefined) {
-        // Utiliser directement la valeur de l'option
-        const englishAnswer = answer === 'seche' ? 'dry' : 
-                             answer === 'mixte' ? 'combination' : 
-                             answer === 'grasse' ? 'oily' : 
-                             answer === 'normale' ? 'normal' : answer;
-        if (englishAnswer && typeScores[englishAnswer] !== undefined) {
-          typeScores[englishAnswer] += typeMapping[answer] * weight;
+      const scoreMapping = SKIN_TYPE_SCORES[questionId];
+      if (scoreMapping && scoreMapping[answer] !== undefined) {
+        const baseScore = scoreMapping[answer];
+        
+        // Attribution directe selon la réponse
+        switch (answer) {
+          case "seche":
+            typeScores["dry"] += baseScore * weight;
+            break;
+          case "grasse":
+            typeScores["oily"] += baseScore * weight;
+            break;
+          case "mixte":
+            typeScores["combination"] += baseScore * weight;
+            break;
+          case "normale":
+            typeScores["normal"] += baseScore * weight;
+            break;
         }
       }
     }
@@ -60,20 +74,17 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
   const maxTypeScore = Math.max(...Object.values(typeScores));
   const dominantType = Object.keys(typeScores).find(type => typeScores[type] === maxTypeScore) || "normal";
   
-  // Déterminer l'état dominant (si applicable) - seuil plus précis
-  const maxStateScore = Math.max(...Object.values(stateScores));
-  const totalStateWeight = QUESTION_WEIGHTS.filter(w => w.category === 'state').reduce((sum, w) => sum + w.weight, 0);
-  const sensitivityThreshold = totalStateWeight * 0.25; // 25% du score total possible (seuil encore plus bas)
-  const dominantState = maxStateScore > sensitivityThreshold ? Object.keys(stateScores).find(state => stateScores[state] === maxStateScore) : null;
+  // Déterminer si la peau est sensible (seuil abaissé)
+  const maxSensitivityPossible = sensitivityQuestions * 3 * 2; // questions * score max * poids max
+  const sensitivityThreshold = maxSensitivityPossible * 0.4; // Seuil à 40%
+  const isSensitive = sensitivityScore > sensitivityThreshold;
   
-  // Debug logs pour la sensibilité
-  console.log('🔍 Debug Sensibilité:', {
-    stateScores,
-    maxStateScore,
-    totalStateWeight,
+  console.log("📊 RÉSULTATS FINAUX:", {
+    typeScores,
+    dominantType,
+    sensitivityScore,
     sensitivityThreshold,
-    dominantState,
-    answers: Object.entries(answers).filter(([id]) => QUESTION_WEIGHTS.find(w => w.questionId === id)?.category === 'state')
+    isSensitive
   });
   
   // Calculer le score de confiance
@@ -84,19 +95,23 @@ export const calculateSkinType = (answers: Record<string, string>): SkinTypeScor
   let concerns = [...(SKIN_CONCERNS[dominantType] || [])];
   
   // Ajouter les caractéristiques d'état si applicable
-  if (dominantState && dominantState !== 'normal') {
-    characteristics = [...characteristics, ...(SKIN_STATE_CHARACTERISTICS[dominantState] || [])];
-    concerns = [...concerns, ...(SKIN_STATE_CONCERNS[dominantState] || [])];
+  if (isSensitive) {
+    characteristics = [...characteristics, ...(SKIN_STATE_CHARACTERISTICS["sensitive"] || [])];
+    concerns = [...concerns, ...(SKIN_STATE_CONCERNS["sensitive"] || [])];
   }
   
-  return {
+  const result = {
     type: dominantType,
-    state: dominantState,
+    state: isSensitive ? "sensitive" : null,
     score: maxTypeScore,
     confidence,
     characteristics,
     concerns
   };
+  
+  console.log("🎯 DIAGNOSTIC FINAL:", result);
+  
+  return result;
 };
 
 // Re-export everything for backward compatibility

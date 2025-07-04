@@ -1,6 +1,7 @@
+
 import { QuestionWeight } from './skinTypes';
 
-// Pondération des questions par importance
+// Pondération des questions par importance - SIMPLIFIÉE
 export const QUESTION_WEIGHTS: QuestionWeight[] = [
   // Questions primaires (poids élevé) - Type de peau
   { questionId: "sensation_apres_nettoyage", weight: 3.0, category: 'primary' },
@@ -10,275 +11,88 @@ export const QUESTION_WEIGHTS: QuestionWeight[] = [
   
   // Questions secondaires (poids moyen) - Type de peau
   { questionId: "reaction_soleil", weight: 1.5, category: 'secondary' },
-  { questionId: "souci_principal", weight: 1.5, category: 'secondary' },
-  { questionId: "texture_creme", weight: 1.2, category: 'secondary' },
   { questionId: "tiraillements_frequents", weight: 1.8, category: 'secondary' },
+  { questionId: "maquillage_journee", weight: 1.2, category: 'secondary' },
   
   // Questions d'état (poids élevé) - Sensibilité
   { questionId: "nouveaux_produits", weight: 2.0, category: 'state' },
   { questionId: "sensation_inconfort", weight: 1.8, category: 'state' },
   { questionId: "rougeurs_frequentes", weight: 1.5, category: 'state' },
   { questionId: "reaction_environnement", weight: 1.5, category: 'state' },
-  
-  // Questions de validation (poids faible)
-  { questionId: "maquillage_journee", weight: 0.8, category: 'validation' }
 ];
 
-// Mapping des réponses vers les types de peau avec scores (sans sensible)
-export const ANSWER_MAPPING: Record<string, Record<string, number>> = {
+// Mapping SIMPLIFIÉ des réponses vers les types de peau
+export const SKIN_TYPE_SCORES: Record<string, Record<string, number>> = {
   "sensation_apres_nettoyage": {
-    "Très sèche": 3,
-    "Sèche": 3,
-    "Tiraillements": 3,
-    "Inconfort": 2.5,
-    "Rugueuse": 2.5,
-    "Desquamation": 3,
-    
-    "Grasse": 0,
-    "Brillante": 0,
-    "Huileuse": 0,
-    "Sébum visible": 0,
-    
-    "Mixte": 1,
-    "Zone T brillante": 1,
-    "Contrastée": 1,
-    "Différente selon zone": 1,
-    
-    "Normale": 1,
-    "Équilibrée": 1,
-    "Confortable": 1,
-    "Douce": 1,
-    
-    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 3,    // Peau sèche
+    "mixte": 1,    // Peau mixte
+    "grasse": 0,   // Peau grasse
+    "normale": 1   // Peau normale
   },
   
   "fin_journee": {
-    "Très sèche": 3,
-    "Sèche": 3,
-    "Tiraillements": 3,
-    "Desquamation": 3,
-    "Inconfortable": 2.5,
-    "Rugueuse": 2.5,
-    
-    "Très brillante": 0,
-    "Brillante": 0,
-    "Huileuse": 0,
-    "Sébum visible": 0,
-    "Grasse": 0,
-    
-    "Zone T brillante": 1,
-    "Joues sèches": 1,
-    "Contrastée": 1,
-    "Mixte": 1,
-    
-    "Normale": 1,
-    "Équilibrée": 1,
-    "Confortable": 1,
-    "Douce": 1,
-    
-    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 3,
+    "mixte": 1,
+    "grasse": 0,
+    "normale": 1
   },
   
   "tiraillements_frequents": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Quotidiennement": 3,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0,
-    
-    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 3,
+    "mixte": 1,
+    "grasse": 0,
+    "normale": 0.5
   },
   
   "pores": {
-    "Très visibles": 3,
-    "Dilatés": 3,
-    "Obstrués": 3,
-    "Nombreux": 3,
-    "Larges": 3,
-    "Points noirs": 3,
-    
-    "Très fins": 0,
-    "Invisibles": 0,
-    "Discrets": 0,
-    "Fermés": 0,
-    
-    "Zone T visible": 2,
-    "Moyens": 2,
-    "Quelques zones": 2,
-    "Mixtes": 2,
-    
-    "Normaux": 1,
-    "Équilibrés": 1,
-    "Peu visibles": 1,
-    
-    "seche": 0, "mixte": 2, "grasse": 3, "normale": 1
+    "seche": 0,    // Pores fins
+    "mixte": 2,    // Pores moyens
+    "grasse": 3,   // Pores larges
+    "normale": 1   // Pores normaux
   },
   
   "imperfections": {
-    "Beaucoup": 3,
-    "Fréquentes": 3,
-    "Points noirs": 3,
-    "Acné": 3,
-    "Boutons": 3,
-    "Comédons": 3,
-    "Nombreuses": 3,
-    
-    "Aucune": 1,
-    "Très rares": 1,
-    "Quasi-inexistantes": 1,
-    
-    "Zone T seulement": 2,
-    "Occasionnelles": 2,
-    "Localisées": 2,
-    "Quelques unes": 2,
-    
-    "Rares": 1,
-    "Peu": 1,
-    "Sporadiques": 1,
-    
-    "seche": 1, "mixte": 2, "grasse": 3, "normale": 1
+    "seche": 0,    // Peu d'imperfections
+    "mixte": 2,    // Imperfections modérées
+    "grasse": 3,   // Beaucoup d'imperfections
+    "normale": 0.5 // Rares imperfections
   },
   
   "reaction_soleil": {
-    "Brûle facilement": 2,
-    "Rougit vite": 2,
-    "Très sensible": 2,
-    
-    "Bronze facilement": 0,
-    "Résistante": 0,
-    "Peu sensible": 0,
-    
-    "Normale": 1,
-    "Modérée": 1,
-    
-    "seche": 2, "mixte": 1, "grasse": 0, "normale": 1
-  },
-  
-  "souci_principal": {
-    "Sécheresse": 3,
-    "Tiraillements": 3,
-    "Desquamation": 3,
-    "Rides": 2,
-    "Manque d'éclat": 2,
-    
-    "Brillance": 1,
-    "Imperfections": 3,
-    "Pores dilatés": 3,
-    "Acné": 3,
-    
-    "Zones contrastées": 2,
-    "Gestion complexe": 2,
-    
-    "Prévention": 1,
-    "Maintien": 1,
-    
-    "seche": 3, "mixte": 2, "grasse": 1, "normale": 1
-  },
-  
-  "texture_creme": {
-    "Riche": 3,
-    "Nourrissante": 3,
-    "Épaisse": 3,
-    "Huile": 2.5,
-    
-    "Légère": 0,
-    "Fluide": 0,
-    "Gel": 0,
-    "Sans huile": 0,
-    
-    "Modulable": 2,
-    "Adaptable": 2,
-    
-    "Équilibrée": 1,
-    "Normale": 1,
-    
-    "seche": 3, "mixte": 2, "grasse": 0, "normale": 1
+    "seche": 2,    // Brûle facilement
+    "mixte": 1,    // Réaction modérée
+    "grasse": 0,   // Bronze facilement
+    "normale": 1   // Réaction normale
   },
   
   "maquillage_journee": {
-    "Disparaît": 2,
-    "S'effrite": 2,
-    "Accroche mal": 2,
-    
-    "Glisse": 0,
-    "Devient brillant": 0,
-    "File": 0,
-    
-    "Tient bien": 1,
-    "Normal": 1,
-    
-    "seche": 2, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 2,    // Marque les ridules
+    "mixte": 1,    // Tenue variable
+    "grasse": 0,   // Glisse/fond
+    "normale": 1   // Tient bien
   }
 };
 
-// Mapping des réponses vers les états de peau
-export const STATE_MAPPING: Record<string, Record<string, number>> = {
+// Mapping des réponses vers les états de peau (sensibilité)
+export const SENSITIVITY_SCORES: Record<string, Record<string, number>> = {
   "nouveaux_produits": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Toujours": 3,
-    "Fréquemment": 2.5,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0,
-    
-    "sensible": 3, "normal": 1
+    "sensible": 3,
+    "normal": 0
   },
   
   "sensation_inconfort": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Quotidiennement": 3,
-    "Fréquemment": 2.5,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0,
-    
-    "sensible": 3, "normal": 1
+    "sensible": 3,
+    "normal": 0
   },
   
   "rougeurs_frequentes": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Quotidiennement": 3,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0
+    "sensible": 3,
+    "normal": 0
   },
   
   "reaction_environnement": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Toujours": 3,
-    "Régulièrement": 2.5,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0
+    "sensible": 3,
+    "normal": 0
   }
 };
 
@@ -388,28 +202,26 @@ export const SKIN_STATE_CONCERNS: Record<string, string[]> = {
   ]
 };
 
-// ✅ FONCTIONS DE DEBUG ET VALIDATION
+// Fonction de debug pour valider la configuration
 export const debugSkinTypeCalculation = (answers: Record<string, string>) => {
+  console.log("🔍 DEBUG CALCUL TYPE DE PEAU - VERSION SIMPLIFIÉE");
+  console.log("Réponses reçues:", answers);
+  console.log("=====================================");
+
   const typeScores: Record<string, number> = {
     "dry": 0, "combination": 0, "oily": 0, "normal": 0
   };
-  const stateScores: Record<string, number> = {
-    "sensitive": 0, "normal": 0
-  };
-
-  console.log("🔍 DEBUG CALCUL TYPE DE PEAU");
-  console.log("Réponses reçues:", answers);
-  console.log("=====================================");
+  
+  const sensitivityScore = { total: 0, questions: 0 };
 
   Object.entries(answers).forEach(([questionId, answer]) => {
     const questionWeight = QUESTION_WEIGHTS.find(w => w.questionId === questionId);
     if (!questionWeight) {
-      console.log(`⚠️ Question non trouvée: ${questionId}`);
+      console.log(`⚠️ Question non trouvée dans QUESTION_WEIGHTS: ${questionId}`);
       return;
     }
 
     const { weight, category } = questionWeight;
-
     console.log(`\n📋 Question: ${questionId}`);
     console.log(`   Réponse: "${answer}"`);
     console.log(`   Catégorie: ${category}`);
@@ -417,48 +229,37 @@ export const debugSkinTypeCalculation = (answers: Record<string, string>) => {
 
     if (category === 'state') {
       // Questions de sensibilité
-      const stateMapping = STATE_MAPPING[questionId];
-      if (stateMapping && stateMapping[answer] !== undefined) {
-        const score = stateMapping[answer] * weight;
-        if (stateMapping[answer] > 1.5) {
-          stateScores["sensitive"] += score;
-          console.log(`   ✅ Score sensible: +${score.toFixed(2)}`);
-        } else {
-          stateScores["normal"] += score;
-          console.log(`   ✅ Score normal: +${score.toFixed(2)}`);
-        }
+      const scoreMapping = SENSITIVITY_SCORES[questionId];
+      if (scoreMapping && scoreMapping[answer] !== undefined) {
+        const score = scoreMapping[answer] * weight;
+        sensitivityScore.total += score;
+        sensitivityScore.questions++;
+        console.log(`   ✅ Score sensibilité: +${score.toFixed(2)}`);
       } else {
-        console.log(`   ❌ Réponse non mappée dans STATE_MAPPING`);
+        console.log(`   ❌ Réponse "${answer}" non mappée pour la sensibilité`);
       }
     } else {
       // Questions de type de peau
-      const typeMapping = ANSWER_MAPPING[questionId];
-      if (typeMapping) {
-        if (typeMapping[answer] !== undefined) {
-          // Réponse directe trouvée
-          const baseScore = typeMapping[answer];
-          const score = baseScore * weight;
-          
-          // Attribution intelligente des scores
-          if (baseScore >= 2.5) {
-            typeScores["dry"] += score;
-            console.log(`   ✅ Score peau sèche: +${score.toFixed(2)}`);
-          } else if (baseScore <= 0.5) {
-            typeScores["oily"] += (3 - baseScore) * weight;
-            console.log(`   ✅ Score peau grasse: +${((3 - baseScore) * weight).toFixed(2)}`);
-          } else if (baseScore >= 1.5 && baseScore < 2.5) {
-            typeScores["combination"] += score;
-            console.log(`   ✅ Score peau mixte: +${score.toFixed(2)}`);
-          } else {
-            typeScores["normal"] += score;
-            console.log(`   ✅ Score peau normale: +${score.toFixed(2)}`);
-          }
-        } else {
-          console.log(`   ❌ Réponse "${answer}" non mappée`);
-          console.log(`   Mappings disponibles:`, Object.keys(typeMapping));
+      const scoreMapping = SKIN_TYPE_SCORES[questionId];
+      if (scoreMapping && scoreMapping[answer] !== undefined) {
+        const baseScore = scoreMapping[answer];
+        
+        // Attribution directe des scores selon la réponse
+        if (answer === "seche") {
+          typeScores["dry"] += baseScore * weight;
+          console.log(`   ✅ Score peau sèche: +${(baseScore * weight).toFixed(2)}`);
+        } else if (answer === "grasse") {
+          typeScores["oily"] += baseScore * weight;
+          console.log(`   ✅ Score peau grasse: +${(baseScore * weight).toFixed(2)}`);
+        } else if (answer === "mixte") {
+          typeScores["combination"] += baseScore * weight;
+          console.log(`   ✅ Score peau mixte: +${(baseScore * weight).toFixed(2)}`);
+        } else if (answer === "normale") {
+          typeScores["normal"] += baseScore * weight;
+          console.log(`   ✅ Score peau normale: +${(baseScore * weight).toFixed(2)}`);
         }
       } else {
-        console.log(`   ❌ Aucun mapping trouvé pour cette question`);
+        console.log(`   ❌ Réponse "${answer}" non mappée pour le type de peau`);
       }
     }
   });
@@ -469,67 +270,24 @@ export const debugSkinTypeCalculation = (answers: Record<string, string>) => {
   Object.entries(typeScores).forEach(([type, score]) => {
     console.log(`   ${type}: ${score.toFixed(2)}`);
   });
-  console.log("États de peau:");
-  Object.entries(stateScores).forEach(([state, score]) => {
-    console.log(`   ${state}: ${score.toFixed(2)}`);
-  });
-
+  
   const maxTypeScore = Math.max(...Object.values(typeScores));
   const dominantType = Object.keys(typeScores).find(type => typeScores[type] === maxTypeScore);
-
-  const totalStateWeight = QUESTION_WEIGHTS.filter(w => w.category === 'state').reduce((sum, w) => sum + w.weight, 0);
-  const sensitivityThreshold = totalStateWeight * 0.25; // ✅ Seuil réduit à 25%
-  const isSensitive = stateScores["sensitive"] > sensitivityThreshold;
+  
+  // Seuil de sensibilité plus bas (50% du score maximum possible)
+  const maxSensitivityPossible = sensitivityScore.questions * 3 * 2; // max questions * max score * max weight
+  const sensitivityThreshold = maxSensitivityPossible * 0.5;
+  const isSensitive = sensitivityScore.total > sensitivityThreshold;
 
   console.log(`\n🏆 DIAGNOSTIC FINAL:`);
   console.log(`   Type: ${dominantType} (score: ${maxTypeScore.toFixed(2)})`);
-  console.log(`   État: ${isSensitive ? 'sensitive' : 'normal'} (seuil: ${sensitivityThreshold.toFixed(2)}, score: ${stateScores["sensitive"].toFixed(2)})`);
+  console.log(`   Sensibilité: ${isSensitive ? 'OUI' : 'NON'} (score: ${sensitivityScore.total.toFixed(2)}, seuil: ${sensitivityThreshold.toFixed(2)})`);
 
   return {
     type: dominantType,
     state: isSensitive ? 'sensitive' : null,
     typeScores,
-    stateScores,
+    sensitivityScore: sensitivityScore.total,
     threshold: sensitivityThreshold
   };
-};
-
-export const validateConfiguration = () => {
-  console.log("🔍 VALIDATION DE LA CONFIGURATION");
-  console.log("===================================");
-
-  let errors = 0;
-
-  // Vérifier que toutes les questions ont un mapping
-  QUESTION_WEIGHTS.forEach(({ questionId, category }) => {
-    if (category === 'state') {
-      if (!STATE_MAPPING[questionId]) {
-        console.error(`❌ STATE_MAPPING manquant: ${questionId}`);
-        errors++;
-      } else {
-        console.log(`✅ STATE_MAPPING OK: ${questionId}`);
-      }
-    } else {
-      if (!ANSWER_MAPPING[questionId]) {
-        console.error(`❌ ANSWER_MAPPING manquant: ${questionId}`);
-        errors++;
-      } else {
-        console.log(`✅ ANSWER_MAPPING OK: ${questionId}`);
-      }
-    }
-  });
-
-  console.log(`\n📈 RÉSUMÉ:`);
-  console.log(`   Questions totales: ${QUESTION_WEIGHTS.length}`);
-  console.log(`   Questions type: ${QUESTION_WEIGHTS.filter(q => q.category !== 'state').length}`);
-  console.log(`   Questions état: ${QUESTION_WEIGHTS.filter(q => q.category === 'state').length}`);
-  console.log(`   Erreurs: ${errors}`);
-
-  if (errors === 0) {
-    console.log(`✅ Configuration valide !`);
-  } else {
-    console.log(`❌ ${errors} erreur(s) à corriger`);
-  }
-
-  return errors === 0;
 };
