@@ -3,6 +3,7 @@ import { Results } from "@/components/Quiz/Results";
 import { QuizProvider } from "@/components/Quiz/QuizContext";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { KlaviyoTestButton } from "@/components/Quiz/Results/components/KlaviyoTestButton";
 
 const QuizResults = () => {
   const navigate = useNavigate();
@@ -29,6 +30,9 @@ const QuizResults = () => {
       <footer className="mt-4 sm:mt-8 py-2 sm:py-4 text-center text-xs sm:text-sm text-muted-foreground">
         <p>© 2023 Majoliepeau. Tous droits réservés.</p>
       </footer>
+      
+      {/* Bouton de test Klaviyo temporaire */}
+      <KlaviyoTestButton />
     </div>
   );
 };

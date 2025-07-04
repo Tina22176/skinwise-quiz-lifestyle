@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { SkinTypeHeader } from "../SkinTypeHeader";
 import { OptimizedSubscriptionSection } from "./OptimizedSubscriptionSection";
@@ -146,8 +145,8 @@ export const ConversionOptimizedResults = ({
         </motion.div>
       </motion.div>
 
-      {/* Section teaser pour non-inscrits */}
-      {!isSubscribed && (
+      {/* Section teaser pour inscrits - LOGIQUE CORRIGÉE */}
+      {isSubscribed && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

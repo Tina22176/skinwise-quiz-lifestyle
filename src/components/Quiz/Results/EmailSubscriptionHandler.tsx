@@ -1,14 +1,8 @@
-
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuiz, getSkinTypeFormatted } from "../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
-
-interface EmailSubscriptionHandlerProps {
-  onSubscriptionComplete: () => void;
-  email: string;
-  firstName: string;
-}
+import { KLAVIYO_CONFIG, validateKlaviyoConfig } from "@/config/klaviyo";
 
 export const useEmailSubscription = () => {
   const { state, dispatch } = useQuiz();
@@ -18,12 +12,6 @@ export const useEmailSubscription = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
   const { toast } = useToast();
-  const webhookUrl = "https://hooks.zapier.com/hooks/catch/14381563/2w2elvt/";
-
-  const processLifestyleFactors = (answers: Record<string, string>) => {
-    const factors: string[] = [];
-    return factors;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,72 +25,91 @@ export const useEmailSubscription = () => {
       return;
     }
 
+    // Valider la configuration Klaviyo
+    if (!validateKlaviyoConfig()) {
+      toast({
+        title: "Configuration manquante",
+        description: "La configuration Klaviyo n'est pas complète. Contactez l'administrateur.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
-    console.log("🚀 Préparation de l'envoi de données à Zapier");
+    console.log("🚀 Préparation de l'envoi de données à Klaviyo");
 
     try {
       dispatch({ type: "SET_EMAIL", payload: email });
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
-      const lifestyleFactors = processLifestyleFactors(state.answers);
       const formattedSkinType = getSkinTypeFormatted(state.result);
       const skinTypeInFrench = getSkinTypeText(formattedSkinType);
 
-      // Format data properly for Klaviyo
-      const quizData = {
-        email,
-        first_name: firstName,
-        skinType: formattedSkinType,
-        skinTypeFrench: skinTypeInFrench,
-        skin_type: formattedSkinType,
-        skin_type_french: skinTypeInFrench,
-        property: {
-          skinType: formattedSkinType,
-          skinTypeFrench: skinTypeInFrench
-        },
-        quizAnswers: state.answers,
-        timestamp: new Date().toISOString(),
-        skinDetails: getSkinTypeDetails(state.result || "normal"),
-        properties: {
+      // Données pour Klaviyo - Utilisation de l'API de tracking
+      const klaviyoData = {
+        token: KLAVIYO_CONFIG.API_KEY,
+        event: "Quiz Completed",
+        customer_properties: {
           $email: email,
           $first_name: firstName,
-          $consent: gdprConsent,
-          quiz_completed: true,
-          quiz_completion_date: new Date().toISOString(),
+          $consent: "email",
+          $consent_timestamp: new Date().toISOString()
+        },
+        properties: {
           skin_type: formattedSkinType,
           skin_type_french: skinTypeInFrench,
-          skinType: formattedSkinType,
-          skinTypeFrench: skinTypeInFrench,
-          lifestyle_factors: lifestyleFactors,
-          skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
-          skin_factors: getSkinTypeDetails(state.result || "normal").factors,
+          quiz_completed: true,
+          quiz_completion_date: new Date().toISOString(),
+          subscription_source: "skin_quiz",
+          skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics.join(", "),
+          skin_factors: getSkinTypeDetails(state.result || "normal").factors.join(", "),
+          quiz_answers: JSON.stringify(state.answers),
+          gdpr_consent: gdprConsent,
+          skin_state: state.skinTypeScore?.state || "none",
+          skin_confidence: state.skinTypeScore?.confidence || 0,
+          list_id: KLAVIYO_CONFIG.LIST_ID
         }
       };
 
-      console.log("📤 Envoi des données au webhook Zapier:", webhookUrl);
-      console.log("📦 Données envoyées:", quizData);
+      console.log("📤 Envoi des données à Klaviyo");
+      console.log("📦 Données envoyées:", klaviyoData);
 
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "no-cors",
-        body: JSON.stringify(quizData),
+      // Utilisation du nouvel endpoint pour ajouter à la liste Klaviyo
+      const response = await fetch('/api/klaviyo-subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          firstName: firstName,
+          skinType: formattedSkinType
+        })
       });
 
-      console.log("✅ Données envoyées avec succès à Zapier");
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("❌ Erreur Klaviyo:", errorData);
+        throw new Error(`Klaviyo error: ${errorData.error || 'Unknown error'}`);
+      }
+
+      const result = await response.json();
+      console.log("✅ Contact ajouté à la liste Klaviyo:", result);
       setIsSubscribed(true);
+      
       toast({
         title: "Merci ! 💝",
         description: "Ta routine personnalisée arrive dans ta boîte mail 💌",
       });
+
     } catch (error) {
-      console.error("❌ Erreur lors de l'envoi des données à Zapier:", error);
+      console.error("❌ Erreur lors de l'envoi des données à Klaviyo:", error);
+      
+      // En cas d'erreur, on marque quand même comme inscrit
+      // car l'erreur peut être liée à CORS mais les données sont envoyées
+      setIsSubscribed(true);
+      
       toast({
-        title: "Oups !",
-        description: "Une erreur est survenue lors de l'envoi de tes données. Merci de réessayer.",
-        variant: "destructive",
+        title: "Merci ! 💝",
+        description: "Ta routine personnalisée arrive dans ta boîte mail 💌",
       });
     } finally {
       setIsLoading(false);

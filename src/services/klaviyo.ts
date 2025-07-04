@@ -20,8 +20,8 @@ export interface KlaviyoData {
 }
 
 // Configuration Klaviyo
-const KLAVIYO_LIST_ID = process.env.VITE_KLAVIYO_LIST_ID || "YOUR_LIST_ID";
-const KLAVIYO_API_KEY = process.env.VITE_KLAVIYO_API_KEY || "YOUR_API_KEY";
+const KLAVIYO_LIST_ID = process.env.VITE_KLAVIYO_LIST_ID || "YggmTr";
+const KLAVIYO_API_KEY = process.env.VITE_KLAVIYO_API_KEY || "WMCz9t";
 
 // Service Klaviyo enrichi
 export class KlaviyoService {
