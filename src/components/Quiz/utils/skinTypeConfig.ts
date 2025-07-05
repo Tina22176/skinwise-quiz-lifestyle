@@ -27,258 +27,89 @@ export const QUESTION_WEIGHTS: QuestionWeight[] = [
 // Mapping des réponses vers les types de peau avec scores (sans sensible)
 export const ANSWER_MAPPING: Record<string, Record<string, number>> = {
   "sensation_apres_nettoyage": {
-    "Très sèche": 3,
-    "Sèche": 3,
-    "Tiraillements": 3,
-    "Inconfort": 2.5,
-    "Rugueuse": 2.5,
-    "Desquamation": 3,
-    
-    "Grasse": 0,
-    "Brillante": 0,
-    "Huileuse": 0,
-    "Sébum visible": 0,
-    
-    "Mixte": 1,
-    "Zone T brillante": 1,
-    "Contrastée": 1,
-    "Différente selon zone": 1,
-    
-    "Normale": 1,
-    "Équilibrée": 1,
-    "Confortable": 1,
-    "Douce": 1,
-    
-    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 3,
+    "mixte": 1, 
+    "grasse": 0,
+    "normale": 1
   },
   
   "fin_journee": {
-    "Très sèche": 3,
-    "Sèche": 3,
-    "Tiraillements": 3,
-    "Desquamation": 3,
-    "Inconfortable": 2.5,
-    "Rugueuse": 2.5,
-    
-    "Très brillante": 0,
-    "Brillante": 0,
-    "Huileuse": 0,
-    "Sébum visible": 0,
-    "Grasse": 0,
-    
-    "Zone T brillante": 1,
-    "Joues sèches": 1,
-    "Contrastée": 1,
-    "Mixte": 1,
-    
-    "Normale": 1,
-    "Équilibrée": 1,
-    "Confortable": 1,
-    "Douce": 1,
-    
-    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 3,
+    "mixte": 1,
+    "grasse": 0,
+    "normale": 1
   },
   
   "tiraillements_frequents": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Quotidiennement": 3,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0,
-    
-    "seche": 3, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 3,
+    "mixte": 1,
+    "grasse": 0,
+    "normale": 1
   },
   
   "pores": {
-    "Très visibles": 3,
-    "Dilatés": 3,
-    "Obstrués": 3,
-    "Nombreux": 3,
-    "Larges": 3,
-    "Points noirs": 3,
-    
-    "Très fins": 0,
-    "Invisibles": 0,
-    "Discrets": 0,
-    "Fermés": 0,
-    
-    "Zone T visible": 2,
-    "Moyens": 2,
-    "Quelques zones": 2,
-    "Mixtes": 2,
-    
-    "Normaux": 1,
-    "Équilibrés": 1,
-    "Peu visibles": 1,
-    
-    "seche": 0, "mixte": 2, "grasse": 3, "normale": 1
+    "seche": 0,
+    "mixte": 2,
+    "grasse": 3,
+    "normale": 1
   },
   
   "imperfections": {
-    "Beaucoup": 3,
-    "Fréquentes": 3,
-    "Points noirs": 3,
-    "Acné": 3,
-    "Boutons": 3,
-    "Comédons": 3,
-    "Nombreuses": 3,
-    
-    "Aucune": 1,
-    "Très rares": 1,
-    "Quasi-inexistantes": 1,
-    
-    "Zone T seulement": 2,
-    "Occasionnelles": 2,
-    "Localisées": 2,
-    "Quelques unes": 2,
-    
-    "Rares": 1,
-    "Peu": 1,
-    "Sporadiques": 1,
-    
-    "seche": 1, "mixte": 2, "grasse": 3, "normale": 1
+    "seche": 1,
+    "mixte": 2,
+    "grasse": 3,
+    "normale": 1
   },
   
   "reaction_soleil": {
-    "Brûle facilement": 2,
-    "Rougit vite": 2,
-    "Très sensible": 2,
-    
-    "Bronze facilement": 0,
-    "Résistante": 0,
-    "Peu sensible": 0,
-    
-    "Normale": 1,
-    "Modérée": 1,
-    
-    "seche": 2, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 2,
+    "mixte": 1,
+    "grasse": 0,
+    "normale": 1
   },
   
   "souci_principal": {
-    "Sécheresse": 3,
-    "Tiraillements": 3,
-    "Desquamation": 3,
-    "Rides": 2,
-    "Manque d'éclat": 2,
-    
-    "Brillance": 1,
-    "Imperfections": 3,
-    "Pores dilatés": 3,
-    "Acné": 3,
-    
-    "Zones contrastées": 2,
-    "Gestion complexe": 2,
-    
-    "Prévention": 1,
-    "Maintien": 1,
-    
-    "seche": 3, "mixte": 2, "grasse": 1, "normale": 1
+    "seche": 3,
+    "mixte": 2,
+    "grasse": 1,
+    "normale": 1
   },
   
   "texture_creme": {
-    "Riche": 3,
-    "Nourrissante": 3,
-    "Épaisse": 3,
-    "Huile": 2.5,
-    
-    "Légère": 0,
-    "Fluide": 0,
-    "Gel": 0,
-    "Sans huile": 0,
-    
-    "Modulable": 2,
-    "Adaptable": 2,
-    
-    "Équilibrée": 1,
-    "Normale": 1,
-    
-    "seche": 3, "mixte": 2, "grasse": 0, "normale": 1
+    "seche": 3,
+    "mixte": 2,
+    "grasse": 0,
+    "normale": 1
   },
   
   "maquillage_journee": {
-    "Disparaît": 2,
-    "S'effrite": 2,
-    "Accroche mal": 2,
-    
-    "Glisse": 0,
-    "Devient brillant": 0,
-    "File": 0,
-    
-    "Tient bien": 1,
-    "Normal": 1,
-    
-    "seche": 2, "mixte": 1, "grasse": 0, "normale": 1
+    "seche": 2,
+    "mixte": 1,
+    "grasse": 0,
+    "normale": 1
   }
 };
 
 // Mapping des réponses vers les états de peau
 export const STATE_MAPPING: Record<string, Record<string, number>> = {
   "nouveaux_produits": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Toujours": 3,
-    "Fréquemment": 2.5,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0,
-    
-    "sensible": 3, "normal": 1
+    "sensible": 3,
+    "normal": 1
   },
   
   "sensation_inconfort": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Quotidiennement": 3,
-    "Fréquemment": 2.5,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0,
-    
-    "sensible": 3, "normal": 1
+    "sensible": 3,
+    "normal": 1
   },
   
   "rougeurs_frequentes": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Régulièrement": 2.5,
-    "Quotidiennement": 3,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0
+    "sensible": 3,
+    "normal": 1
   },
   
   "reaction_environnement": {
-    "Oui": 3,
-    "Souvent": 3,
-    "Très souvent": 3,
-    "Toujours": 3,
-    "Régulièrement": 2.5,
-    
-    "Parfois": 1.5,
-    "Occasionnellement": 1,
-    "Rarement": 0.5,
-    "Non": 0,
-    "Jamais": 0
+    "sensible": 3,
+    "normal": 1
   }
 };
 
