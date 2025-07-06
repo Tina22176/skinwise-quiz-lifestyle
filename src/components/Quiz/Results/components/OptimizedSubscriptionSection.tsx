@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { EnhancedSubscriptionForm } from "./EnhancedSubscriptionForm";
 import { SubscribedSuccessState } from "./SubscribedSuccessState";
+import { SKIN_TYPE_TEASERS } from "../utils/SkinTypeDetails";
 
 interface OptimizedSubscriptionSectionProps {
   skinType: string;
@@ -37,6 +38,46 @@ export const OptimizedSubscriptionSection = ({
   onResetQuiz,
   variants
 }: OptimizedSubscriptionSectionProps) => {
+  // Couleurs adaptatives basées sur le type de peau
+  const getSkinTypeColors = () => {
+    const teaser = SKIN_TYPE_TEASERS[skinType] || SKIN_TYPE_TEASERS.normal;
+    
+    const colorSchemes = {
+      blue: {
+        primary: "from-blue-600 to-blue-500",
+        secondary: "text-blue-600",
+        accent: "bg-blue-400",
+        bg: "from-blue-100/60 to-white/60",
+        border: "border-blue-200/40"
+      },
+      green: {
+        primary: "from-green-600 to-green-500",
+        secondary: "text-green-600",
+        accent: "bg-green-400",
+        bg: "from-green-100/60 to-white/60",
+        border: "border-green-200/40"
+      },
+      purple: {
+        primary: "from-purple-600 to-purple-500",
+        secondary: "text-purple-600",
+        accent: "bg-purple-400",
+        bg: "from-purple-100/60 to-white/60",
+        border: "border-purple-200/40"
+      },
+      pink: {
+        primary: "from-pink-600 to-pink-500",
+        secondary: "text-pink-600",
+        accent: "bg-pink-400",
+        bg: "from-pink-100/60 to-white/60",
+        border: "border-pink-200/40"
+      }
+    };
+    
+    return colorSchemes[teaser.colorTheme] || colorSchemes.pink;
+  };
+
+  const colors = getSkinTypeColors();
+
   return (
     <>
       {!isSubscribed ? (
@@ -55,33 +96,33 @@ export const OptimizedSubscriptionSection = ({
               }}
               className="inline-block"
             >
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 text-transparent bg-clip-text">
+              <h2 className={`text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r ${colors.primary} text-transparent bg-clip-text`}>
                 Ta routine beauté personnalisée
               </h2>
             </motion.div>
 
             <div className="space-y-3">
               <p className="text-sm sm:text-base md:text-lg text-gray-800 font-medium">
-                Reçois ta routine <span className="text-pink-600 font-semibold">peau {skinTypeText}</span> gratuite
+                Reçois ta routine <span className={`${colors.secondary} font-semibold`}>peau {skinTypeText}</span> gratuite
               </p>
               
               {/* Aperçu du contenu - Badges horizontaux scrollables */}
-              <div className="bg-gradient-to-r from-pink-100/60 to-white/60 p-3 sm:p-4 rounded-xl border border-pink-200/40">
+              <div className={`bg-gradient-to-r ${colors.bg} p-3 sm:p-4 rounded-xl border ${colors.border}`}>
                 <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                   <span className="flex items-center gap-2 bg-white/70 px-3 py-2 rounded-full whitespace-nowrap text-xs sm:text-sm text-gray-600 flex-shrink-0">
-                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
+                    <div className={`w-2 h-2 ${colors.accent} rounded-full`}></div>
                     Routine matin/soir détaillée
                   </span>
                   <span className="flex items-center gap-2 bg-white/70 px-3 py-2 rounded-full whitespace-nowrap text-xs sm:text-sm text-gray-600 flex-shrink-0">
-                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
+                    <div className={`w-2 h-2 ${colors.accent} rounded-full`}></div>
                     Ingrédients stars personnalisés
                   </span>
                   <span className="flex items-center gap-2 bg-white/70 px-3 py-2 rounded-full whitespace-nowrap text-xs sm:text-sm text-gray-600 flex-shrink-0">
-                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
+                    <div className={`w-2 h-2 ${colors.accent} rounded-full`}></div>
                     3 conseils bonus exclusifs
                   </span>
                   <span className="flex items-center gap-2 bg-white/70 px-3 py-2 rounded-full whitespace-nowrap text-xs sm:text-sm text-gray-600 flex-shrink-0">
-                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
+                    <div className={`w-2 h-2 ${colors.accent} rounded-full`}></div>
                     Ingrédients à éviter
                   </span>
                 </div>
@@ -89,9 +130,9 @@ export const OptimizedSubscriptionSection = ({
                 {/* Indicateur de scroll sur mobile */}
                 <div className="sm:hidden flex justify-center mt-2">
                   <div className="flex space-x-1">
-                    <div className="w-1 h-1 bg-pink-300 rounded-full"></div>
-                    <div className="w-1 h-1 bg-pink-300 rounded-full"></div>
-                    <div className="w-1 h-1 bg-pink-300 rounded-full"></div>
+                    <div className={`w-1 h-1 ${colors.accent} rounded-full`}></div>
+                    <div className={`w-1 h-1 ${colors.accent} rounded-full`}></div>
+                    <div className={`w-1 h-1 ${colors.accent} rounded-full`}></div>
                   </div>
                 </div>
               </div>

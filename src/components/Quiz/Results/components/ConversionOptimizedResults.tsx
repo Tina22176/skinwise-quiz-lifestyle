@@ -7,6 +7,7 @@ import { UrgencyBadge } from "./UrgencyBadge";
 import { ConfidenceIndicator } from "./ConfidenceIndicator";
 import { useQuiz } from "../../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails, SKIN_TYPE_TEASERS } from "../utils/SkinTypeDetails";
+import { SkinTypeScore } from "../../utils/skinTypeCalculator";
 import { Sparkles, Star, Shield, Clock, Users, CheckCircle } from "lucide-react";
 
 // Animation variants optimisés
@@ -50,6 +51,7 @@ const floatingVariants = {
 interface ConversionOptimizedResultsProps {
   skinType: string;
   skinState?: string | null;
+  skinTypeScore?: SkinTypeScore | null;
   email: string;
   setEmail: (email: string) => void;
   firstName: string;
@@ -67,6 +69,7 @@ interface ConversionOptimizedResultsProps {
 export const ConversionOptimizedResults = ({
   skinType,
   skinState,
+  skinTypeScore,
   email,
   setEmail,
   firstName,
@@ -83,6 +86,9 @@ export const ConversionOptimizedResults = ({
   const { state } = useQuiz();
   const details = getSkinTypeDetails(skinType);
   const skinTypeText = getSkinTypeText(skinType);
+  
+  // Utiliser le score de confiance calculé ou la valeur par défaut
+  const calculatedConfidence = skinTypeScore?.confidence || confidence;
 
   const handleShare = () => {
     const shareText = `Je viens de découvrir mon type de peau avec Majoliepeau ! Mon diagnostic : Peau ${skinTypeText}`;
@@ -173,7 +179,7 @@ export const ConversionOptimizedResults = ({
         animate="show"
       >
         <ConfidenceIndicator
-          confidence={confidence}
+          confidence={calculatedConfidence}
           skinType={skinType}
           skinTypeText={skinTypeText}
         />

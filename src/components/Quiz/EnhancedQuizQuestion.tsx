@@ -41,18 +41,18 @@ export const EnhancedQuizQuestion = () => {
         answer: answer,
       });
 
-      if (state.currentQuestion === dynamicList.length - 1) {
-        const skinTypeScore = calculateSkinType(state.answers);
-        dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
-        const validation = validateAnswers(state.answers);
-        if (!validation.isValid) {
-          dispatch({ type: "SET_VALIDATION_ERRORS", payload: validation.conflicts });
-          setShowValidationWarning(true);
-        }
-        setShowNextQuestion(true);
-      } else {
-        setShowNextQuestion(true);
+      // Calculer le type de peau quand toutes les questions sont répondues
+      const updatedAnswers = { ...state.answers, [currentQuestion.id]: answer };
+      const skinTypeScore = calculateSkinType(updatedAnswers);
+      dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
+      
+      const validation = validateAnswers(updatedAnswers);
+      if (!validation.isValid) {
+        dispatch({ type: "SET_VALIDATION_ERRORS", payload: validation.conflicts });
+        setShowValidationWarning(true);
       }
+      
+      setShowNextQuestion(true);
     }, 1000);
   };
 

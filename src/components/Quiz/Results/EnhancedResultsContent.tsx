@@ -40,6 +40,7 @@ export const EnhancedResultsContent = ({
     <ConversionOptimizedResults
       skinType={skinType}
       skinState={skinState}
+      skinTypeScore={skinTypeScore}
       email={email}
       setEmail={setEmail}
       firstName={firstName}
