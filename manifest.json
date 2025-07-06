@@ -1,0 +1,40 @@
+{
+  "name": "Quiz Type de Peau - Majoliepeau",
+  "short_name": "Quiz Peau",
+  "description": "Découvre ton véritable type de peau avec notre quiz personnalisé",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf2f8",
+  "theme_color": "#ec4899",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "https://cdn.shopify.com/s/files/1/0819/8622/4458/files/logo_majoliepeau.png?v=1738319474",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "https://cdn.shopify.com/s/files/1/0819/8622/4458/files/logo_majoliepeau.png?v=1738319474",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["beauty", "lifestyle", "health"],
+  "lang": "fr",
+  "shortcuts": [
+    {
+      "name": "Quiz complet",
+      "short_name": "Quiz",
+      "description": "Faire le quiz complet",
+      "url": "/",
+      "icons": [{ "src": "/favicon.ico", "sizes": "96x96" }]
+    }
+  ]
+}
