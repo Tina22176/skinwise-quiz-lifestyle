@@ -67,7 +67,7 @@ export const SkinTypeHeader = ({ skinType, skinState, variants }: SkinTypeHeader
       />
 
       <motion.div className="relative">
-        {/* Titre principal épuré */}
+        {/* Titre principal épuré avec tutoiement */}
         <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
           <Sparkles className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.secondary}`} />
           <h1 className={`text-base sm:text-lg md:text-xl font-medium ${colors.secondary}`}>

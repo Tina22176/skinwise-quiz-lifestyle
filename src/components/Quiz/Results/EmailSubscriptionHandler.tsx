@@ -1,14 +1,9 @@
 
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useQuiz, getSkinTypeFormatted } from "../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails } from "./SkinTypeDetails";
-
-interface EmailSubscriptionHandlerProps {
-  onSubscriptionComplete: () => void;
-  email: string;
-  firstName: string;
-}
+import { KLAVIYO_CONFIG, KLAVIYO_ENDPOINTS } from "@/config/klaviyo";
 
 export const useEmailSubscription = () => {
   const { state, dispatch } = useQuiz();
@@ -18,12 +13,6 @@ export const useEmailSubscription = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
   const { toast } = useToast();
-  const webhookUrl = "https://hooks.zapier.com/hooks/catch/14381563/2w2elvt/";
-
-  const processLifestyleFactors = (answers: Record<string, string>) => {
-    const factors: string[] = [];
-    return factors;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,77 +20,131 @@ export const useEmailSubscription = () => {
     if (!gdprConsent) {
       toast({
         title: "Consentement requis",
-        description: "Merci d'accepter les conditions d'utilisation pour recevoir ta routine personnalisée.",
+        description: "Merci d'accepter les conditions pour recevoir ta routine personnalisée.",
         variant: "destructive",
       });
       return;
     }
 
     setIsLoading(true);
-    console.log("🚀 Préparation de l'envoi de données à Zapier");
+    console.log("🚀 Envoi des données à Klaviyo avec la nouvelle configuration");
 
     try {
       dispatch({ type: "SET_EMAIL", payload: email });
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
-      const lifestyleFactors = processLifestyleFactors(state.answers);
       const formattedSkinType = getSkinTypeFormatted(state.result);
       const skinTypeInFrench = getSkinTypeText(formattedSkinType);
 
-      // Format data properly for Klaviyo
-      const quizData = {
-        email,
-        first_name: firstName,
-        skinType: formattedSkinType,
-        skinTypeFrench: skinTypeInFrench,
-        skin_type: formattedSkinType,
-        skin_type_french: skinTypeInFrench,
-        property: {
-          skinType: formattedSkinType,
-          skinTypeFrench: skinTypeInFrench
-        },
-        quizAnswers: state.answers,
-        timestamp: new Date().toISOString(),
-        skinDetails: getSkinTypeDetails(state.result || "normal"),
-        properties: {
-          $email: email,
-          $first_name: firstName,
-          $consent: gdprConsent,
-          quiz_completed: true,
-          quiz_completion_date: new Date().toISOString(),
-          skin_type: formattedSkinType,
-          skin_type_french: skinTypeInFrench,
-          skinType: formattedSkinType,
-          skinTypeFrench: skinTypeInFrench,
-          lifestyle_factors: lifestyleFactors,
-          skin_characteristics: getSkinTypeDetails(state.result || "normal").characteristics,
-          skin_factors: getSkinTypeDetails(state.result || "normal").factors,
+      // Créer le profil avec l'API v3 de Klaviyo
+      const profileData = {
+        data: {
+          type: "profile",
+          attributes: {
+            email: email,
+            first_name: firstName,
+            properties: {
+              skin_type: formattedSkinType,
+              skin_type_french: skinTypeInFrench,
+              quiz_completed: true,
+              quiz_completion_date: new Date().toISOString(),
+              subscription_source: "skin_quiz_premium",
+              consent_given: gdprConsent,
+              quiz_answers: state.answers,
+              skin_details: getSkinTypeDetails(state.result || "normal"),
+            }
+          }
         }
       };
 
-      console.log("📤 Envoi des données au webhook Zapier:", webhookUrl);
-      console.log("📦 Données envoyées:", quizData);
+      console.log("📤 Création du profil Klaviyo:", profileData);
 
-      const response = await fetch(webhookUrl, {
+      // Appel API pour créer le profil
+      const profileResponse = await fetch(KLAVIYO_ENDPOINTS.profiles, {
         method: "POST",
         headers: {
+          "Authorization": `Klaviyo-API-Key ${KLAVIYO_CONFIG.privateKey}`,
           "Content-Type": "application/json",
+          "revision": KLAVIYO_CONFIG.apiVersion,
         },
-        mode: "no-cors",
-        body: JSON.stringify(quizData),
+        body: JSON.stringify(profileData),
       });
 
-      console.log("✅ Données envoyées avec succès à Zapier");
+      if (!profileResponse.ok) {
+        const errorText = await profileResponse.text();
+        console.error("❌ Erreur lors de la création du profil:", errorText);
+        throw new Error(`Erreur API Klaviyo: ${profileResponse.status}`);
+      }
+
+      const profileResult = await profileResponse.json();
+      console.log("✅ Profil créé avec succès:", profileResult);
+
+      // Ajouter à la liste spécifique
+      const subscriptionData = {
+        data: {
+          type: "profile-subscription-bulk-create-job",
+          attributes: {
+            profiles: {
+              data: [
+                {
+                  type: "profile",
+                  attributes: {
+                    email: email,
+                    subscriptions: {
+                      email: {
+                        marketing: {
+                          consent: "SUBSCRIBED"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          relationships: {
+            list: {
+              data: {
+                type: "list",
+                id: KLAVIYO_CONFIG.listId
+              }
+            }
+          }
+        }
+      };
+
+      console.log("📤 Ajout à la liste Klaviyo:", subscriptionData);
+
+      const subscriptionResponse = await fetch(KLAVIYO_ENDPOINTS.subscriptions, {
+        method: "POST",
+        headers: {
+          "Authorization": `Klaviyo-API-Key ${KLAVIYO_CONFIG.privateKey}`,
+          "Content-Type": "application/json",
+          "revision": KLAVIYO_CONFIG.apiVersion,
+        },
+        body: JSON.stringify(subscriptionData),
+      });
+
+      if (!subscriptionResponse.ok) {
+        const errorText = await subscriptionResponse.text();
+        console.error("⚠️ Erreur lors de l'ajout à la liste:", errorText);
+        // On continue quand même car le profil a été créé
+      } else {
+        const subscriptionResult = await subscriptionResponse.json();
+        console.log("✅ Ajouté à la liste avec succès:", subscriptionResult);
+      }
+
       setIsSubscribed(true);
       toast({
-        title: "Merci ! 💝",
+        title: "Parfait ! 💝",
         description: "Ta routine personnalisée arrive dans ta boîte mail 💌",
       });
+
     } catch (error) {
-      console.error("❌ Erreur lors de l'envoi des données à Zapier:", error);
+      console.error("❌ Erreur lors de l'envoi à Klaviyo:", error);
       toast({
         title: "Oups !",
-        description: "Une erreur est survenue lors de l'envoi de tes données. Merci de réessayer.",
+        description: "Une erreur est survenue. Merci de réessayer dans quelques instants.",
         variant: "destructive",
       });
     } finally {
