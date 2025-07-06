@@ -72,7 +72,7 @@ export const PremiumSubscriptionForm = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <motion.div variants={variants} className="space-y-5">
-        {/* Champ prénom avec effet premium */}
+        {/* Champ prénom avec contraste amélioré */}
         <div className="space-y-2">
           <motion.div
             whileFocus={{ scale: 1.02 }}
@@ -85,10 +85,10 @@ export const PremiumSubscriptionForm = ({
               onChange={handleNameChange}
               onBlur={() => validateName(firstName)}
               required
-              className={`backdrop-blur-sm bg-white/90 border-white/30 text-gray-800 placeholder:text-gray-500 py-4 text-base rounded-2xl shadow-xl transition-all duration-300 focus:bg-white focus:shadow-2xl ${
+              className={`backdrop-blur-sm bg-white/95 border-2 border-gray-300 text-gray-900 placeholder:text-gray-600 font-medium py-4 text-base rounded-2xl shadow-xl transition-all duration-300 focus:bg-white focus:shadow-2xl focus:border-pink-400 ${
                 nameError 
                   ? 'border-red-400 focus:border-red-500'
-                  : 'focus:border-white/50'
+                  : 'hover:border-pink-300'
               }`}
             />
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
@@ -97,14 +97,14 @@ export const PremiumSubscriptionForm = ({
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-red-300 text-sm ml-2"
+              className="text-red-500 text-sm ml-2 font-medium"
             >
               {nameError}
             </motion.p>
           )}
         </div>
         
-        {/* Champ email avec effet premium */}
+        {/* Champ email avec contraste amélioré */}
         <div className="space-y-2">
           <motion.div
             whileFocus={{ scale: 1.02 }}
@@ -117,10 +117,10 @@ export const PremiumSubscriptionForm = ({
               onChange={handleEmailChange}
               onBlur={() => validateEmail(email)}
               required
-              className={`backdrop-blur-sm bg-white/90 border-white/30 text-gray-800 placeholder:text-gray-500 py-4 text-base rounded-2xl shadow-xl transition-all duration-300 focus:bg-white focus:shadow-2xl ${
+              className={`backdrop-blur-sm bg-white/95 border-2 border-gray-300 text-gray-900 placeholder:text-gray-600 font-medium py-4 text-base rounded-2xl shadow-xl transition-all duration-300 focus:bg-white focus:shadow-2xl focus:border-pink-400 ${
                 emailError 
                   ? 'border-red-400 focus:border-red-500'
-                  : 'focus:border-white/50'
+                  : 'hover:border-pink-300'
               }`}
             />
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
@@ -129,32 +129,32 @@ export const PremiumSubscriptionForm = ({
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-red-300 text-sm ml-2"
+              className="text-red-500 text-sm ml-2 font-medium"
             >
               {emailError}
             </motion.p>
           )}
         </div>
 
-        {/* Checkbox RGPD premium */}
+        {/* Checkbox RGPD avec contraste amélioré */}
         <motion.div 
           whileHover={{ scale: 1.01 }}
-          className="flex items-start space-x-3 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20"
+          className="flex items-start space-x-3 bg-white/80 backdrop-blur-sm p-4 rounded-2xl border-2 border-gray-200 shadow-lg"
         >
           <Checkbox
             id="gdpr-premium"
             checked={gdprConsent}
             onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-            className="mt-1 border-white/40 h-5 w-5 data-[state=checked]:bg-white/90 data-[state=checked]:border-white/90 data-[state=checked]:text-gray-800"
+            className="mt-1 border-gray-400 h-5 w-5 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 data-[state=checked]:text-white"
           />
           <div className="space-y-2">
             <label 
               htmlFor="gdpr-premium" 
-              className="text-white/90 text-sm cursor-pointer leading-relaxed"
+              className="text-gray-800 text-sm cursor-pointer leading-relaxed font-medium"
             >
               J'accepte de recevoir ma routine personnalisée et des conseils adaptés par email.
             </label>
-            <div className="flex items-center gap-4 text-xs text-white/70">
+            <div className="flex items-center gap-4 text-xs text-gray-600">
               <span className="flex items-center gap-1">
                 <Shield className="w-3 h-3" />
                 100% gratuit
@@ -167,7 +167,7 @@ export const PremiumSubscriptionForm = ({
           </div>
         </motion.div>
 
-        {/* Bouton CTA premium */}
+        {/* Bouton CTA avec meilleur contraste */}
         <motion.div
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -175,7 +175,7 @@ export const PremiumSubscriptionForm = ({
         >
           <Button 
             type="submit" 
-            className={`w-full text-base py-6 relative overflow-hidden bg-gradient-to-r ${colors.primary} hover:shadow-2xl text-white border-0 shadow-xl transition-all duration-500 rounded-2xl font-bold text-lg ${colors.glow}`}
+            className={`w-full text-base py-6 relative overflow-hidden bg-gradient-to-r ${colors.primary} hover:shadow-2xl text-white border-0 shadow-xl transition-all duration-500 rounded-2xl font-bold text-lg`}
             disabled={isLoading || !isFormValid}
           >
             {/* Effet de brillance animé */}

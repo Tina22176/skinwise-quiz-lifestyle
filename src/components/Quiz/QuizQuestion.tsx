@@ -16,12 +16,23 @@ export const QuizQuestion = () => {
   const [showNextQuestion, setShowNextQuestion] = useState(false);
   const isMobile = useIsMobile();
 
-  // Si nous avons dépassé le nombre de questions, nous passons aux résultats
+  // Défilement automatique vers le haut à chaque nouvelle question
+  useEffect(() => {
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    // Petit délai pour laisser le contenu se charger
+    const timer = setTimeout(scrollToTop, 100);
+    return () => clearTimeout(timer);
+  }, [state.currentQuestion]);
+
   const handleAnswer = (answer: string) => {
     setSelectedAnswer(answer);
     
-    // Ajouter un délai avant de passer à la question suivante
-    // pour permettre l'affichage de l'animation de sélection
     setTimeout(() => {
       const currentQuestion = questions[state.currentQuestion];
       dispatch({
@@ -30,7 +41,6 @@ export const QuizQuestion = () => {
         answer: answer,
       });
   
-      // Si c'est la dernière question, calculons le résultat
       if (state.currentQuestion === questions.length - 1) {
         const skinTypeScore = calculateSkinType(state.answers);
         dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
@@ -38,10 +48,9 @@ export const QuizQuestion = () => {
       } else {
         setShowNextQuestion(true);
       }
-    }, 800); // Increased delay for a more satisfying animation
+    }, 800);
   };
 
-  // Passer à la question suivante après l'animation
   useEffect(() => {
     if (showNextQuestion) {
       const timer = setTimeout(() => {
@@ -53,14 +62,12 @@ export const QuizQuestion = () => {
     }
   }, [showNextQuestion, dispatch]);
 
-  // Si nous n'avons plus de questions, ne rien afficher
   if (state.currentQuestion >= questions.length) {
     return null;
   }
 
   const currentQuestion = questions[state.currentQuestion];
 
-  // Définir des classes adaptées selon l'appareil
   const containerClasses = isMobile 
     ? "max-w-3xl mx-auto px-4 py-6" 
     : "max-w-4xl mx-auto px-8 py-8 sm:px-10";
@@ -73,7 +80,6 @@ export const QuizQuestion = () => {
     ? "space-y-3.5"
     : "space-y-4 sm:space-y-5";
 
-  // Animation variants for the question container
   const containerVariants = {
     hidden: { opacity: 0, x: 50 },
     visible: { 
@@ -95,7 +101,6 @@ export const QuizQuestion = () => {
     }
   };
 
-  // Animation variants for the question text
   const questionVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -108,7 +113,6 @@ export const QuizQuestion = () => {
     }
   };
 
-  // Animation for next button
   const nextButtonVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { 
