@@ -89,34 +89,34 @@ export const PremiumResultsContent = ({
     window.open(instagramUrl, "_blank");
   };
 
-  // Couleurs premium adaptatives
+  // Couleurs premium adaptatives avec meilleur contraste
   const getSkinTypeColors = () => {
     const teaser = SKIN_TYPE_TEASERS[skinType] || SKIN_TYPE_TEASERS.normal;
     
     const colorSchemes = {
       blue: {
-        primary: "from-blue-500 via-indigo-500 to-purple-600",
-        secondary: "from-blue-400/20 via-indigo-300/20 to-purple-400/20",
-        accent: "blue-500",
-        glow: "shadow-[0_0_40px_rgba(59,130,246,0.5)]"
+        primary: "from-blue-600 via-indigo-600 to-purple-700",
+        secondary: "from-blue-500/30 via-indigo-400/30 to-purple-500/30",
+        accent: "blue-600",
+        glow: "shadow-[0_0_40px_rgba(59,130,246,0.6)]"
       },
       green: {
-        primary: "from-emerald-500 via-teal-500 to-cyan-600",
-        secondary: "from-emerald-400/20 via-teal-300/20 to-cyan-400/20",
-        accent: "emerald-500",
-        glow: "shadow-[0_0_40px_rgba(16,185,129,0.5)]"
+        primary: "from-emerald-600 via-teal-600 to-cyan-700",
+        secondary: "from-emerald-500/30 via-teal-400/30 to-cyan-500/30",
+        accent: "emerald-600",
+        glow: "shadow-[0_0_40px_rgba(16,185,129,0.6)]"
       },
       purple: {
-        primary: "from-purple-500 via-violet-500 to-fuchsia-600",
-        secondary: "from-purple-400/20 via-violet-300/20 to-fuchsia-400/20",
-        accent: "purple-500",
-        glow: "shadow-[0_0_40px_rgba(168,85,247,0.5)]"
+        primary: "from-purple-600 via-violet-600 to-fuchsia-700",
+        secondary: "from-purple-500/30 via-violet-400/30 to-fuchsia-500/30",
+        accent: "purple-600",
+        glow: "shadow-[0_0_40px_rgba(168,85,247,0.6)]"
       },
       pink: {
-        primary: "from-pink-500 via-rose-500 to-red-500",
-        secondary: "from-pink-400/20 via-rose-300/20 to-red-400/20",
-        accent: "pink-500",
-        glow: "shadow-[0_0_40px_rgba(236,72,153,0.5)]"
+        primary: "from-pink-600 via-rose-600 to-red-600",
+        secondary: "from-pink-500/30 via-rose-400/30 to-red-500/30",
+        accent: "pink-600",
+        glow: "shadow-[0_0_40px_rgba(236,72,153,0.6)]"
       }
     };
     
@@ -130,9 +130,9 @@ export const PremiumResultsContent = ({
       {/* Particules flottantes */}
       <FloatingParticles colors={colors} />
       
-      {/* Gradient de fond premium */}
+      {/* Gradient de fond premium avec meilleur contraste */}
       <div className={`fixed inset-0 bg-gradient-to-br ${colors.secondary} backdrop-blur-sm`} />
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
       
       <motion.div
         key="premium-results"
@@ -146,9 +146,9 @@ export const PremiumResultsContent = ({
           variants={itemVariants}
           className="text-center mb-8"
         >
-          {/* Badge premium */}
+          {/* Badge premium avec meilleur contraste */}
           <motion.div
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400/90 to-yellow-500/90 px-6 py-3 rounded-full text-white font-semibold text-sm mb-6 shadow-xl"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-600 px-6 py-3 rounded-full text-white font-bold text-sm mb-6 shadow-2xl border-2 border-amber-300"
             animate={{
               y: [-2, 2, -2],
               rotate: [-1, 1, -1]
@@ -171,15 +171,15 @@ export const PremiumResultsContent = ({
           />
         </motion.div>
 
-        {/* Carte principale avec glassmorphism */}
+        {/* Carte principale avec glassmorphism et meilleur contraste */}
         <motion.div 
           variants={itemVariants}
-          className={`relative backdrop-blur-xl bg-white/10 rounded-3xl p-8 ${colors.glow} border border-white/20 overflow-hidden`}
+          className={`relative backdrop-blur-xl bg-white/20 rounded-3xl p-8 ${colors.glow} border-2 border-white/30 overflow-hidden shadow-2xl`}
         >
           {/* Effet de brillance */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent transform -skew-x-12 -translate-x-full">
             <motion.div
-              className="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              className="h-full w-full bg-gradient-to-r from-transparent via-white/25 to-transparent"
               animate={{
                 x: ["-100%", "300%"]
               }}
@@ -224,19 +224,19 @@ export const PremiumResultsContent = ({
           </div>
         </motion.div>
 
-        {/* Témoignages social proof */}
+        {/* Témoignages social proof avec texte plus lisible */}
         <motion.div
           variants={itemVariants}
           className="text-center mt-8"
         >
-          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl border border-white/20">
+          <div className="inline-flex items-center gap-3 bg-white/25 backdrop-blur-sm px-6 py-3 rounded-2xl border-2 border-white/30 shadow-lg">
             <div className="flex -space-x-2">
               {[1,2,3,4].map((i) => (
-                <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-r ${colors.primary} border-2 border-white`} />
+                <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-r ${colors.primary} border-2 border-white shadow-sm`} />
               ))}
             </div>
-            <div className="text-sm text-white/90">
-              <span className="font-bold">3,247</span> femmes ont déjà découvert leur routine
+            <div className="text-sm font-semibold text-gray-800">
+              <span className="font-bold text-gray-900">+2,500</span> femmes ont déjà découvert leur routine
             </div>
           </div>
         </motion.div>

@@ -1,7 +1,8 @@
 
 import { motion } from "framer-motion";
 import { PremiumSubscriptionForm } from "./PremiumSubscriptionForm";
-import { Sparkles, Gift, Heart, Star } from "lucide-react";
+import { SKIN_TYPE_TEASERS } from "../utils/SkinTypeDetails";
+import { Sparkles, Gift, Star, Check } from "lucide-react";
 
 interface PremiumSubscriptionSectionProps {
   skinType: string;
@@ -34,54 +35,48 @@ export const PremiumSubscriptionSection = ({
 }: PremiumSubscriptionSectionProps) => {
   return (
     <motion.div variants={variants} className="space-y-6">
-      {/* Titre premium avec animation */}
+      {/* Titre principal avec meilleur contraste */}
       <div className="text-center space-y-4">
         <motion.div
           animate={{
-            scale: [1, 1.05, 1],
-            rotate: [-1, 1, -1]
+            scale: [1, 1.02, 1],
+            opacity: [0.9, 1, 0.9]
           }}
           transition={{
-            duration: 3,
+            duration: 4,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="inline-block"
         >
-          <h2 className={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${colors.primary} text-transparent bg-clip-text leading-tight`}>
-            Ta routine beauté sur-mesure
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Reçois ta routine <span className={`bg-gradient-to-r ${colors.primary} text-transparent bg-clip-text`}>peau {skinTypeText}</span> maintenant
           </h2>
         </motion.div>
 
-        <div className="space-y-3">
-          <p className="text-white/90 text-lg font-medium">
-            Reçois ta routine <span className={`text-${colors.accent} font-bold`}>peau {skinTypeText}</span> maintenant
-          </p>
-          
-          {/* Avantages premium */}
-          <div className="grid grid-cols-2 gap-3 mt-6">
-            {[
-              { icon: Heart, text: "Routine personnalisée", color: "text-red-400" },
-              { icon: Star, text: "Conseils d'expertes", color: "text-yellow-400" },
-              { icon: Gift, text: "3 secrets bonus", color: "text-purple-400" },
-              { icon: Sparkles, text: "100% gratuit", color: "text-blue-400" }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
-                className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/20"
-              >
-                <item.icon className={`w-4 h-4 ${item.color}`} />
-                <span className="text-white/90 text-sm font-medium">{item.text}</span>
-              </motion.div>
-            ))}
+        {/* Aperçu du contenu avec meilleur contraste */}
+        <div className="bg-white/30 backdrop-blur-sm p-5 rounded-2xl border-2 border-white/40 shadow-lg">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-2 bg-white/40 px-3 py-2 rounded-xl shadow-sm">
+              <Check className="w-4 h-4 text-green-700" />
+              <span className="text-sm font-medium text-gray-900">Routine personnalisée</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/40 px-3 py-2 rounded-xl shadow-sm">
+              <Star className="w-4 h-4 text-yellow-700" />
+              <span className="text-sm font-medium text-gray-900">Conseils d'expertes</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/40 px-3 py-2 rounded-xl shadow-sm">
+              <Gift className="w-4 h-4 text-purple-700" />
+              <span className="text-sm font-medium text-gray-900">3 secrets bonus</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/40 px-3 py-2 rounded-xl shadow-sm">
+              <Sparkles className="w-4 h-4 text-pink-700" />
+              <span className="text-sm font-medium text-gray-900">100% gratuit</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Formulaire premium */}
+      {/* Formulaire */}
       <PremiumSubscriptionForm
         email={email}
         setEmail={setEmail}
