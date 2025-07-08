@@ -1,8 +1,8 @@
 
-// Configuration Klaviyo avec les vraies clés
+// Configuration Klaviyo avec les nouvelles clés
 export const KLAVIYO_CONFIG = {
   publicKey: "WMCz9t", // Clé publique pour le tracking côté client
-  privateKey: "pk_69cb1244f5613b40c8a535b34e67633d6f", // Clé privée pour les API calls
+  privateKey: "pk_491b35e628eda613e8c86a0cba55cade55", // Clé privée pour les API calls
   listId: "YggmTr", // ID de la liste cible
   apiVersion: "2024-02-15" // Version API v3
 };
