@@ -1,10 +1,14 @@
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
 console.log('🚀 Démarrage de l\'application...')
+
+// Import debugger en mode développement
+if (import.meta.env.DEV) {
+  import('./utils/klaviyoDebugger');
+}
 
 const root = document.getElementById('root')
 

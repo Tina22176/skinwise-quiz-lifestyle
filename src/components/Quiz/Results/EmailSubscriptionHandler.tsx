@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useQuiz, getSkinTypeFormatted } from "../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails } from "./utils/SkinTypeDetails";
-import { KLAVIYO_CONFIG, KLAVIYO_ENDPOINTS } from "@/config/klaviyo";
+import { useKlaviyoIntegration } from "./hooks/useKlaviyoIntegration";
 
 export const useEmailSubscription = () => {
   const { state, dispatch } = useQuiz();
@@ -13,6 +13,7 @@ export const useEmailSubscription = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
   const { toast } = useToast();
+  const { subscribeToNewsletter } = useKlaviyoIntegration();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +28,13 @@ export const useEmailSubscription = () => {
     }
 
     setIsLoading(true);
-    console.log("🚀 Envoi des données à Klaviyo");
+    console.log("🚀 SOUMISSION FORMULAIRE - Données collectées:", {
+      email,
+      firstName,
+      skinTypeScore: state.skinTypeScore,
+      answers: state.answers,
+      answersCount: Object.keys(state.answers || {}).length
+    });
 
     try {
       dispatch({ type: "SET_EMAIL", payload: email });
@@ -36,61 +43,51 @@ export const useEmailSubscription = () => {
       const formattedSkinType = getSkinTypeFormatted(state.result);
       const skinTypeInFrench = getSkinTypeText(formattedSkinType);
 
-      // Tentative d'envoi à Klaviyo avec fallback
-      let klaviyoSuccess = false;
-      
-      try {
-        const profileData = {
-          data: {
-            type: "profile",
-            attributes: {
-              email: email,
-              first_name: firstName,
-              properties: {
-                skin_type: formattedSkinType,
-                skin_type_french: skinTypeInFrench,
-                quiz_completed: true,
-                quiz_completion_date: new Date().toISOString(),
-                subscription_source: "skin_quiz_premium",
-                consent_given: gdprConsent,
-                quiz_answers: state.answers,
-                skin_details: getSkinTypeDetails(state.result || "normal"),
-              }
-            }
-          }
-        };
+      // Données enrichies du quiz
+      const skinType = state.skinTypeScore?.type || formattedSkinType;
+      const skinState = state.skinTypeScore?.state;
+      const characteristics = state.skinTypeScore?.characteristics || [];
+      const concerns = state.skinTypeScore?.concerns || [];
 
-        console.log("📤 Envoi à Klaviyo:", profileData);
-
-        const response = await fetch(KLAVIYO_ENDPOINTS.profiles, {
-          method: "POST",
-          headers: {
-            "Authorization": `Klaviyo-API-Key ${KLAVIYO_CONFIG.privateKey}`,
-            "Content-Type": "application/json",
-            "revision": KLAVIYO_CONFIG.apiVersion,
-          },
-          body: JSON.stringify(profileData),
-        });
-
-        if (response.ok) {
-          klaviyoSuccess = true;
-          console.log("✅ Données envoyées à Klaviyo avec succès");
-        } else {
-          console.warn("⚠️ Klaviyo non disponible, données sauvegardées localement");
-        }
-      } catch (klaviyoError) {
-        console.warn("⚠️ Erreur Klaviyo, continuons quand même:", klaviyoError);
-      }
-
-      // Toujours considérer comme un succès pour l'utilisateur
-      setIsSubscribed(true);
-      toast({
-        title: "Parfait ! 💝",
-        description: "Ta routine personnalisée arrive bientôt dans ta boîte mail 💌",
+      console.log("📊 DONNÉES PEAU ANALYSÉES:", {
+        skinType,
+        skinState,
+        isSensitive: skinState === 'sensitive',
+        characteristics: characteristics.length,
+        concerns: concerns.length,
+        confidence: state.skinTypeScore?.confidence
       });
 
+      // Envoi à Klaviyo avec toutes les données
+      const klaviyoResult = await subscribeToNewsletter(
+        email,
+        firstName,
+        skinType,
+        skinState,
+        state.answers,
+        characteristics,
+        concerns
+      );
+
+      if (klaviyoResult.success) {
+        console.log("✅ KLAVIYO SUCCESS:", klaviyoResult);
+        toast({
+          title: "Parfait ! 💝",
+          description: "Ta routine personnalisée arrive bientôt dans ta boîte mail 💌",
+        });
+      } else {
+        console.warn("⚠️ KLAVIYO WARNING:", klaviyoResult.error);
+        // On continue quand même pour l'utilisateur
+        toast({
+          title: "Données sauvegardées ! 💝",
+          description: "Ta routine personnalisée va arriver dans ta boîte mail 💌",
+        });
+      }
+
+      setIsSubscribed(true);
+
     } catch (error) {
-      console.error("❌ Erreur générale:", error);
+      console.error("❌ ERREUR GÉNÉRALE:", error);
       toast({
         title: "Oups !",
         description: "Une erreur est survenue. Merci de réessayer dans quelques instants.",
