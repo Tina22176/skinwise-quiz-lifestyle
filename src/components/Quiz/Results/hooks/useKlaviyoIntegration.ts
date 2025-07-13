@@ -4,6 +4,71 @@ import { logger } from "@/utils/logger";
 import { KLAVIYO_CONFIG, KLAVIYO_ENDPOINTS } from "@/config/klaviyo";
 
 export const useKlaviyoIntegration = () => {
+  const trackCustomEvent = useCallback(async (
+    email: string, 
+    eventName: string, 
+    properties: Record<string, any>
+  ) => {
+    try {
+      const eventData = {
+        data: {
+          type: "event",
+          attributes: {
+            properties: {
+              ...properties,
+              timestamp: new Date().toISOString(),
+              source: 'quiz_app'
+            },
+            profile: {
+              data: {
+                type: "profile",
+                attributes: {
+                  email: email
+                }
+              }
+            },
+            metric: {
+              data: {
+                type: "metric",
+                attributes: {
+                  name: eventName
+                }
+              }
+            }
+          }
+        }
+      };
+
+      logger.log('📊 ENVOI ÉVÉNEMENT KLAVIYO:', {
+        event: eventName,
+        email: email,
+        properties: properties
+      });
+
+      const response = await fetch('https://a.klaviyo.com/api/events/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Klaviyo-API-Key ${KLAVIYO_CONFIG.privateKey}`,
+          'Content-Type': 'application/json',
+          'revision': KLAVIYO_CONFIG.apiVersion
+        },
+        body: JSON.stringify(eventData)
+      });
+
+      if (response.ok) {
+        logger.log('✅ ÉVÉNEMENT KLAVIYO ENVOYÉ:', { event: eventName, email });
+      } else {
+        const errorText = await response.text();
+        logger.error('❌ ERREUR ÉVÉNEMENT KLAVIYO:', { 
+          status: response.status, 
+          error: errorText 
+        });
+      }
+    } catch (error) {
+      logger.error('❌ ERREUR TRACKING ÉVÉNEMENT:', error);
+    }
+  }, []);
+
   const subscribeToNewsletter = useCallback(async (
     email: string, 
     firstName: string, 
@@ -112,7 +177,7 @@ export const useKlaviyoIntegration = () => {
       const result = responseData ? JSON.parse(responseData) : {};
       
       // Envoyer un événement personnalisé pour déclencher les flux
-      await this.trackCustomEvent(email, 'Quiz Completed', {
+      await trackCustomEvent(email, 'Quiz Completed', {
         skin_type: skinType,
         skin_state: skinState || 'normal',
         combined_skin_type: combinedSkinType,
@@ -137,72 +202,7 @@ export const useKlaviyoIntegration = () => {
       });
       return { success: false, error };
     }
-  }, []);
-
-  const trackCustomEvent = useCallback(async (
-    email: string, 
-    eventName: string, 
-    properties: Record<string, any>
-  ) => {
-    try {
-      const eventData = {
-        data: {
-          type: "event",
-          attributes: {
-            properties: {
-              ...properties,
-              timestamp: new Date().toISOString(),
-              source: 'quiz_app'
-            },
-            profile: {
-              data: {
-                type: "profile",
-                attributes: {
-                  email: email
-                }
-              }
-            },
-            metric: {
-              data: {
-                type: "metric",
-                attributes: {
-                  name: eventName
-                }
-              }
-            }
-          }
-        }
-      };
-
-      logger.log('📊 ENVOI ÉVÉNEMENT KLAVIYO:', {
-        event: eventName,
-        email: email,
-        properties: properties
-      });
-
-      const response = await fetch('https://a.klaviyo.com/api/events/', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Klaviyo-API-Key ${KLAVIYO_CONFIG.privateKey}`,
-          'Content-Type': 'application/json',
-          'revision': KLAVIYO_CONFIG.apiVersion
-        },
-        body: JSON.stringify(eventData)
-      });
-
-      if (response.ok) {
-        logger.log('✅ ÉVÉNEMENT KLAVIYO ENVOYÉ:', { event: eventName, email });
-      } else {
-        const errorText = await response.text();
-        logger.error('❌ ERREUR ÉVÉNEMENT KLAVIYO:', { 
-          status: response.status, 
-          error: errorText 
-        });
-      }
-    } catch (error) {
-      logger.error('❌ ERREUR TRACKING ÉVÉNEMENT:', error);
-    }
-  }, []);
+  }, [trackCustomEvent]);
 
   return {
     subscribeToNewsletter,
