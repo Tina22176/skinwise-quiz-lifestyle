@@ -24,13 +24,13 @@ export const ResultsContent: React.FC = () => {
     window.open("https://www.instagram.com/majolie_peau/", "_blank");
   };
 
-  if (!state.skinTypeScore && !state.result) {
+  if (!state.hormoneProfile && !state.result) {
     return <div>Chargement des résultats...</div>;
   }
 
-  const skinType = state.skinTypeScore?.type || state.result || "normal";
-  const skinState = state.skinTypeScore?.state || null;
-  const details = getSkinTypeDetails(skinType);
+  const skinType = state.hormoneProfile?.type || state.result || "normal";
+  const skinState = null;
+  const profileDetails = state.hormoneProfile;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
@@ -80,11 +80,10 @@ export const ResultsContent: React.FC = () => {
         {/* Description simple du type de peau */}
         <div className="glass rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
           <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
-            Ton type de peau : {getSkinTypeText(skinType)}
-            {skinState && skinState !== "none" && ` (${skinState})`}
+            Ton profil hormonal : {getSkinTypeText(skinType)}
           </h3>
           <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-            {details.description}
+            {state.hormoneProfile?.characteristics?.join(", ") || "Profil en cours d'analyse..."}
           </p>
         </div>
 

@@ -1,12 +1,12 @@
 
 import { ConversionOptimizedResults } from "./components/ConversionOptimizedResults";
 import { useQuiz } from "../QuizContext";
-import { SkinTypeScore } from "../utils/skinTypeCalculator";
+import { HormoneProfile } from "../utils/hormoneProfileCalculator";
 
 interface EnhancedResultsContentProps {
   skinType: string;
   skinState?: string | null;
-  skinTypeScore?: SkinTypeScore | null;
+  hormoneProfile?: HormoneProfile | null;
   email: string;
   setEmail: (email: string) => void;
   firstName: string;
@@ -23,7 +23,7 @@ interface EnhancedResultsContentProps {
 export const EnhancedResultsContent = ({
   skinType,
   skinState,
-  skinTypeScore,
+  hormoneProfile,
   email,
   setEmail,
   firstName,
@@ -40,7 +40,7 @@ export const EnhancedResultsContent = ({
     <ConversionOptimizedResults
       skinType={skinType}
       skinState={skinState}
-      skinTypeScore={skinTypeScore}
+      hormoneProfile={hormoneProfile}
       email={email}
       setEmail={setEmail}
       firstName={firstName}

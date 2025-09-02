@@ -31,7 +31,7 @@ export const useEmailSubscription = () => {
     console.log("🚀 SOUMISSION FORMULAIRE - Données collectées:", {
       email,
       firstName,
-      skinTypeScore: state.skinTypeScore,
+      hormoneProfile: state.hormoneProfile,
       answers: state.answers,
       answersCount: Object.keys(state.answers || {}).length
     });
@@ -43,19 +43,17 @@ export const useEmailSubscription = () => {
       const formattedSkinType = getSkinTypeFormatted(state.result);
       const skinTypeInFrench = getSkinTypeText(formattedSkinType);
 
-      // Données enrichies du quiz
-      const skinType = state.skinTypeScore?.type || formattedSkinType;
-      const skinState = state.skinTypeScore?.state;
-      const characteristics = state.skinTypeScore?.characteristics || [];
-      const concerns = state.skinTypeScore?.concerns || [];
+      // Données enrichies du quiz hormonal
+      const skinType = state.hormoneProfile?.type || formattedSkinType;
+      const skinState = null; // Plus de skinState dans le système hormonal
+      const characteristics = state.hormoneProfile?.characteristics || [];
+      const concerns = state.hormoneProfile?.concerns || [];
 
-      console.log("📊 DONNÉES PEAU ANALYSÉES:", {
+      console.log("📊 DONNÉES PROFIL HORMONAL ANALYSÉES:", {
         skinType,
-        skinState,
-        isSensitive: skinState === 'sensitive',
         characteristics: characteristics.length,
         concerns: concerns.length,
-        confidence: state.skinTypeScore?.confidence
+        confidence: state.hormoneProfile?.confidence
       });
 
       // Envoi à Klaviyo avec toutes les données

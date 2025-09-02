@@ -1,9 +1,8 @@
-
 import { motion } from "framer-motion";
 import { PremiumResultsContent } from "./PremiumResultsContent";
 import { useQuiz } from "../../QuizContext";
-import { getSkinTypeText, getSkinTypeDetails, SKIN_TYPE_TEASERS } from "../utils/SkinTypeDetails";
-import { SkinTypeScore } from "../../utils/skinTypeCalculator";
+import { getHormoneProfileText, getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
+import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 
 // Animation variants optimisés
 const containerVariants = {
@@ -32,25 +31,14 @@ const itemVariants = {
   }
 };
 
-const floatingVariants = {
-  animate: {
-    y: [-5, 5, -5],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
-};
-
-interface ConversionOptimizedResultsProps {
+export interface ConversionOptimizedResultsProps {
   skinType: string;
   skinState?: string | null;
-  skinTypeScore?: SkinTypeScore | null;
+  hormoneProfile?: HormoneProfile | null;
   email: string;
   setEmail: (email: string) => void;
   firstName: string;
-  setFirstName: (name: string) => void;
+  setFirstName: (firstName: string) => void;
   isSubscribed: boolean;
   isLoading: boolean;
   gdprConsent: boolean;
@@ -58,13 +46,12 @@ interface ConversionOptimizedResultsProps {
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   onResetQuiz: () => void;
   instagramUrl: string;
-  confidence?: number;
 }
 
 export const ConversionOptimizedResults = ({
   skinType,
   skinState,
-  skinTypeScore,
+  hormoneProfile,
   email,
   setEmail,
   firstName,
@@ -76,25 +63,36 @@ export const ConversionOptimizedResults = ({
   handleSubmit,
   onResetQuiz,
   instagramUrl,
-  confidence = 0.8
 }: ConversionOptimizedResultsProps) => {
-  // Utiliser le nouveau composant premium
+  const { state } = useQuiz();
+  const profileDetails = getHormoneProfileDetails(skinType);
+  
   return (
-    <PremiumResultsContent
-      skinType={skinType}
-      skinState={skinState}
-      skinTypeScore={skinTypeScore}
-      email={email}
-      setEmail={setEmail}
-      firstName={firstName}
-      setFirstName={setFirstName}
-      isSubscribed={isSubscribed}
-      isLoading={isLoading}
-      gdprConsent={gdprConsent}
-      setGdprConsent={setGdprConsent}
-      handleSubmit={handleSubmit}
-      onResetQuiz={onResetQuiz}
-      instagramUrl={instagramUrl}
-    />
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 max-w-5xl">
+        <PremiumResultsContent
+          skinType={skinType}
+          skinState={skinState}
+          hormoneProfile={hormoneProfile}
+          email={email}
+          setEmail={setEmail}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          isSubscribed={isSubscribed}
+          isLoading={isLoading}
+          gdprConsent={gdprConsent}
+          setGdprConsent={setGdprConsent}
+          handleSubmit={handleSubmit}
+          onResetQuiz={onResetQuiz}
+          instagramUrl={instagramUrl}
+          itemVariants={itemVariants}
+        />
+      </div>
+    </motion.div>
   );
 };

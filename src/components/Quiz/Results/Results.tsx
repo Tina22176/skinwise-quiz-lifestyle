@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuiz } from "../QuizContext";
 import { ResultsLoading } from "./ResultsLoading";
-import { EnhancedResultsContent } from "./EnhancedResultsContent";
+import { HormoneResultsWrapper } from "./components/HormoneResultsWrapper";
 import { AnimatePresence } from "framer-motion";
 import { useEmailSubscription } from "./EmailSubscriptionHandler";
 
@@ -34,10 +34,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
       {!showResults ? (
         <ResultsLoading />
       ) : (
-        <EnhancedResultsContent 
-          skinType={state.skinTypeScore?.type || state.result || "normal"}
-          skinState={state.skinTypeScore?.state || null}
-          skinTypeScore={state.skinTypeScore}
+        <HormoneResultsWrapper
           email={email}
           setEmail={setEmail}
           firstName={firstName}
