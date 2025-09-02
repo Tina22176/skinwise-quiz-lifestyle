@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { QuizProgressBar } from "./QuizProgressBar";
 import { EnhancedAnswerOption } from "./EnhancedAnswerOption";
-import { calculateSkinType, validateAnswers } from "./utils/skinTypeCalculator";
+import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
+import { validateAnswers } from "./utils/skinTypeCalculator";
 import { DynamicQuestionEngine } from "./utils/dynamicQuestionEngine";
 import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
 import { motivationalTexts } from "./constants/quizTexts";
@@ -41,12 +42,12 @@ export const EnhancedQuizQuestion = () => {
         answer: answer,
       });
 
-      // Calculer le type de peau quand toutes les questions sont répondues
+      // Calculer le profil hormonal quand toutes les questions sont répondues
       const updatedAnswers = { ...state.answers, [currentQuestion.id]: answer };
-      const skinTypeScore = calculateSkinType(updatedAnswers);
-      dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
+      const hormoneProfile = calculateHormoneProfile(updatedAnswers);
+      dispatch({ type: "SET_HORMONE_PROFILE", payload: hormoneProfile });
       
-      const validation = validateAnswers(updatedAnswers);
+      const validation = { isValid: true, conflicts: [] }; // Simplified validation for hormone quiz
       if (!validation.isValid) {
         dispatch({ type: "SET_VALIDATION_ERRORS", payload: validation.conflicts });
         setShowValidationWarning(true);

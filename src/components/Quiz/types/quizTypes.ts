@@ -1,5 +1,5 @@
 import React from "react";
-import { SkinTypeScore } from "../utils/skinTypeCalculator";
+import { HormoneProfile } from "../utils/hormoneProfileCalculator";
 
 // Types for the Quiz context and state management
 
@@ -7,7 +7,7 @@ export type QuizState = {
   step: number;
   currentQuestion: number;
   result: string | null;
-  skinTypeScore: SkinTypeScore | null;
+  hormoneProfile: HormoneProfile | null;
   answers: Record<string, string>;
   email: string | null;
   firstName: string | null;
@@ -22,7 +22,7 @@ export type QuizAction =
   | { type: "PREV_STEP" }
   | { type: "NEXT_QUESTION" }
   | { type: "SET_RESULT"; payload: string }
-  | { type: "SET_SKIN_TYPE_SCORE"; payload: SkinTypeScore }
+  | { type: "SET_HORMONE_PROFILE"; payload: HormoneProfile }
   | { type: "SET_ANSWER"; questionId: string; answer: string }
   | { type: "SET_EMAIL"; payload: string }
   | { type: "SET_FIRST_NAME"; payload: string }
@@ -42,7 +42,7 @@ export const initialState: QuizState = {
   step: 0,
   currentQuestion: 0,
   result: null,
-  skinTypeScore: null,
+  hormoneProfile: null,
   answers: {},
   email: null,
   firstName: null,

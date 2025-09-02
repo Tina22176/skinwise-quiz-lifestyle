@@ -44,10 +44,10 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <span className="bg-gradient-to-r from-pink-600 via-pink-500 to-pink-600 bg-clip-text text-transparent">
-            Révèle le Secret
+            Quiz Peau & Hormones
           </span>
           <br />
-          <span className="text-gray-800">de ta Peau ✨</span>
+          <span className="text-gray-800">Découvre ta routine personnalisée ✨</span>
         </motion.h1>
 
         {/* Statistiques */}
@@ -111,26 +111,26 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           transition={{ delay: 0.5, duration: 0.5 }}
         >
           <h2 className="text-xl sm:text-2xl md:text-3xl text-center font-semibold text-gray-800 mb-4 sm:mb-6">
-            Ta peau te parle... mais la comprends-tu vraiment ? 💖
+            Fais le lien entre tes hormones et ta peau pour une approche sur-mesure 💖
           </h2>
           
           <div className="glass p-4 sm:p-6 rounded-2xl border border-pink-100/50">
             <p className="text-base sm:text-lg text-gray-700 mb-4">
-              Ce quiz unique te permet d'identifier précisément ton type de peau et de comprendre 
-              les facteurs de ton mode de vie qui influencent son éclat.
+              Ce quiz révolutionnaire analyse l'impact de tes hormones sur ta peau pour te proposer 
+              une routine skincare personnalisée selon ton profil hormonal unique.
             </p>
             
             <div className="flex items-start space-x-3 mb-4">
               <Heart className="w-5 h-5 text-pink-500 mt-0.5 flex-shrink-0" />
               <p className="text-gray-700 text-sm sm:text-base">
-                <strong>En seulement 2 minutes</strong>, reçois ton diagnostic complet avec des conseils personnalisés
+                <strong>En seulement 2 minutes</strong>, découvre ton profil hormonal et reçois ta routine adaptée
               </p>
             </div>
             
             <div className="bg-pink-50/50 rounded-xl p-3 sm:p-4 mt-4">
               <p className="text-center text-pink-700 font-medium text-sm sm:text-base">
-                🌸 Le secret d'une peau rayonnante n'est pas d'utiliser plus de produits, 
-                mais les BONS produits dans le BON ordre 🌸
+                🌸 Tes hormones influencent ta peau plus que tu ne le penses. 
+                Comprendre ce lien, c'est révolutionner ta routine beauté 🌸
               </p>
             </div>
           </div>
@@ -153,7 +153,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
             whileTap={{ scale: 0.98 }}
           >
             <span className="relative z-10 flex items-center justify-center">
-              ✨ DÉCOUVRIR MON TYPE DE PEAU
+              ✨ DÉCOUVRIR MON PROFIL HORMONAL
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </span>
             <motion.div

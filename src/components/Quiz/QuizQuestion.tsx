@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { QuizProgressBar } from "./QuizProgressBar";
 import { QuizAnswerOption } from "./QuizAnswerOption";
-import { calculateSkinType } from "./utils/skinTypeCalculator";
+import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
 import { motivationalTexts } from "./constants/quizTexts";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -42,8 +42,8 @@ export const QuizQuestion = () => {
       });
   
       if (state.currentQuestion === questions.length - 1) {
-        const skinTypeScore = calculateSkinType(state.answers);
-        dispatch({ type: "SET_SKIN_TYPE_SCORE", payload: skinTypeScore });
+        const hormoneProfile = calculateHormoneProfile(state.answers);
+        dispatch({ type: "SET_HORMONE_PROFILE", payload: hormoneProfile });
         setShowNextQuestion(true);
       } else {
         setShowNextQuestion(true);

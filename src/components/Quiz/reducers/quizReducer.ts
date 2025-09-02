@@ -1,5 +1,5 @@
 import { QuizState, QuizAction } from "../types/quizTypes";
-import { SkinTypeScore } from "../utils/skinTypeCalculator";
+import { HormoneProfile } from "../utils/hormoneProfileCalculator";
 
 export const quizReducer = (state: QuizState, action: QuizAction): QuizState => {
   switch (action.type) {
@@ -23,10 +23,10 @@ export const quizReducer = (state: QuizState, action: QuizAction): QuizState => 
         ...state,
         result: action.payload,
       };
-    case "SET_SKIN_TYPE_SCORE":
+    case "SET_HORMONE_PROFILE":
       return {
         ...state,
-        skinTypeScore: action.payload,
+        hormoneProfile: action.payload,
         result: action.payload.type,
         confidence: action.payload.confidence,
       };
@@ -73,7 +73,7 @@ export const quizReducer = (state: QuizState, action: QuizAction): QuizState => 
         step: 0,
         currentQuestion: 0,
         result: null,
-        skinTypeScore: null,
+        hormoneProfile: null,
         answers: {},
         email: null,
         firstName: null,

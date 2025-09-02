@@ -1,17 +1,9 @@
-import { skinFeelQuestions } from "./skinFeelQuestions";
-import { skinAppearanceQuestions } from "./skinAppearanceQuestions";
-import { reactivityQuestions } from "./reactivityQuestions";
-import { preferenceQuestions } from "./preferenceQuestions";
-import { skinStateQuestions } from "./skinStateQuestions";
+import { hormonalQuestions } from "./hormonalQuestions";
 import { QuizQuestion } from "./types";
 
-// Combine all questions from different categories
+// New hormone-based quiz questions
 export const questions: QuizQuestion[] = [
-  ...skinFeelQuestions,
-  ...skinAppearanceQuestions,
-  ...reactivityQuestions,
-  ...preferenceQuestions,
-  ...skinStateQuestions
+  ...hormonalQuestions
 ];
 
 // Re-export types

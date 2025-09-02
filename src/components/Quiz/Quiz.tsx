@@ -24,14 +24,14 @@ const QuizContent = () => {
     if (state.currentQuestion >= questions.length) {
       console.log('🏁 Quiz completed, showing results');
       setStage("results");
-      // Track quiz completion with skin type if available
-      if (state.skinTypeScore?.type) {
-        trackQuizComplete(state.skinTypeScore.type);
+      // Track quiz completion with hormone profile if available
+      if (state.hormoneProfile?.type) {
+        trackQuizComplete(state.hormoneProfile.type);
       } else if (state.result) {
         trackQuizComplete(state.result);
       }
     }
-  }, [state.currentQuestion, state.skinTypeScore, state.result, trackQuizComplete]);
+  }, [state.currentQuestion, state.hormoneProfile, state.result, trackQuizComplete]);
 
   const handleStartQuiz = () => {
     console.log('▶️ Starting quiz...');
