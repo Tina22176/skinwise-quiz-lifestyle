@@ -101,7 +101,7 @@ const Index = () => {
             <div className="flex items-center space-x-2">
               <Sparkles className="w-4 h-4 text-pink-400" aria-hidden="true" />
               <p className="text-sm text-muted-foreground">
-                © 2024 Majoliepeau. Tous droits réservés.
+                © 2025 Majoliepeau. Tous droits réservés.
               </p>
             </div>
             
