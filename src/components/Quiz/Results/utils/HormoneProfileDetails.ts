@@ -2,7 +2,7 @@
 
 export interface HormoneProfileDetail {
   title: string;
-  emoji: string;
+  icon: string;
   description: string;
   hormonalExplanation: string;
   skincareRecommendations: string[];
@@ -15,7 +15,7 @@ export interface HormoneProfileDetail {
 
 export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
   "stressée_inflammée": {
-    emoji: "🔥",
+    icon: "flame",
     title: "La stressée inflammée",
     description: "Ta peau parle à ta place quand tu vis une période tendue. Rougeurs, petits boutons, sensations d'échauffement… Il te faut du calme et de la douceur.",
     hormonalExplanation: "Ton cortisol élevé crée de l'inflammation dans ta peau. Tes nerfs sont à vif, et ça se voit !",
@@ -31,7 +31,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     cta: "J'en profite"
   },
   "fatiguée_tension": {
-    emoji: "😴",
+    icon: "moon",
     title: "La fatiguée sous tension",
     description: "Ta peau reflète ta fatigue intérieure. Teint terne, traits tirés, cernes marqués… Tes surrénales ont besoin d'un break et ta peau d'un réveil en douceur.",
     hormonalExplanation: "Tes surrénales sont épuisées après trop de stress. Ta peau manque d'énergie vitale.",
@@ -47,7 +47,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     cta: "J'en profite"
   },
   "cyclique_congestionnée": {
-    emoji: "🌙", 
+    icon: "calendar", 
     title: "La cyclique congestionnée",
     description: "Ta peau suit les montagnes russes de tes hormones. Jolie une semaine, boutonneuse la suivante… Il te faut une approche qui s'adapte à ton cycle.",
     hormonalExplanation: "Tes hormones jouent aux montagnes russes et ta peau suit le mouvement !",
@@ -63,8 +63,8 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     cta: "J'en profite"
   },
   "brillante_déséquilibrée": {
-    emoji: "✨",
-    title: "La brillante déséquilibrée", 
+    icon: "sparkles",
+    title: "La brillante déséquilibrée",
     description: "Ta peau produit du sébum comme si elle préparait un stock pour l'hiver ! Il faut canaliser tes androgènes et réguler cette production sans assécher.",
     hormonalExplanation: "Tes androgènes sont en mode turbo ! Tes glandes sébacées travaillent à fond.",
     skincareRecommendations: [
@@ -79,7 +79,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     cta: "J'en profite"
   },
   "sèche_instable": {
-    emoji: "🏜️",
+    icon: "droplets",
     title: "La sèche instable",
     description: "Ta peau tire, picote et semble avoir perdu sa souplesse naturelle. Direction mode cocooning intensif avec une approche ultra-nourrissante.",
     hormonalExplanation: "Tes œstrogènes baissent et ta peau perd sa capacité naturelle à s'hydrater.",
@@ -95,7 +95,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     cta: "J'en profite (-16€)"
   },
   "sensible_caméléon": {
-    emoji: "🦋",
+    icon: "heart",
     title: "La sensible caméléon",
     description: "Ta peau change d'humeur plus souvent que la météo ! Il te faut une approche minimaliste et beaucoup d'observation pour identifier tes triggers.",
     hormonalExplanation: "Ton terrain hormonal est hypersensible aux moindres variations environnementales.",
@@ -127,7 +127,7 @@ export const getHormoneProfileText = (profile: string): string => {
 export const getHormoneProfileDetails = (profile: string): HormoneProfileDetail => {
   return HORMONE_PROFILE_DETAILS[profile] || {
     title: "Profil Équilibré",
-    emoji: "✨", 
+    icon: "sparkles", 
     description: "Ta peau présente un équilibre hormonal optimal avec peu de déséquilibres notables.",
     hormonalExplanation: "Tes hormones semblent bien équilibrées dans l'ensemble.",
     skincareRecommendations: [

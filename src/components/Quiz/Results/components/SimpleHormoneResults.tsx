@@ -3,6 +3,8 @@ import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
 import { Button } from "../../../ui/button";
 import { Input } from "../../../ui/input";
+import { HormoneIcon } from "./HormoneIcon";
+import { Mail, CheckCircle, Gift } from "lucide-react";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
@@ -67,7 +69,9 @@ export const SimpleHormoneResults = ({
         
         {/* Header avec profil */}
         <motion.div variants={itemVariants} className="text-center">
-          <div className="text-6xl mb-4">{profileDetails.emoji}</div>
+          <div className="mb-6 flex justify-center">
+            <HormoneIcon profile={hormoneProfile.type} size={64} className="text-pink-500" />
+          </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-4">
             {profileDetails.title}
           </h1>
@@ -95,8 +99,9 @@ export const SimpleHormoneResults = ({
         {!isSubscribed ? (
           <motion.div variants={itemVariants} className="bg-white rounded-xl p-6 shadow-lg">
             <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                📧 Reçois ta routine détaillée par email
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center justify-center gap-2">
+                <Mail className="w-6 h-6 text-pink-500" />
+                Reçois ta routine détaillée par email
               </h3>
             </div>
             
@@ -142,7 +147,9 @@ export const SimpleHormoneResults = ({
           </motion.div>
         ) : (
           <motion.div variants={itemVariants} className="bg-green-50 rounded-xl p-6 shadow-lg text-center">
-            <div className="text-green-600 text-4xl mb-3">✅</div>
+            <div className="flex justify-center mb-3">
+              <CheckCircle className="w-10 h-10 text-green-600" />
+            </div>
             <h3 className="text-xl font-semibold text-green-800 mb-2">
               Merci ! Ta routine arrive bientôt
             </h3>
@@ -155,8 +162,9 @@ export const SimpleHormoneResults = ({
         {/* Bonus offre */}
         <motion.div variants={itemVariants} className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl p-6 shadow-lg">
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              🎁 Bonus quiz : -20% sur {profileDetails.program} jusqu'à dimanche
+            <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center justify-center gap-2">
+              <Gift className="w-5 h-5 text-pink-500" />
+              Bonus quiz : -20% sur {profileDetails.program} jusqu'à dimanche
             </h3>
             <p className="text-gray-600 mb-4">
               {profileDetails.programDescription}

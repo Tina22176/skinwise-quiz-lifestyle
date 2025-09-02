@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useQuiz } from "../../QuizContext";
 import { getHormoneProfileText, getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
 import { HormoneResultsMainContent } from "./HormoneResultsMainContent";
+import { HormoneIcon } from "./HormoneIcon";
+import { Mail, CheckCircle } from "lucide-react";
 
 export const HormoneResultsWrapper = ({
   email,
@@ -46,8 +48,9 @@ export const HormoneResultsWrapper = ({
           variants={itemVariants}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            {profileDetails.emoji} {profileDetails.title}
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+            <HormoneIcon profile={skinType} size={40} className="text-pink-500" />
+            {profileDetails.title}
           </h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             {profileDetails.description}
@@ -66,8 +69,9 @@ export const HormoneResultsWrapper = ({
             variants={itemVariants}
             className="bg-white rounded-xl p-6 shadow-lg mt-8"
           >
-            <h3 className="text-xl font-semibold mb-4 text-center">
-              📧 Reçois ta routine complète par email
+            <h3 className="text-xl font-semibold mb-4 text-center flex items-center justify-center gap-2">
+              <Mail className="w-6 h-6 text-pink-500" />
+              Reçois ta routine complète par email
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
@@ -100,7 +104,7 @@ export const HormoneResultsWrapper = ({
                 disabled={isLoading}
                 className="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors"
               >
-                {isLoading ? "Envoi..." : "Recevoir ma routine 💌"}
+                {isLoading ? "Envoi..." : "Recevoir ma routine"}
               </button>
             </form>
           </motion.div>
@@ -109,8 +113,9 @@ export const HormoneResultsWrapper = ({
             variants={itemVariants}
             className="text-center bg-green-50 p-6 rounded-xl"
           >
-            <h3 className="text-xl font-semibold text-green-800 mb-2">
-              ✅ Merci ! Ta routine arrive bientôt
+            <h3 className="text-xl font-semibold text-green-800 mb-2 flex items-center justify-center gap-2">
+              <CheckCircle className="w-6 h-6 text-green-600" />
+              Merci ! Ta routine arrive bientôt
             </h3>
             <p className="text-green-700">
               Vérifie tes emails pour recevoir tes recommandations complètes

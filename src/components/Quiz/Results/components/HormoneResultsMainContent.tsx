@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
+import { HormoneIcon } from "./HormoneIcon";
 
 interface HormoneResultsMainContentProps {
   hormoneProfile: HormoneProfile;
@@ -18,8 +19,9 @@ export const HormoneResultsMainContent = ({
   return (
     <motion.div variants={itemVariants} className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          {profileDetails.emoji} {profileDetails.title}
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3">
+          <HormoneIcon profile={hormoneProfile.type} size={32} className="text-pink-500" />
+          {profileDetails.title}
         </h2>
         <p className="text-gray-600 mb-6">{profileDetails.description}</p>
         
