@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuiz } from "../QuizContext";
 import { ResultsLoading } from "./ResultsLoading";
 import { HormoneResultsWrapper } from "./components/HormoneResultsWrapper";
+import { SimpleHormoneResults } from "./components/SimpleHormoneResults";
 import { AnimatePresence } from "framer-motion";
 import { useEmailSubscription } from "./EmailSubscriptionHandler";
 
@@ -34,7 +35,8 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
       {!showResults ? (
         <ResultsLoading />
       ) : (
-        <HormoneResultsWrapper
+        <SimpleHormoneResults
+          hormoneProfile={state.hormoneProfile!}
           email={email}
           setEmail={setEmail}
           firstName={firstName}
@@ -45,7 +47,6 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
           setGdprConsent={setGdprConsent}
           handleSubmit={handleSubmit}
           onResetQuiz={onResetQuiz}
-          instagramUrl={instagramUrl}
         />
       )}
     </AnimatePresence>

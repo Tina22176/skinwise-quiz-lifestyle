@@ -6,7 +6,7 @@ import { PremiumSuccessState } from "./PremiumSuccessState";
 import { FloatingParticles } from "./FloatingParticles";
 import { useQuiz } from "../../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails, SKIN_TYPE_TEASERS } from "../utils/SkinTypeDetails";
-import { SkinTypeScore } from "../../utils/skinTypeCalculator";
+import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { Sparkles, Stars, Crown } from "lucide-react";
 
 const containerVariants = {
@@ -38,7 +38,7 @@ const itemVariants = {
 interface PremiumResultsContentProps {
   skinType: string;
   skinState?: string | null;
-  skinTypeScore?: SkinTypeScore | null;
+  hormoneProfile?: HormoneProfile | null;
   email: string;
   setEmail: (email: string) => void;
   firstName: string;
@@ -50,12 +50,13 @@ interface PremiumResultsContentProps {
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   onResetQuiz: () => void;
   instagramUrl: string;
+  itemVariants?: any;
 }
 
 export const PremiumResultsContent = ({
   skinType,
   skinState,
-  skinTypeScore,
+  hormoneProfile,
   email,
   setEmail,
   firstName,
@@ -67,6 +68,7 @@ export const PremiumResultsContent = ({
   handleSubmit,
   onResetQuiz,
   instagramUrl,
+  itemVariants,
 }: PremiumResultsContentProps) => {
   const { state } = useQuiz();
   const details = getSkinTypeDetails(skinType);

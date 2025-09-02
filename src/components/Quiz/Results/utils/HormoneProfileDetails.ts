@@ -7,94 +7,108 @@ export interface HormoneProfileDetail {
   hormonalExplanation: string;
   skincareRecommendations: string[];
   lifestyleBonus: string;
-  routineRecommendation: string;
   colorTheme: 'red' | 'blue' | 'purple' | 'green' | 'orange' | 'pink';
+  program: string;
+  programDescription: string;
+  cta: string;
 }
 
 export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
   "stressée_inflammée": {
-    title: "La Stressée Inflammée",
     emoji: "🔥",
-    description: "Ta peau réagit intensément au stress et présente des signes d'inflammation chronique. Les rougeurs et éruptions sont tes compagnons indésirables lors des périodes intenses.",
-    hormonalExplanation: "Ton cortisol (hormone du stress) est chroniquement élevé, créant un état inflammatoire qui se reflète directement sur ta peau. Cette hyperactivation du système nerveux sympathique stimule la production de sébum et déclenche des réactions cutanées.",
+    title: "La stressée inflammée",
+    description: "Ta peau parle à ta place quand tu vis une période tendue. Rougeurs, petits boutons, sensations d'échauffement… Il te faut du calme et de la douceur.",
+    hormonalExplanation: "Ton cortisol élevé crée de l'inflammation dans ta peau. Tes nerfs sont à vif, et ça se voit !",
     skincareRecommendations: [
-      "Nettoyant ultra-doux sans sulfates pour ne pas aggraver l'inflammation",
-      "Sérum apaisant à la niacinamide (5%) pour réduire rougeurs et inflammation",
-      "Crème réparatrice aux céramides et centella asiatica pour renforcer la barrière"
+      "Des soins ultra-apaisants sans agresser",
+      "Une routine simplifiée anti-stress",
+      "La respiration 4-7-8 pour faire chuter ton cortisol"
     ],
-    lifestyleBonus: "🧘‍♀️ Technique de cohérence cardiaque : 5 minutes matin et soir, inspire 5 sec, expire 5 sec. Cela régule ton système nerveux et diminue la production de cortisol.",
-    routineRecommendation: "Ta routine doit être ultra-minimaliste et apaisante. Moins c'est mieux ! Focus sur la réparation de ta barrière cutanée et l'apaisement de l'inflammation.",
-    colorTheme: "red"
+    lifestyleBonus: "La respiration 4-7-8 : inspire 4s, retiens 7s, expire 8s pour calmer instantanément ton système nerveux.",
+    colorTheme: "red" as const,
+    program: "Mini Glow",
+    programDescription: "Un reset express parfait pour ta peau sensibilisée",
+    cta: "J'en profite"
   },
   "fatiguée_tension": {
-    title: "La Fatiguée Sous Tension",
     emoji: "😴",
-    description: "Ta peau reflète ta fatigue : terne, relâchée, avec des cernes marqués. Elle manque d'éclat et semble avoir perdu sa vitalité naturelle.",
-    hormonalExplanation: "Tes glandes surrénales sont épuisées (fatigue surrénalienne), ton cortisol est trop bas le matin et peut grimper le soir. Cette dysrégulation affecte la régénération cellulaire et l'éclat de ta peau.",
+    title: "La fatiguée sous tension",
+    description: "Ta peau reflète ta fatigue intérieure. Teint terne, traits tirés, cernes marqués… Tes surrénales ont besoin d'un break et ta peau d'un réveil en douceur.",
+    hormonalExplanation: "Tes surrénales sont épuisées après trop de stress. Ta peau manque d'énergie vitale.",
     skincareRecommendations: [
-      "Sérum énergisant à la vitamine C stabilisée pour redonner de l'éclat",
-      "Crème riche aux peptides stimulants et coenzyme Q10 pour booster l'énergie cellulaire",
-      "Masque éclat hebdomadaire aux AHA doux pour stimuler le renouvellement"
+      "Des actifs énergisants comme la vitamine C",
+      "Un boost hydratation + massage quotidien", 
+      "Un smoothie vert pour soutenir tes surrénales"
     ],
-    lifestyleBonus: "🌅 Exposition à la lumière naturelle dès le réveil : 10 minutes dehors ou devant une fenêtre pour réguler ton rythme circadien et stimuler la production naturelle de cortisol.",
-    routineRecommendation: "Ta peau a besoin d'être réveillée en douceur. Privilégie des actifs énergisants le matin et réparateurs le soir pour optimiser la régénération nocturne.",
-    colorTheme: "blue"
+    lifestyleBonus: "Un smoothie vert quotidien : épinards, pomme, gingembre pour recharger tes surrénales fatiguées.",
+    colorTheme: "blue" as const,
+    program: "Skin Reboot",
+    programDescription: "28 jours pour retrouver ton énergie et ton glow",
+    cta: "J'en profite"
   },
   "cyclique_congestionnée": {
-    title: "La Cyclique Congestionnée",
-    emoji: "🌙",
-    description: "Ta peau suit le rythme de tes hormones : boutons avant les règles, microkystes récurrents, variations d'éclat selon les phases de ton cycle.",
-    hormonalExplanation: "Tu présentes probablement une dominance œstrogénique ou une faiblesse en progestérone. Ces déséquilibres créent des fluctuations importantes qui se manifestent par des congestions cutanées cycliques.",
+    emoji: "🌙", 
+    title: "La cyclique congestionnée",
+    description: "Ta peau suit les montagnes russes de tes hormones. Jolie une semaine, boutonneuse la suivante… Il te faut une approche qui s'adapte à ton cycle.",
+    hormonalExplanation: "Tes hormones jouent aux montagnes russes et ta peau suit le mouvement !",
     skincareRecommendations: [
-      "Sérum régulateur aux prébiotiques pour équilibrer le microbiome cutané",
-      "Traitement localisé à l'acide salicylique (2%) pour les zones à imperfections",
-      "Masque purifiant à l'argile 2x/semaine pendant la phase pré-menstruelle"
+      "Une routine qui suit tes fluctuations hormonales",
+      "Des actifs anti-inflammatoires en phase pré-menstruelle",
+      "Une tisane gattilier pour équilibrer tes hormones"
     ],
-    lifestyleBonus: "🌱 Graines de courge : 1 poignée/jour en 2ème partie de cycle. Riches en zinc, elles soutiennent la production de progestérone et réduisent l'inflammation hormonale.",
-    routineRecommendation: "Adapte tes soins selon ton cycle : phase folliculaire = douceur, phase lutéale = purification ciblée. Tiens un calendrier peau-hormones pour identifier tes patterns.",
-    colorTheme: "purple"
+    lifestyleBonus: "Une tisane de gattilier quotidienne pour équilibrer naturellement ton cycle hormonal.",
+    colorTheme: "purple" as const,
+    program: "Glow & Cycle",
+    programDescription: "L'app skincare qui suit vraiment ton cycle",
+    cta: "J'en profite"
   },
   "brillante_déséquilibrée": {
-    title: "La Brillante Déséquilibrée",
     emoji: "✨",
-    description: "Ta peau produit un excès de sébum quasi-permanent : brillance, pores dilatés, imperfections chroniques. L'équilibre semble difficile à atteindre.",
-    hormonalExplanation: "Tes androgènes (testostérone, DHEA) sont probablement élevés, souvent associés à une résistance à l'insuline ou un SOPK. Cette hyperandrogénie stimule excessivement les glandes sébacées.",
+    title: "La brillante déséquilibrée", 
+    description: "Ta peau produit du sébum comme si elle préparait un stock pour l'hiver ! Il faut canaliser tes androgènes et réguler cette production sans assécher.",
+    hormonalExplanation: "Tes androgènes sont en mode turbo ! Tes glandes sébacées travaillent à fond.",
     skincareRecommendations: [
-      "Nettoyant purifiant au zinc PCA pour réguler la production de sébum",
-      "Sérum matifiant à la niacinamide (10%) + acide azélaïque pour contrôler brillance et inflammation",
-      "Crème gel hydratante non-comédogène aux probiotiques pour maintenir l'équilibre"
+      "Des actifs régulateurs de sébum (niacinamide + zinc)",
+      "Un nettoyage efficace mais non décapant",
+      "Du thé vert anti-androgène naturel"
     ],
-    lifestyleBonus: "🍃 Thé vert à la menthe verte : 2 tasses/jour. La menthe verte réduit naturellement les androgènes libres, tandis que les catéchines du thé vert régulent l'insuline.",
-    routineRecommendation: "Focus sur la régulation sans assécher. Hydrate toujours après avoir purifié pour éviter l'effet rebond. Intègre des actifs sébo-régulateurs progressivement.",
-    colorTheme: "green"
+    lifestyleBonus: "Du thé vert quotidien : ses antioxydants régulent naturellement tes androgènes hyperactifs.",
+    colorTheme: "green" as const,
+    program: "Glow & Cycle",
+    programDescription: "Programme Acné avec approche hormonale ciblée", 
+    cta: "J'en profite"
   },
   "sèche_instable": {
-    title: "La Sèche Instable",
     emoji: "🏜️",
-    description: "Ta peau tiraille, manque d'hydratation et d'élasticité. Inconfort permanent, sensations de sécheresse, barrière cutanée fragilisée.",
-    hormonalExplanation: "Tes œstrogènes sont probablement en baisse (pré-ménopause, post-pilule) ou tu présentes un déséquilibre thyroïdien. Ces hormones sont essentielles pour maintenir l'hydratation et l'élasticité cutanée.",
+    title: "La sèche instable",
+    description: "Ta peau tire, picote et semble avoir perdu sa souplesse naturelle. Direction mode cocooning intensif avec une approche ultra-nourrissante.",
+    hormonalExplanation: "Tes œstrogènes baissent et ta peau perd sa capacité naturelle à s'hydrater.",
     skincareRecommendations: [
-      "Sérum hydratant intensif à l'acide hyaluronique multi-poids moléculaire",
-      "Crème barrière aux céramides, cholestérol et acides gras essentiels",
-      "Huile visage nourrissante aux oméga 3-6-9 pour restaurer le film lipidique"
+      "Une routine nutrition intense multi-couches",
+      "Des huiles et sérums ultra-hydratants",
+      "Des oméga-3 pour nourrir de l'intérieur"
     ],
-    lifestyleBonus: "🥑 Avocat quotidien : riche en bonnes graisses et vitamine E, il nourrit ta peau de l'intérieur et soutient la production d'hormones stéroïdiennes.",
-    routineRecommendation: "Layering hydratant : eau thermale + sérum + crème + huile si besoin. Évite tous les actifs desséchants et privilégie la réparation intensive de ta barrière cutanée.",
-    colorTheme: "orange"
+    lifestyleBonus: "Des oméga-3 quotidiens : huile de colza, noix, petits poissons gras pour nourrir ta peau de l'intérieur.",
+    colorTheme: "pink" as const,
+    program: "Bundle Skin Reboot + Mini Glow",
+    programDescription: "28 jours de cocooning avec soutien hormonal - 36€ au lieu de 52€",
+    cta: "J'en profite (-16€)"
   },
   "sensible_caméléon": {
-    title: "La Sensible Caméléon",
     emoji: "🦋",
-    description: "Ta peau change constamment : tantôt grasse, tantôt sèche, parfois réactive. Cette imprévisibilité rend difficile l'établissement d'une routine stable.",
-    hormonalExplanation: "Tu présentes une sensibilité hormonale extrême avec des récepteurs cutanés hyperréactifs. Stress, cycle, environnement... tout impact tes hormones et se reflète immédiatement sur ta peau.",
+    title: "La sensible caméléon",
+    description: "Ta peau change d'humeur plus souvent que la météo ! Il te faut une approche minimaliste et beaucoup d'observation pour identifier tes triggers.",
+    hormonalExplanation: "Ton terrain hormonal est hypersensible aux moindres variations environnementales.",
     skincareRecommendations: [
-      "Sérum adaptogène multi-fonctions : niacinamide + acide hyaluronique + antioxydants",
-      "Crème modulable : texture légère hydratante que tu peux superposer selon tes besoins",
-      "SOS kit : eau thermale + sérum apaisant pour les pics de sensibilité"
+      "Une routine ultra-douce et adaptable",
+      "Un journal peau-humeur pour comprendre tes réactions", 
+      "Des actifs apaisants sans risque d'allergie"
     ],
-    lifestyleBonus: "📝 Journal peau-émotion : note quotidiennement l'état de ta peau et tes émotions/stress. Cela t'aidera à identifier tes déclencheurs et anticiper les besoins.",
-    routineRecommendation: "Routine modulaire et évolutive. Base minimaliste stable + produits à ajuster selon l'état du jour. L'écoute de ta peau est primordiale.",
-    colorTheme: "pink"
+    lifestyleBonus: "Un journal peau-humeur quotidien pour décoder les messages de ta peau ultra-réactive.",
+    colorTheme: "purple" as const,
+    program: "Glow & Cycle",
+    programDescription: "Programme Stress pour gérer les fluctuations",
+    cta: "J'en profite"
   }
 };
 
@@ -122,8 +136,10 @@ export const getHormoneProfileDetails = (profile: string): HormoneProfileDetail 
       "Protection solaire systématique"
     ],
     lifestyleBonus: "Maintenir tes bonnes habitudes actuelles",
-    routineRecommendation: "Continue avec une routine simple et préventive.",
-    colorTheme: "pink"
+    colorTheme: "pink" as const,
+    program: "Glow & Cycle",
+    programDescription: "Routine de maintien personnalisée",
+    cta: "J'en profite"
   };
 };
 
