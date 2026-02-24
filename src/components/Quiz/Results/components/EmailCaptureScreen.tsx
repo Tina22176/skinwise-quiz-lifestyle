@@ -32,7 +32,7 @@ export const EmailCaptureScreen = ({
       transition={{ duration: 0.5 }}
       className="min-h-screen flex items-center justify-center px-6 py-12"
     >
-      <div className="max-w-[480px] w-full p-8 space-y-6 text-center">
+      <div className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] w-full p-8 space-y-6 text-center">
         {/* Icon */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
@@ -44,7 +44,7 @@ export const EmailCaptureScreen = ({
               <Sparkles className="w-8 h-8 text-primary" />
             </div>
           </div>
-          <h1 className="font-heading text-[1.8rem] font-bold text-violet-deep mb-3">
+          <h1 className="font-heading text-[1.8rem] lg:text-[2.2rem] font-bold text-violet-deep mb-3">
             Ton profil est prêt
           </h1>
           <p className="text-muted-foreground text-base leading-relaxed font-body">

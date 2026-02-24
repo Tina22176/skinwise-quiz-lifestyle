@@ -26,7 +26,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-[480px] mx-auto text-center px-6 py-8 sm:py-12"
+        className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto text-center px-6 py-8 sm:py-12"
       >
         {/* Badge */}
         <motion.div 
@@ -40,7 +40,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
 
         {/* Title */}
         <motion.h1 
-          className="font-heading text-[2.5rem] font-bold mb-6"
+          className="font-heading text-[2.5rem] lg:text-[3rem] font-bold mb-6"
           style={{ lineHeight: 1.15 }}
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
 
         {/* Subtitle */}
         <motion.p
-          className="text-base text-muted-foreground mb-8 max-w-md mx-auto leading-relaxed font-body"
+          className="text-base lg:text-lg text-muted-foreground mb-8 max-w-md mx-auto leading-relaxed font-body"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}

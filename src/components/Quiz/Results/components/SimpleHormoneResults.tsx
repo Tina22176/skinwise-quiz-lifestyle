@@ -38,7 +38,7 @@ export const SimpleHormoneResults = ({
       animate="show"
       className="px-6 py-8"
     >
-      <div className="max-w-[480px] mx-auto space-y-5">
+      <div className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto space-y-5">
         
         {/* Profile header */}
         <motion.div variants={itemVariants} className="text-center">
@@ -48,7 +48,7 @@ export const SimpleHormoneResults = ({
               <span className="text-[32px]">{profile.emoji}</span>
             </div>
           </div>
-          <h1 className="font-heading text-[28px] font-bold text-foreground">
+          <h1 className="font-heading text-[28px] lg:text-[32px] font-bold text-foreground">
             {profile.title}
           </h1>
         </motion.div>
