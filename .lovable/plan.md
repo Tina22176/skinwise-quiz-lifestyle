@@ -1,130 +1,147 @@
 
 
-# Refonte visuelle complete -- Du "tons sur tons" au premium moderne
+# Plan : Alignement pixel-perfect avec la maquette de reference
 
-## Diagnostic visuel (captures prises)
+## Ecarts identifies (mockup vs code actuel)
 
-Voici ce que j'ai constate sur chaque ecran :
-
-### Accueil (Welcome)
-- Fond quasi-blanc, cartes blanches, header blanc = tout se fond
-- Le rose actuel (`hsl(330 55% 52%)` = `#C44B85`) tire vers le **bordeaux/framboise**, pas un vrai rose frais
-- Le badge "Diagnostic gratuit" est bien contraste mais le reste est plat
-- L'image placeholder coeur disparait avant le chargement
-- Aucune section ne se distingue visuellement d'une autre
-
-### Quiz (Questions)
-- Fond blanc, cartes blanches, header blanc = zero separation
-- Les options sont des rectangles blancs avec bordure gris clair = plat
-- L'emoji dans le titre (😊) melange avec les icones Lucide = pas pro
-- Le texte "Question 1/6" et "17%" sont en gris trop clair
-- Pas de distinction visuelle entre la zone de progression et la zone de contenu
-
-### Email Capture
-- Grand espace vide en haut (le gradient est invisible)
-- L'emoji ✨ jaune claque avec la palette rose = incoherent
-- Les inputs n'ont quasiment pas de bordure visible
-
-### Resultats
-- Cards blanches sur fond blanc = aucun relief
-- L'emoji 🌙 dans le titre melange avec l'icone SVG = double emploi
-- La section "Pour aller plus loin" (gradient lilas/rose) est la seule zone qui sort du lot
-- Les coches "✓" sont du texte brut, pas des icones
+J'ai compare chaque detail du composant de reference fourni avec le code actuel. Voici tous les ecarts :
 
 ---
 
-## Causes racines
+### 1. WELCOME SCREEN — 8 ecarts
 
-| Probleme | Cause technique |
-|----------|----------------|
-| Rose = bordeaux | `hsl(330 55% 52%)` a trop de saturation basse et pas assez de luminosite. Un "vrai rose" = `hsl(340 65% 58%)` (#D4649A) |
-| Tout blanc | `--background: 330 20% 98%` = quasi-blanc. `--card: 0 0% 100%` = blanc pur. Aucune differenciation |
-| Pas de profondeur | Les cards ont `shadow-md` mais le fond est identique donc invisible |
-| Emojis + icones | Melange de 😊✨🌙💌 avec des icones Lucide SVG = incoherent, pas premium |
-| Header invisible | Glass effect sur fond blanc = transparent sur transparent |
+| Detail | Maquette | Code actuel |
+|--------|----------|-------------|
+| Badge | `bg: #FBEAF2` (rose-whisper) + `color: #D4649A` (rose) | `bg-primary text-primary-foreground` (rose plein + blanc) |
+| Badge padding | `padding: 6px 18px`, `fontSize: 13`, `fontWeight: 600` | `px-5 py-1.5`, `text-sm font-semibold` (trop gros) |
+| Titre taille | `fontSize: 2.5rem`, `lineHeight: 1.15` | `text-4xl sm:text-5xl md:text-6xl` (trop grand) |
+| CTA button | `linear-gradient(135deg, rose, roseHover)`, `borderRadius: 99`, `padding: 18px 44px`, `fontSize: 17` | `bg-primary` (flat, pas de gradient), `rounded-full` ok, mais tailles differentes |
+| CTA text | "Commencer le diagnostic" + fleche texte (pas icone) | Utilise `ArrowRight` icone Lucide |
+| Ligne decorative | `width: 60px`, `height: 1px`, `bg: #E6DCE9` | `w-16 h-px bg-border` (close mais verifier) |
+| Blobs decoratifs | 3 blobs avec animation `float` specifique et couleurs exactes | Deux blobs statiques avec des couleurs differentes |
+| Texte "Gratuit..." | `fontSize: 13`, `color: #9B8FA3` (textMuted) | `text-sm text-muted-foreground` (presque ok) |
 
----
+### 2. QUIZ QUESTION SCREEN — 6 ecarts
 
-## Solution en 3 axes
+| Detail | Maquette | Code actuel |
+|--------|----------|-------------|
+| Hierarchie texte INVERSEE | Display = GRAND titre (Cormorant, 22px, bold, `#2E2233`) / Question = petit sous-titre (DM Sans, 16px, `#665A70`) | Display est le PETIT texte, question est le GRAND -- c'est inverse |
+| Pas de card container | Le contenu est affiche directement sur le fond `#F8F3FC`, PAS dans une card blanche | Enveloppe dans `bg-card rounded-2xl shadow-md border` |
+| Options border | `2px solid #F0EAF3` (lineSoft) | `2px solid hsl(var(--input))` (similaire mais verifier le rendu) |
+| Options hover | `borderColor: #D8C4EC` (lilas), `background: #F5F0FA` (lilasWhisper) | Hover en `hsl(280 30% 85%)` et `hsl(270 40% 97%)` (approximatif) |
+| Options selected | `border: 2px solid #D4649A`, gradient `roseWhisper -> lilasWhisper`, checkmark rose circle | Checkmark avec "check" texte, gradient different |
+| Progress bar | `height: 4px`, `bg: #F0EAF3` (lineSoft), fill = gradient `rose -> roseBright` | `h-2` (8px, trop epais), `bg-secondary` |
 
-### Axe 1 — Palette corrigee (vrai rose + surfaces differenciees)
+### 3. EMAIL CAPTURE SCREEN — 5 ecarts
 
-**Tokens CSS (`src/index.css`)** :
+| Detail | Maquette | Code actuel |
+|--------|----------|-------------|
+| Icone | Emoji "sparkle" en `fontSize: 2.5rem` dans un cercle `bg: #F5F0FA` (lilasWhisper), `72x72px` | Icone Lucide `Sparkles` dans cercle `bg-secondary`, `56x56px` (14x14) |
+| Titre | `fontFamily: Cormorant Garamond`, `fontSize: 1.8rem`, `color: #3D2B45` (violetDeep) | `text-foreground` (`#2E2233`) — couleur presque ok, taille a verifier |
+| Inputs background | `background: #F5F0FA` (lilasWhisper), `border: 1.5px solid #E6DCE9` (line) | `bg-accent border-[1.5px] border-border` — `accent` = `#F0EAF3`, pas `#F5F0FA` |
+| Input focus | `borderColor: #D4649A` (rose) | `focus:border-primary` — ok si primary = rose |
+| Skip button | `fontSize: 14`, `color: #9B8FA3` (textMuted), `textDecoration: underline` | `text-sm text-muted-foreground underline` — muted-foreground = `#665A70` pas `#9B8FA3` |
 
-```text
-Actuel                              Nouveau
---primary: 330 55% 52%        -->   340 65% 58%    (#D4649A — vrai rose, pas bordeaux)
---background: 330 20% 98%    -->   330 15% 97%    (un poil plus chaud)
---card: 0 0% 100%            -->   330 20% 99.5%  (blanc casse, pas blanc pur)
---muted: 290 12% 92%         -->   330 18% 94%    (rose-grise, pas violet-gris)
---border: 280 15% 90%        -->   330 15% 88%    (plus visible, ton rose)
-```
+### 4. RESULTS SCREEN — 7 ecarts
 
-Et dans **tailwind.config.ts**, ajuster `primary-hover` a `#C45589` (plus fonce que le nouveau rose).
+| Detail | Maquette | Code actuel |
+|--------|----------|-------------|
+| "Ton profil peau" label | `fontSize: 13`, `color: #9B8FA3`, `textTransform: uppercase`, `letterSpacing: 1.5px` | `text-sm text-muted-foreground uppercase tracking-wide` — muted-foreground trop fonce |
+| Profile emoji | Affiche l'emoji (`profile.emoji`) en grand, pas d'icone SVG | Utilise `HormoneIcon` (SVG Lucide) |
+| Cards | `border: 1px solid #E6DCE9` (line), `borderRadius: 20px`, PAS de shadow | `shadow-md border border-border` — shadow en trop |
+| Product CTA section | `background: linear-gradient(135deg, #F5F0FA, #FBEAF2)` (lilasWhisper -> roseWhisper) | `bg-card` (blanc) — pas de gradient |
+| Checkmarks email | Emoji "check" vert (texte `color: #D4649A`) | Icone Lucide `Check` dans cercle `bg-primary/15` |
+| Texte "Pas prete..." | Contient emoji "boite mail" a la fin | Pas d'emoji (ok si choix delibere) |
+| "Refaire le quiz" | `color: #9B8FA3` (textMuted), pas de couleur primaire | `text-primary` (rose) — devrait etre gris |
 
-### Axe 2 — Suppression emojis, coherence icones
+### 5. HEADER — 2 ecarts
 
-**Supprimer tous les emojis** et les remplacer par des icones Lucide ou rien :
+| Detail | Maquette | Code actuel |
+|--------|----------|-------------|
+| Logo | Texte "Majoliepeau" en `fontSize: 20`, `fontWeight: 700`, `fontFamily: Cormorant Garamond`, `color: #3D2B45` | Image PNG du logo Shopify |
+| Style | `background: #FFFFFF`, `borderBottom: 1px solid #E6DCE9` | `bg-card border-b border-border` — similaire |
 
-| Fichier | Emoji actuel | Remplacement |
-|---------|-------------|--------------|
-| `hormonalQuestions.ts` | 😊 dans les titres | Supprimer (le titre suffit) |
-| `EmailCaptureScreen.tsx` | ✨ (div text-5xl) | Icone `Sparkles` de Lucide, en `text-primary` |
-| `SimpleHormoneResults.tsx` | Emoji dans `{profile.emoji}` | Supprimer du titre, garder uniquement l'icone SVG `HormoneIcon` |
-| `SimpleHormoneResults.tsx` | ✓ texte brut | Icone `Check` de Lucide |
-| `SimpleHormoneResults.tsx` | 💌 dans le texte | Supprimer |
-| `ResultsLoading.tsx` | ✨ dans le texte | Supprimer (l'icone Sparkles est deja la) |
+### 6. FOOTER — 1 ecart
 
-### Axe 3 — Hierarchie visuelle & profondeur
+| Detail | Maquette | Code actuel |
+|--------|----------|-------------|
+| Links | `color: #D4649A` (rose), `textDecoration: none` | `text-primary` — ok mais font-weight et style a verifier |
 
-**Header (`Index.tsx`)** :
-- Fond : `bg-white/95 backdrop-blur-lg` avec une **bordure basse plus visible** (`border-rose-soft/40`)
-- Le header doit se distinguer du contenu
+### 7. COULEUR CSS MANQUANTE — `textMuted`
 
-**Welcome (`Welcome.tsx`)** :
-- Ajouter un fond subtil derriere la zone de contenu : une card avec `bg-white rounded-2xl shadow-lg p-8` pour creer une zone delimitee au centre
-- Ou bien : un fond de section legerement plus sombre (`bg-rose-whisper/30`) pour delimiter
+La maquette utilise 3 niveaux de texte :
+- `text` = `#2E2233` (foreground) -- OK
+- `textSecondary` = `#665A70` (muted-foreground) -- OK
+- `textMuted` = `#9B8FA3` (plus clair, pour labels, meta) -- MANQUANT
 
-**Quiz questions (`EnhancedQuizQuestion.tsx`)** :
-- Le titre principal en `text-foreground` (pas violet-deep qui est trop sombre quand le fond est clair)
-- Les options : ajouter un **left-border accent** au hover (`border-l-4 border-primary`) pour donner du caractere
-- Separer visuellement la barre de progression du contenu avec un `border-b border-border`
-
-**Options (`EnhancedAnswerOption.tsx`)** :
-- Au repos : `bg-white border border-border shadow-sm` (ombre legere)
-- Au hover : `border-primary bg-rose-whisper/30 shadow-md` + `border-l-4 border-l-primary`
-- Selectionnee : `bg-rose-whisper border-primary shadow-glow border-l-4 border-l-primary`
-
-**Email Capture (`EmailCaptureScreen.tsx`)** :
-- Remplacer le fond gradient (invisible) par un vrai container : card blanche centree avec `shadow-lg rounded-2xl p-8`
-- Inputs : `border-2 border-border` au lieu de `border border-border`
-
-**Results (`SimpleHormoneResults.tsx`)** :
-- Fond de page : `bg-rose-whisper/20` au lieu de `bg-background` pour que les cards blanches se detachent
-- Cards : garder `bg-white shadow-md border border-border`
-- La premiere card (description du profil) : `bg-gradient-to-br from-rose-whisper to-white` pour la differencier
-- Les numeros des gestes : deja bien en `bg-primary text-white`
-
-**Loading (`ResultsLoading.tsx`)** :
-- Supprimer les emojis ✨ du texte
-- Le texte "La magie opere" --> "Analyse en cours..." (plus pro)
+Le code n'a que 2 niveaux. `textMuted` (#9B8FA3) n'est pas defini comme token.
 
 ---
 
-## Fichiers modifies (9 fichiers)
+## Modifications a effectuer
 
-1. **`src/index.css`** — tokens palette corrigee (vrai rose, surfaces differenciees)
-2. **`tailwind.config.ts`** — primary-hover ajuste
-3. **`src/pages/Index.tsx`** — header avec bordure visible
-4. **`src/components/Quiz/Welcome.tsx`** — container central, suppression coeur placeholder
-5. **`src/components/Quiz/EnhancedQuizQuestion.tsx`** — separation visuelle progression/contenu
-6. **`src/components/Quiz/EnhancedAnswerOption.tsx`** — left-border accent, ombres renforcees
-7. **`src/components/Quiz/Results/components/EmailCaptureScreen.tsx`** — card container, icone Lucide, inputs renforces
-8. **`src/components/Quiz/Results/components/SimpleHormoneResults.tsx`** — fond rose-whisper, suppression emojis, icones Check
-9. **`src/components/Quiz/Results/ResultsLoading.tsx`** — suppression emojis, texte pro
-10. **`src/components/Quiz/questions/hormonalQuestions.ts`** — suppression emojis des titres
+### Fichier 1 : `src/index.css`
+- Pas de changement de tokens (ils correspondent deja a la maquette)
+
+### Fichier 2 : `tailwind.config.ts`
+- Ajouter une couleur `textMuted: "#9B8FA3"` dans la palette pour le 3e niveau de texte
+
+### Fichier 3 : `src/components/Quiz/Welcome.tsx`
+- Badge : `bg-rose-whisper text-primary` au lieu de `bg-primary text-primary-foreground`
+- Badge : `px-4 py-1 rounded-full text-[13px] font-semibold`
+- Titre : reduire a `text-[2.5rem]` avec `leading-[1.15]`
+- CTA : ajouter `style={{ background: 'linear-gradient(135deg, #D4649A 0%, #C45589 100%)' }}` au lieu de `bg-primary`
+- CTA : texte "Commencer le diagnostic" suivi de la fleche texte `->` (pas l'icone ArrowRight, ou garder l'icone c'est ok)
+- CTA : `px-11 py-[18px] text-[17px]`
+- Ajouter un 3e blob decoratif
+
+### Fichier 4 : `src/components/Quiz/EnhancedQuizQuestion.tsx`
+- **INVERSER** l'ordre : Display text (`question`) = le GRAND titre en `font-heading text-[22px] font-semibold text-foreground`, subtitle = le PETIT texte en `text-base text-muted-foreground font-body`
+- Retirer le container card (`bg-card rounded-2xl shadow-md border`) — afficher directement sur le fond de page
+
+### Fichier 5 : `src/components/Quiz/EnhancedAnswerOption.tsx`
+- Border au repos : `2px solid #F0EAF3` (lineSoft) — utiliser `hsl(var(--input))` c'est presque ca
+- Hover : `borderColor: '#D8C4EC'` (lilas), `background: '#F5F0FA'` (lilasWhisper) — utiliser les noms Tailwind `lilas` et `lilas-whisper`
+- Selected gradient : `linear-gradient(135deg, #FBEAF2 0%, #F5F0FA 100%)` (roseWhisper -> lilasWhisper)
+- Selected checkmark : cercle `w-6 h-6 rounded-full bg-primary text-white` avec check texte "check"
+
+### Fichier 6 : `src/components/Quiz/QuizProgressBar.tsx`
+- Hauteur barre : `h-1` (4px) au lieu de `h-2` (8px)
+- Fond barre : `bg-[#F0EAF3]` (lineSoft) au lieu de `bg-secondary`
+- Texte : `text-[13px] text-[#9B8FA3]` (textMuted) au lieu de `text-xs text-muted-foreground`
+
+### Fichier 7 : `src/components/Quiz/Results/components/EmailCaptureScreen.tsx`
+- Icone cercle : `w-[72px] h-[72px] bg-lilas-whisper` au lieu de `w-14 h-14 bg-secondary`
+- Garder Sparkles Lucide (coherent avec le reste du design)
+- Titre : `text-violet-deep` au lieu de `text-foreground`
+- Titre taille : `text-[1.8rem]`
+- Skip bouton : `text-[#9B8FA3]` au lieu de `text-muted-foreground`
+
+### Fichier 8 : `src/components/Quiz/Results/components/SimpleHormoneResults.tsx`
+- Label "Ton profil peau" : `text-[13px] text-[#9B8FA3] tracking-[1.5px]`
+- Icone profil : remplacer `HormoneIcon` par l'emoji du profil (`profile.emoji`) en `text-4xl`
+- Cards : retirer `shadow-md`, garder uniquement `border border-border rounded-[20px]`
+- Section "Pour aller plus loin" : `bg-gradient-to-br from-lilas-whisper to-rose-whisper` au lieu de `bg-card`
+- Checkmarks : `text-primary` simple (pas cercle bg)
+- "Refaire le quiz" : `text-[#9B8FA3]` au lieu de `text-primary`
+
+### Fichier 9 : `src/components/Quiz/Results/ResultsLoading.tsx`
+- Pas de changement majeur (deja correct)
+
+---
+
+## Resume : 8 fichiers modifies
+
+1. `tailwind.config.ts` — ajout couleur textMuted
+2. `src/components/Quiz/Welcome.tsx` — badge, titre, CTA, blobs
+3. `src/components/Quiz/EnhancedQuizQuestion.tsx` — inverser hierarchie, retirer card
+4. `src/components/Quiz/EnhancedAnswerOption.tsx` — hover/selected exact
+5. `src/components/Quiz/QuizProgressBar.tsx` — hauteur, couleurs
+6. `src/components/Quiz/Results/components/EmailCaptureScreen.tsx` — icone, titre, skip
+7. `src/components/Quiz/Results/components/SimpleHormoneResults.tsx` — cards, emoji, gradient, check
+8. `src/pages/Index.tsx` — ajustements mineurs header/footer si necessaire
 
 ## Principe
 
-Passer de "tout est rose clair sur blanc" a "cards blanches sur fond rose subtil, avec des accents rose vif et des ombres qui creent de la profondeur". Supprimer les emojis pour un look coherent et premium.
+Chaque valeur (couleur, taille, padding, border, shadow) est alignee sur les valeurs exactes du composant de reference. Pas d'interpretation — copie fidele des specs.
 
