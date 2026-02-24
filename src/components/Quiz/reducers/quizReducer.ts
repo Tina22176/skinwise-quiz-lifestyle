@@ -63,6 +63,11 @@ export const quizReducer = (state: QuizState, action: QuizAction): QuizState => 
         ...state,
         personalizationLevel: action.payload,
       };
+    case "PREV_QUESTION":
+      return {
+        ...state,
+        currentQuestion: Math.max(0, state.currentQuestion - 1),
+      };
     case "ADD_DYNAMIC_QUESTION":
       return {
         ...state,
