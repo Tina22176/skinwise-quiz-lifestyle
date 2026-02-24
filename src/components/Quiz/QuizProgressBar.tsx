@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface QuizProgressBarProps {
   currentQuestion: number;
@@ -12,24 +11,24 @@ export const QuizProgressBar = ({
   totalQuestions,
   motivationalTexts 
 }: QuizProgressBarProps) => {
-  const isMobile = useIsMobile();
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
 
   return (
     <div className="mb-6">
       {/* Progress info */}
       <div className="flex justify-between items-center mb-2">
-        <p className="text-xs text-muted-foreground font-body font-medium">
+        <p className="text-[13px] text-text-muted font-body font-medium">
           Question {currentQuestion + 1}/{totalQuestions}
         </p>
-        <p className="text-xs text-muted-foreground font-body font-medium">
+        <p className="text-[13px] text-text-muted font-body font-medium">
           {Math.round(progress)}%
         </p>
       </div>
-      {/* Bar */}
-      <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+      {/* Bar — 4px height, lineSoft bg, rose gradient fill */}
+      <div className="h-1 w-full rounded-full overflow-hidden" style={{ background: '#F0EAF3' }}>
         <motion.div
-          className="h-full bg-gradient-to-r from-primary to-rose-bright rounded-full"
+          className="h-full rounded-full"
+          style={{ background: 'linear-gradient(90deg, #D4649A, #E077AD)' }}
           initial={{ width: 0 }}
           animate={{ 
             width: `${progress}%`,

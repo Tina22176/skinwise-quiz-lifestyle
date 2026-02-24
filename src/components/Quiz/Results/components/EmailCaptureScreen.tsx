@@ -40,11 +40,11 @@ export const EmailCaptureScreen = ({
           transition={{ delay: 0.2, duration: 0.4 }}
         >
           <div className="mb-4 flex justify-center">
-            <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center">
-              <Sparkles className="w-7 h-7 text-primary" />
+            <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: '#F5F0FA' }}>
+              <Sparkles className="w-8 h-8 text-primary" />
             </div>
           </div>
-          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-3">
+          <h1 className="font-heading text-[1.8rem] font-bold text-violet-deep mb-3">
             Ton profil est prêt
           </h1>
           <p className="text-muted-foreground text-base leading-relaxed font-body">
@@ -65,7 +65,14 @@ export const EmailCaptureScreen = ({
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl bg-accent border-[1.5px] border-border text-foreground outline-none transition-colors focus:border-primary placeholder:text-muted-foreground/60"
+            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl outline-none transition-colors"
+            style={{
+              background: '#F5F0FA',
+              border: '1.5px solid #E6DCE9',
+              color: '#2E2233',
+            }}
+            onFocus={(e) => (e.currentTarget.style.borderColor = '#D4649A')}
+            onBlur={(e) => (e.currentTarget.style.borderColor = '#E6DCE9')}
           />
           <input
             type="email"
@@ -73,7 +80,14 @@ export const EmailCaptureScreen = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl bg-accent border-[1.5px] border-border text-foreground outline-none transition-colors focus:border-primary placeholder:text-muted-foreground/60"
+            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl outline-none transition-colors"
+            style={{
+              background: '#F5F0FA',
+              border: '1.5px solid #E6DCE9',
+              color: '#2E2233',
+            }}
+            onFocus={(e) => (e.currentTarget.style.borderColor = '#D4649A')}
+            onBlur={(e) => (e.currentTarget.style.borderColor = '#E6DCE9')}
           />
           
           <label className="flex items-start gap-2 text-sm cursor-pointer font-body">
@@ -92,9 +106,11 @@ export const EmailCaptureScreen = ({
           <button
             type="submit"
             disabled={isLoading || !email || !firstName || !gdprConsent}
-            className="w-full font-body text-base font-bold text-primary-foreground rounded-full py-4 shadow-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full font-body text-base font-bold text-primary-foreground rounded-full py-4 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             style={{
-              background: 'linear-gradient(135deg, hsl(340 65% 58%) 0%, hsl(340 55% 49%) 100%)',
+              background: 'linear-gradient(135deg, #D4649A 0%, #C45589 100%)',
+              boxShadow: '0 8px 30px rgba(212, 100, 154, 0.25)',
+              borderRadius: 99,
             }}
           >
             {isLoading ? "..." : "Voir mes résultats"}
@@ -103,7 +119,8 @@ export const EmailCaptureScreen = ({
         </motion.form>
 
         <motion.p
-          className="text-xs text-muted-foreground font-body"
+          className="text-xs font-body"
+          style={{ color: '#9B8FA3' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
@@ -114,7 +131,8 @@ export const EmailCaptureScreen = ({
         {onSkip && (
           <motion.button
             onClick={onSkip}
-            className="text-sm text-muted-foreground underline hover:text-foreground transition-colors font-body"
+            className="text-sm underline hover:text-foreground transition-colors font-body"
+            style={{ color: '#9B8FA3' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
