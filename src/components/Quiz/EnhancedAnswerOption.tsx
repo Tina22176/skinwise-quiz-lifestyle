@@ -46,7 +46,7 @@ export const EnhancedAnswerOption = ({
           border: `2px solid ${isSelected ? '#D4649A' : '#F0EAF3'}`,
           background: isSelected
             ? 'linear-gradient(135deg, #FBEAF2 0%, #F5F0FA 100%)'
-            : '#FFFFFF',
+            : 'linear-gradient(180deg, #FFFFFF 0%, #FDF2F7 100%)',
           color: '#2E2233',
           cursor: selectedAnswer !== null ? 'default' : 'pointer',
           opacity: isOther ? 0.4 : 1,
