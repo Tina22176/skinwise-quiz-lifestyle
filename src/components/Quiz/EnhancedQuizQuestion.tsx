@@ -78,52 +78,52 @@ export const EnhancedQuizQuestion = () => {
       exit="exit"
       className="max-w-xl mx-auto px-6 sm:px-8 py-6 sm:py-8"
     >
-      {/* Card container for the question */}
-      <div className="bg-card rounded-2xl p-6 sm:p-8 shadow-md border border-border">
-        {state.currentQuestion > 0 && (
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            onClick={() => {
-              dispatch({ type: "PREV_QUESTION" });
-              setSelectedAnswer(null);
-              setShowNextQuestion(false);
-            }}
-            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 font-body"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>Retour</span>
-          </motion.button>
-        )}
-
-        <QuizProgressBar 
-          currentQuestion={state.currentQuestion} 
-          totalQuestions={dynamicList.length}
-          motivationalTexts={motivationalTexts}
-        />
-
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-          className="text-center mb-6"
+      {/* No card container — content directly on bg per mockup */}
+      {state.currentQuestion > 0 && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => {
+            dispatch({ type: "PREV_QUESTION" });
+            setSelectedAnswer(null);
+            setShowNextQuestion(false);
+          }}
+          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 font-body"
         >
-          {/* Display text — the friendly intro */}
-          <p className="text-muted-foreground text-sm mb-2 font-body">
-            {currentQuestion.question}
-          </p>
-          {/* Main question */}
-          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
-            {currentQuestion.subtitle || currentQuestion.question}
-          </h2>
-        </motion.div>
+          <ArrowLeft className="h-4 w-4" />
+          <span>Retour</span>
+        </motion.button>
+      )}
 
-        <DynamicQuestionDisplay
-          question={currentQuestion}
-          selectedAnswer={selectedAnswer}
-          onSelect={handleAnswer}
-        />
-      </div>
+      <QuizProgressBar 
+        currentQuestion={state.currentQuestion} 
+        totalQuestions={dynamicList.length}
+        motivationalTexts={motivationalTexts}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.4 }}
+        className="text-center mb-6"
+      >
+        {/* Display text = GRAND titre (Cormorant) per mockup */}
+        <h2 className="font-heading text-[22px] font-semibold text-foreground mb-2">
+          {currentQuestion.question}
+        </h2>
+        {/* Subtitle = petit texte (DM Sans) per mockup */}
+        {currentQuestion.subtitle && (
+          <p className="text-base text-muted-foreground font-body">
+            {currentQuestion.subtitle}
+          </p>
+        )}
+      </motion.div>
+
+      <DynamicQuestionDisplay
+        question={currentQuestion}
+        selectedAnswer={selectedAnswer}
+        onSelect={handleAnswer}
+      />
 
       {selectedAnswer && (
         <motion.div

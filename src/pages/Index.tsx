@@ -23,16 +23,9 @@ const Index = () => {
         role="banner"
       >
         <div className="container mx-auto px-4 py-3 flex justify-between items-center" style={{ minHeight: '56px' }}>
-          <div className="flex items-center space-x-2">
-            <OptimizedImage 
-              src="https://cdn.shopify.com/s/files/1/0819/8622/4458/files/logo_majoliepeau.png?v=1738319474"
-              alt="Logo Majoliepeau"
-              width={56}
-              height={56}
-              className="h-10 sm:h-12 w-auto"
-              priority={true}
-            />
-          </div>
+          <span className="font-heading text-[20px] font-bold text-violet-deep">
+            Majoliepeau
+          </span>
           
           <div className="flex items-center space-x-4 text-sm font-body" role="complementary">
             <span className="text-primary font-semibold">100% Gratuit</span>

@@ -54,6 +54,8 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Niveaux de texte
+        "text-muted": "#9B8FA3",
         // Couleurs Majoliepeau
         rose: {
           DEFAULT: "#D4649A",

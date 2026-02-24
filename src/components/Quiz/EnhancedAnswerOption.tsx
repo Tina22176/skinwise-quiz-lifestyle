@@ -39,15 +39,15 @@ export const EnhancedAnswerOption = ({
         disabled={selectedAnswer !== null}
         className="w-full text-left font-body transition-all duration-250 relative overflow-hidden"
         style={{
-          fontSize: isMobile ? 15 : 16,
+          fontSize: isMobile ? 15 : 15,
           fontWeight: 500,
-          padding: isMobile ? '14px 18px' : '16px 20px',
+          padding: '16px 20px',
           borderRadius: 14,
-          border: `2px solid ${isSelected ? 'hsl(var(--primary))' : 'hsl(var(--input))'}`,
+          border: `2px solid ${isSelected ? '#D4649A' : '#F0EAF3'}`,
           background: isSelected
-            ? 'linear-gradient(135deg, hsl(330 30% 96%) 0%, hsl(270 40% 97%) 100%)'
-            : 'hsl(var(--card))',
-          color: 'hsl(var(--foreground))',
+            ? 'linear-gradient(135deg, #FBEAF2 0%, #F5F0FA 100%)'
+            : '#FFFFFF',
+          color: '#2E2233',
           cursor: selectedAnswer !== null ? 'default' : 'pointer',
           opacity: isOther ? 0.4 : 1,
           transform: isSelected ? 'scale(1.02)' : 'scale(1)',
@@ -57,14 +57,14 @@ export const EnhancedAnswerOption = ({
         }}
         onMouseOver={(e) => {
           if (selectedAnswer === null) {
-            e.currentTarget.style.borderColor = 'hsl(280 30% 85%)'; // lilas
-            e.currentTarget.style.background = 'hsl(270 40% 97%)'; // lilasWhisper
+            e.currentTarget.style.borderColor = '#D8C4EC';
+            e.currentTarget.style.background = '#F5F0FA';
           }
         }}
         onMouseOut={(e) => {
           if (selectedAnswer === null) {
-            e.currentTarget.style.borderColor = 'hsl(var(--input))';
-            e.currentTarget.style.background = 'hsl(var(--card))';
+            e.currentTarget.style.borderColor = '#F0EAF3';
+            e.currentTarget.style.background = '#FFFFFF';
           }
         }}
       >
