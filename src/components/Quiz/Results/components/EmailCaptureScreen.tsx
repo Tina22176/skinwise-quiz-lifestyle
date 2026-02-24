@@ -32,7 +32,7 @@ export const EmailCaptureScreen = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center bg-background px-4"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-whisper via-background to-lilas-whisper px-4"
     >
       <div className="max-w-md w-full space-y-6 text-center">
         <motion.div
@@ -41,7 +41,7 @@ export const EmailCaptureScreen = ({
           transition={{ delay: 0.2, duration: 0.4 }}
         >
           <div className="text-5xl mb-4">✨</div>
-          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-3">
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-violet-deep mb-3">
             Ton profil est prêt
           </h1>
           <p className="text-muted-foreground text-lg leading-relaxed font-body">

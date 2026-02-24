@@ -41,8 +41,8 @@ export const EnhancedAnswerOption = ({
         className={`w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-200 font-body ${
           isSelected 
             ? 'bg-rose-whisper border-primary shadow-glow' 
-            : 'bg-card border-border hover:border-rose-soft hover:bg-rose-whisper/30 shadow-sm'
-        } ${selectedAnswer !== null && !isSelected ? 'opacity-50' : ''} ${
+            : 'bg-card border-border/80 hover:border-primary hover:bg-rose-whisper/50 shadow-sm hover:shadow-md'
+        } ${selectedAnswer !== null && !isSelected ? 'opacity-40' : ''} ${
           selectedAnswer !== null ? 'cursor-default' : 'cursor-pointer'
         }`}
       >

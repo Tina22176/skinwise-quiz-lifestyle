@@ -8,8 +8,8 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
   return (
     <div className="relative min-h-screen flex flex-col justify-center">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-rose-whisper rounded-full blur-3xl opacity-40" />
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-lilas-soft rounded-full blur-3xl opacity-30" />
+        <div className="absolute top-20 left-10 w-32 h-32 bg-rose-soft rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-lilas-mid rounded-full blur-3xl opacity-50" />
       </div>
 
       <motion.div
@@ -20,12 +20,12 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
       >
         {/* Badge */}
         <motion.div 
-          className="inline-flex items-center space-x-2 bg-rose-whisper px-4 py-1.5 rounded-full mb-6 border border-rose-soft/40"
+          className="inline-flex items-center space-x-2 bg-primary text-primary-foreground px-4 py-1.5 rounded-full mb-6 shadow-sm"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
         >
-          <span className="text-sm font-medium text-rose-DEFAULT font-body">Diagnostic gratuit</span>
+          <span className="text-sm font-semibold font-body">Diagnostic gratuit</span>
         </motion.div>
 
         {/* Titre */}
@@ -35,16 +35,16 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <span className="text-primary">
+          <span className="text-violet-deep">
             Tu connais vraiment
           </span>
           <br />
-          <span className="text-foreground">ta peau ?</span>
+          <span className="text-primary">ta peau ?</span>
         </motion.h1>
 
         {/* Sous-titre */}
         <motion.p
-          className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-lg mx-auto leading-relaxed font-body"
+          className="text-lg sm:text-xl text-foreground/70 mb-8 max-w-lg mx-auto leading-relaxed font-body"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}

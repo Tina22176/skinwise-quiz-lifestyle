@@ -91,7 +91,7 @@ export default {
         sm: "0 1px 3px rgba(61, 43, 69, 0.05), 0 1px 2px rgba(61, 43, 69, 0.06)",
         md: "0 4px 14px rgba(61, 43, 69, 0.06), 0 2px 4px rgba(61, 43, 69, 0.04)",
         lg: "0 12px 32px rgba(61, 43, 69, 0.08), 0 4px 8px rgba(61, 43, 69, 0.04)",
-        glow: "0 8px 30px rgba(212, 100, 154, 0.20), 0 2px 8px rgba(212, 100, 154, 0.10)",
+        glow: "0 8px 30px rgba(196, 75, 133, 0.30), 0 2px 8px rgba(196, 75, 133, 0.15)",
       },
       keyframes: {
         "fade-up": {

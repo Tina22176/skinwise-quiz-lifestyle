@@ -106,11 +106,11 @@ export const EnhancedQuizQuestion = () => {
         transition={{ delay: 0.1, duration: 0.4 }}
         className="text-center mb-8"
       >
-        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-primary mb-2">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-violet-deep mb-2">
           {currentQuestion.question}
         </h2>
         {currentQuestion.subtitle && (
-          <p className="text-base text-muted-foreground font-body">
+          <p className="text-base text-foreground/70 font-body">
             {currentQuestion.subtitle}
           </p>
         )}
