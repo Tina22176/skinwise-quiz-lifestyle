@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useQuiz, getSkinTypeFormatted } from "../QuizContext";
 import { getSkinTypeText, getSkinTypeDetails } from "./utils/SkinTypeDetails";
-import { useKlaviyoIntegration } from "./hooks/useKlaviyoIntegration";
+import { useBrevoIntegration } from "./hooks/useBrevoIntegration";
 
 export const useEmailSubscription = () => {
   const { state, dispatch } = useQuiz();
@@ -13,7 +13,7 @@ export const useEmailSubscription = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
   const { toast } = useToast();
-  const { subscribeToNewsletter } = useKlaviyoIntegration();
+  const { subscribeToNewsletter } = useBrevoIntegration();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,8 +56,8 @@ export const useEmailSubscription = () => {
         confidence: state.hormoneProfile?.confidence
       });
 
-      // Envoi à Klaviyo avec toutes les données
-      const klaviyoResult = await subscribeToNewsletter(
+      // Envoi à Brevo avec toutes les données
+      const brevoResult = await subscribeToNewsletter(
         email,
         firstName,
         skinType,
@@ -67,14 +67,14 @@ export const useEmailSubscription = () => {
         concerns
       );
 
-      if (klaviyoResult.success) {
-        console.log("✅ KLAVIYO SUCCESS:", klaviyoResult);
+      if (brevoResult.success) {
+        console.log("✅ BREVO SUCCESS:", brevoResult);
         toast({
           title: "Parfait ! 💝",
           description: "Ta routine personnalisée arrive bientôt dans ta boîte mail 💌",
         });
       } else {
-        console.warn("⚠️ KLAVIYO WARNING:", klaviyoResult.error);
+        console.warn("⚠️ BREVO WARNING:", brevoResult.error);
         // On continue quand même pour l'utilisateur
         toast({
           title: "Données sauvegardées ! 💝",
