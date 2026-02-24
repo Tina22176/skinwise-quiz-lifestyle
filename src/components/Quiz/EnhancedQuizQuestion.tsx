@@ -9,7 +9,7 @@ import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
 import { DynamicQuestionEngine } from "./utils/dynamicQuestionEngine";
 import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
 import { motivationalTexts } from "./constants/quizTexts";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export const EnhancedQuizQuestion = () => {
   const { state, dispatch } = useQuiz();
@@ -78,13 +78,28 @@ export const EnhancedQuizQuestion = () => {
       exit="exit"
       className="max-w-2xl mx-auto px-6 sm:px-8 py-6 sm:py-8"
     >
+      {state.currentQuestion > 0 && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => {
+            dispatch({ type: "PREV_QUESTION" });
+            setSelectedAnswer(null);
+            setShowNextQuestion(false);
+          }}
+          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-4"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Retour</span>
+        </motion.button>
+      )}
+
       <QuizProgressBar 
         currentQuestion={state.currentQuestion} 
         totalQuestions={dynamicList.length}
         motivationalTexts={motivationalTexts}
       />
 
-      {/* Display text (conversationnel) */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -94,6 +109,11 @@ export const EnhancedQuizQuestion = () => {
         <h2 className="font-heading text-2xl sm:text-3xl font-bold text-primary mb-2">
           {currentQuestion.question}
         </h2>
+        {currentQuestion.subtitle && (
+          <p className="text-base text-muted-foreground font-body">
+            {currentQuestion.subtitle}
+          </p>
+        )}
       </motion.div>
 
       <DynamicQuestionDisplay

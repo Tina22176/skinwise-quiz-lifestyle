@@ -30,6 +30,7 @@ export type QuizAction =
   | { type: "SET_CONFIDENCE"; payload: number }
   | { type: "SET_PERSONALIZATION_LEVEL"; payload: 'basic' | 'intermediate' | 'advanced' }
   | { type: "ADD_DYNAMIC_QUESTION"; payload: string }
+  | { type: "PREV_QUESTION" }
   | { type: "RESET_QUIZ" };
 
 export type QuizContextType = {

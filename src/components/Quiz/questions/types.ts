@@ -8,5 +8,6 @@ export interface QuizOption {
 export interface QuizQuestion {
   id: string;
   question: string;
+  subtitle?: string;
   options: QuizOption[];
 }
