@@ -4,38 +4,38 @@
 
 @layer base {
   :root {
-    /* ═══ FONDATIONS ═══ */
-    --background:          330 15% 97%;
-    --foreground:          280 25% 12%;
+    /* ═══ FONDATIONS — from mockup reference ═══ */
+    --background:          270 40% 97%;    /* #F8F3FC — lavender-tinted */
+    --foreground:          282 20% 17%;    /* #2E2233 */
 
     /* ═══ ROSE MAJOLIEPEAU ═══ */
-    --primary:             340 65% 58%;
+    --primary:             340 65% 58%;    /* #D4649A — vrai rose */
     --primary-foreground:  0 0% 100%;
 
     /* ═══ SURFACES ═══ */
-    --secondary:           330 18% 95%;
-    --muted:               330 18% 94%;
-    --muted-foreground:    280 12% 42%;
-    --accent:              330 22% 92%;
-    --accent-foreground:   280 35% 30%;
+    --secondary:           280 20% 93%;    /* #F0EAF3 — lineSoft */
+    --muted:               280 18% 90%;    /* close to #E6DCE9 */
+    --muted-foreground:    275 10% 40%;    /* #665A70 */
+    --accent:              280 20% 93%;    /* #F0EAF3 */
+    --accent-foreground:   282 20% 17%;   /* same as foreground */
 
     /* ═══ FONCTIONNELS ═══ */
     --destructive:         0 65% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border:              330 15% 88%;
-    --input:               330 15% 88%;
+    --border:              286 18% 89%;    /* #E6DCE9 */
+    --input:               280 20% 93%;    /* #F0EAF3 — lineSoft */
     --ring:                340 65% 58%;
 
     /* ═══ RADIUS ═══ */
     --radius:              0.875rem;
 
     /* ═══ CARDS ═══ */
-    --card:                330 20% 99.5%;
-    --card-foreground:     280 25% 12%;
+    --card:                0 0% 100%;      /* pure white #FFFFFF */
+    --card-foreground:     282 20% 17%;
 
     /* ═══ POPOVER ═══ */
     --popover:             0 0% 100%;
-    --popover-foreground:  280 25% 12%;
+    --popover-foreground:  282 20% 17%;
   }
 
   body {

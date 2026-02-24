@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, Wand2 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export const ResultsLoading = () => {
   return (
@@ -12,44 +12,40 @@ export const ResultsLoading = () => {
     >
       <div className="relative">
         <motion.div
-          className="absolute inset-0 rounded-full bg-rose-whisper blur-xl"
+          className="absolute inset-0 rounded-full bg-secondary blur-xl"
           animate={{ scale: [1, 1.3], opacity: [0.4, 0.7] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          animate={{ rotate: 360, scale: [1, 1.1] }}
-          transition={{ 
-            rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-            scale: { duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
-          }}
-          className="relative w-20 h-20 flex items-center justify-center"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="relative w-16 h-16 flex items-center justify-center"
         >
-          <Sparkles className="absolute w-24 h-24 text-rose-soft animate-pulse" />
-          <Wand2 className="w-16 h-16 text-primary z-10" />
+          <Sparkles className="w-10 h-10 text-primary" />
         </motion.div>
       </div>
       
-      <div className="space-y-4 text-center">
+      <div className="space-y-3 text-center">
         <motion.p 
-          className="font-heading text-xl font-semibold text-violet-deep"
+          className="font-heading text-xl font-semibold text-foreground"
           animate={{ opacity: [0.5, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
           Analyse en cours...
         </motion.p>
-        <p className="text-base text-center text-muted-foreground max-w-md font-body">
-          Ton diagnostic personnalisé arrive...
+        <p className="text-sm text-muted-foreground font-body">
+          Ton diagnostic personnalisé arrive
         </p>
       </div>
       
       <motion.div 
-        className="w-64 h-2 bg-lilas-soft rounded-full overflow-hidden mt-6"
+        className="w-48 h-1.5 bg-secondary rounded-full overflow-hidden mt-4"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
         <motion.div 
-          className="h-full bg-gradient-to-r from-rose-DEFAULT to-rose-bright"
+          className="h-full bg-primary rounded-full"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: 2.2, ease: "easeInOut" }}
