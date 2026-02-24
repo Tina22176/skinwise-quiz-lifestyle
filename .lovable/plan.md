@@ -1,93 +1,98 @@
 
 
-# Plan : Sous-titres manquants + Bouton retour
+# Plan : Refonte visuelle — Contraste, hierarchie & modernite
 
-## Probleme 1 — Sous-titres manquants
+## Diagnostic
 
-Actuellement le type `QuizQuestion` n'a qu'un seul champ `question` qui sert de titre d'affichage (la phrase conversationnelle). Mais la spec prevoit **deux lignes** :
-- **display** : phrase conversationnelle ("On commence doucement", "On en parle sans tabou.")
-- **subtitle** : la vraie question ("Tu as quel age ?", "Tes boutons, c'est quoi le schema ?")
+La capture d'ecran confirme le probleme : tout est pale rose sur fond quasi-blanc. Voici les causes precises :
 
-Sans le sous-titre, certaines questions n'ont aucun sens (ex: "On en parle sans tabou." suivi directement des reponses sur les boutons).
+| Probleme | Cause dans le code |
+|----------|-------------------|
+| Titre "Tu connais vraiment" quasi invisible | `text-primary` = rose pastel (330 50% 62%) sur fond blanc |
+| Sous-titre a peine lisible | `text-muted-foreground` = gris tres clair (280 10% 55%) |
+| Badge "Diagnostic gratuit" se confond avec le fond | `bg-rose-whisper` (#FBEAF2) sur fond #FBF7F8 — quasi identique |
+| Fond monotone | `from-pink-50/30 via-white to-pink-50/20` = tout est blanc |
+| Pas de hierarchie | Titre rose + sous-titre gris + corps gris = tout se ressemble |
+| Image ne charge pas | L'image est la mais le placeholder coeur disparait, l'image met du temps |
+| Header fade | `text-pink-600/80` avec opacite = delave |
 
-### Correspondance spec :
+## Solution
 
-| Question | Display (actuel `question`) | Subtitle (manquant) |
-|----------|---------------------------|---------------------|
-| Q1 age | "On commence doucement" | "Tu as quel age ?" |
-| Q2 skin | "Si ta peau pouvait parler..." | "Ta peau au quotidien ?" |
-| Q3 boutons | "On en parle sans tabou." | "Tes boutons, c'est quoi le schema ?" |
-| Q4 stress | "Quand la pression monte..." | "Ta peau et le stress" |
-| Q5 cycle | "Pas de jugement, c'est entre nous." | "Ton cycle, il te complique la vie ?" |
-| Q6 energie | "Derniere question, promis." | "Ton energie en ce moment" |
+### 1. Tokens CSS plus contrastes (`src/index.css`)
 
-### Modifications :
+Renforcer les contrastes sans changer la palette :
 
-**Fichier `src/components/Quiz/questions/types.ts`**
-- Ajouter un champ optionnel `subtitle?: string` au type `QuizQuestion`
+```text
+Avant                              Apres
+--foreground: 280 20% 17%    -->   280 25% 12%  (plus fonce, #1E1525)
+--muted-foreground: 280 10% 55%   -->  280 12% 42%  (lisible, #6B5B73)
+--primary: 330 50% 62%       -->   330 55% 52%  (rose plus intense, #C44B85)
+--accent-foreground: 280 30% 40%  -->  280 35% 30%  (violet profond)
+```
 
-**Fichier `src/components/Quiz/questions/hormonalQuestions.ts`**
-- Ajouter le `subtitle` a chaque question
+### 2. Page Index (`src/pages/Index.tsx`)
 
-**Fichier `src/components/Quiz/EnhancedQuizQuestion.tsx`**
-- Afficher le `subtitle` sous le titre principal (en texte plus petit, style `text-muted-foreground`)
+- Remplacer le fond `from-pink-50/30 via-white` par un vrai gradient visible : `from-rose-whisper via-background to-lilas-whisper`
+- Header : couleurs pleines au lieu de `text-pink-600/80`
+- Particules : plus visibles (`bg-rose-soft/50` au lieu de `bg-pink-200/30`)
+- Footer : bordure et textes plus contrastes
+
+### 3. Welcome page (`src/components/Quiz/Welcome.tsx`)
+
+- Titre : **"Tu connais vraiment"** en `text-violet-deep` (fonce) au lieu de `text-primary` (rose clair). **"ta peau ?"** en `text-primary` (rose) = hierarchie claire
+- Sous-titre : `text-foreground/70` au lieu de `text-muted-foreground`
+- Badge : `bg-primary text-white` au lieu de `bg-rose-whisper text-rose` (invisible)
+- CTA : ajouter une ombre glow plus forte + padding plus genereux
+- Blobs decoratifs : opacite plus haute (60-50% au lieu de 40-30%)
+
+### 4. Quiz questions (`src/components/Quiz/EnhancedQuizQuestion.tsx`)
+
+- Titre question (display) : `text-violet-deep` au lieu de `text-primary` — le titre doit etre fonce et lisible
+- Sous-titre : `text-foreground/70` au lieu de `text-muted-foreground`
+
+### 5. Options de reponse (`src/components/Quiz/EnhancedAnswerOption.tsx`)
+
+- Bordure au repos : `border-border/80` avec une legere ombre
+- Hover : `border-primary` (pas juste `border-rose-soft`) + `bg-rose-whisper/50`
+- Texte : `text-foreground` (deja OK mais s'assurer du contraste)
+
+### 6. Progress bar (`src/components/Quiz/QuizProgressBar.tsx`)
+
+- Fond barre : `bg-muted` au lieu de `bg-lilas-soft` (trop proche du fond)
+- Texte : deja OK
+
+### 7. Email capture (`src/components/Quiz/Results/components/EmailCaptureScreen.tsx`)
+
+- Fond : gradient subtil au lieu de `bg-background` plat
+- Titre : `text-violet-deep` pour le contraste
+- Inputs : bordure plus visible
+
+### 8. Results page (`src/components/Quiz/Results/components/SimpleHormoneResults.tsx`)
+
+- Cards : ajouter `shadow-md` au lieu de `shadow-sm` — plus de relief
+- Section programme : `bg-gradient-to-br from-lilas-whisper to-rose-whisper` au lieu de `bg-lilas-whisper` plat
+- Numeros des gestes : `bg-primary text-white` au lieu de `bg-rose-whisper text-primary`
+
+### 9. Loading screen (`src/components/Quiz/Results/ResultsLoading.tsx`)
+
+- Titre plus visible : `text-violet-deep` au lieu de `text-primary`
 
 ---
 
-## Probleme 2 — Bouton retour a la question precedente
+## Recapitulatif des fichiers modifies (9 fichiers)
 
-Actuellement il n'y a **aucun moyen** de revenir en arriere. L'auto-avance apres selection (800ms + 400ms) rend impossible la correction d'une erreur.
+1. `src/index.css` — tokens CSS plus contrastes
+2. `tailwind.config.ts` — shadow-glow plus fort
+3. `src/pages/Index.tsx` — fond gradient, header, particules, footer
+4. `src/components/Quiz/Welcome.tsx` — hierarchie titre, badge, CTA
+5. `src/components/Quiz/EnhancedQuizQuestion.tsx` — couleurs titres
+6. `src/components/Quiz/EnhancedAnswerOption.tsx` — bordures et hover
+7. `src/components/Quiz/QuizProgressBar.tsx` — fond barre
+8. `src/components/Quiz/Results/components/EmailCaptureScreen.tsx` — fond + titres
+9. `src/components/Quiz/Results/components/SimpleHormoneResults.tsx` — cards, relief, numeros
+10. `src/components/Quiz/Results/ResultsLoading.tsx` — couleur titre
 
-### Modifications :
+## Principe directeur
 
-**Fichier `src/components/Quiz/types/quizTypes.ts`**
-- Ajouter l'action `PREV_QUESTION` au type `QuizAction`
-
-**Fichier `src/components/Quiz/reducers/quizReducer.ts`**
-- Ajouter le case `PREV_QUESTION` qui decremente `currentQuestion` (minimum 0)
-
-**Fichier `src/components/Quiz/EnhancedQuizQuestion.tsx`**
-- Ajouter un bouton "Retour" (fleche gauche + texte) en haut a gauche, visible uniquement si `currentQuestion > 0`
-- Au clic : `dispatch({ type: "PREV_QUESTION" })` et reset de `selectedAnswer`
-
----
-
-## Details techniques
-
-### Type mis a jour
-
-```text
-QuizQuestion {
-  id: string
-  question: string       // phrase conversationnelle (display)
-  subtitle?: string      // vraie question explicative
-  options: QuizOption[]
-}
-```
-
-### Bouton retour — placement
-
-```text
-+----------------------------------------------+
-|  <- Retour          Question 3/6        75%  |
-|  ============ barre progression ============ |
-|                                              |
-|       "On en parle sans tabou."              |
-|    "Tes boutons, c'est quoi le schema ?"     |
-|                                              |
-|  [ Option 1 ]                                |
-|  [ Option 2 ]                                |
-|  [ Option 3 ]                                |
-+----------------------------------------------+
-```
-
-Le bouton retour est discret (icone + texte petit) et n'apparait pas sur la premiere question.
-
-### Fichiers modifies (5 fichiers)
-
-1. `src/components/Quiz/questions/types.ts` — ajout `subtitle`
-2. `src/components/Quiz/questions/hormonalQuestions.ts` — ajout des sous-titres
-3. `src/components/Quiz/EnhancedQuizQuestion.tsx` — affichage subtitle + bouton retour
-4. `src/components/Quiz/types/quizTypes.ts` — ajout action `PREV_QUESTION`
-5. `src/components/Quiz/reducers/quizReducer.ts` — handler `PREV_QUESTION`
+On ne change PAS la palette Majoliepeau. On renforce les contrastes, on cree de la hierarchie (fonce pour les titres, rose pour les accents, gris moyen pour le secondaire), et on ajoute du relief (ombres, gradients) pour que la page ait de la profondeur au lieu d'etre plate.
 
