@@ -1,4 +1,4 @@
-// Hormone Profile Calculator - New system based on hormonal imbalances
+// Hormone Profile Calculator v2 — 5 profiles scoring system
 
 export interface HormoneProfile {
   type: string;
@@ -10,415 +10,171 @@ export interface HormoneProfile {
   lifestyle: string[];
 }
 
-// Scoring matrix based on the provided specification
+// 5 profiles: réactive, fatiguée, controlleuse, cyclique, caméléon
+const PROFILES = [
+  "réactive_pression",
+  "fatiguée_survie",
+  "controlleuse_débordée",
+  "cyclique_subit",
+  "sensible_caméléon"
+] as const;
+
+// Scoring matrix v2 — based on spec
 const HORMONE_SCORING_MATRIX: Record<string, Record<string, Record<string, number>>> = {
-  "age_range": {
-    "moins_25": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 0,
-      "sensible_caméléon": 1
+  // Q1 — age (no scoring impact per spec, but kept for data)
+  // Q2 — skin_daily
+  "skin_daily": {
+    "brille": {
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 2, "cyclique_subit": 0, "sensible_caméléon": 0
     },
-    "25_35": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 3,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
+    "soif": {
+      "réactive_pression": 0, "fatiguée_survie": 2, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     },
-    "35_45": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 2,
-      "sensible_caméléon": 3
+    "touche_pas": {
+      "réactive_pression": 2, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     },
-    "45_plus": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 3,
-      "cyclique_congestionnée": 0,
-      "brillante_déséquilibrée": 0,
-      "sèche_instable": 3,
-      "sensible_caméléon": 2
-    }
-  },
-  "skin_current_state": {
-    "grasse_brillante": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 0,
-      "sensible_caméléon": 1
-    },
-    "seche_tiraille": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 0,
-      "brillante_déséquilibrée": 0,
-      "sèche_instable": 3,
-      "sensible_caméléon": 2
-    },
-    "reactive": {
-      "stressée_inflammée": 3,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 0,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "mixte_imperfections": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
+    "indecise": {
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 1, "cyclique_subit": 1, "sensible_caméléon": 0
     },
     "changeante": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 2,
-      "sensible_caméléon": 3
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 2
     }
   },
-  "zone_t_condition": {
-    "peu_grasse": {
-      "stressée_inflammée": 0,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 0,
-      "sensible_caméléon": 1
-    },
-    "tres_grasse": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 0,
-      "sensible_caméléon": 1
-    },
-    "grasse_boutons": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 0,
-      "sensible_caméléon": 2
-    }
-  },
+  // Q3 — boutons_pattern
   "boutons_pattern": {
     "avant_regles": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 3,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 0,
-      "sensible_caméléon": 2
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 2, "sensible_caméléon": 0
     },
-    "tout_temps": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 0,
-      "sensible_caméléon": 1
+    "permanents": {
+      "réactive_pression": 1, "fatiguée_survie": 0, "controlleuse_débordée": 1, "cyclique_subit": 0, "sensible_caméléon": 0
     },
-    "stress": {
-      "stressée_inflammée": 3,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 0,
-      "sensible_caméléon": 2
-    },
-    "rarement": {
-      "stressée_inflammée": 0,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 0,
-      "brillante_déséquilibrée": 0,
-      "sèche_instable": 2,
-      "sensible_caméléon": 1
+    "stress_fatigue": {
+      "réactive_pression": 2, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     },
     "microkystes": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 0,
-      "sensible_caméléon": 1
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 2, "sensible_caméléon": 0
+    },
+    "pas_souci": {
+      "réactive_pression": 0, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     }
   },
-  "cycle_menstruel": {
+  // Q4 — skin_stress
+  "skin_stress": {
+    "explose": {
+      "réactive_pression": 2, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
+    },
+    "rougit": {
+      "réactive_pression": 1, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 1
+    },
+    "ternit": {
+      "réactive_pression": 0, "fatiguée_survie": 2, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
+    },
+    "hypersensible": {
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 2
+    },
+    "rien": {
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 1, "cyclique_subit": 0, "sensible_caméléon": 0
+    }
+  },
+  // Q5 — cycle
+  "cycle": {
     "regulier": {
-      "stressée_inflammée": 0,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 0,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 1,
-      "sensible_caméléon": 0
+      "réactive_pression": 0, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     },
     "irregulier": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 2, "sensible_caméléon": 0
     },
-    "spm_fort": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 3,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
+    "spm": {
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 2, "sensible_caméléon": 0
     },
     "contraceptif": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 1,
-      "sensible_caméléon": 1
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 1, "cyclique_subit": 0, "sensible_caméléon": 1
     },
-    "regles_douloureuses": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 3,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "arret_regles": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 3,
-      "cyclique_congestionnée": 0,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 3,
-      "sensible_caméléon": 1
+    "plus_cycle": {
+      "réactive_pression": 0, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 1
     }
   },
-  "energie_quotidienne": {
-    "reveil_fatigue": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 3,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 2,
-      "sensible_caméléon": 2
+  // Q6 — energie
+  "energie": {
+    "fatiguee_reveil": {
+      "réactive_pression": 0, "fatiguée_survie": 2, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     },
-    "pics_chutes": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 3
+    "coups_barre": {
+      "réactive_pression": 0, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 1, "sensible_caméléon": 0
     },
-    "stresse": {
-      "stressée_inflammée": 3,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
+    "speed": {
+      "réactive_pression": 2, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     },
     "stable": {
-      "stressée_inflammée": 0,
-      "fatiguée_tension": 0,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 1,
-      "sensible_caméléon": 0
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 1, "cyclique_subit": 0, "sensible_caméléon": 0
     },
-    "epuisee": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 3,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 2,
-      "sensible_caméléon": 2
-    }
-  },
-  "reaction_stress": {
-    "eruptions": {
-      "stressée_inflammée": 3,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 0,
-      "sensible_caméléon": 2
-    },
-    "rougeurs": {
-      "stressée_inflammée": 3,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 0,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "terne": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 3,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 2,
-      "sensible_caméléon": 1
-    },
-    "pas_reaction": {
-      "stressée_inflammée": 0,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 1,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 1,
-      "sensible_caméléon": 0
-    },
-    "sensible": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 2,
-      "sensible_caméléon": 3
-    }
-  },
-  "symptomes_associes": {
-    "fringales": {
-      "stressée_inflammée": 2,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 3,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "maux_tete": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 3,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "envie_pleurer": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 1,
-      "cyclique_congestionnée": 3,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "insomnies": {
-      "stressée_inflammée": 3,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 1,
-      "sèche_instable": 1,
-      "sensible_caméléon": 2
-    },
-    "ballonnements": {
-      "stressée_inflammée": 1,
-      "fatiguée_tension": 2,
-      "cyclique_congestionnée": 2,
-      "brillante_déséquilibrée": 2,
-      "sèche_instable": 3,
-      "sensible_caméléon": 2
+    "dort_mal": {
+      "réactive_pression": 1, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
     }
   }
 };
 
+// Tie-breaking priority: Réactive > Cyclique > Fatiguée > Caméléon > Controlleuse
+const PRIORITY_ORDER = [
+  "réactive_pression",
+  "cyclique_subit",
+  "fatiguée_survie",
+  "sensible_caméléon",
+  "controlleuse_débordée"
+];
+
 export const calculateHormoneProfile = (answers: Record<string, string>): HormoneProfile => {
-  console.log("🧬 CALCUL PROFIL HORMONAL - Réponses reçues:", answers);
-  
-  // Initialize scores for each hormone profile
+  console.log("🧬 CALCUL PROFIL v2 — Réponses:", answers);
+
   const profileScores: Record<string, number> = {
-    "stressée_inflammée": 0,
-    "fatiguée_tension": 0,
-    "cyclique_congestionnée": 0,
-    "brillante_déséquilibrée": 0,
-    "sèche_instable": 0,
+    "réactive_pression": 0,
+    "fatiguée_survie": 0,
+    "controlleuse_débordée": 0,
+    "cyclique_subit": 0,
     "sensible_caméléon": 0
   };
 
-  // Calculate scores based on answers
+  // Calculate scores
   Object.entries(answers).forEach(([questionId, answer]) => {
     const questionMatrix = HORMONE_SCORING_MATRIX[questionId];
     if (questionMatrix && questionMatrix[answer]) {
-      const answerScores = questionMatrix[answer];
-      Object.entries(answerScores).forEach(([profile, score]) => {
+      Object.entries(questionMatrix[answer]).forEach(([profile, score]) => {
         profileScores[profile] += score;
-        console.log(`📋 Question: ${questionId}, Réponse: "${answer}", Profile: ${profile}, Score: +${score}`);
       });
     }
   });
 
-  console.log("\n🧬 SCORES FINAUX PAR PROFIL:", profileScores);
+  console.log("🧬 SCORES FINAUX:", profileScores);
 
-  // Special rules handling
-  const hasContraceptive = answers.cycle_menstruel === "contraceptif";
-  const hasMenopause = answers.cycle_menstruel === "arret_regles";
-  
-  if (hasContraceptive) {
-    // Reduce cycle-related scores by 50% for contraceptive users
-    profileScores["cyclique_congestionnée"] *= 0.5;
-    console.log("⚠️ Contraceptif détecté - score cyclique réduit de 50%");
-  }
-  
-  if (hasMenopause) {
-    // Bonus for fatigue and dryness profiles
-    profileScores["fatiguée_tension"] += 2;
-    profileScores["sèche_instable"] += 2;
-    console.log("⚠️ Ménopause détectée - bonus fatigue et sèche");
-  }
-
-  // Determine winning profile
+  // Sort and find winner
   const sortedProfiles = Object.entries(profileScores).sort(([,a], [,b]) => b - a);
-  const [winningProfile, winningScore] = sortedProfiles[0];
+  const [topProfile, topScore] = sortedProfiles[0];
   const [secondProfile, secondScore] = sortedProfiles[1];
 
-  console.log(`\n🏆 PROFIL GAGNANT: ${winningProfile} (${winningScore} pts)`);
-  console.log(`🥈 SECOND: ${secondProfile} (${secondScore} pts)`);
-
-  // Handle ties with hybrid profiles
-  let finalProfile = winningProfile;
-  if (Math.abs(winningScore - secondScore) <= 1 && winningScore > 0) {
-    console.log("⚖️ Égalité détectée - profil hybride possible");
-    // Priority order: stress > cycle > fatigue
-    const priorityOrder = ["stressée_inflammée", "cyclique_congestionnée", "fatiguée_tension"];
-    for (const priority of priorityOrder) {
-      if ([winningProfile, secondProfile].includes(priority)) {
+  // Handle ties with priority order
+  let finalProfile = topProfile;
+  if (topScore === secondScore && topScore > 0) {
+    // Find highest priority among tied profiles
+    const tiedProfiles = sortedProfiles.filter(([, s]) => s === topScore).map(([p]) => p);
+    for (const priority of PRIORITY_ORDER) {
+      if (tiedProfiles.includes(priority)) {
         finalProfile = priority;
         break;
       }
     }
   }
 
-  // Calculate confidence based on score distribution
-  const totalQuestions = Object.keys(answers).length;
-  const maxPossibleScore = totalQuestions * 3;
-  const actualScore = winningScore;
-  const scoreSpread = winningScore - secondScore;
-  
-  let confidence = Math.min(0.95, (actualScore / maxPossibleScore) * 0.7 + (scoreSpread / maxPossibleScore) * 0.3);
-  
-  // Minimum confidence floor
-  if (confidence < 0.6) confidence = 0.6;
+  // Calculate confidence
+  const totalScore = Object.values(profileScores).reduce((a, b) => a + b, 0);
+  const confidence = totalScore > 0 
+    ? Math.min(0.95, Math.max(0.6, topScore / totalScore + (topScore - secondScore) * 0.1))
+    : 0.6;
 
-  console.log(`\n📊 DIAGNOSTIC FINAL:`);
-  console.log(`   Profil: ${finalProfile}`);
-  console.log(`   Score: ${winningScore}/${maxPossibleScore}`);
-  console.log(`   Confiance: ${(confidence * 100).toFixed(1)}%`);
+  console.log(`🏆 PROFIL: ${finalProfile} (${topScore} pts, confiance: ${(confidence * 100).toFixed(0)}%)`);
 
   return {
     type: finalProfile,
-    score: winningScore,
+    score: topScore,
     confidence,
     characteristics: getProfileCharacteristics(finalProfile),
     concerns: getProfileConcerns(finalProfile),
@@ -428,143 +184,45 @@ export const calculateHormoneProfile = (answers: Record<string, string>): Hormon
 };
 
 const getProfileCharacteristics = (profile: string): string[] => {
-  const characteristics: Record<string, string[]> = {
-    "stressée_inflammée": [
-      "Peau réactive aux stimuli externes",
-      "Rougeurs fréquentes ou localisées",
-      "Éruptions en période de stress",
-      "Sensibilité accrue aux produits",
-      "Inflammation cutanée récurrente"
-    ],
-    "fatiguée_tension": [
-      "Peau terne et manquant d'éclat",
-      "Texture relâchée ou affaissée",
-      "Cernes marqués persistants",
-      "Récupération cutanée lente",
-      "Signes de fatigue visible"
-    ],
-    "cyclique_congestionnée": [
-      "Boutons pré-menstruels récurrents",
-      "Microkystes sur certaines zones",
-      "Variations selon le cycle",
-      "Congestion cutanée périodique",
-      "Inflammation hormonale cyclique"
-    ],
-    "brillante_déséquilibrée": [
-      "Production excessive de sébum",
-      "Pores dilatés visibles",
-      "Imperfections chroniques",
-      "Brillance persistante",
-      "Texture irrégulière"
-    ],
-    "sèche_instable": [
-      "Déshydratation chronique",
-      "Tiraillements fréquents",
-      "Inconfort cutané",
-      "Barrière cutanée fragilisée",
-      "Manque d'élasticité"
-    ],
-    "sensible_caméléon": [
-      "Réactivité cutanée variable",
-      "Sensibilité selon les conditions",
-      "Changements fréquents d'état",
-      "Imprévisibilité des réactions",
-      "Adaptation difficile aux produits"
-    ]
+  const map: Record<string, string[]> = {
+    "réactive_pression": ["Peau baromètre du stress", "Boutons et rougeurs sous pression", "Inflammation récurrente"],
+    "fatiguée_survie": ["Teint terne et cernes", "Traits tirés", "Peau en mode économie"],
+    "controlleuse_débordée": ["Trop de produits", "Routine instable", "Peau perturbée"],
+    "cyclique_subit": ["Variations selon le cycle", "Boutons pré-menstruels", "Imprévisibilité mensuelle"],
+    "sensible_caméléon": ["Réactivité imprévisible", "Sensibilité variable", "Peau changeante"]
   };
-  
-  return characteristics[profile] || [];
+  return map[profile] || [];
 };
 
 const getProfileConcerns = (profile: string): string[] => {
-  const concerns: Record<string, string[]> = {
-    "stressée_inflammée": [
-      "Gestion de l'inflammation",
-      "Apaisement des rougeurs",
-      "Réduction du stress oxydatif",
-      "Renforcement de la barrière cutanée"
-    ],
-    "fatiguée_tension": [
-      "Stimulation de l'éclat",
-      "Amélioration de la fermeté",
-      "Réduction des signes de fatigue",
-      "Boost énergétique cellulaire"
-    ],
-    "cyclique_congestionnée": [
-      "Régulation hormonale",
-      "Prévention des éruptions",
-      "Équilibre du cycle cutané",
-      "Réduction des microkystes"
-    ],
-    "brillante_déséquilibrée": [
-      "Contrôle du sébum",
-      "Resserrement des pores",
-      "Prévention des imperfections",
-      "Matification durable"
-    ],
-    "sèche_instable": [
-      "Hydratation intensive",
-      "Réparation de la barrière",
-      "Apaisement des tiraillements",
-      "Restauration de l'équilibre"
-    ],
-    "sensible_caméléon": [
-      "Stabilisation de la sensibilité",
-      "Adaptation aux variations",
-      "Renforcement de la tolérance",
-      "Harmonisation de l'état cutané"
-    ]
+  const map: Record<string, string[]> = {
+    "réactive_pression": ["Calmer l'inflammation", "Simplifier la routine", "Gérer le stress cutané"],
+    "fatiguée_survie": ["Retrouver l'éclat", "Hydrater en profondeur", "Routine ultra-simple"],
+    "controlleuse_débordée": ["Reset produits", "Stabilité de routine", "Patience et observation"],
+    "cyclique_subit": ["Anticiper les phases", "Adapter la routine au cycle", "Prévenir les éruptions"],
+    "sensible_caméléon": ["Apprendre à lire sa peau", "Constance et douceur", "Identifier les triggers"]
   };
-  
-  return concerns[profile] || [];
+  return map[profile] || [];
 };
 
 const getHormonalPattern = (profile: string): string => {
-  const patterns: Record<string, string> = {
-    "stressée_inflammée": "Cortisol chroniquement élevé",
-    "fatiguée_tension": "Cortisol bas / Fatigue surrénalienne",
-    "cyclique_congestionnée": "Progestérone faible / Œstrogènes en dents de scie",
-    "brillante_déséquilibrée": "Androgènes élevés (style SOPK)",
-    "sèche_instable": "Baisse d'œstrogènes / Déséquilibre thyroïdien",
-    "sensible_caméléon": "Terrain instable + Sensibilité hormonale forte"
+  const map: Record<string, string> = {
+    "réactive_pression": "Cortisol élevé → inflammation cutanée",
+    "fatiguée_survie": "Épuisement surrénalien → peau en mode économie",
+    "controlleuse_débordée": "Sur-stimulation cutanée → barrière fragilisée",
+    "cyclique_subit": "Fluctuations hormonales cycliques → peau en montagnes russes",
+    "sensible_caméléon": "Hypersensibilité neuro-cutanée → réactions imprévisibles"
   };
-  
-  return patterns[profile] || "Pattern hormonal non identifié";
+  return map[profile] || "";
 };
 
 const getLifestyleRecommendations = (profile: string): string[] => {
-  const recommendations: Record<string, string[]> = {
-    "stressée_inflammée": [
-      "Techniques de gestion du stress (méditation, yoga)",
-      "Éviter les stimulants (caféine excessive)",
-      "Privilégier les oméga-3 anti-inflammatoires"
-    ],
-    "fatiguée_tension": [
-      "Optimiser le sommeil (7-8h minimum)",
-      "Intégrer des adaptogènes (ashwagandha, rhodiola)",
-      "Réduire l'exposition aux écrans le soir"
-    ],
-    "cyclique_congestionnée": [
-      "Suivre son cycle pour adapter les soins",
-      "Équilibrer les hormones via l'alimentation",
-      "Considérer le gattilier ou l'onagre"
-    ],
-    "brillante_déséquilibrée": [
-      "Réduire les sucres rapides et l'index glycémique",
-      "Intégrer le thé vert et la menthe verte",
-      "Surveiller la résistance à l'insuline"
-    ],
-    "sèche_instable": [
-      "Augmenter les bonnes graisses (avocat, noix)",
-      "Vérifier la fonction thyroïdienne",
-      "Privilégier une hydratation optimale"
-    ],
-    "sensible_caméléon": [
-      "Tenir un journal peau-hormone-stress",
-      "Adapter l'alimentation selon les phases",
-      "Technique de respiration cohérence cardiaque"
-    ]
+  const map: Record<string, string[]> = {
+    "réactive_pression": ["Simplifier à 3 gestes max", "Attendre 48h avant d'ajouter un produit", "3 respirations profondes avant la routine"],
+    "fatiguée_survie": ["Eau fraîche + crème le matin", "Nettoyage doux le soir", "Se coucher 20 min plus tôt"],
+    "controlleuse_débordée": ["Compter tous ses produits", "Garder 3 produits max", "Tenir 2 semaines sans changer"],
+    "cyclique_subit": ["Noter jour du cycle + état peau", "Alléger la routine avant les règles", "Exfolier doucement après les règles"],
+    "sensible_caméléon": ["7 jours nettoyant + hydratant seulement", "Observer sa peau 10s chaque matin", "Noter alimentation, stress, sommeil"]
   };
-  
-  return recommendations[profile] || [];
+  return map[profile] || [];
 };

@@ -53,7 +53,7 @@ export const HormoneResultsWrapper = ({
             {profileDetails.title}
           </h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            {profileDetails.description}
+            {profileDetails.tuEs}
           </p>
         </motion.div>
 
