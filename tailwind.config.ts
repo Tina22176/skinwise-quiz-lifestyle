@@ -56,6 +56,7 @@ export default {
         },
         // Niveaux de texte
         "text-muted": "#9B8FA3",
+        gold: "#C9A87C",
         // Couleurs Majoliepeau
         rose: {
           DEFAULT: "#D4649A",

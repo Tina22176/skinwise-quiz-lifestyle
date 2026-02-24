@@ -14,11 +14,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Header — matches mockup exactly */}
-      <motion.header 
+      <header 
         className="fixed top-0 left-0 right-0 z-50 bg-card border-b border-border"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         style={{ minHeight: '56px' }}
         role="banner"
       >
@@ -32,7 +29,7 @@ const Index = () => {
             <span className="text-muted-foreground">2 min</span>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Floating orbs — decorative */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">

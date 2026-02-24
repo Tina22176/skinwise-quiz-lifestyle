@@ -30,9 +30,9 @@ export const EmailCaptureScreen = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center px-4 py-12"
+      className="min-h-screen flex items-center justify-center px-6 py-12"
     >
-      <div className="max-w-md w-full bg-card rounded-2xl shadow-lg p-8 space-y-6 text-center border border-border">
+      <div className="max-w-[480px] w-full p-8 space-y-6 text-center">
         {/* Icon */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
@@ -65,7 +65,7 @@ export const EmailCaptureScreen = ({
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl outline-none transition-colors"
+            className="w-full font-body text-[15px] py-3.5 px-5 rounded-[12px] outline-none transition-colors"
             style={{
               background: '#F5F0FA',
               border: '1.5px solid #E6DCE9',
@@ -80,7 +80,7 @@ export const EmailCaptureScreen = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl outline-none transition-colors"
+            className="w-full font-body text-[15px] py-3.5 px-5 rounded-[12px] outline-none transition-colors"
             style={{
               background: '#F5F0FA',
               border: '1.5px solid #E6DCE9',

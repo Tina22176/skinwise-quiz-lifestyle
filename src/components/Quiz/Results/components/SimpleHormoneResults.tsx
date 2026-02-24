@@ -36,19 +36,19 @@ export const SimpleHormoneResults = ({
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="px-4 py-8"
+      className="px-6 py-8"
     >
-      <div className="max-w-xl mx-auto space-y-5">
+      <div className="max-w-[480px] mx-auto space-y-5">
         
         {/* Profile header */}
         <motion.div variants={itemVariants} className="text-center">
           <p className="font-body uppercase mb-3" style={{ fontSize: 13, color: '#9B8FA3', letterSpacing: '1.5px' }}>Ton profil peau</p>
           <div className="mb-3 flex justify-center">
             <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: '#F5F0FA' }}>
-              <span className="text-4xl">{profile.emoji}</span>
+              <span className="text-[32px]">{profile.emoji}</span>
             </div>
           </div>
-          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground">
+          <h1 className="font-heading text-[28px] font-bold text-foreground">
             {profile.title}
           </h1>
         </motion.div>
@@ -129,12 +129,12 @@ export const SimpleHormoneResults = ({
             ))}
           </ul>
           <p className="text-sm mt-4 italic font-body" style={{ color: '#9B8FA3' }}>
-            Pas prête ? Pas de souci. Le guide arrive dans ta boîte.
+            Pas prête ? Pas de souci. Le guide arrive dans ta boîte. 💌
           </p>
         </motion.div>
 
         {/* Reset */}
-        <motion.div variants={itemVariants} className="text-center pb-8">
+        <motion.div variants={itemVariants} className="text-center pb-4">
           <button
             onClick={onResetQuiz}
             className="hover:text-foreground transition-colors underline text-sm font-body"
@@ -143,6 +143,19 @@ export const SimpleHormoneResults = ({
             Refaire le quiz →
           </button>
         </motion.div>
+
+        {/* Footer */}
+        <motion.footer variants={itemVariants} className="pt-4 border-t border-border">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p className="text-sm text-muted-foreground font-body">
+              © 2025 Majoliepeau. Tous droits réservés.
+            </p>
+            <nav className="flex items-center space-x-6">
+              <a href="https://majoliepeau.com" className="text-sm text-primary hover:text-primary-hover transition-colors font-medium font-body" target="_blank" rel="noopener noreferrer">Boutique</a>
+              <a href="https://instagram.com/majolie_peau" className="text-sm text-primary hover:text-primary-hover transition-colors font-medium font-body" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </nav>
+          </div>
+        </motion.footer>
       </div>
     </motion.div>
   );
