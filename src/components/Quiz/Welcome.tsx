@@ -26,7 +26,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-lg mx-auto text-center px-6 sm:px-8 py-8 sm:py-12"
+        className="max-w-[480px] mx-auto text-center px-6 py-8 sm:py-12"
       >
         {/* Badge */}
         <motion.div 
@@ -87,7 +87,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
               borderRadius: 99,
             }}
             whileHover={{ 
-              scale: 1.02,
+              y: -2,
               boxShadow: "0 12px 40px rgba(212, 100, 154, 0.35), 0 4px 12px rgba(212, 100, 154, 0.2)"
             }}
             whileTap={{ scale: 0.98 }}

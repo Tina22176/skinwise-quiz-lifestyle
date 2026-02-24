@@ -61,12 +61,12 @@ export const EnhancedQuizQuestion = () => {
   }
 
   const containerVariants = {
-    hidden: { opacity: 0, x: 40 },
+    hidden: { opacity: 0, y: 16 },
     visible: { 
-      opacity: 1, x: 0,
+      opacity: 1, y: 0,
       transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.1 }
     },
-    exit: { opacity: 0, x: -40, transition: { duration: 0.3 } }
+    exit: { opacity: 0, y: -16, transition: { duration: 0.3 } }
   };
 
   return (
@@ -76,7 +76,7 @@ export const EnhancedQuizQuestion = () => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="max-w-xl mx-auto px-6 sm:px-8 py-6 sm:py-8"
+      className="max-w-[480px] mx-auto px-6 py-6 sm:py-8"
     >
       {/* No card container — content directly on bg per mockup */}
       {state.currentQuestion > 0 && (
@@ -105,17 +105,17 @@ export const EnhancedQuizQuestion = () => {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.4 }}
-        className="text-center mb-6"
+        className="text-left mb-6"
       >
-        {/* Display text = GRAND titre (Cormorant) per mockup */}
-        <h2 className="font-heading text-[22px] font-semibold text-foreground mb-2">
+        {/* Display text = petit texte emotionnel (DM Sans, italic) */}
+        <p className="text-[15px] italic font-body mb-2" style={{ color: '#9B8FA3' }}>
           {currentQuestion.question}
-        </h2>
-        {/* Subtitle = petit texte (DM Sans) per mockup */}
+        </p>
+        {/* Titre principal (Cormorant, bold) */}
         {currentQuestion.subtitle && (
-          <p className="text-base text-muted-foreground font-body">
+          <h2 className="font-heading text-[22px] font-bold text-foreground">
             {currentQuestion.subtitle}
-          </p>
+          </h2>
         )}
       </motion.div>
 
