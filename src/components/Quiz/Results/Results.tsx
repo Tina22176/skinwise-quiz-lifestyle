@@ -25,12 +25,15 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // After email submission, show results
   useEffect(() => {
     if (isSubscribed) {
       setPhase("results");
     }
   }, [isSubscribed]);
+
+  const handleSkipEmail = () => {
+    setPhase("results");
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -38,17 +41,17 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
         <ResultsLoading key="loading" />
       )}
       {phase === "email" && !state.hormoneProfile ? (
-        <div key="no-profile" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
+        <div key="no-profile" className="min-h-screen flex items-center justify-center bg-background">
           <div className="text-center px-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            <h2 className="font-heading text-2xl font-semibold text-foreground mb-4">
               Oops ! Aucun profil trouvé
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-muted-foreground mb-6 font-body">
               Il semble que tu n'aies pas encore fait le quiz.
             </p>
             <button
               onClick={onResetQuiz}
-              className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-semibold transition-colors"
+              className="bg-primary hover:bg-primary-hover text-primary-foreground px-6 py-3 rounded-xl font-semibold transition-colors font-body"
             >
               Faire le quiz →
             </button>
@@ -65,6 +68,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
           gdprConsent={gdprConsent}
           setGdprConsent={setGdprConsent}
           handleSubmit={handleSubmit}
+          onSkip={handleSkipEmail}
         />
       ) : phase === "results" && state.hormoneProfile ? (
         <SimpleHormoneResults

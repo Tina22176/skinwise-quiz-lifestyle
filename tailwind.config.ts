@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,17 +25,18 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#F5E6E8",
-          foreground: "#2C3338",
-          hover: "#E5DEFF",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+          hover: "#C45589",
+          soft: "#FBEAF2",
         },
         secondary: {
-          DEFAULT: "#FAF7F2",
-          foreground: "#2C3338",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--foreground))",
         },
         accent: {
-          DEFAULT: "#D3E4FD",
-          foreground: "#2C3338",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -54,11 +54,44 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Couleurs Majoliepeau
+        rose: {
+          DEFAULT: "#D4649A",
+          bright: "#E077AD",
+          soft: "#F0B3CF",
+          whisper: "#FBEAF2",
+          glow: "#F9D5E5",
+        },
+        violet: {
+          DEFAULT: "#6B4E7D",
+          deep: "#3D2B45",
+          mid: "#8A6BA0",
+          soft: "#C4AEDA",
+          whisper: "#EDE5F4",
+        },
+        lilas: {
+          DEFAULT: "#D8C4EC",
+          mid: "#C9ADE2",
+          soft: "#EBE0F5",
+          whisper: "#F5F0FA",
+        },
+      },
+      fontFamily: {
+        heading: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        xs: "6px",
+        sm: "10px",
+        md: "14px",
+        lg: "20px",
+        xl: "28px",
+      },
+      boxShadow: {
+        sm: "0 1px 3px rgba(61, 43, 69, 0.05), 0 1px 2px rgba(61, 43, 69, 0.06)",
+        md: "0 4px 14px rgba(61, 43, 69, 0.06), 0 2px 4px rgba(61, 43, 69, 0.04)",
+        lg: "0 12px 32px rgba(61, 43, 69, 0.08), 0 4px 8px rgba(61, 43, 69, 0.04)",
+        glow: "0 8px 30px rgba(212, 100, 154, 0.20), 0 2px 8px rgba(212, 100, 154, 0.10)",
       },
       keyframes: {
         "fade-up": {
@@ -73,20 +106,15 @@ export default {
           "0%": { transform: "translateX(100%)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" },
         },
-        "slide-out": {
-          "0%": { transform: "translateX(0)", opacity: "1" },
-          "100%": { transform: "translateX(-100%)", opacity: "0" },
-        },
         glow: {
-          "0%, 100%": { boxShadow: "0 0 10px rgba(245, 230, 232, 0.5)" },
-          "50%": { boxShadow: "0 0 20px rgba(245, 230, 232, 0.8)" },
+          "0%, 100%": { boxShadow: "0 0 10px rgba(212, 100, 154, 0.2)" },
+          "50%": { boxShadow: "0 0 20px rgba(212, 100, 154, 0.35)" },
         },
       },
       animation: {
         "fade-up": "fade-up 0.6s ease-out",
         "fade-down": "fade-down 0.6s ease-out",
         "slide-in": "slide-in 0.6s ease-out",
-        "slide-out": "slide-out 0.6s ease-out",
         glow: "glow 2s ease-in-out infinite",
       },
     },
