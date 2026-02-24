@@ -12,6 +12,7 @@ interface EmailCaptureScreenProps {
   gdprConsent: boolean;
   setGdprConsent: (consent: boolean) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
+  onSkip?: () => void;
 }
 
 export const EmailCaptureScreen = ({
@@ -23,6 +24,7 @@ export const EmailCaptureScreen = ({
   gdprConsent,
   setGdprConsent,
   handleSubmit,
+  onSkip,
 }: EmailCaptureScreenProps) => {
   return (
     <motion.div
@@ -30,7 +32,7 @@ export const EmailCaptureScreen = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50 px-4"
+      className="min-h-screen flex items-center justify-center bg-background px-4"
     >
       <div className="max-w-md w-full space-y-6 text-center">
         <motion.div
@@ -38,11 +40,12 @@ export const EmailCaptureScreen = ({
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
-            Ton profil est prêt ✨
+          <div className="text-5xl mb-4">✨</div>
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-3">
+            Ton profil est prêt
           </h1>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Entre ton email pour recevoir tes résultats + un guide personnalisé avec les 3 premiers gestes à adopter.
+          <p className="text-muted-foreground text-lg leading-relaxed font-body">
+            Entre ton email pour recevoir tes résultats + un guide avec les 3 premiers gestes adaptés à ta peau.
           </p>
         </motion.div>
 
@@ -59,7 +62,7 @@ export const EmailCaptureScreen = ({
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="w-full rounded-xl border-pink-200 focus:ring-pink-300 py-3"
+            className="w-full rounded-xl border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
           />
           <Input
             type="email"
@@ -67,18 +70,18 @@ export const EmailCaptureScreen = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-xl border-pink-200 focus:ring-pink-300 py-3"
+            className="w-full rounded-xl border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
           />
           
-          <label className="flex items-start gap-2 text-sm cursor-pointer">
+          <label className="flex items-start gap-2 text-sm cursor-pointer font-body">
             <input
               type="checkbox"
               checked={gdprConsent}
               onChange={(e) => setGdprConsent(e.target.checked)}
               required
-              className="mt-1 accent-pink-500"
+              className="mt-1 accent-rose-DEFAULT"
             />
-            <span className="text-gray-500">
+            <span className="text-muted-foreground">
               J'accepte de recevoir mes résultats et mon guide personnalisé par email.
             </span>
           </label>
@@ -86,21 +89,33 @@ export const EmailCaptureScreen = ({
           <Button
             type="submit"
             disabled={isLoading || !email || !firstName || !gdprConsent}
-            className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white py-3.5 rounded-full font-semibold text-lg shadow-md flex items-center justify-center gap-2"
+            className="w-full bg-primary hover:bg-primary-hover text-primary-foreground py-3.5 rounded-xl font-semibold text-lg shadow-glow flex items-center justify-center gap-2 font-body"
           >
-            {isLoading ? "Envoi..." : "Voir mes résultats"}
+            {isLoading ? "..." : "Voir mes résultats"}
             {!isLoading && <ArrowRight className="w-5 h-5" />}
           </Button>
         </motion.form>
 
         <motion.p
-          className="text-xs text-gray-400"
+          className="text-xs text-muted-foreground font-body"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          On ne partage jamais ton email. Tu peux te désinscrire en 1 clic.
+          Pas de spam. Tu peux te désinscrire en 1 clic.
         </motion.p>
+
+        {onSkip && (
+          <motion.button
+            onClick={onSkip}
+            className="text-sm text-muted-foreground underline hover:text-foreground transition-colors font-body"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            Voir mes résultats sans donner mon email
+          </motion.button>
+        )}
       </div>
     </motion.div>
   );

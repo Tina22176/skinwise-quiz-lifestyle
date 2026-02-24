@@ -1,4 +1,4 @@
-// Hormone Profile Details v2 — 5 profiles
+// Hormone Profile Details v2 — 5 profiles with product slugs
 
 export interface HormoneProfileDetail {
   title: string;
@@ -9,6 +9,7 @@ export interface HormoneProfileDetail {
   gestes: string[];
   program: string;
   programPrice: string;
+  programSlug: string;
   programReason: string;
   colorTheme: 'red' | 'blue' | 'purple' | 'green' | 'pink';
 }
@@ -18,16 +19,17 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     emoji: "🔥",
     icon: "flame",
     title: "La réactive sous pression",
-    tuEs: "Une peau qui absorbe ton stress et te le rend au centuple. Boutons, rougeurs, irritations — ta peau est le baromètre de ta vie.",
-    besoin: "Moins de produits, plus de douceur. Quand la peau est inflammée, chaque geste en trop l'agresse. L'objectif, c'est de la calmer — pas de la \"traiter\".",
+    tuEs: "Ta peau absorbe ton stress et te le rend au centuple. Boutons, rougeurs, irritations — elle est le baromètre de ta vie.",
+    besoin: "Moins de produits, plus de douceur. Quand la peau est inflammée, chaque geste en trop l'agresse. L'objectif : la calmer, pas la traiter.",
     gestes: [
-      "Simplifie ta routine à 3 gestes maximum (nettoyant doux, hydratant, protection)",
+      "Simplifie ta routine à 3 gestes max — nettoyant doux, hydratant, protection",
       "Quand ta peau réagit, résiste à l'envie d'ajouter un produit — attends 48h",
-      "Le soir, 3 respirations profondes avant ta routine — ça change la circulation et l'absorption"
+      "Le soir, 3 respirations profondes avant ta routine — ça change la circulation"
     ],
     program: "Mini Glow",
     programPrice: "49€",
-    programReason: "Pour poser les bases d'une routine apaisante sans te surcharger.",
+    programSlug: "/mini-glow/paiement",
+    programReason: "7 jours pour poser les bases d'une routine apaisante, sans te surcharger.",
     colorTheme: "red"
   },
   "fatiguée_survie": {
@@ -37,29 +39,31 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     tuEs: "Teint terne, cernes installées, traits tirés. Ta peau reflète ton niveau d'énergie — et en ce moment, elle est en mode économie.",
     besoin: "De l'hydratation (pas 12 sérums, juste la bonne), du repos, et une routine si simple que tu la fais même les soirs où t'en peux plus.",
     gestes: [
-      "Le matin, de l'eau fraîche sur le visage + crème hydratante — 1 minute, pas plus",
-      "Le soir, un nettoyage doux (pas de double nettoyage, pas de gommage)",
-      "Couche-toi 20 minutes plus tôt 3 soirs cette semaine — ta peau se répare la nuit"
+      "Le matin, eau fraîche + crème hydratante — 1 minute, pas plus",
+      "Le soir, un nettoyage doux et c'est tout — pas de double nettoyage",
+      "Couche-toi 20 min plus tôt 3 soirs cette semaine — ta peau se répare la nuit"
     ],
     program: "Mini Glow",
     programPrice: "49€",
-    programReason: "Pour repartir de zéro avec une routine tenable, même fatiguée.",
+    programSlug: "/mini-glow/paiement",
+    programReason: "Une routine tenable même fatiguée. 10 min/jour max, 7 jours pour repartir.",
     colorTheme: "blue"
   },
   "controlleuse_débordée": {
     emoji: "🧴",
     icon: "sparkles",
-    title: "La controlleuse débordée",
-    tuEs: "Tu as trop de produits, trop d'étapes, trop d'exigence envers ta peau. Tu changes de routine dès que ça ne marche pas en 3 jours. Résultat : ta peau ne sait plus où elle en est.",
+    title: "La contrôleuse débordée",
+    tuEs: "Trop de produits, trop d'étapes, trop d'exigence. Tu changes de routine dès que ça ne marche pas en 3 jours. Résultat : ta peau ne sait plus où elle en est.",
     besoin: "Un reset. Pas un produit de plus — un produit de moins. Ta peau a besoin de stabilité pour se réguler.",
     gestes: [
-      "Compte tes produits skincare actuels (oui, tous)",
-      "Garde uniquement : 1 nettoyant, 1 hydratant, 1 protection solaire — le reste, tu ranges",
-      "Tiens cette routine minimum 2 semaines sans rien changer — observe, note, résiste"
+      "Compte tes produits skincare actuels — oui, tous",
+      "Garde uniquement 1 nettoyant, 1 hydratant, 1 protection — le reste, tu ranges",
+      "Tiens 2 semaines sans rien changer — observe, note, résiste"
     ],
     program: "Skin Reboot",
     programPrice: "99€",
-    programReason: "Pour faire un vrai reset structuré et comprendre ce dont ta peau a réellement besoin.",
+    programSlug: "/skin-reboot/paiement",
+    programReason: "28 jours pour faire un vrai reset et comprendre ce dont ta peau a besoin.",
     colorTheme: "green"
   },
   "cyclique_subit": {
@@ -67,31 +71,33 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     icon: "calendar",
     title: "La cyclique qui subit",
     tuEs: "Ta peau change selon ton cycle. Nickel en semaine 2, catastrophe en semaine 4. Tu as l'impression de recommencer à zéro chaque mois.",
-    besoin: "Pas d'une routine fixe — d'une routine qui bouge avec toi. Comprendre les 4 phases de ton cycle pour anticiper au lieu de subir.",
+    besoin: "Pas une routine fixe — une routine qui bouge avec toi. Comprendre les 4 phases de ton cycle pour anticiper au lieu de subir.",
     gestes: [
-      "Commence à noter dans ton téléphone : jour du cycle + état de ta peau (3 mots suffisent)",
+      "Note chaque jour dans ton téléphone : jour du cycle + état de ta peau (3 mots suffisent)",
       "La semaine avant tes règles, allège ta routine — moins de produits actifs",
       "Après tes règles, c'est le moment d'exfolier doucement — ta peau est plus réceptive"
     ],
     program: "Glow & Cycle",
     programPrice: "299€",
-    programReason: "Pour adapter ta routine à chaque phase de ton cycle et arrêter de subir les montagnes russes.",
+    programSlug: "/glow-cycle/paiement",
+    programReason: "12 mois pour adapter ta routine à chaque phase et arrêter les montagnes russes.",
     colorTheme: "purple"
   },
   "sensible_caméléon": {
     emoji: "🦎",
     icon: "heart",
     title: "La sensible caméléon",
-    tuEs: "Imprévisible. Un jour ça va, le lendemain ta peau brûle avec le même produit. Tu ne sais jamais ce qui va fonctionner. Et ça te fatigue.",
-    besoin: "De la constance, de la douceur, et surtout — d'apprendre à la lire. Quand tu comprendras ses signaux, tu arrêteras de réagir dans la panique.",
+    tuEs: "Imprévisible. Un jour ça va, le lendemain ta peau brûle avec le même produit. Tu ne sais jamais ce qui va fonctionner.",
+    besoin: "De la constance, de la douceur, et surtout — apprendre à lire ta peau. Quand tu comprendras ses signaux, tu arrêteras de réagir dans la panique.",
     gestes: [
-      "Pendant 7 jours, utilise UNIQUEMENT un nettoyant doux et un hydratant simple — rien d'autre",
-      "Le matin, regarde ta peau 10 secondes dans le miroir — sans juger, juste observer",
+      "Pendant 7 jours, utilise UNIQUEMENT nettoyant doux + hydratant simple — rien d'autre",
+      "Le matin, regarde ta peau 10 secondes — sans juger, juste observer",
       "Note ce que tu manges, ton stress, ton sommeil — les patterns vont apparaître"
     ],
     program: "Skin Reboot + Mini Glow",
-    programPrice: "~130€",
-    programReason: "Pour commencer en douceur avec un reset structuré. Bundle -16€.",
+    programPrice: "132€ au lieu de 148€",
+    programSlug: "/bundle-reboot-glow/paiement",
+    programReason: "Le reset de 28 jours + les bases en 7 jours pour repartir en douceur.",
     colorTheme: "pink"
   }
 };

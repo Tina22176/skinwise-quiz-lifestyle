@@ -10,7 +10,7 @@ export interface HormoneProfile {
   lifestyle: string[];
 }
 
-// 5 profiles: réactive, fatiguée, controlleuse, cyclique, caméléon
+// 5 profiles
 const PROFILES = [
   "réactive_pression",
   "fatiguée_survie",
@@ -19,9 +19,23 @@ const PROFILES = [
   "sensible_caméléon"
 ] as const;
 
-// Scoring matrix v2 — based on spec
+// Scoring matrix v2
 const HORMONE_SCORING_MATRIX: Record<string, Record<string, Record<string, number>>> = {
-  // Q1 — age (no scoring impact per spec, but kept for data)
+  // Q1 — age (now contributes to scoring)
+  "age_range": {
+    "moins_25": {
+      "réactive_pression": 1, "fatiguée_survie": 0, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
+    },
+    "25_34": {
+      "réactive_pression": 0, "fatiguée_survie": 0, "controlleuse_débordée": 1, "cyclique_subit": 0, "sensible_caméléon": 0
+    },
+    "35_44": {
+      "réactive_pression": 0, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 0
+    },
+    "45_plus": {
+      "réactive_pression": 0, "fatiguée_survie": 1, "controlleuse_débordée": 0, "cyclique_subit": 0, "sensible_caméléon": 1
+    }
+  },
   // Q2 — skin_daily
   "skin_daily": {
     "brille": {
@@ -124,8 +138,6 @@ const PRIORITY_ORDER = [
 ];
 
 export const calculateHormoneProfile = (answers: Record<string, string>): HormoneProfile => {
-  console.log("🧬 CALCUL PROFIL v2 — Réponses:", answers);
-
   const profileScores: Record<string, number> = {
     "réactive_pression": 0,
     "fatiguée_survie": 0,
@@ -134,7 +146,6 @@ export const calculateHormoneProfile = (answers: Record<string, string>): Hormon
     "sensible_caméléon": 0
   };
 
-  // Calculate scores
   Object.entries(answers).forEach(([questionId, answer]) => {
     const questionMatrix = HORMONE_SCORING_MATRIX[questionId];
     if (questionMatrix && questionMatrix[answer]) {
@@ -144,17 +155,12 @@ export const calculateHormoneProfile = (answers: Record<string, string>): Hormon
     }
   });
 
-  console.log("🧬 SCORES FINAUX:", profileScores);
-
-  // Sort and find winner
   const sortedProfiles = Object.entries(profileScores).sort(([,a], [,b]) => b - a);
   const [topProfile, topScore] = sortedProfiles[0];
-  const [secondProfile, secondScore] = sortedProfiles[1];
+  const [, secondScore] = sortedProfiles[1];
 
-  // Handle ties with priority order
   let finalProfile = topProfile;
   if (topScore === secondScore && topScore > 0) {
-    // Find highest priority among tied profiles
     const tiedProfiles = sortedProfiles.filter(([, s]) => s === topScore).map(([p]) => p);
     for (const priority of PRIORITY_ORDER) {
       if (tiedProfiles.includes(priority)) {
@@ -164,13 +170,10 @@ export const calculateHormoneProfile = (answers: Record<string, string>): Hormon
     }
   }
 
-  // Calculate confidence
   const totalScore = Object.values(profileScores).reduce((a, b) => a + b, 0);
   const confidence = totalScore > 0 
     ? Math.min(0.95, Math.max(0.6, topScore / totalScore + (topScore - secondScore) * 0.1))
     : 0.6;
-
-  console.log(`🏆 PROFIL: ${finalProfile} (${topScore} pts, confiance: ${(confidence * 100).toFixed(0)}%)`);
 
   return {
     type: finalProfile,
