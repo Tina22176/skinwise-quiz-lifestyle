@@ -1,61 +1,31 @@
 import { motion } from "framer-motion";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
-import { Button } from "../../../ui/button";
-import { Input } from "../../../ui/input";
 import { HormoneIcon } from "./HormoneIcon";
-import { Mail, CheckCircle, Gift } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
-  email: string;
-  setEmail: (email: string) => void;
-  firstName: string;
-  setFirstName: (firstName: string) => void;
-  isSubscribed: boolean;
-  isLoading: boolean;
-  gdprConsent: boolean;
-  setGdprConsent: (consent: boolean) => void;
-  handleSubmit: (e: React.FormEvent) => Promise<void>;
   onResetQuiz: () => void;
 }
 
 export const SimpleHormoneResults = ({
   hormoneProfile,
-  email,
-  setEmail,
-  firstName,
-  setFirstName,
-  isSubscribed,
-  isLoading,
-  gdprConsent,
-  setGdprConsent,
-  handleSubmit,
   onResetQuiz
 }: SimpleHormoneResultsProps) => {
-  const profileDetails = getHormoneProfileDetails(hormoneProfile.type);
+  const profile = getHormoneProfileDetails(hormoneProfile.type);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      }
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
   return (
@@ -65,126 +35,100 @@ export const SimpleHormoneResults = ({
       animate="show"
       className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 px-4 py-8"
     >
-      <div className="max-w-2xl mx-auto space-y-8">
+      <div className="max-w-2xl mx-auto space-y-6">
         
-        {/* Header avec profil */}
+        {/* Header profil */}
         <motion.div variants={itemVariants} className="text-center">
-          <div className="mb-6 flex justify-center">
-            <HormoneIcon profile={hormoneProfile.type} size={64} className="text-pink-500" />
+          <div className="mb-4 flex justify-center">
+            <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center">
+              <HormoneIcon profile={hormoneProfile.type} size={32} className="text-pink-500" />
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            {profileDetails.title}
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-1">
+            Ton profil : {profile.title} {profile.emoji}
           </h1>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            {profileDetails.description}
+        </motion.div>
+
+        {/* Tu es */}
+        <motion.div variants={itemVariants} className="bg-white rounded-2xl p-6 shadow-sm border border-pink-100/50">
+          <p className="text-gray-700 leading-relaxed text-lg">
+            {profile.tuEs}
           </p>
         </motion.div>
 
-        {/* Ce qui va t'aider */}
-        <motion.div variants={itemVariants} className="bg-white rounded-xl p-6 shadow-lg">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Ce qui va t'aider :
+        {/* Ce que ta peau a besoin */}
+        <motion.div variants={itemVariants} className="bg-white rounded-2xl p-6 shadow-sm border border-pink-100/50">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">
+            Ce que ta peau a besoin :
           </h2>
-          <div className="space-y-3">
-            {profileDetails.skincareRecommendations.map((recommendation, index) => (
+          <p className="text-gray-600 leading-relaxed">
+            {profile.besoin}
+          </p>
+        </motion.div>
+
+        {/* 3 premiers gestes */}
+        <motion.div variants={itemVariants} className="bg-white rounded-2xl p-6 shadow-sm border border-pink-100/50">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">
+            Tes 3 premiers gestes :
+          </h2>
+          <div className="space-y-4">
+            {profile.gestes.map((geste, index) => (
               <div key={index} className="flex items-start gap-3">
-                <span className="text-pink-500 font-bold">→</span>
-                <span className="text-gray-700">{recommendation}</span>
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-sm font-semibold">
+                  {index + 1}
+                </span>
+                <p className="text-gray-700 leading-relaxed pt-0.5">{geste}</p>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Email subscription */}
-        {!isSubscribed ? (
-          <motion.div variants={itemVariants} className="bg-white rounded-xl p-6 shadow-lg">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center justify-center gap-2">
-                <Mail className="w-6 h-6 text-pink-500" />
-                Reçois ta routine détaillée par email
-              </h3>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Input
-                type="email"
-                placeholder="Ton email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full"
-              />
-              <Input
-                type="text"
-                placeholder="Ton prénom"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                className="w-full"
-              />
-              
-              <label className="flex items-start gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={gdprConsent}
-                  onChange={(e) => setGdprConsent(e.target.checked)}
-                  required
-                  className="mt-0.5"
-                />
-                <span className="text-gray-600">
-                  J'accepte de recevoir ma routine personnalisée
-                </span>
-              </label>
-              
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-semibold"
-              >
-                {isLoading ? "Envoi..." : "Recevoir ma routine gratuite"}
-              </Button>
-            </form>
-          </motion.div>
-        ) : (
-          <motion.div variants={itemVariants} className="bg-green-50 rounded-xl p-6 shadow-lg text-center">
-            <div className="flex justify-center mb-3">
-              <CheckCircle className="w-10 h-10 text-green-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-green-800 mb-2">
-              Merci ! Ta routine arrive bientôt
-            </h3>
-            <p className="text-green-700">
-              Vérifie tes emails pour recevoir tes recommandations complètes
-            </p>
-          </motion.div>
-        )}
+        {/* Separator */}
+        <motion.div variants={itemVariants} className="border-t border-pink-100 my-2" />
 
-        {/* Bonus offre */}
-        <motion.div variants={itemVariants} className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl p-6 shadow-lg">
-          <div className="text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center justify-center gap-2">
-              <Gift className="w-5 h-5 text-pink-500" />
-              Bonus quiz : -20% sur {profileDetails.program} jusqu'à dimanche
-            </h3>
-            <p className="text-gray-600 mb-4">
-              {profileDetails.programDescription}
-            </p>
-            <Button className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-2 rounded-lg font-semibold">
-              {profileDetails.cta}
-            </Button>
-          </div>
+        {/* Programme recommandé */}
+        <motion.div variants={itemVariants} className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 shadow-sm border border-pink-200/50">
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">
+            Pour aller plus loin :
+          </h2>
+          <p className="text-gray-800 font-medium mb-1">
+            {profile.program} — {profile.programPrice}
+          </p>
+          <p className="text-gray-600 mb-4">
+            {profile.programReason}
+          </p>
+          <motion.button
+            className="w-full bg-gradient-to-r from-pink-500 to-pink-600 text-white py-3.5 rounded-full font-semibold shadow-md flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Découvrir le programme
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
+        </motion.div>
+
+        {/* Ce que tu recevras par email */}
+        <motion.div variants={itemVariants} className="bg-white rounded-2xl p-6 shadow-sm border border-pink-100/50">
+          <p className="text-gray-700 font-medium mb-3">Tu recevras aussi par email :</p>
+          <ul className="space-y-2 text-gray-600">
+            <li className="flex items-center gap-2"><span>•</span> Ton profil complet en PDF</li>
+            <li className="flex items-center gap-2"><span>•</span> 3 conseils adaptés à ta peau</li>
+            <li className="flex items-center gap-2"><span>•</span> Des ressources gratuites</li>
+          </ul>
+          <p className="text-gray-500 text-sm mt-4 italic">
+            Pas prête ? Pas de souci. Le guide arrive dans ta boîte. 💌
+          </p>
         </motion.div>
 
         {/* Refaire le quiz */}
-        <motion.div variants={itemVariants} className="text-center">
+        <motion.div variants={itemVariants} className="text-center pb-8">
           <button
             onClick={onResetQuiz}
-            className="text-pink-600 hover:text-pink-800 transition-colors underline"
+            className="text-pink-600 hover:text-pink-800 transition-colors underline text-sm"
           >
             Refaire le quiz →
           </button>
         </motion.div>
-
       </div>
     </motion.div>
   );

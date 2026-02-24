@@ -23,28 +23,23 @@ export const HormoneResultsMainContent = ({
           <HormoneIcon profile={hormoneProfile.type} size={32} className="text-pink-500" />
           {profileDetails.title}
         </h2>
-        <p className="text-gray-600 mb-6">{profileDetails.description}</p>
+        <p className="text-gray-600 mb-6">{profileDetails.tuEs}</p>
         
         <div className="bg-pink-50 rounded-xl p-6 mb-6">
-          <h3 className="font-semibold text-pink-700 mb-3">Ton déséquilibre hormonal :</h3>
-          <p className="text-pink-600">{profileDetails.hormonalExplanation}</p>
+          <h3 className="font-semibold text-pink-700 mb-3">Ce que ta peau a besoin :</h3>
+          <p className="text-pink-600">{profileDetails.besoin}</p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-semibold text-gray-800">Ta routine personnalisée :</h3>
+          <h3 className="font-semibold text-gray-800">Tes 3 premiers gestes :</h3>
           <ul className="space-y-2 text-left">
-            {profileDetails.skincareRecommendations.map((rec, index) => (
+            {profileDetails.gestes.map((geste, index) => (
               <li key={index} className="flex items-start gap-2">
-                <span className="text-pink-500">•</span>
-                <span className="text-gray-700">{rec}</span>
+                <span className="text-pink-500 font-bold">{index + 1}.</span>
+                <span className="text-gray-700">{geste}</span>
               </li>
             ))}
           </ul>
-          
-          <div className="bg-green-50 rounded-xl p-4 mt-4">
-            <h4 className="font-semibold text-green-700 mb-2">Bonus Lifestyle :</h4>
-            <p className="text-green-600">{profileDetails.lifestyleBonus}</p>
-          </div>
         </div>
       </div>
     </motion.div>
