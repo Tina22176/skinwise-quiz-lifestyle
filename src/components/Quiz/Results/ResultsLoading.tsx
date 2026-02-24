@@ -35,10 +35,10 @@ export const ResultsLoading = () => {
           animate={{ opacity: [0.5, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          ✨ La magie opère... ✨
+          Analyse en cours...
         </motion.p>
-        <p className="text-lg text-center text-muted-foreground max-w-md font-body">
-          Nous préparons ton diagnostic personnalisé...
+        <p className="text-base text-center text-muted-foreground max-w-md font-body">
+          Ton diagnostic personnalisé arrive...
         </p>
       </div>
       

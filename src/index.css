@@ -5,37 +5,37 @@
 @layer base {
   :root {
     /* ═══ FONDATIONS ═══ */
-    --background:          330 20% 98%;
+    --background:          330 15% 97%;
     --foreground:          280 25% 12%;
 
     /* ═══ ROSE MAJOLIEPEAU ═══ */
-    --primary:             330 55% 52%;
+    --primary:             340 65% 58%;
     --primary-foreground:  0 0% 100%;
 
     /* ═══ SURFACES ═══ */
-    --secondary:           300 15% 96%;
-    --muted:               290 12% 92%;
+    --secondary:           330 18% 95%;
+    --muted:               330 18% 94%;
     --muted-foreground:    280 12% 42%;
-    --accent:              300 20% 93%;
+    --accent:              330 22% 92%;
     --accent-foreground:   280 35% 30%;
 
     /* ═══ FONCTIONNELS ═══ */
-    --destructive:         330 50% 62%;
+    --destructive:         0 65% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border:              280 15% 90%;
-    --input:               280 15% 90%;
-    --ring:                330 50% 62%;
+    --border:              330 15% 88%;
+    --input:               330 15% 88%;
+    --ring:                340 65% 58%;
 
     /* ═══ RADIUS ═══ */
     --radius:              0.875rem;
 
     /* ═══ CARDS ═══ */
-    --card:                0 0% 100%;
-    --card-foreground:     280 20% 17%;
+    --card:                330 20% 99.5%;
+    --card-foreground:     280 25% 12%;
 
     /* ═══ POPOVER ═══ */
     --popover:             0 0% 100%;
-    --popover-foreground:  280 20% 17%;
+    --popover-foreground:  280 25% 12%;
   }
 
   body {
