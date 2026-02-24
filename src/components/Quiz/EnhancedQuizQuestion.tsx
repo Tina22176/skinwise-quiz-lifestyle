@@ -76,51 +76,54 @@ export const EnhancedQuizQuestion = () => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="max-w-2xl mx-auto px-6 sm:px-8 py-6 sm:py-8"
+      className="max-w-xl mx-auto px-6 sm:px-8 py-6 sm:py-8"
     >
-      {state.currentQuestion > 0 && (
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => {
-            dispatch({ type: "PREV_QUESTION" });
-            setSelectedAnswer(null);
-            setShowNextQuestion(false);
-          }}
-          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-4"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Retour</span>
-        </motion.button>
-      )}
-
-      <QuizProgressBar 
-        currentQuestion={state.currentQuestion} 
-        totalQuestions={dynamicList.length}
-        motivationalTexts={motivationalTexts}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.4 }}
-        className="text-center mb-8"
-      >
-        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-violet-deep mb-2">
-          {currentQuestion.question}
-        </h2>
-        {currentQuestion.subtitle && (
-          <p className="text-base text-foreground/70 font-body">
-            {currentQuestion.subtitle}
-          </p>
+      {/* Card container for the question */}
+      <div className="bg-card rounded-2xl p-6 sm:p-8 shadow-md border border-border">
+        {state.currentQuestion > 0 && (
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            onClick={() => {
+              dispatch({ type: "PREV_QUESTION" });
+              setSelectedAnswer(null);
+              setShowNextQuestion(false);
+            }}
+            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 font-body"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>Retour</span>
+          </motion.button>
         )}
-      </motion.div>
 
-      <DynamicQuestionDisplay
-        question={currentQuestion}
-        selectedAnswer={selectedAnswer}
-        onSelect={handleAnswer}
-      />
+        <QuizProgressBar 
+          currentQuestion={state.currentQuestion} 
+          totalQuestions={dynamicList.length}
+          motivationalTexts={motivationalTexts}
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+          className="text-center mb-6"
+        >
+          {/* Display text — the friendly intro */}
+          <p className="text-muted-foreground text-sm mb-2 font-body">
+            {currentQuestion.question}
+          </p>
+          {/* Main question */}
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
+            {currentQuestion.subtitle || currentQuestion.question}
+          </h2>
+        </motion.div>
+
+        <DynamicQuestionDisplay
+          question={currentQuestion}
+          selectedAnswer={selectedAnswer}
+          onSelect={handleAnswer}
+        />
+      </div>
 
       {selectedAnswer && (
         <motion.div

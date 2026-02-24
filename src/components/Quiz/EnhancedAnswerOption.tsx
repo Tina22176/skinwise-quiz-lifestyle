@@ -1,8 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { CheckCircle } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
 
 interface EnhancedAnswerOptionProps {
   option: {
@@ -33,48 +30,55 @@ export const EnhancedAnswerOption = ({
     }
   };
 
+  const isOther = selectedAnswer !== null && !isSelected;
+
   return (
     <motion.div variants={itemVariants} className="w-full">
       <button
         onClick={() => !selectedAnswer && onSelect(option.value)}
         disabled={selectedAnswer !== null}
-        className={`w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-200 font-body ${
-          isSelected 
-            ? 'bg-rose-whisper border-primary shadow-glow border-l-4 border-l-primary' 
-            : 'bg-card border-border shadow-sm hover:border-primary hover:bg-rose-whisper/30 hover:shadow-md hover:border-l-4 hover:border-l-primary'
-        } ${selectedAnswer !== null && !isSelected ? 'opacity-40' : ''} ${
-          selectedAnswer !== null ? 'cursor-default' : 'cursor-pointer'
-        }`}
+        className="w-full text-left font-body transition-all duration-250 relative overflow-hidden"
+        style={{
+          fontSize: isMobile ? 15 : 16,
+          fontWeight: 500,
+          padding: isMobile ? '14px 18px' : '16px 20px',
+          borderRadius: 14,
+          border: `2px solid ${isSelected ? 'hsl(var(--primary))' : 'hsl(var(--input))'}`,
+          background: isSelected
+            ? 'linear-gradient(135deg, hsl(330 30% 96%) 0%, hsl(270 40% 97%) 100%)'
+            : 'hsl(var(--card))',
+          color: 'hsl(var(--foreground))',
+          cursor: selectedAnswer !== null ? 'default' : 'pointer',
+          opacity: isOther ? 0.4 : 1,
+          transform: isSelected ? 'scale(1.02)' : 'scale(1)',
+          boxShadow: isSelected
+            ? '0 4px 16px rgba(212, 100, 154, 0.15)'
+            : '0 1px 4px rgba(61, 43, 69, 0.04)',
+        }}
+        onMouseOver={(e) => {
+          if (selectedAnswer === null) {
+            e.currentTarget.style.borderColor = 'hsl(280 30% 85%)'; // lilas
+            e.currentTarget.style.background = 'hsl(270 40% 97%)'; // lilasWhisper
+          }
+        }}
+        onMouseOut={(e) => {
+          if (selectedAnswer === null) {
+            e.currentTarget.style.borderColor = 'hsl(var(--input))';
+            e.currentTarget.style.background = 'hsl(var(--card))';
+          }
+        }}
       >
-        <div className="flex items-center gap-3 w-full">
-          {isSelected && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="flex-shrink-0"
-            >
-              <CheckCircle className="h-5 w-5 text-primary" />
-            </motion.div>
-          )}
-          
-          <p className={`${isMobile ? "text-base" : "text-lg"} font-medium leading-relaxed ${
-            isSelected ? 'text-foreground' : 'text-foreground'
-          }`}>
-            {option.label}
-          </p>
-        </div>
-        
-        {isSelected && option.description && (
-          <motion.p
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            transition={{ delay: 0.3, duration: 0.3 }}
-            className="text-xs text-muted-foreground mt-2 ml-8 italic"
+        {isSelected && (
+          <motion.span
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold"
           >
-            {option.description}
-          </motion.p>
+            ✓
+          </motion.span>
         )}
+        {option.label}
       </button>
     </motion.div>
   );

@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { Input } from "../../../ui/input";
-import { Button } from "../../../ui/button";
 
 interface EmailCaptureScreenProps {
   email: string;
@@ -32,21 +30,24 @@ export const EmailCaptureScreen = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center bg-rose-whisper/30 px-4"
+      className="min-h-screen flex items-center justify-center px-4 py-12"
     >
       <div className="max-w-md w-full bg-card rounded-2xl shadow-lg p-8 space-y-6 text-center border border-border">
+        {/* Icon */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
           <div className="mb-4 flex justify-center">
-            <Sparkles className="w-10 h-10 text-primary" />
+            <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center">
+              <Sparkles className="w-7 h-7 text-primary" />
+            </div>
           </div>
           <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-3">
             Ton profil est prêt
           </h1>
-          <p className="text-muted-foreground text-lg leading-relaxed font-body">
+          <p className="text-muted-foreground text-base leading-relaxed font-body">
             Entre ton email pour recevoir tes résultats + un guide avec les 3 premiers gestes adaptés à ta peau.
           </p>
         </motion.div>
@@ -58,21 +59,21 @@ export const EmailCaptureScreen = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.4 }}
         >
-          <Input
+          <input
             type="text"
             placeholder="Ton prénom"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="w-full rounded-xl border-2 border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
+            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl bg-accent border-[1.5px] border-border text-foreground outline-none transition-colors focus:border-primary placeholder:text-muted-foreground/60"
           />
-          <Input
+          <input
             type="email"
             placeholder="ton@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-xl border-2 border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
+            className="w-full font-body text-[15px] py-3.5 px-5 rounded-xl bg-accent border-[1.5px] border-border text-foreground outline-none transition-colors focus:border-primary placeholder:text-muted-foreground/60"
           />
           
           <label className="flex items-start gap-2 text-sm cursor-pointer font-body">
@@ -81,21 +82,24 @@ export const EmailCaptureScreen = ({
               checked={gdprConsent}
               onChange={(e) => setGdprConsent(e.target.checked)}
               required
-              className="mt-1 accent-rose-DEFAULT"
+              className="mt-1 accent-primary"
             />
             <span className="text-muted-foreground">
               J'accepte de recevoir mes résultats et mon guide personnalisé par email.
             </span>
           </label>
           
-          <Button
+          <button
             type="submit"
             disabled={isLoading || !email || !firstName || !gdprConsent}
-            className="w-full bg-primary hover:bg-primary-hover text-primary-foreground py-3.5 rounded-xl font-semibold text-lg shadow-glow flex items-center justify-center gap-2 font-body"
+            className="w-full font-body text-base font-bold text-primary-foreground rounded-full py-4 shadow-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            style={{
+              background: 'linear-gradient(135deg, hsl(340 65% 58%) 0%, hsl(340 55% 49%) 100%)',
+            }}
           >
             {isLoading ? "..." : "Voir mes résultats"}
             {!isLoading && <ArrowRight className="w-5 h-5" />}
-          </Button>
+          </button>
         </motion.form>
 
         <motion.p
