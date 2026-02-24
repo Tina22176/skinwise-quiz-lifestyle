@@ -56,14 +56,14 @@ export const SimpleHormoneResults = ({
         </motion.div>
 
         {/* Tu es */}
-        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-md border border-border">
           <p className="text-foreground leading-relaxed text-lg font-body">
             {profile.tuEs}
           </p>
         </motion.div>
 
         {/* Ce que ta peau a besoin */}
-        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-md border border-border">
           <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
             Ce que ta peau a besoin
           </h2>
@@ -73,14 +73,14 @@ export const SimpleHormoneResults = ({
         </motion.div>
 
         {/* 3 premiers gestes */}
-        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-md border border-border">
           <h2 className="font-heading text-xl font-semibold text-foreground mb-4">
             Tes 3 premiers gestes
           </h2>
           <div className="space-y-4">
             {profile.gestes.map((geste, index) => (
               <div key={index} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-rose-whisper text-primary flex items-center justify-center text-sm font-semibold font-body">
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold font-body">
                   {index + 1}
                 </span>
                 <p className="text-foreground leading-relaxed pt-0.5 font-body">{geste}</p>
@@ -93,7 +93,7 @@ export const SimpleHormoneResults = ({
         <motion.div variants={itemVariants} className="border-t border-border my-2" />
 
         {/* Programme recommandé */}
-        <motion.div variants={itemVariants} className="bg-lilas-whisper rounded-xl p-6 shadow-sm border border-lilas-soft/50">
+        <motion.div variants={itemVariants} className="bg-gradient-to-br from-lilas-whisper to-rose-whisper rounded-xl p-6 shadow-md border border-lilas-soft/50">
           <p className="text-sm text-violet-mid font-body uppercase tracking-wide mb-2">Pour aller plus loin</p>
           <h2 className="font-heading text-xl font-bold text-foreground mb-1">
             {profile.program} — {profile.programPrice}
@@ -113,7 +113,7 @@ export const SimpleHormoneResults = ({
         </motion.div>
 
         {/* Ce que tu recevras par email */}
-        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-md border border-border">
           <p className="text-foreground font-medium mb-3 font-body">Tu recevras aussi par email :</p>
           <ul className="space-y-2 text-muted-foreground font-body">
             {["Ton profil en PDF", "3 conseils adaptés", "Ressources gratuites"].map((item) => (

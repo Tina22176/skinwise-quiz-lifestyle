@@ -22,7 +22,7 @@ export const QuizProgressBar = ({
 
   return (
     <div className={progressBarClasses}>
-      <div className="h-2 w-full bg-lilas-soft rounded-full overflow-hidden relative">
+      <div className="h-2 w-full bg-muted rounded-full overflow-hidden relative">
         <motion.div
           className="h-full bg-gradient-to-r from-rose-DEFAULT to-rose-bright rounded-full relative"
           initial={{ width: 0 }}

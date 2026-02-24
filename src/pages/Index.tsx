@@ -13,7 +13,7 @@ const Index = () => {
   }, [trackPageView]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50/30 via-white to-pink-50/20 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-rose-whisper via-background to-lilas-whisper overflow-x-hidden">
       {/* Header avec logo flottant - simplifié */}
       <motion.header 
         className="fixed top-0 left-0 right-0 z-50 glass backdrop-blur-xl border-b border-pink-100/20"
@@ -41,7 +41,7 @@ const Index = () => {
           
           <div className="flex items-center space-x-6 text-sm" role="complementary" aria-label="Informations du quiz">
             <motion.div 
-              className="flex items-center space-x-1 text-pink-600/80"
+              className="flex items-center space-x-1 text-primary font-medium"
               whileHover={{ scale: 1.05 }}
               aria-label="Quiz entièrement gratuit"
             >
@@ -49,7 +49,7 @@ const Index = () => {
               <span>100% Gratuit</span>
             </motion.div>
             <motion.div 
-              className="flex items-center space-x-1 text-pink-600/80"
+              className="flex items-center space-x-1 text-primary font-medium"
               whileHover={{ scale: 1.05 }}
               aria-label="Quiz rapide de 2 minutes"
             >
@@ -65,7 +65,7 @@ const Index = () => {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-pink-200/30 rounded-full"
+            className="absolute w-2 h-2 bg-rose-soft/50 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -90,7 +90,7 @@ const Index = () => {
       
       {/* Footer premium */}
       <motion.footer 
-        className="mt-8 py-8 border-t border-pink-100/30 bg-gradient-to-r from-pink-50/20 to-white/20"
+        className="mt-8 py-8 border-t border-border bg-gradient-to-r from-rose-whisper/40 to-lilas-whisper/40"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}
@@ -108,7 +108,7 @@ const Index = () => {
             <nav className="flex items-center space-x-6" role="navigation" aria-label="Liens externes">
               <motion.a
                 href="https://majoliepeau.com"
-                className="text-sm text-pink-600/70 hover:text-pink-600 transition-colors"
+                className="text-sm text-primary hover:text-primary-hover transition-colors font-medium"
                 whileHover={{ scale: 1.05 }}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -118,7 +118,7 @@ const Index = () => {
               </motion.a>
               <motion.a
                 href="https://instagram.com/majolie_peau"
-                className="text-sm text-pink-600/70 hover:text-pink-600 transition-colors"
+                className="text-sm text-primary hover:text-primary-hover transition-colors font-medium"
                 whileHover={{ scale: 1.05 }}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -130,7 +130,7 @@ const Index = () => {
           </div>
           
           <motion.div 
-            className="mt-6 pt-4 border-t border-pink-100/20 text-center"
+            className="mt-6 pt-4 border-t border-border/50 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.6 }}

@@ -31,7 +31,7 @@ export const ResultsLoading = () => {
       
       <div className="space-y-4 text-center">
         <motion.p 
-          className="font-heading text-xl font-semibold text-primary"
+          className="font-heading text-xl font-semibold text-violet-deep"
           animate={{ opacity: [0.5, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
