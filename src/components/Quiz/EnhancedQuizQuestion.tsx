@@ -76,7 +76,7 @@ export const EnhancedQuizQuestion = () => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="max-w-[480px] mx-auto px-6 py-6 sm:py-8"
+      className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto px-6 py-6 sm:py-8"
     >
       {/* No card container — content directly on bg per mockup */}
       {state.currentQuestion > 0 && (
@@ -113,7 +113,7 @@ export const EnhancedQuizQuestion = () => {
         </p>
         {/* Titre principal (Cormorant, bold) */}
         {currentQuestion.subtitle && (
-          <h2 className="font-heading text-[22px] font-bold text-foreground">
+          <h2 className="font-heading text-[22px] lg:text-[26px] font-bold text-foreground">
             {currentQuestion.subtitle}
           </h2>
         )}

@@ -42,7 +42,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
       )}
       {phase === "email" && !state.hormoneProfile ? (
         <div key="no-profile" className="min-h-screen flex items-center justify-center bg-background">
-          <div className="text-center px-6">
+          <div className="text-center px-6 max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto">
             <h2 className="font-heading text-2xl font-semibold text-foreground mb-4">
               Oops ! Aucun profil trouvé
             </h2>
