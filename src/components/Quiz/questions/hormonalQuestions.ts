@@ -3,8 +3,8 @@ import { QuizQuestion } from "./types";
 export const hormonalQuestions: QuizQuestion[] = [
   {
     id: "age_range",
-    question: "On commence doucement",
-    subtitle: "Tu as quel âge ?",
+    display: "On commence doucement",
+    question: "Tu as quel âge ?",
     options: [
       { value: "moins_25", label: "Moins de 25 ans", description: "" },
       { value: "25_34", label: "25–34 ans", description: "" },
@@ -14,8 +14,8 @@ export const hormonalQuestions: QuizQuestion[] = [
   },
   {
     id: "skin_daily",
-    question: "Si ta peau pouvait parler, elle dirait plutôt…",
-    subtitle: "Ta peau au quotidien ?",
+    display: "Si ta peau pouvait parler…",
+    question: "Elle dirait plutôt…",
     options: [
       { value: "brille", label: "« Je brille pour deux »", description: "Grasse, pores visibles" },
       { value: "soif", label: "« J'ai soif »", description: "Sèche, tiraillements, inconfort" },
@@ -26,8 +26,8 @@ export const hormonalQuestions: QuizQuestion[] = [
   },
   {
     id: "boutons_pattern",
-    question: "On en parle sans tabou.",
-    subtitle: "Tes boutons, c'est quoi le schéma ?",
+    display: "On en parle sans tabou.",
+    question: "Tes boutons, c'est quoi le schéma ?",
     options: [
       { value: "avant_regles", label: "Ils débarquent surtout avant mes règles", description: "" },
       { value: "permanents", label: "Ils sont là en permanence, fidèles au poste", description: "" },
@@ -38,8 +38,8 @@ export const hormonalQuestions: QuizQuestion[] = [
   },
   {
     id: "skin_stress",
-    question: "Quand la pression monte, ta peau fait quoi ?",
-    subtitle: "Ta peau et le stress",
+    display: "Quand la pression monte…",
+    question: "Ta peau fait quoi ?",
     options: [
       { value: "explose", label: "Elle explose (boutons, éruptions)", description: "" },
       { value: "rougit", label: "Elle rougit ou fait des plaques", description: "" },
@@ -50,8 +50,8 @@ export const hormonalQuestions: QuizQuestion[] = [
   },
   {
     id: "cycle",
-    question: "Pas de jugement, c'est entre nous.",
-    subtitle: "Ton cycle, il te complique la vie ?",
+    display: "Pas de jugement, c'est entre nous.",
+    question: "Ton cycle, il te complique la vie ?",
     options: [
       { value: "regulier", label: "Non, il est régulier et tranquille", description: "" },
       { value: "irregulier", label: "Oui, il est irrégulier ou imprévisible", description: "" },
@@ -62,8 +62,8 @@ export const hormonalQuestions: QuizQuestion[] = [
   },
   {
     id: "energie",
-    question: "Dernière question, promis.",
-    subtitle: "Ton énergie en ce moment",
+    display: "Dernière question, promis.",
+    question: "Ton énergie en ce moment ?",
     options: [
       { value: "fatiguee_reveil", label: "Je me réveille déjà fatiguée", description: "" },
       { value: "coups_barre", label: "J'ai des coups de barre dans la journée (14h, 17h…)", description: "" },

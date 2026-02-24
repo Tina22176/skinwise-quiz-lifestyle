@@ -20,7 +20,7 @@ const Index = () => {
         role="banner"
       >
         <div className="container mx-auto px-4 py-3 flex justify-between items-center" style={{ minHeight: '56px' }}>
-          <span className="font-heading text-[20px] font-bold text-violet-deep">
+          <span className="font-heading text-[20px] italic text-violet-deep">
             Majoliepeau
           </span>
           

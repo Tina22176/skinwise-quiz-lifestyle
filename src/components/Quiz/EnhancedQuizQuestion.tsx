@@ -105,18 +105,18 @@ export const EnhancedQuizQuestion = () => {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.4 }}
-        className="text-left mb-6"
+        className="text-center mb-6"
       >
-        {/* Display text = petit texte emotionnel (DM Sans, italic) */}
-        <p className="text-[15px] italic font-body mb-2" style={{ color: '#9B8FA3' }}>
-          {currentQuestion.question}
-        </p>
-        {/* Titre principal (Cormorant, bold) */}
-        {currentQuestion.subtitle && (
-          <h2 className="font-heading text-[22px] lg:text-[26px] font-bold text-foreground">
-            {currentQuestion.subtitle}
-          </h2>
+        {/* Display text = petit texte emotionnel (DM Sans, italic, rose) */}
+        {currentQuestion.display && (
+          <p className="text-[15px] italic font-body mb-2 text-primary">
+            {currentQuestion.display}
+          </p>
         )}
+        {/* Titre principal (Cormorant, bold) */}
+        <h2 className="font-heading text-[22px] lg:text-[26px] font-bold text-foreground">
+          {currentQuestion.question}
+        </h2>
       </motion.div>
 
       <DynamicQuestionDisplay
