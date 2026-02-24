@@ -50,7 +50,7 @@ const QuizContent = () => {
     : "min-h-screen py-6 sm:py-8 lg:py-10";
 
   return (
-    <div className={containerClasses}>
+    <div className={containerClasses} style={{ background: 'linear-gradient(180deg, #F8F3FC 0%, #FDF2F7 60%, #FBEAF2 100%)' }}>
       <AnimatePresence mode="wait">
         {stage === "welcome" && (
           <Welcome onStart={handleStartQuiz} />
