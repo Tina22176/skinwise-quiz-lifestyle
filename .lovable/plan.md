@@ -1,147 +1,84 @@
 
 
-# Plan : Alignement pixel-perfect avec la maquette de reference
+# Plan : Migration Klaviyo vers Brevo
 
-## Ecarts identifies (mockup vs code actuel)
+## Perimetre
 
-J'ai compare chaque detail du composant de reference fourni avec le code actuel. Voici tous les ecarts :
+Remplacer toute l'integration Klaviyo par Brevo (ex-Sendinblite) pour l'envoi des contacts et le tracking des evenements du quiz.
 
----
+## Fichiers Klaviyo actuels (a supprimer/remplacer)
 
-### 1. WELCOME SCREEN — 8 ecarts
+| Fichier | Role |
+|---------|------|
+| `src/config/klaviyo.ts` | Cles API + endpoints Klaviyo |
+| `src/components/Quiz/Results/hooks/useKlaviyoIntegration.ts` | Hook principal : creation profil + tracking evenement |
+| `src/components/Quiz/Results/EmailSubscriptionHandler.tsx` | Orchestre la soumission du formulaire, appelle le hook Klaviyo |
+| `src/services/klaviyo.ts` | Service singleton Klaviyo (ancien, non utilise activement) |
+| `src/utils/klaviyoDebugger.ts` | Debug console Klaviyo |
+| `src/main.tsx` | Import conditionnel du debugger Klaviyo |
 
-| Detail | Maquette | Code actuel |
-|--------|----------|-------------|
-| Badge | `bg: #FBEAF2` (rose-whisper) + `color: #D4649A` (rose) | `bg-primary text-primary-foreground` (rose plein + blanc) |
-| Badge padding | `padding: 6px 18px`, `fontSize: 13`, `fontWeight: 600` | `px-5 py-1.5`, `text-sm font-semibold` (trop gros) |
-| Titre taille | `fontSize: 2.5rem`, `lineHeight: 1.15` | `text-4xl sm:text-5xl md:text-6xl` (trop grand) |
-| CTA button | `linear-gradient(135deg, rose, roseHover)`, `borderRadius: 99`, `padding: 18px 44px`, `fontSize: 17` | `bg-primary` (flat, pas de gradient), `rounded-full` ok, mais tailles differentes |
-| CTA text | "Commencer le diagnostic" + fleche texte (pas icone) | Utilise `ArrowRight` icone Lucide |
-| Ligne decorative | `width: 60px`, `height: 1px`, `bg: #E6DCE9` | `w-16 h-px bg-border` (close mais verifier) |
-| Blobs decoratifs | 3 blobs avec animation `float` specifique et couleurs exactes | Deux blobs statiques avec des couleurs differentes |
-| Texte "Gratuit..." | `fontSize: 13`, `color: #9B8FA3` (textMuted) | `text-sm text-muted-foreground` (presque ok) |
+## Modifications
 
-### 2. QUIZ QUESTION SCREEN — 6 ecarts
+### 1. Nouveau fichier : `src/config/brevo.ts`
 
-| Detail | Maquette | Code actuel |
-|--------|----------|-------------|
-| Hierarchie texte INVERSEE | Display = GRAND titre (Cormorant, 22px, bold, `#2E2233`) / Question = petit sous-titre (DM Sans, 16px, `#665A70`) | Display est le PETIT texte, question est le GRAND -- c'est inverse |
-| Pas de card container | Le contenu est affiche directement sur le fond `#F8F3FC`, PAS dans une card blanche | Enveloppe dans `bg-card rounded-2xl shadow-md border` |
-| Options border | `2px solid #F0EAF3` (lineSoft) | `2px solid hsl(var(--input))` (similaire mais verifier le rendu) |
-| Options hover | `borderColor: #D8C4EC` (lilas), `background: #F5F0FA` (lilasWhisper) | Hover en `hsl(280 30% 85%)` et `hsl(270 40% 97%)` (approximatif) |
-| Options selected | `border: 2px solid #D4649A`, gradient `roseWhisper -> lilasWhisper`, checkmark rose circle | Checkmark avec "check" texte, gradient different |
-| Progress bar | `height: 4px`, `bg: #F0EAF3` (lineSoft), fill = gradient `rose -> roseBright` | `h-2` (8px, trop epais), `bg-secondary` |
+Configuration Brevo avec :
+- `apiKey` : ta cle API Brevo (a fournir)
+- `listId` : l'ID de ta liste Brevo (a fournir, un nombre)
+- Endpoints : `https://api.brevo.com/v3/contacts` et `https://api.brevo.com/v3/smtp/email`
 
-### 3. EMAIL CAPTURE SCREEN — 5 ecarts
+### 2. Nouveau fichier : `src/components/Quiz/Results/hooks/useBrevoIntegration.ts`
 
-| Detail | Maquette | Code actuel |
-|--------|----------|-------------|
-| Icone | Emoji "sparkle" en `fontSize: 2.5rem` dans un cercle `bg: #F5F0FA` (lilasWhisper), `72x72px` | Icone Lucide `Sparkles` dans cercle `bg-secondary`, `56x56px` (14x14) |
-| Titre | `fontFamily: Cormorant Garamond`, `fontSize: 1.8rem`, `color: #3D2B45` (violetDeep) | `text-foreground` (`#2E2233`) — couleur presque ok, taille a verifier |
-| Inputs background | `background: #F5F0FA` (lilasWhisper), `border: 1.5px solid #E6DCE9` (line) | `bg-accent border-[1.5px] border-border` — `accent` = `#F0EAF3`, pas `#F5F0FA` |
-| Input focus | `borderColor: #D4649A` (rose) | `focus:border-primary` — ok si primary = rose |
-| Skip button | `fontSize: 14`, `color: #9B8FA3` (textMuted), `textDecoration: underline` | `text-sm text-muted-foreground underline` — muted-foreground = `#665A70` pas `#9B8FA3` |
+Remplace `useKlaviyoIntegration.ts`. Meme interface (`subscribeToNewsletter`, `trackCustomEvent`) mais appelle l'API Brevo v3 :
 
-### 4. RESULTS SCREEN — 7 ecarts
+- **Creation contact** : `POST https://api.brevo.com/v3/contacts` avec header `api-key`, body `{ email, attributes: { FIRSTNAME, SKIN_TYPE, ... }, listIds: [ID], updateEnabled: true }`
+- **Tracking evenement** : `POST https://api.brevo.com/v3/events` (ou ignore si pas utilise cote Brevo)
+- Les attributs de contact Brevo seront en MAJUSCULES (convention Brevo) : `FIRSTNAME`, `SKIN_TYPE`, `SKIN_STATE`, `COMBINED_SKIN_TYPE`, `QUIZ_COMPLETED`, etc.
 
-| Detail | Maquette | Code actuel |
-|--------|----------|-------------|
-| "Ton profil peau" label | `fontSize: 13`, `color: #9B8FA3`, `textTransform: uppercase`, `letterSpacing: 1.5px` | `text-sm text-muted-foreground uppercase tracking-wide` — muted-foreground trop fonce |
-| Profile emoji | Affiche l'emoji (`profile.emoji`) en grand, pas d'icone SVG | Utilise `HormoneIcon` (SVG Lucide) |
-| Cards | `border: 1px solid #E6DCE9` (line), `borderRadius: 20px`, PAS de shadow | `shadow-md border border-border` — shadow en trop |
-| Product CTA section | `background: linear-gradient(135deg, #F5F0FA, #FBEAF2)` (lilasWhisper -> roseWhisper) | `bg-card` (blanc) — pas de gradient |
-| Checkmarks email | Emoji "check" vert (texte `color: #D4649A`) | Icone Lucide `Check` dans cercle `bg-primary/15` |
-| Texte "Pas prete..." | Contient emoji "boite mail" a la fin | Pas d'emoji (ok si choix delibere) |
-| "Refaire le quiz" | `color: #9B8FA3` (textMuted), pas de couleur primaire | `text-primary` (rose) — devrait etre gris |
+### 3. Modifier : `src/components/Quiz/Results/EmailSubscriptionHandler.tsx`
 
-### 5. HEADER — 2 ecarts
+- Remplacer `import { useKlaviyoIntegration }` par `import { useBrevoIntegration }`
+- Remplacer `useKlaviyoIntegration()` par `useBrevoIntegration()`
+- Mettre a jour les logs (`KLAVIYO` -> `BREVO`)
 
-| Detail | Maquette | Code actuel |
-|--------|----------|-------------|
-| Logo | Texte "Majoliepeau" en `fontSize: 20`, `fontWeight: 700`, `fontFamily: Cormorant Garamond`, `color: #3D2B45` | Image PNG du logo Shopify |
-| Style | `background: #FFFFFF`, `borderBottom: 1px solid #E6DCE9` | `bg-card border-b border-border` — similaire |
+### 4. Supprimer : `src/services/klaviyo.ts`
 
-### 6. FOOTER — 1 ecart
+Service ancien non utilise (le hook actif est `useKlaviyoIntegration`). Supprime.
 
-| Detail | Maquette | Code actuel |
-|--------|----------|-------------|
-| Links | `color: #D4649A` (rose), `textDecoration: none` | `text-primary` — ok mais font-weight et style a verifier |
+### 5. Remplacer : `src/utils/klaviyoDebugger.ts` -> `src/utils/brevoDebugger.ts`
 
-### 7. COULEUR CSS MANQUANTE — `textMuted`
+Meme principe mais avec l'API Brevo pour tester la connexion.
 
-La maquette utilise 3 niveaux de texte :
-- `text` = `#2E2233` (foreground) -- OK
-- `textSecondary` = `#665A70` (muted-foreground) -- OK
-- `textMuted` = `#9B8FA3` (plus clair, pour labels, meta) -- MANQUANT
+### 6. Modifier : `src/main.tsx`
 
-Le code n'a que 2 niveaux. `textMuted` (#9B8FA3) n'est pas defini comme token.
+Remplacer `import('./utils/klaviyoDebugger')` par `import('./utils/brevoDebugger')`.
+
+### 7. Supprimer : `src/config/klaviyo.ts`
+
+Plus necessaire.
 
 ---
 
-## Modifications a effectuer
+## Ce qui ne change PAS
 
-### Fichier 1 : `src/index.css`
-- Pas de changement de tokens (ils correspondent deja a la maquette)
+- `EmailSubscriptionHandler.tsx` garde la meme interface (email, firstName, skinType, etc.)
+- Le formulaire d'email, le GDPR consent, les toasts — tout reste identique
+- `useAnalytics.ts` (Google Analytics) n'est pas touche
+- Aucun composant UI n'est modifie
 
-### Fichier 2 : `tailwind.config.ts`
-- Ajouter une couleur `textMuted: "#9B8FA3"` dans la palette pour le 3e niveau de texte
+## Information requise
 
-### Fichier 3 : `src/components/Quiz/Welcome.tsx`
-- Badge : `bg-rose-whisper text-primary` au lieu de `bg-primary text-primary-foreground`
-- Badge : `px-4 py-1 rounded-full text-[13px] font-semibold`
-- Titre : reduire a `text-[2.5rem]` avec `leading-[1.15]`
-- CTA : ajouter `style={{ background: 'linear-gradient(135deg, #D4649A 0%, #C45589 100%)' }}` au lieu de `bg-primary`
-- CTA : texte "Commencer le diagnostic" suivi de la fleche texte `->` (pas l'icone ArrowRight, ou garder l'icone c'est ok)
-- CTA : `px-11 py-[18px] text-[17px]`
-- Ajouter un 3e blob decoratif
+Avant d'implementer, il faudra que tu me donnes :
+1. **Ta cle API Brevo** (commence par `xkeysib-...`)
+2. **L'ID de ta liste Brevo** (un nombre, ex: `3`)
 
-### Fichier 4 : `src/components/Quiz/EnhancedQuizQuestion.tsx`
-- **INVERSER** l'ordre : Display text (`question`) = le GRAND titre en `font-heading text-[22px] font-semibold text-foreground`, subtitle = le PETIT texte en `text-base text-muted-foreground font-body`
-- Retirer le container card (`bg-card rounded-2xl shadow-md border`) — afficher directement sur le fond de page
+Je les mettrai dans `src/config/brevo.ts` (meme approche que l'actuel `klaviyo.ts`).
 
-### Fichier 5 : `src/components/Quiz/EnhancedAnswerOption.tsx`
-- Border au repos : `2px solid #F0EAF3` (lineSoft) — utiliser `hsl(var(--input))` c'est presque ca
-- Hover : `borderColor: '#D8C4EC'` (lilas), `background: '#F5F0FA'` (lilasWhisper) — utiliser les noms Tailwind `lilas` et `lilas-whisper`
-- Selected gradient : `linear-gradient(135deg, #FBEAF2 0%, #F5F0FA 100%)` (roseWhisper -> lilasWhisper)
-- Selected checkmark : cercle `w-6 h-6 rounded-full bg-primary text-white` avec check texte "check"
+## Resume : 7 operations sur 5 fichiers
 
-### Fichier 6 : `src/components/Quiz/QuizProgressBar.tsx`
-- Hauteur barre : `h-1` (4px) au lieu de `h-2` (8px)
-- Fond barre : `bg-[#F0EAF3]` (lineSoft) au lieu de `bg-secondary`
-- Texte : `text-[13px] text-[#9B8FA3]` (textMuted) au lieu de `text-xs text-muted-foreground`
-
-### Fichier 7 : `src/components/Quiz/Results/components/EmailCaptureScreen.tsx`
-- Icone cercle : `w-[72px] h-[72px] bg-lilas-whisper` au lieu de `w-14 h-14 bg-secondary`
-- Garder Sparkles Lucide (coherent avec le reste du design)
-- Titre : `text-violet-deep` au lieu de `text-foreground`
-- Titre taille : `text-[1.8rem]`
-- Skip bouton : `text-[#9B8FA3]` au lieu de `text-muted-foreground`
-
-### Fichier 8 : `src/components/Quiz/Results/components/SimpleHormoneResults.tsx`
-- Label "Ton profil peau" : `text-[13px] text-[#9B8FA3] tracking-[1.5px]`
-- Icone profil : remplacer `HormoneIcon` par l'emoji du profil (`profile.emoji`) en `text-4xl`
-- Cards : retirer `shadow-md`, garder uniquement `border border-border rounded-[20px]`
-- Section "Pour aller plus loin" : `bg-gradient-to-br from-lilas-whisper to-rose-whisper` au lieu de `bg-card`
-- Checkmarks : `text-primary` simple (pas cercle bg)
-- "Refaire le quiz" : `text-[#9B8FA3]` au lieu de `text-primary`
-
-### Fichier 9 : `src/components/Quiz/Results/ResultsLoading.tsx`
-- Pas de changement majeur (deja correct)
-
----
-
-## Resume : 8 fichiers modifies
-
-1. `tailwind.config.ts` — ajout couleur textMuted
-2. `src/components/Quiz/Welcome.tsx` — badge, titre, CTA, blobs
-3. `src/components/Quiz/EnhancedQuizQuestion.tsx` — inverser hierarchie, retirer card
-4. `src/components/Quiz/EnhancedAnswerOption.tsx` — hover/selected exact
-5. `src/components/Quiz/QuizProgressBar.tsx` — hauteur, couleurs
-6. `src/components/Quiz/Results/components/EmailCaptureScreen.tsx` — icone, titre, skip
-7. `src/components/Quiz/Results/components/SimpleHormoneResults.tsx` — cards, emoji, gradient, check
-8. `src/pages/Index.tsx` — ajustements mineurs header/footer si necessaire
-
-## Principe
-
-Chaque valeur (couleur, taille, padding, border, shadow) est alignee sur les valeurs exactes du composant de reference. Pas d'interpretation — copie fidele des specs.
+1. Creer `src/config/brevo.ts`
+2. Creer `src/components/Quiz/Results/hooks/useBrevoIntegration.ts`
+3. Modifier `src/components/Quiz/Results/EmailSubscriptionHandler.tsx`
+4. Creer `src/utils/brevoDebugger.ts`
+5. Modifier `src/main.tsx`
+6. Supprimer `src/config/klaviyo.ts`, `src/services/klaviyo.ts`, `src/utils/klaviyoDebugger.ts`, `src/components/Quiz/Results/hooks/useKlaviyoIntegration.ts`
 
