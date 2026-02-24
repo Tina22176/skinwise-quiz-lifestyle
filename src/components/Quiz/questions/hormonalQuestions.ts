@@ -3,7 +3,7 @@ import { QuizQuestion } from "./types";
 export const hormonalQuestions: QuizQuestion[] = [
   {
     id: "age_range",
-    question: "On commence doucement 😊",
+    question: "On commence doucement",
     subtitle: "Tu as quel âge ?",
     options: [
       { value: "moins_25", label: "Moins de 25 ans", description: "" },

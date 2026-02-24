@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
 import { HormoneIcon } from "./HormoneIcon";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
@@ -38,7 +38,7 @@ export const SimpleHormoneResults = ({
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="min-h-screen bg-background px-4 py-8"
+      className="min-h-screen bg-rose-whisper/30 px-4 py-8"
     >
       <div className="max-w-2xl mx-auto space-y-6">
         
@@ -51,12 +51,12 @@ export const SimpleHormoneResults = ({
           </div>
           <p className="text-sm text-muted-foreground font-body uppercase tracking-wide mb-1">Ton profil peau</p>
           <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground">
-            {profile.title} {profile.emoji}
+            {profile.title}
           </h1>
         </motion.div>
 
         {/* Tu es */}
-        <motion.div variants={itemVariants} className="bg-card rounded-xl p-6 shadow-md border border-border">
+        <motion.div variants={itemVariants} className="bg-gradient-to-br from-rose-whisper to-card rounded-xl p-6 shadow-md border border-border">
           <p className="text-foreground leading-relaxed text-lg font-body">
             {profile.tuEs}
           </p>
@@ -118,12 +118,13 @@ export const SimpleHormoneResults = ({
           <ul className="space-y-2 text-muted-foreground font-body">
             {["Ton profil en PDF", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
               <li key={item} className="flex items-center gap-2">
-                <span className="text-primary">✓</span> {item}
+                <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                <span>{item}</span>
               </li>
             ))}
           </ul>
           <p className="text-muted-foreground text-sm mt-4 italic font-body">
-            Pas prête ? Pas de souci. Le guide arrive dans ta boîte. 💌
+            Pas prête ? Pas de souci. Le guide arrive dans ta boîte.
           </p>
         </motion.div>
 

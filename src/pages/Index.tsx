@@ -16,7 +16,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-rose-whisper via-background to-lilas-whisper overflow-x-hidden">
       {/* Header avec logo flottant - simplifié */}
       <motion.header 
-        className="fixed top-0 left-0 right-0 z-50 glass backdrop-blur-xl border-b border-pink-100/20"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-rose-soft/40 shadow-sm"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}

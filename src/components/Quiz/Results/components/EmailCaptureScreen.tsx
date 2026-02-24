@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Input } from "../../../ui/input";
 import { Button } from "../../../ui/button";
 
@@ -32,16 +32,18 @@ export const EmailCaptureScreen = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-whisper via-background to-lilas-whisper px-4"
+      className="min-h-screen flex items-center justify-center bg-rose-whisper/30 px-4"
     >
-      <div className="max-w-md w-full space-y-6 text-center">
+      <div className="max-w-md w-full bg-card rounded-2xl shadow-lg p-8 space-y-6 text-center border border-border">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
-          <div className="text-5xl mb-4">✨</div>
-          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-violet-deep mb-3">
+          <div className="mb-4 flex justify-center">
+            <Sparkles className="w-10 h-10 text-primary" />
+          </div>
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-3">
             Ton profil est prêt
           </h1>
           <p className="text-muted-foreground text-lg leading-relaxed font-body">
@@ -62,7 +64,7 @@ export const EmailCaptureScreen = ({
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="w-full rounded-xl border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
+            className="w-full rounded-xl border-2 border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
           />
           <Input
             type="email"
@@ -70,7 +72,7 @@ export const EmailCaptureScreen = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-xl border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
+            className="w-full rounded-xl border-2 border-border focus:ring-primary/30 focus:border-primary py-3 font-body"
           />
           
           <label className="flex items-start gap-2 text-sm cursor-pointer font-body">

@@ -40,8 +40,8 @@ export const EnhancedAnswerOption = ({
         disabled={selectedAnswer !== null}
         className={`w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-200 font-body ${
           isSelected 
-            ? 'bg-rose-whisper border-primary shadow-glow' 
-            : 'bg-card border-border/80 hover:border-primary hover:bg-rose-whisper/50 shadow-sm hover:shadow-md'
+            ? 'bg-rose-whisper border-primary shadow-glow border-l-4 border-l-primary' 
+            : 'bg-card border-border shadow-sm hover:border-primary hover:bg-rose-whisper/30 hover:shadow-md hover:border-l-4 hover:border-l-primary'
         } ${selectedAnswer !== null && !isSelected ? 'opacity-40' : ''} ${
           selectedAnswer !== null ? 'cursor-default' : 'cursor-pointer'
         }`}
