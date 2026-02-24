@@ -1,82 +1,79 @@
 
 
-# Plan : Alignement pixel-perfect avec le mockup de reference
+# Plan : Layout responsive pour tablette et desktop
 
-Conservation de toutes les ameliorations existantes (animations, Brevo, logique quiz). Seuls les ecarts visuels sont corriges.
+Le contenu s'elargit progressivement selon la taille de l'ecran, tout en restant fidele au mockup sur mobile. Aucun changement sur la logique quiz, Brevo, ou les animations.
 
 ---
 
-## Modifications par fichier
+## Principe
+
+Remplacer le `max-w-[480px]` fixe par des breakpoints progressifs :
+
+```text
+Mobile (< 768px)   : max-w-[480px]  (identique au mockup)
+Tablette (768px+)   : max-w-[600px]  (un peu plus large)
+Desktop (1024px+)   : max-w-[720px]  (occupe mieux l'espace)
+```
+
+Le contenu reste centre (`mx-auto`) mais occupe plus de place sur les grands ecrans. Le padding horizontal reste `px-6` partout.
+
+---
+
+## Fichiers a modifier
 
 ### 1. `src/components/Quiz/EnhancedQuizQuestion.tsx`
 
-**Ecarts corriges** : display text manquant, font-weight, centrage, animation, max-width
-
-- Inverser l'affichage des champs : `question` = petit texte emotionnel (italic, 15px, `#9B8FA3`), `subtitle` = titre principal (Cormorant, 22px, bold)
-- Changer `font-semibold` en `font-bold` sur le titre
-- Changer `text-center` en `text-left`
-- Changer `max-w-xl` en `max-w-[480px]`
-- Uniformiser padding en `px-6`
-- Changer animation d'entree de `x: 40` (horizontal) en `y: 16, opacity: 0` (fadeUp vertical)
-- Conserver le bouton "Retour" et le message "Parfait !" (ameliorations UX a garder)
+**Ligne 79** : Remplacer `max-w-[480px]` par `max-w-[480px] md:max-w-[600px] lg:max-w-[720px]`
 
 ### 2. `src/components/Quiz/Welcome.tsx`
 
-**Ecarts corriges** : max-width, hover CTA
-
-- Changer `max-w-lg` en `max-w-[480px]`
-- Uniformiser padding en `px-6`
-- Corriger hover CTA : remplacer `whileHover={{ scale: 1.02 }}` par `whileHover={{ y: -2, boxShadow: "0 12px 40px rgba(212,100,154,0.35), 0 4px 12px rgba(212,100,154,0.2)" }}`
+**Ligne 29** : Remplacer `max-w-[480px]` par `max-w-[480px] md:max-w-[600px] lg:max-w-[720px]`
 
 ### 3. `src/components/Quiz/Results/components/SimpleHormoneResults.tsx`
 
-**Ecarts corriges** : titre trop grand, max-width, emoji manquant, footer absent, emoji taille
-
-- Changer titre `text-3xl sm:text-4xl` en `text-[28px]` fixe
-- Changer emoji `text-4xl` (36px) en `text-[32px]`
-- Changer `max-w-xl` en `max-w-[480px]`
-- Uniformiser padding en `px-6`
-- Ajouter emoji coeur a la fin du texte reminder : "...dans ta boite. (coeur-lettre)"
-- Ajouter un footer en bas : copyright 2025 + liens Boutique/Instagram (meme style que Index.tsx)
+**Ligne 41** : Remplacer `max-w-[480px]` par `max-w-[480px] md:max-w-[600px] lg:max-w-[720px]`
 
 ### 4. `src/components/Quiz/Results/components/EmailCaptureScreen.tsx`
 
-**Ecarts corriges** : card/ombre, max-width, border-radius inputs
-
-- Supprimer le conteneur carte : retirer `bg-card rounded-2xl shadow-lg border border-border` du div wrapper. Le contenu s'affiche directement sur le fond de page
-- Changer `max-w-md` en `max-w-[480px]`
-- Uniformiser padding en `px-6`
-- Corriger `rounded-xl` des inputs en `rounded-[12px]` (le mockup dit 12px, pas 28px)
+**Ligne 35** : Remplacer `max-w-[480px]` par `max-w-[480px] md:max-w-[600px] lg:max-w-[720px]`
 
 ### 5. `src/components/Quiz/Results/Results.tsx`
 
-**Ecart corrige** : fond uni
-
-- S'assurer que le fond est `bg-background` (`#F8F3FC`) uni, sans gradient
-
-### 6. `src/pages/Index.tsx`
-
-**Ecart corrige** : animation header
-
-- Retirer l'animation d'entree du header (`initial={{ y: -100 }}`) : le header apparait directement, sans slide
-
-### 7. `tailwind.config.ts`
-
-- Ajouter couleur `gold: "#C9A87C"` dans `extend.colors`
+**Ligne 45** : Le div "Oops ! Aucun profil" utilise `px-6` mais n'a pas de max-width. Ajouter `max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto` au conteneur texte.
 
 ---
 
-## Recapitulatif
+## Ajustements typographiques pour grands ecrans
 
-| Fichier | Changements |
-|---------|-------------|
-| `EnhancedQuizQuestion.tsx` | Display text italic + titre bold text-left + fadeUp + max-w-[480px] + px-6 |
-| `Welcome.tsx` | max-w-[480px] + px-6 + hover translateY |
-| `SimpleHormoneResults.tsx` | titre 28px + emoji 32px + max-w-[480px] + px-6 + footer + emoji lettre |
-| `EmailCaptureScreen.tsx` | Supprimer carte/ombre + max-w-[480px] + px-6 + inputs rounded-[12px] |
-| `Results.tsx` | Fond uni bg-background |
-| `Index.tsx` | Retirer animation header |
-| `tailwind.config.ts` | Ajouter gold |
+En plus de l'elargissement, on augmente legerement la taille de certains textes sur desktop pour que le contenu ne paraisse pas "petit" dans un conteneur plus large.
 
-Aucun changement sur la logique quiz, les profils hormonaux, ou l'integration Brevo.
+### `src/components/Quiz/EnhancedQuizQuestion.tsx`
+- Titre question : `text-[22px]` devient `text-[22px] lg:text-[26px]`
+- Texte emotionnel : `text-[15px]` reste identique (taille de lecture fine)
+
+### `src/components/Quiz/Welcome.tsx`
+- Titre h1 : `text-[2.5rem]` devient `text-[2.5rem] lg:text-[3rem]`
+- Sous-titre : `text-base` devient `text-base lg:text-lg`
+
+### `src/components/Quiz/Results/components/SimpleHormoneResults.tsx`
+- Titre profil : `text-[28px]` devient `text-[28px] lg:text-[32px]`
+- Sous-titres cards : `text-xl` reste identique
+
+### `src/components/Quiz/Results/components/EmailCaptureScreen.tsx`
+- Titre : `text-[1.8rem]` devient `text-[1.8rem] lg:text-[2.2rem]`
+
+---
+
+## Resume
+
+| Fichier | Changement |
+|---------|------------|
+| `EnhancedQuizQuestion.tsx` | max-w responsive + titre lg:text-[26px] |
+| `Welcome.tsx` | max-w responsive + h1 lg:text-[3rem] + subtitle lg:text-lg |
+| `SimpleHormoneResults.tsx` | max-w responsive + titre lg:text-[32px] |
+| `EmailCaptureScreen.tsx` | max-w responsive + titre lg:text-[2.2rem] |
+| `Results.tsx` | max-w responsive sur le fallback "aucun profil" |
+
+5 fichiers modifies. Aucun changement sur la logique, les animations, ou Brevo.
 
