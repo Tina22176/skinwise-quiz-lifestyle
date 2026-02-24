@@ -1,84 +1,82 @@
 
 
-# Plan : Migration Klaviyo vers Brevo
+# Plan : Alignement pixel-perfect avec le mockup de reference
 
-## Perimetre
-
-Remplacer toute l'integration Klaviyo par Brevo (ex-Sendinblite) pour l'envoi des contacts et le tracking des evenements du quiz.
-
-## Fichiers Klaviyo actuels (a supprimer/remplacer)
-
-| Fichier | Role |
-|---------|------|
-| `src/config/klaviyo.ts` | Cles API + endpoints Klaviyo |
-| `src/components/Quiz/Results/hooks/useKlaviyoIntegration.ts` | Hook principal : creation profil + tracking evenement |
-| `src/components/Quiz/Results/EmailSubscriptionHandler.tsx` | Orchestre la soumission du formulaire, appelle le hook Klaviyo |
-| `src/services/klaviyo.ts` | Service singleton Klaviyo (ancien, non utilise activement) |
-| `src/utils/klaviyoDebugger.ts` | Debug console Klaviyo |
-| `src/main.tsx` | Import conditionnel du debugger Klaviyo |
-
-## Modifications
-
-### 1. Nouveau fichier : `src/config/brevo.ts`
-
-Configuration Brevo avec :
-- `apiKey` : ta cle API Brevo (a fournir)
-- `listId` : l'ID de ta liste Brevo (a fournir, un nombre)
-- Endpoints : `https://api.brevo.com/v3/contacts` et `https://api.brevo.com/v3/smtp/email`
-
-### 2. Nouveau fichier : `src/components/Quiz/Results/hooks/useBrevoIntegration.ts`
-
-Remplace `useKlaviyoIntegration.ts`. Meme interface (`subscribeToNewsletter`, `trackCustomEvent`) mais appelle l'API Brevo v3 :
-
-- **Creation contact** : `POST https://api.brevo.com/v3/contacts` avec header `api-key`, body `{ email, attributes: { FIRSTNAME, SKIN_TYPE, ... }, listIds: [ID], updateEnabled: true }`
-- **Tracking evenement** : `POST https://api.brevo.com/v3/events` (ou ignore si pas utilise cote Brevo)
-- Les attributs de contact Brevo seront en MAJUSCULES (convention Brevo) : `FIRSTNAME`, `SKIN_TYPE`, `SKIN_STATE`, `COMBINED_SKIN_TYPE`, `QUIZ_COMPLETED`, etc.
-
-### 3. Modifier : `src/components/Quiz/Results/EmailSubscriptionHandler.tsx`
-
-- Remplacer `import { useKlaviyoIntegration }` par `import { useBrevoIntegration }`
-- Remplacer `useKlaviyoIntegration()` par `useBrevoIntegration()`
-- Mettre a jour les logs (`KLAVIYO` -> `BREVO`)
-
-### 4. Supprimer : `src/services/klaviyo.ts`
-
-Service ancien non utilise (le hook actif est `useKlaviyoIntegration`). Supprime.
-
-### 5. Remplacer : `src/utils/klaviyoDebugger.ts` -> `src/utils/brevoDebugger.ts`
-
-Meme principe mais avec l'API Brevo pour tester la connexion.
-
-### 6. Modifier : `src/main.tsx`
-
-Remplacer `import('./utils/klaviyoDebugger')` par `import('./utils/brevoDebugger')`.
-
-### 7. Supprimer : `src/config/klaviyo.ts`
-
-Plus necessaire.
+Conservation de toutes les ameliorations existantes (animations, Brevo, logique quiz). Seuls les ecarts visuels sont corriges.
 
 ---
 
-## Ce qui ne change PAS
+## Modifications par fichier
 
-- `EmailSubscriptionHandler.tsx` garde la meme interface (email, firstName, skinType, etc.)
-- Le formulaire d'email, le GDPR consent, les toasts — tout reste identique
-- `useAnalytics.ts` (Google Analytics) n'est pas touche
-- Aucun composant UI n'est modifie
+### 1. `src/components/Quiz/EnhancedQuizQuestion.tsx`
 
-## Information requise
+**Ecarts corriges** : display text manquant, font-weight, centrage, animation, max-width
 
-Avant d'implementer, il faudra que tu me donnes :
-1. **Ta cle API Brevo** (commence par `xkeysib-...`)
-2. **L'ID de ta liste Brevo** (un nombre, ex: `3`)
+- Inverser l'affichage des champs : `question` = petit texte emotionnel (italic, 15px, `#9B8FA3`), `subtitle` = titre principal (Cormorant, 22px, bold)
+- Changer `font-semibold` en `font-bold` sur le titre
+- Changer `text-center` en `text-left`
+- Changer `max-w-xl` en `max-w-[480px]`
+- Uniformiser padding en `px-6`
+- Changer animation d'entree de `x: 40` (horizontal) en `y: 16, opacity: 0` (fadeUp vertical)
+- Conserver le bouton "Retour" et le message "Parfait !" (ameliorations UX a garder)
 
-Je les mettrai dans `src/config/brevo.ts` (meme approche que l'actuel `klaviyo.ts`).
+### 2. `src/components/Quiz/Welcome.tsx`
 
-## Resume : 7 operations sur 5 fichiers
+**Ecarts corriges** : max-width, hover CTA
 
-1. Creer `src/config/brevo.ts`
-2. Creer `src/components/Quiz/Results/hooks/useBrevoIntegration.ts`
-3. Modifier `src/components/Quiz/Results/EmailSubscriptionHandler.tsx`
-4. Creer `src/utils/brevoDebugger.ts`
-5. Modifier `src/main.tsx`
-6. Supprimer `src/config/klaviyo.ts`, `src/services/klaviyo.ts`, `src/utils/klaviyoDebugger.ts`, `src/components/Quiz/Results/hooks/useKlaviyoIntegration.ts`
+- Changer `max-w-lg` en `max-w-[480px]`
+- Uniformiser padding en `px-6`
+- Corriger hover CTA : remplacer `whileHover={{ scale: 1.02 }}` par `whileHover={{ y: -2, boxShadow: "0 12px 40px rgba(212,100,154,0.35), 0 4px 12px rgba(212,100,154,0.2)" }}`
+
+### 3. `src/components/Quiz/Results/components/SimpleHormoneResults.tsx`
+
+**Ecarts corriges** : titre trop grand, max-width, emoji manquant, footer absent, emoji taille
+
+- Changer titre `text-3xl sm:text-4xl` en `text-[28px]` fixe
+- Changer emoji `text-4xl` (36px) en `text-[32px]`
+- Changer `max-w-xl` en `max-w-[480px]`
+- Uniformiser padding en `px-6`
+- Ajouter emoji coeur a la fin du texte reminder : "...dans ta boite. (coeur-lettre)"
+- Ajouter un footer en bas : copyright 2025 + liens Boutique/Instagram (meme style que Index.tsx)
+
+### 4. `src/components/Quiz/Results/components/EmailCaptureScreen.tsx`
+
+**Ecarts corriges** : card/ombre, max-width, border-radius inputs
+
+- Supprimer le conteneur carte : retirer `bg-card rounded-2xl shadow-lg border border-border` du div wrapper. Le contenu s'affiche directement sur le fond de page
+- Changer `max-w-md` en `max-w-[480px]`
+- Uniformiser padding en `px-6`
+- Corriger `rounded-xl` des inputs en `rounded-[12px]` (le mockup dit 12px, pas 28px)
+
+### 5. `src/components/Quiz/Results/Results.tsx`
+
+**Ecart corrige** : fond uni
+
+- S'assurer que le fond est `bg-background` (`#F8F3FC`) uni, sans gradient
+
+### 6. `src/pages/Index.tsx`
+
+**Ecart corrige** : animation header
+
+- Retirer l'animation d'entree du header (`initial={{ y: -100 }}`) : le header apparait directement, sans slide
+
+### 7. `tailwind.config.ts`
+
+- Ajouter couleur `gold: "#C9A87C"` dans `extend.colors`
+
+---
+
+## Recapitulatif
+
+| Fichier | Changements |
+|---------|-------------|
+| `EnhancedQuizQuestion.tsx` | Display text italic + titre bold text-left + fadeUp + max-w-[480px] + px-6 |
+| `Welcome.tsx` | max-w-[480px] + px-6 + hover translateY |
+| `SimpleHormoneResults.tsx` | titre 28px + emoji 32px + max-w-[480px] + px-6 + footer + emoji lettre |
+| `EmailCaptureScreen.tsx` | Supprimer carte/ombre + max-w-[480px] + px-6 + inputs rounded-[12px] |
+| `Results.tsx` | Fond uni bg-background |
+| `Index.tsx` | Retirer animation header |
+| `tailwind.config.ts` | Ajouter gold |
+
+Aucun changement sur la logique quiz, les profils hormonaux, ou l'integration Brevo.
 
