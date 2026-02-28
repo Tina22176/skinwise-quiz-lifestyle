@@ -3,12 +3,11 @@ import { useQuiz } from "./QuizContext";
 import { questions } from "./questions/index";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { QuizProgressBar } from "./QuizProgressBar";
+import { EnhancedProgressBar } from "./EnhancedProgressBar";
 import { EnhancedAnswerOption } from "./EnhancedAnswerOption";
 import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
 import { DynamicQuestionEngine } from "./utils/dynamicQuestionEngine";
 import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
-import { motivationalTexts } from "./constants/quizTexts";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export const EnhancedQuizQuestion = () => {
@@ -95,10 +94,9 @@ export const EnhancedQuizQuestion = () => {
         </motion.button>
       )}
 
-      <QuizProgressBar 
+      <EnhancedProgressBar 
         currentQuestion={state.currentQuestion} 
         totalQuestions={dynamicList.length}
-        motivationalTexts={motivationalTexts}
       />
 
       <motion.div
