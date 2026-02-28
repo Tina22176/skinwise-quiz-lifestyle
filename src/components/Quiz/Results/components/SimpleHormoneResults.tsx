@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
-import { ArrowRight } from "lucide-react";
+import { EnhancedResultCard } from "../EnhancedResultCard";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
@@ -53,39 +53,45 @@ export const SimpleHormoneResults = ({
           </h1>
         </motion.div>
 
-        {/* Description card — no shadow per mockup */}
-        <motion.div variants={itemVariants} className="bg-card p-6 border border-border" style={{ borderRadius: 20 }}>
+        {/* Description card */}
+        <EnhancedResultCard variants={itemVariants} accentColor="#D4649A">
           <p className="text-foreground leading-relaxed text-base font-body">
             {profile.tuEs}
           </p>
-        </motion.div>
+        </EnhancedResultCard>
 
         {/* Needs card */}
-        <motion.div variants={itemVariants} className="bg-card p-6 border border-border" style={{ borderRadius: 20 }}>
+        <EnhancedResultCard variants={itemVariants} accentColor="#9B6BA3">
           <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
             Ce que ta peau a besoin
           </h2>
           <p className="text-muted-foreground leading-relaxed font-body">
             {profile.besoin}
           </p>
-        </motion.div>
+        </EnhancedResultCard>
 
         {/* 3 Steps card */}
-        <motion.div variants={itemVariants} className="bg-card p-6 border border-border" style={{ borderRadius: 20 }}>
+        <EnhancedResultCard variants={itemVariants} accentColor="#C4AEDA">
           <h2 className="font-heading text-xl font-semibold text-foreground mb-4">
             Tes 3 premiers gestes
           </h2>
           <div className="space-y-4">
             {profile.gestes.map((geste, index) => (
-              <div key={index} className="flex items-start gap-3">
+              <motion.div
+                key={index}
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + index * 0.1, duration: 0.4 }}
+              >
                 <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold font-body">
                   {index + 1}
                 </span>
                 <p className="text-foreground leading-relaxed pt-0.5 font-body text-[15px]">{geste}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </motion.div>
+        </EnhancedResultCard>
 
         {/* Separator */}
         <motion.div variants={itemVariants} className="border-t border-border my-1" />
@@ -118,7 +124,7 @@ export const SimpleHormoneResults = ({
         </motion.div>
 
         {/* Email reminder */}
-        <motion.div variants={itemVariants} className="bg-card p-6 border border-border" style={{ borderRadius: 20 }}>
+        <EnhancedResultCard variants={itemVariants} accentColor="#D8C4EC" glowOnHover={false}>
           <p className="text-foreground font-medium mb-3 font-body">Tu recevras aussi par email :</p>
           <ul className="space-y-2 text-muted-foreground font-body">
             {["Ton profil en PDF", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
@@ -131,7 +137,7 @@ export const SimpleHormoneResults = ({
           <p className="text-sm mt-4 italic font-body" style={{ color: '#9B8FA3' }}>
             Pas prête ? Pas de souci. Le guide arrive dans ta boîte. 💌
           </p>
-        </motion.div>
+        </EnhancedResultCard>
 
         {/* Reset */}
         <motion.div variants={itemVariants} className="text-center pb-4">
