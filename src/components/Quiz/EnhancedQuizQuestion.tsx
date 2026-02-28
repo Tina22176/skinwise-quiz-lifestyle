@@ -2,9 +2,7 @@ import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { questions } from "./questions/index";
 import { useEffect, useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { QuizProgressBar } from "./QuizProgressBar";
-import { EnhancedAnswerOption } from "./EnhancedAnswerOption";
 import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
 import { DynamicQuestionEngine } from "./utils/dynamicQuestionEngine";
 import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
@@ -15,6 +13,7 @@ export const EnhancedQuizQuestion = () => {
   const { state, dispatch } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showNextQuestion, setShowNextQuestion] = useState(false);
+  const [direction, setDirection] = useState(1);
   const isMobile = useIsMobile();
 
   const [dynamicList, setDynamicList] = useState<any[]>([]);
@@ -41,6 +40,7 @@ export const EnhancedQuizQuestion = () => {
       const hormoneProfile = calculateHormoneProfile(updatedAnswers);
       dispatch({ type: "SET_HORMONE_PROFILE", payload: hormoneProfile });
       
+      setDirection(1);
       setShowNextQuestion(true);
     }, 800);
   };
@@ -61,17 +61,18 @@ export const EnhancedQuizQuestion = () => {
   }
 
   const containerVariants = {
-    hidden: { opacity: 0, y: 16 },
+    hidden: (dir: number) => ({ opacity: 0, x: dir > 0 ? 40 : -40 }),
     visible: { 
-      opacity: 1, y: 0,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.1 }
+      opacity: 1, x: 0,
+      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.08 }
     },
-    exit: { opacity: 0, y: -16, transition: { duration: 0.3 } }
+    exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -40 : 40, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } }),
   };
 
   return (
     <motion.div
       key={state.currentQuestion}
+      custom={direction}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -84,6 +85,7 @@ export const EnhancedQuizQuestion = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           onClick={() => {
+            setDirection(-1);
             dispatch({ type: "PREV_QUESTION" });
             setSelectedAnswer(null);
             setShowNextQuestion(false);

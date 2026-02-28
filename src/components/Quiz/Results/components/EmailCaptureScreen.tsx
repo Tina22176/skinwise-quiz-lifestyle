@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
+import { ValidatedInput } from "@/components/Forms/ValidatedInput";
+import { LoadingButton } from "@/components/Forms/LoadingButton";
+import { TrustBadges } from "@/components/TrustBadges";
 
 interface EmailCaptureScreenProps {
   email: string;
@@ -13,6 +16,18 @@ interface EmailCaptureScreenProps {
   onSkip?: () => void;
 }
 
+const validateEmail = (value: string): string | null => {
+  if (!value) return "Ton email est requis";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Adresse email invalide";
+  return null;
+};
+
+const validateName = (value: string): string | null => {
+  if (!value.trim()) return "Ton prénom est requis";
+  if (value.trim().length < 2) return "Prénom trop court";
+  return null;
+};
+
 export const EmailCaptureScreen = ({
   email,
   setEmail,
@@ -24,6 +39,8 @@ export const EmailCaptureScreen = ({
   handleSubmit,
   onSkip,
 }: EmailCaptureScreenProps) => {
+  const isFormValid = email && firstName && gdprConsent && !validateEmail(email) && !validateName(firstName);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -32,22 +49,27 @@ export const EmailCaptureScreen = ({
       transition={{ duration: 0.5 }}
       className="min-h-screen flex items-center justify-center px-6 py-12"
     >
-      <div className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] w-full p-8 space-y-6 text-center">
-        {/* Icon */}
+      <div className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] w-full space-y-6 text-center">
+        {/* Icon + heading */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
+          transition={{ delay: 0.15, duration: 0.45 }}
         >
           <div className="mb-4 flex justify-center">
-            <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: '#F5F0FA' }}>
+            <motion.div
+              className="w-[72px] h-[72px] rounded-full flex items-center justify-center"
+              style={{ background: "#F5F0FA" }}
+              animate={{ boxShadow: ["0 0 0 0 rgba(212,100,154,0)", "0 0 0 10px rgba(212,100,154,0.08)", "0 0 0 0 rgba(212,100,154,0)"] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            >
               <Sparkles className="w-8 h-8 text-primary" />
-            </div>
+            </motion.div>
           </div>
           <h1 className="font-heading text-[1.8rem] lg:text-[2.2rem] font-bold text-violet-deep mb-3">
-            Ton profil est prêt
+            Ton profil est prêt ✨
           </h1>
-          <p className="text-muted-foreground text-base leading-relaxed font-body">
+          <p className="text-muted-foreground text-base leading-relaxed font-body max-w-sm mx-auto">
             Entre ton email pour recevoir tes résultats + un guide avec les 3 premiers gestes adaptés à ta peau.
           </p>
         </motion.div>
@@ -57,85 +79,106 @@ export const EmailCaptureScreen = ({
           className="space-y-4 text-left"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.4 }}
+          transition={{ delay: 0.35, duration: 0.4 }}
+          aria-label="Formulaire d'inscription"
         >
-          <input
+          <ValidatedInput
             type="text"
             placeholder="Ton prénom"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            validate={validateName}
             required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-[12px] outline-none transition-colors"
-            style={{
-              background: '#F5F0FA',
-              border: '1.5px solid #E6DCE9',
-              color: '#2E2233',
-            }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = '#D4649A')}
-            onBlur={(e) => (e.currentTarget.style.borderColor = '#E6DCE9')}
+            aria-label="Prénom"
+            autoComplete="given-name"
           />
-          <input
+          <ValidatedInput
             type="email"
             placeholder="ton@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            validate={validateEmail}
             required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-[12px] outline-none transition-colors"
-            style={{
-              background: '#F5F0FA',
-              border: '1.5px solid #E6DCE9',
-              color: '#2E2233',
-            }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = '#D4649A')}
-            onBlur={(e) => (e.currentTarget.style.borderColor = '#E6DCE9')}
+            aria-label="Adresse email"
+            autoComplete="email"
           />
-          
-          <label className="flex items-start gap-2 text-sm cursor-pointer font-body">
-            <input
-              type="checkbox"
-              checked={gdprConsent}
-              onChange={(e) => setGdprConsent(e.target.checked)}
-              required
-              className="mt-1 accent-primary"
-            />
-            <span className="text-muted-foreground">
-              J'accepte de recevoir mes résultats et mon guide personnalisé par email.
+
+          <label className="flex items-start gap-3 cursor-pointer group" htmlFor="gdpr-consent">
+            <div className="relative mt-0.5">
+              <input
+                id="gdpr-consent"
+                type="checkbox"
+                checked={gdprConsent}
+                onChange={(e) => setGdprConsent(e.target.checked)}
+                required
+                className="sr-only"
+                aria-label="Consentement RGPD"
+              />
+              <motion.div
+                className="w-5 h-5 rounded-[5px] border-2 flex items-center justify-center transition-colors"
+                style={{
+                  borderColor: gdprConsent ? "#D4649A" : "#C4AEDA",
+                  background: gdprConsent ? "#D4649A" : "transparent",
+                }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {gdprConsent && (
+                  <motion.svg
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.25 }}
+                    viewBox="0 0 12 9"
+                    fill="none"
+                    className="w-3 h-3"
+                  >
+                    <motion.path
+                      d="M1 4.5L4.5 8L11 1"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.25 }}
+                    />
+                  </motion.svg>
+                )}
+              </motion.div>
+            </div>
+            <span className="text-[13px] text-muted-foreground font-body leading-relaxed">
+              J'accepte de recevoir mes résultats et mon guide personnalisé par email. Pas de spam, désabonnement en 1 clic.
             </span>
           </label>
-          
-          <button
+
+          <LoadingButton
             type="submit"
-            disabled={isLoading || !email || !firstName || !gdprConsent}
-            className="w-full font-body text-base font-bold text-primary-foreground rounded-full py-4 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            style={{
-              background: 'linear-gradient(135deg, #D4649A 0%, #C45589 100%)',
-              boxShadow: '0 8px 30px rgba(212, 100, 154, 0.25)',
-              borderRadius: 99,
-            }}
+            isLoading={isLoading}
+            loadingText="Envoi en cours..."
+            disabled={!isFormValid}
           >
-            {isLoading ? "..." : "Voir mes résultats"}
-            {!isLoading && <ArrowRight className="w-5 h-5" />}
-          </button>
+            Voir mes résultats
+            <ArrowRight className="w-4 h-4" />
+          </LoadingButton>
         </motion.form>
 
-        <motion.p
-          className="text-xs font-body"
-          style={{ color: '#9B8FA3' }}
+        {/* Trust badges */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          Pas de spam. Tu peux te désinscrire en 1 clic.
-        </motion.p>
+          <TrustBadges />
+        </motion.div>
 
         {onSkip && (
           <motion.button
             onClick={onSkip}
             className="text-sm underline hover:text-foreground transition-colors font-body"
-            style={{ color: '#9B8FA3' }}
+            style={{ color: "#9B8FA3" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
+            type="button"
           >
             Voir mes résultats sans donner mon email
           </motion.button>
