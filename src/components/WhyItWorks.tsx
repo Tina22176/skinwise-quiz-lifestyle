@@ -19,7 +19,7 @@ const steps = [
   {
     icon: Sparkles,
     title: "Routine sur-mesure",
-    description: "Tu reçois des gestes adaptés à TU peau — pas une routine générique copiée-collée.",
+    description: "Tu reçois des gestes adaptés à TA peau — pas une routine générique copiée-collée.",
     color: "#F5F0FA",
     iconColor: "#6B4E7D",
   },
