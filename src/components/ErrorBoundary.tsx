@@ -50,7 +50,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 Essaie de recharger la page.
               </p>
               
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {import.meta.env.DEV && this.state.error && (
                 <details className="text-left bg-gray-100 p-4 rounded-lg mb-4 text-sm">
                   <summary className="cursor-pointer font-medium">
                     Détails de l'erreur (développement)
