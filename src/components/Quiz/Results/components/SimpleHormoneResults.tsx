@@ -121,7 +121,7 @@ export const SimpleHormoneResults = ({
         <motion.div variants={itemVariants} className="bg-card p-6 border border-border" style={{ borderRadius: 20 }}>
           <p className="text-foreground font-medium mb-3 font-body">Tu recevras aussi par email :</p>
           <ul className="space-y-2 text-muted-foreground font-body">
-            {["Ton profil en PDF", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
+            {["Ton profil détaillé", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <span className="text-primary font-bold">✓</span>
                 <span>{item}</span>
