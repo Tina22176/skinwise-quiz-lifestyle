@@ -26,10 +26,10 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
       "Quand ta peau réagit, résiste à l'envie d'ajouter un produit — attends 48h",
       "Le soir, 3 respirations profondes avant ta routine — ça change la circulation"
     ],
-    program: "Mini Glow",
-    programPrice: "49€",
-    programSlug: "/mini-glow/paiement",
-    programReason: "7 jours pour poser les bases d'une routine apaisante, sans te surcharger.",
+    program: "Skin Reboot",
+    programPrice: "99€",
+    programSlug: "/skin-reboot/paiement",
+    programReason: "28 jours pour stabiliser ta routine et calmer ta peau durablement.",
     colorTheme: "red"
   },
   "fatiguée_survie": {
@@ -43,10 +43,10 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
       "Le soir, un nettoyage doux et c'est tout — pas de double nettoyage",
       "Couche-toi 20 min plus tôt 3 soirs cette semaine — ta peau se répare la nuit"
     ],
-    program: "Mini Glow",
-    programPrice: "49€",
-    programSlug: "/mini-glow/paiement",
-    programReason: "Une routine tenable même fatiguée. 10 min/jour max, 7 jours pour repartir.",
+    program: "Skin Reboot",
+    programPrice: "99€",
+    programSlug: "/skin-reboot/paiement",
+    programReason: "28 jours pour reprendre le contrôle avec l'approche In & Out — peau + énergie.",
     colorTheme: "blue"
   },
   "controlleuse_débordée": {
@@ -60,10 +60,10 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
       "Garde uniquement 1 nettoyant, 1 hydratant, 1 protection — le reste, tu ranges",
       "Tiens 2 semaines sans rien changer — observe, note, résiste"
     ],
-    program: "Skin Reboot",
-    programPrice: "99€",
-    programSlug: "/skin-reboot/paiement",
-    programReason: "28 jours pour faire un vrai reset et comprendre ce dont ta peau a besoin.",
+    program: "Mini Glow",
+    programPrice: "49€",
+    programSlug: "/mini-glow/paiement",
+    programReason: "7 jours pour simplifier ta routine et poser les bases. Ensuite, Skin Reboot pour aller plus loin.",
     colorTheme: "green"
   },
   "cyclique_subit": {
@@ -77,10 +77,10 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
       "La semaine avant tes règles, allège ta routine — moins de produits actifs",
       "Après tes règles, c'est le moment d'exfolier doucement — ta peau est plus réceptive"
     ],
-    program: "Glow & Cycle",
-    programPrice: "299€",
-    programSlug: "/glow-cycle/paiement",
-    programReason: "12 mois pour adapter ta routine à chaque phase et arrêter les montagnes russes.",
+    program: "Skin Reboot",
+    programPrice: "99€",
+    programSlug: "/skin-reboot/paiement",
+    programReason: "28 jours pour stabiliser ta peau — le premier pas avant Glow & Cycle.",
     colorTheme: "purple"
   },
   "sensible_caméléon": {
@@ -94,10 +94,10 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
       "Le matin, regarde ta peau 10 secondes — sans juger, juste observer",
       "Note ce que tu manges, ton stress, ton sommeil — les patterns vont apparaître"
     ],
-    program: "Skin Reboot + Mini Glow",
-    programPrice: "132€ au lieu de 148€",
-    programSlug: "/bundle-reboot-glow/paiement",
-    programReason: "Le reset de 28 jours + les bases en 7 jours pour repartir en douceur.",
+    program: "Skin Reboot",
+    programPrice: "99€",
+    programSlug: "/skin-reboot/paiement",
+    programReason: "28 jours pour apprendre à observer ta peau et trouver ta routine stable.",
     colorTheme: "pink"
   }
 };
