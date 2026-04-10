@@ -28,7 +28,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     ],
     program: "Skin Reboot",
     programPrice: "99€",
-    programSlug: "/skin-reboot/paiement",
+    programSlug: "/programmes/skin-reboot",
     programReason: "28 jours pour stabiliser ta routine et calmer ta peau durablement.",
     colorTheme: "red"
   },
@@ -45,7 +45,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     ],
     program: "Skin Reboot",
     programPrice: "99€",
-    programSlug: "/skin-reboot/paiement",
+    programSlug: "/programmes/skin-reboot",
     programReason: "28 jours pour reprendre le contrôle avec l'approche In & Out — peau + énergie.",
     colorTheme: "blue"
   },
@@ -62,7 +62,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     ],
     program: "Mini Glow",
     programPrice: "49€",
-    programSlug: "/mini-glow/paiement",
+    programSlug: "/programmes/mini-glow",
     programReason: "7 jours pour simplifier ta routine et poser les bases. Ensuite, Skin Reboot pour aller plus loin.",
     colorTheme: "green"
   },
@@ -79,7 +79,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     ],
     program: "Skin Reboot",
     programPrice: "99€",
-    programSlug: "/skin-reboot/paiement",
+    programSlug: "/programmes/skin-reboot",
     programReason: "28 jours pour stabiliser ta peau — le premier pas avant Glow & Cycle.",
     colorTheme: "purple"
   },
@@ -96,7 +96,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     ],
     program: "Skin Reboot",
     programPrice: "99€",
-    programSlug: "/skin-reboot/paiement",
+    programSlug: "/programmes/skin-reboot",
     programReason: "28 jours pour apprendre à observer ta peau et trouver ta routine stable.",
     colorTheme: "pink"
   }
