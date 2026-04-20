@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuiz } from "../QuizContext";
-import { ResultsLoading } from "./ResultsLoading";
+import { PremiumLoader } from "../PremiumLoader";
 import { SimpleHormoneResults } from "./components/SimpleHormoneResults";
 import { EmailCaptureScreen } from "./components/EmailCaptureScreen";
 import { AnimatePresence } from "framer-motion";
@@ -38,7 +38,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
   return (
     <AnimatePresence mode="wait">
       {phase === "loading" && (
-        <ResultsLoading key="loading" />
+        <PremiumLoader key="loading" />
       )}
       {phase === "email" && !state.hormoneProfile ? (
         <div key="no-profile" className="min-h-screen flex items-center justify-center bg-background">

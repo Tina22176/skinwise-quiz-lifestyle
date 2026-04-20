@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
-import { Welcome } from "./Welcome";
+import { EnhancedWelcome } from "./EnhancedWelcome";
 import { EnhancedQuizQuestion } from "./EnhancedQuizQuestion";
 import { Results } from "./Results";
 import { questions } from "./questions/index";
@@ -53,7 +52,7 @@ const QuizContent = () => {
     <div className={containerClasses} style={{ background: 'linear-gradient(180deg, #F8F3FC 0%, #FDF2F7 60%, #FBEAF2 100%)' }}>
       <AnimatePresence mode="wait">
         {stage === "welcome" && (
-          <Welcome onStart={handleStartQuiz} />
+          <EnhancedWelcome onStart={handleStartQuiz} />
         )}
         {stage === "questions" && state.currentQuestion < questions.length && (
           <EnhancedQuizQuestion />
