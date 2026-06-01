@@ -5,6 +5,20 @@ import './index.css'
 
 console.log('🚀 Démarrage de l\'application...')
 
+// Désinscrit tout Service Worker existant (cause de lenteur / cache obsolète sur domaine personnalisé)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => {
+      registration.unregister().then(() => {
+        console.log('🧹 Service Worker désinscrit');
+      });
+    });
+  }).catch(() => {});
+  if ('caches' in window) {
+    caches.keys().then((names) => names.forEach((name) => caches.delete(name))).catch(() => {});
+  }
+}
+
 // Import debugger en mode développement
 if (import.meta.env.DEV) {
   import('./utils/brevoDebugger');
