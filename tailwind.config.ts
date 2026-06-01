@@ -56,6 +56,8 @@ export default {
         },
         // Niveaux de texte
         "text-muted": "#9B8FA3",
+        "text-soft": "hsl(var(--text-soft))",
+        "surface-soft": "hsl(var(--surface-soft))",
         gold: "#C9A87C",
         // Couleurs Majoliepeau
         rose: {
@@ -113,12 +115,17 @@ export default {
           "0%, 100%": { boxShadow: "0 0 10px rgba(212, 100, 154, 0.2)" },
           "50%": { boxShadow: "0 0 20px rgba(212, 100, 154, 0.35)" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0) translateX(0)" },
+          "50%": { transform: "translateY(-12px) translateX(6px)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.6s ease-out",
         "fade-down": "fade-down 0.6s ease-out",
         "slide-in": "slide-in 0.6s ease-out",
         glow: "glow 2s ease-in-out infinite",
+        float: "float 8s ease-in-out infinite",
       },
     },
   },

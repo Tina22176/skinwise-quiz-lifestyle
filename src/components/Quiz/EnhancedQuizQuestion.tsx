@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useQuiz } from "./QuizContext";
 import { questions } from "./questions/index";
 import { useEffect, useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { QuizProgressBar } from "./QuizProgressBar";
 import { EnhancedAnswerOption } from "./EnhancedAnswerOption";
 import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
@@ -15,7 +14,6 @@ export const EnhancedQuizQuestion = () => {
   const { state, dispatch } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showNextQuestion, setShowNextQuestion] = useState(false);
-  const isMobile = useIsMobile();
 
   const [dynamicList, setDynamicList] = useState<any[]>([]);
 

@@ -17,20 +17,20 @@ export const QuizProgressBar = ({
     <div className="mb-6">
       {/* Progress info */}
       <div className="flex justify-between items-center mb-2">
-        <p className="text-[13px] text-text-muted font-body font-medium">
+        <p className="text-[13px] text-soft font-body font-medium">
           Question {currentQuestion + 1}/{totalQuestions}
         </p>
-        <p className="text-[13px] text-text-muted font-body font-medium">
+        <p className="text-[13px] text-primary font-body font-semibold">
           {Math.round(progress)}%
         </p>
       </div>
-      {/* Bar — 4px height, lineSoft bg, rose gradient fill */}
-      <div className="h-1 w-full rounded-full overflow-hidden" style={{ background: '#F0EAF3' }}>
+      {/* Bar — 6px height, lineSoft bg, rose gradient fill */}
+      <div className="h-1.5 w-full rounded-full overflow-hidden bg-secondary">
         <motion.div
           className="h-full rounded-full"
           style={{ background: 'linear-gradient(90deg, #D4649A, #E077AD)' }}
           initial={{ width: 0 }}
-          animate={{ 
+          animate={{
             width: `${progress}%`,
             transition: { duration: 0.7, ease: "easeOut" }
           }}
