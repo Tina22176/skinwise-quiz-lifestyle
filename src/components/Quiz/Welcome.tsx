@@ -15,8 +15,11 @@ import { HORMONE_PROFILE_DETAILS } from "./Results/utils/HormoneProfileDetails";
 
 /* ── Visuel hero : photo fournie par le client (/public/hero.jpg).
    Fallback décoratif élégant si l'image est absente afin de ne jamais casser la page. ── */
+import heroImage from "@/assets/hero-majoliepeau.png.asset.json";
+
 const HeroVisual = () => {
   const [failed, setFailed] = useState(false);
+
 
   return (
     <div className="relative">
