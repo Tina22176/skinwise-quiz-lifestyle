@@ -42,7 +42,7 @@ export const EnhancedQuizQuestion = () => {
       dispatch({ type: "SET_HORMONE_PROFILE", payload: hormoneProfile });
       
       setShowNextQuestion(true);
-    }, 800);
+    }, 250);
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const EnhancedQuizQuestion = () => {
         dispatch({ type: "NEXT_QUESTION" });
         setSelectedAnswer(null);
         setShowNextQuestion(false);
-      }, 400);
+      }, 150);
       return () => clearTimeout(timer);
     }
   }, [showNextQuestion, dispatch]);
