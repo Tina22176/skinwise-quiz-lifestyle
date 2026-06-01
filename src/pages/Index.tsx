@@ -31,25 +31,15 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Floating orbs — decorative */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <motion.div
-          className="absolute rounded-full bg-lilas-soft/40 blur-3xl"
+      {/* Static decorative orbs — animations removed for performance on mobile */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden hidden md:block" aria-hidden="true">
+        <div
+          className="absolute rounded-full bg-lilas-soft/30 blur-2xl"
           style={{ width: 200, height: 200, top: '15%', left: '10%' }}
-          animate={{ x: [0, 10, -6, 0], y: [0, -8, 6, 0], scale: [1, 1.05, 0.97, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div
-          className="absolute rounded-full bg-rose-glow/30 blur-3xl"
+        <div
+          className="absolute rounded-full bg-rose-glow/20 blur-2xl"
           style={{ width: 160, height: 160, bottom: '20%', right: '15%' }}
-          animate={{ x: [0, -8, 10, 0], y: [0, 6, -8, 0], scale: [1, 0.97, 1.05, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute rounded-full bg-violet-whisper/50 blur-3xl"
-          style={{ width: 120, height: 120, top: '60%', left: '50%' }}
-          animate={{ x: [0, 6, -4, 0], y: [0, -4, 8, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
