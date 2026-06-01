@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { HORMONE_PROFILE_DETAILS } from "./Results/utils/HormoneProfileDetails";
+import { getProfileIcon, getProfileTheme } from "./utils/profileVisuals";
 
 /* ── Visuel hero : photo fournie par le client (/public/hero.jpg).
    Fallback décoratif élégant si l'image est absente afin de ne jamais casser la page. ── */
@@ -82,7 +83,8 @@ const reassurance = [
 ];
 
 const profiles = Object.values(HORMONE_PROFILE_DETAILS).map((p) => ({
-  emoji: p.emoji,
+  Icon: getProfileIcon(p.icon),
+  theme: getProfileTheme(p.colorTheme),
   title: p.title,
 }));
 
@@ -232,7 +234,12 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
               variants={fadeUp}
               className="inline-flex items-center gap-2.5 bg-card border border-border rounded-full pl-2.5 pr-5 py-2 card-hover"
             >
-              <span className="w-9 h-9 rounded-full surface-soft flex items-center justify-center text-lg">{p.emoji}</span>
+              <span
+                className="w-9 h-9 rounded-full flex items-center justify-center"
+                style={{ background: p.theme.halo }}
+              >
+                <p.Icon className="w-[18px] h-[18px]" style={{ color: p.theme.icon }} />
+              </span>
               <span className="font-body text-[15px] font-medium text-foreground">{p.title}</span>
             </motion.div>
           ))}

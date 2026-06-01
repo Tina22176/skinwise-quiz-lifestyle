@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuiz } from "../QuizContext";
 import { ResultsLoading } from "./ResultsLoading";
 import { SimpleHormoneResults } from "./components/SimpleHormoneResults";
-import { EmailCaptureScreen } from "./components/EmailCaptureScreen";
+import { ProfileTeaserGate } from "./components/ProfileTeaserGate";
 import { AnimatePresence } from "framer-motion";
 import { useEmailSubscription } from "./EmailSubscriptionHandler";
 
@@ -57,9 +57,10 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
             </button>
           </div>
         </div>
-      ) : phase === "email" ? (
-        <EmailCaptureScreen
+      ) : phase === "email" && state.hormoneProfile ? (
+        <ProfileTeaserGate
           key="email"
+          hormoneProfile={state.hormoneProfile}
           email={email}
           setEmail={setEmail}
           firstName={firstName}
