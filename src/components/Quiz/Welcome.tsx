@@ -28,7 +28,7 @@ const HeroVisual = () => {
       <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto rounded-xl overflow-hidden border border-border shadow-lg">
         {!failed ? (
           <img
-            src="/hero.jpg"
+            src={heroImage.url}
             alt="Routine de soin Majoliepeau"
             loading="eager"
             decoding="async"
