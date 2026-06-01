@@ -1,6 +1,4 @@
 import { Quiz } from "@/components/Quiz/Quiz";
-import { motion } from "framer-motion";
-import { OptimizedImage } from "@/components/OptimizedImage";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { useEffect } from "react";
 
@@ -14,8 +12,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Header — matches mockup exactly */}
-      <header 
-        className="fixed top-0 left-0 right-0 z-50 bg-card border-b border-border"
+      <header
+        className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border"
         style={{ minHeight: '56px' }}
         role="banner"
       >
@@ -23,28 +21,15 @@ const Index = () => {
           <span className="font-heading text-[20px] italic text-violet-deep">
             Majoliepeau
           </span>
-          
-          <div className="flex items-center space-x-4 text-sm font-body" role="complementary">
-            <span className="text-primary font-semibold">100% Gratuit</span>
-            <span className="text-muted-foreground">2 min</span>
-          </div>
+
+          <span className="inline-flex items-center gap-1.5 bg-rose-whisper text-primary text-[13px] font-semibold font-body px-3 py-1 rounded-full">
+            Diagnostic gratuit
+          </span>
         </div>
       </header>
 
-      {/* Static decorative orbs — animations removed for performance on mobile */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden hidden md:block" aria-hidden="true">
-        <div
-          className="absolute rounded-full bg-lilas-soft/30 blur-2xl"
-          style={{ width: 200, height: 200, top: '15%', left: '10%' }}
-        />
-        <div
-          className="absolute rounded-full bg-rose-glow/20 blur-2xl"
-          style={{ width: 160, height: 160, bottom: '20%', right: '15%' }}
-        />
-      </div>
-
       {/* Main content */}
-      <main className="pt-16" role="main">
+      <main className="pt-14" role="main">
         <Quiz />
       </main>
       

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface EnhancedAnswerOptionProps {
   option: {
@@ -13,60 +12,41 @@ interface EnhancedAnswerOptionProps {
   onSelect: (answer: string) => void;
 }
 
-export const EnhancedAnswerOption = ({ 
-  option, 
-  index, 
-  isSelected, 
-  selectedAnswer, 
-  onSelect 
+export const EnhancedAnswerOption = ({
+  option,
+  index,
+  isSelected,
+  selectedAnswer,
+  onSelect,
 }: EnhancedAnswerOptionProps) => {
-  const isMobile = useIsMobile();
-
   const itemVariants = {
     hidden: { opacity: 0, y: 16 },
-    visible: { 
-      opacity: 1, y: 0,
-      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }
-    }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 },
+    },
   };
 
-  const isOther = selectedAnswer !== null && !isSelected;
+  const locked = selectedAnswer !== null;
+  const isOther = locked && !isSelected;
 
   return (
     <motion.div variants={itemVariants} className="w-full">
       <button
-        onClick={() => !selectedAnswer && onSelect(option.value)}
-        disabled={selectedAnswer !== null}
-        className="w-full text-left font-body transition-all duration-250 relative overflow-hidden"
-        style={{
-          fontSize: isMobile ? 15 : 15,
-          fontWeight: 500,
-          padding: '16px 20px',
-          borderRadius: 14,
-          border: `2px solid ${isSelected ? '#D4649A' : '#F0EAF3'}`,
-          background: isSelected
-            ? 'linear-gradient(135deg, #FBEAF2 0%, #F5F0FA 100%)'
-            : '#FFFFFF',
-          color: '#2E2233',
-          cursor: selectedAnswer !== null ? 'default' : 'pointer',
-          opacity: isOther ? 0.4 : 1,
-          transform: isSelected ? 'scale(1.02)' : 'scale(1)',
-          boxShadow: isSelected
-            ? '0 4px 16px rgba(212, 100, 154, 0.15)'
-            : '0 1px 4px rgba(61, 43, 69, 0.04)',
-        }}
-        onMouseOver={(e) => {
-          if (selectedAnswer === null) {
-            e.currentTarget.style.borderColor = '#D8C4EC';
-            e.currentTarget.style.background = '#F5F0FA';
-          }
-        }}
-        onMouseOut={(e) => {
-          if (selectedAnswer === null) {
-            e.currentTarget.style.borderColor = '#F0EAF3';
-            e.currentTarget.style.background = '#FFFFFF';
-          }
-        }}
+        onClick={() => !locked && onSelect(option.value)}
+        disabled={locked}
+        className={[
+          "w-full text-left font-body text-[15px] font-medium text-foreground",
+          "relative overflow-hidden rounded-md border-2 px-5 py-4",
+          "transition-all duration-300",
+          "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25",
+          isSelected
+            ? "border-primary bg-brand-soft scale-[1.02] shadow-[0_4px_16px_rgba(212,100,154,0.18)]"
+            : "border-secondary bg-card shadow-sm hover:border-lilas hover:bg-surface-soft",
+          isOther ? "opacity-40" : "opacity-100",
+          locked ? "cursor-default" : "cursor-pointer",
+        ].join(" ")}
       >
         {isSelected && (
           <motion.span
@@ -78,7 +58,7 @@ export const EnhancedAnswerOption = ({
             ✓
           </motion.span>
         )}
-        {option.label}
+        <span className="block pr-8">{option.label}</span>
       </button>
     </motion.div>
   );

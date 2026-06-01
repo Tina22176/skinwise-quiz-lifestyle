@@ -27,7 +27,7 @@ const QuizResults = () => {
       </main>
       
       <footer className="mt-4 sm:mt-8 py-2 sm:py-4 text-center text-xs sm:text-sm text-muted-foreground">
-        <p>© 2023 Majoliepeau. Tous droits réservés.</p>
+        <p>© 2026 Majoliepeau. Tous droits réservés.</p>
       </footer>
     </div>
   );
