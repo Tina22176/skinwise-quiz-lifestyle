@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 
 interface EnhancedAnswerOptionProps {
   option: {
@@ -53,9 +54,9 @@ export const EnhancedAnswerOption = ({
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
           >
-            ✓
+            <Check className="w-3.5 h-3.5" strokeWidth={3} />
           </motion.span>
         )}
         <span className="block pr-8">{option.label}</span>

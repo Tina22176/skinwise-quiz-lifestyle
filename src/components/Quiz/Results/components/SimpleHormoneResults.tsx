@@ -1,28 +1,21 @@
 import { motion } from "framer-motion";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
-import { ArrowRight } from "lucide-react";
+import { getProfileIcon, getProfileTheme } from "../../utils/profileVisuals";
+import { ArrowRight, Check, Mail } from "lucide-react";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
   onResetQuiz: () => void;
 }
 
-// Halo coloré selon le profil — reste dans la famille chromatique de la marque
-const THEME_HALO: Record<string, { halo: string; ring: string }> = {
-  red:    { halo: "#F9D5E5", ring: "rgba(212,100,154,0.22)" },
-  pink:   { halo: "#FBEAF2", ring: "rgba(224,119,173,0.22)" },
-  purple: { halo: "#EDE5F4", ring: "rgba(138,107,160,0.22)" },
-  blue:   { halo: "#EBE0F5", ring: "rgba(168,148,226,0.22)" },
-  green:  { halo: "#E3F0E6", ring: "rgba(120,170,130,0.22)" },
-};
-
 export const SimpleHormoneResults = ({
   hormoneProfile,
   onResetQuiz,
 }: SimpleHormoneResultsProps) => {
   const profile = getHormoneProfileDetails(hormoneProfile.type);
-  const theme = THEME_HALO[profile.colorTheme] ?? THEME_HALO.pink;
+  const theme = getProfileTheme(profile.colorTheme);
+  const ProfileIcon = getProfileIcon(profile.icon);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -60,7 +53,7 @@ export const SimpleHormoneResults = ({
               className="w-20 h-20 rounded-full flex items-center justify-center"
               style={{ background: theme.halo, boxShadow: `0 0 0 10px ${theme.ring}` }}
             >
-              <span className="text-[36px]">{profile.emoji}</span>
+              <ProfileIcon className="w-9 h-9" style={{ color: theme.icon }} strokeWidth={1.75} />
             </div>
           </div>
           <h1 className="font-heading text-[28px] lg:text-[32px] font-bold text-foreground">
@@ -132,14 +125,15 @@ export const SimpleHormoneResults = ({
           <p className="text-foreground font-medium mb-3 font-body">Tu recevras aussi par email :</p>
           <ul className="space-y-2 text-muted-foreground font-body">
             {["Ton profil détaillé", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <span className="text-primary font-bold">✓</span>
+              <li key={item} className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={3} />
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-          <p className="text-sm mt-4 italic text-soft font-body">
-            Pas prête ? Pas de souci. Le guide arrive dans ta boîte. 💌
+          <p className="text-sm mt-4 italic text-soft font-body flex items-center gap-2">
+            <Mail className="w-4 h-4 flex-shrink-0" />
+            Pas prête ? Pas de souci. Le guide arrive dans ta boîte.
           </p>
         </motion.div>
 
