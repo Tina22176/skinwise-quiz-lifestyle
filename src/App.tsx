@@ -2,7 +2,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -14,6 +13,15 @@ console.log('🚀 App module loading...');
 
 const queryClient = new QueryClient();
 
+const AppRoutes = () => {
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  if (path === "/") return <Index />;
+  if (path === "/promo") return <QuizPromo />;
+  if (path === "/garantie") return <Guarantee />;
+  if (path === "/results") return <QuizResults />;
+  return <NotFound />;
+};
+
 const App = () => {
   console.log('📱 App component rendering...');
   
@@ -22,15 +30,7 @@ const App = () => {
       <ErrorBoundary>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/promo" element={<QuizPromo />} />
-            <Route path="/garantie" element={<Guarantee />} />
-            <Route path="/results" element={<QuizResults />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <AppRoutes />
       </ErrorBoundary>
     </QueryClientProvider>
   );

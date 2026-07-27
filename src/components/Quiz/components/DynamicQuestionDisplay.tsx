@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { EnhancedAnswerOption } from "../EnhancedAnswerOption";
+import { QuizQuestion } from "../questions/types";
 
 interface DynamicQuestionDisplayProps {
-  question: any;
+  question: QuizQuestion;
   selectedAnswer: string | null;
   onSelect: (answer: string) => void;
 }
@@ -16,7 +17,7 @@ export const DynamicQuestionDisplay = ({ question, selectedAnswer, onSelect }: D
       className="mb-6"
     >
       <div className="space-y-4">
-        {question.options.map((option: any, index: number) => (
+        {question.options.map((option, index) => (
           <EnhancedAnswerOption
             key={option.value}
             option={option}
@@ -29,4 +30,4 @@ export const DynamicQuestionDisplay = ({ question, selectedAnswer, onSelect }: D
       </div>
     </motion.div>
   );
-}; 
+};

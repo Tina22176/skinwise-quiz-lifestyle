@@ -2,14 +2,11 @@
 import { Results } from "@/components/Quiz/Results";
 import { QuizProvider } from "@/components/Quiz/QuizContext";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
 const QuizResults = () => {
-  const navigate = useNavigate();
-  
   // Function to reset the quiz and navigate to home
   const handleResetQuiz = () => {
-    navigate("/");
+    window.location.assign("/");
   };
 
   return (

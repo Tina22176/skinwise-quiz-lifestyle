@@ -3,19 +3,24 @@ import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
 import { getProfileIcon, getProfileTheme } from "../../utils/profileVisuals";
 import { ArrowRight, Check, Mail } from "lucide-react";
+import { getProgram } from "../../utils/programRecommendation";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
   onResetQuiz: () => void;
+  hasSubscribed: boolean;
 }
 
 export const SimpleHormoneResults = ({
   hormoneProfile,
   onResetQuiz,
+  hasSubscribed,
 }: SimpleHormoneResultsProps) => {
   const profile = getHormoneProfileDetails(hormoneProfile.type);
   const theme = getProfileTheme(profile.colorTheme);
   const ProfileIcon = getProfileIcon(profile.icon);
+  const recommendation = hormoneProfile.recommendation;
+  const secondaryProgram = getProgram(recommendation.secondaryId);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -31,7 +36,11 @@ export const SimpleHormoneResults = ({
   };
 
   const handleDiscoverProgram = () => {
-    window.open(`https://majoliepeau.com${profile.programSlug}`, "_blank");
+    const url = new URL(`https://majoliepeau.com${recommendation.slug}`);
+    url.searchParams.set("utm_source", "skinwise_quiz");
+    url.searchParams.set("utm_medium", "recommendation");
+    url.searchParams.set("utm_campaign", recommendation.id);
+    window.open(url.toString(), "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -71,7 +80,7 @@ export const SimpleHormoneResults = ({
         {/* Needs card */}
         <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
           <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
-            Ce que ta peau a besoin
+            Ce dont ta peau a besoin
           </h2>
           <p className="text-muted-foreground leading-relaxed font-body">
             {profile.besoin}
@@ -79,7 +88,7 @@ export const SimpleHormoneResults = ({
         </motion.div>
 
         {/* 3 Steps card */}
-        <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
+        {hasSubscribed && <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
           <h2 className="font-heading text-xl font-semibold text-foreground mb-4">
             Tes 3 premiers gestes
           </h2>
@@ -93,7 +102,7 @@ export const SimpleHormoneResults = ({
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.div>}
 
         {/* Product CTA — gradient de marque */}
         <motion.div variants={itemVariants} className="p-6 rounded-lg border border-border bg-brand-soft shadow-md">
@@ -101,10 +110,10 @@ export const SimpleHormoneResults = ({
             Pour aller plus loin
           </p>
           <h2 className="font-heading text-xl font-bold text-foreground mb-1">
-            {profile.program} — {profile.programPrice}
+            {recommendation.name} — {recommendation.price}
           </h2>
           <p className="text-muted-foreground mb-5 font-body text-[15px]">
-            {profile.programReason}
+            {recommendation.reason}
           </p>
           <motion.button
             onClick={handleDiscoverProgram}
@@ -112,11 +121,14 @@ export const SimpleHormoneResults = ({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Découvrir {profile.program}
+            Découvrir {recommendation.name}
             <ArrowRight className="w-5 h-5" />
           </motion.button>
           <p className="text-xs text-center mt-3 text-soft font-body">
-            10 min/jour · Accès immédiat · Garantie 30 jours
+            {recommendation.reassurance}
+          </p>
+          <p className="text-xs text-center mt-3 text-muted-foreground font-body">
+            Alternative possible : {secondaryProgram.name}, selon ton rythme et ton budget.
           </p>
         </motion.div>
 

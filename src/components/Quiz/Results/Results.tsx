@@ -26,6 +26,10 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [phase]);
+
+  useEffect(() => {
     if (isSubscribed) {
       setPhase("results");
     }
@@ -76,6 +80,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
           key="results"
           hormoneProfile={state.hormoneProfile}
           onResetQuiz={onResetQuiz}
+          hasSubscribed={isSubscribed}
         />
       ) : null}
     </AnimatePresence>

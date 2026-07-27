@@ -60,6 +60,11 @@ export const EnhancedAnswerOption = ({
           </motion.span>
         )}
         <span className="block pr-8">{option.label}</span>
+        {option.description && (
+          <span className="block pr-8 mt-1 text-[13px] font-normal leading-relaxed text-muted-foreground">
+            {option.description}
+          </span>
+        )}
       </button>
     </motion.div>
   );

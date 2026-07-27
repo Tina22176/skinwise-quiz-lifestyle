@@ -3,9 +3,7 @@ import { useQuiz } from "./QuizContext";
 import { questions } from "./questions/index";
 import { useEffect, useState } from "react";
 import { QuizProgressBar } from "./QuizProgressBar";
-import { EnhancedAnswerOption } from "./EnhancedAnswerOption";
 import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
-import { DynamicQuestionEngine } from "./utils/dynamicQuestionEngine";
 import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
 import { motivationalTexts } from "./constants/quizTexts";
 import { ArrowRight, ArrowLeft } from "lucide-react";
@@ -15,15 +13,7 @@ export const EnhancedQuizQuestion = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showNextQuestion, setShowNextQuestion] = useState(false);
 
-  const [dynamicList, setDynamicList] = useState<any[]>([]);
-
-  useEffect(() => {
-    const engine = new DynamicQuestionEngine(questions, state.answers);
-    const generated = engine.generateQuestions();
-    setDynamicList(generated);
-  }, [state.answers]);
-
-  const currentQuestion = dynamicList[state.currentQuestion] || questions[state.currentQuestion];
+  const currentQuestion = questions[state.currentQuestion];
 
   const handleAnswer = (answer: string) => {
     setSelectedAnswer(answer);
@@ -54,7 +44,7 @@ export const EnhancedQuizQuestion = () => {
     }
   }, [showNextQuestion, dispatch]);
 
-  if (state.currentQuestion >= dynamicList.length) {
+  if (state.currentQuestion >= questions.length) {
     return null;
   }
 
@@ -95,7 +85,7 @@ export const EnhancedQuizQuestion = () => {
 
       <QuizProgressBar 
         currentQuestion={state.currentQuestion} 
-        totalQuestions={dynamicList.length}
+        totalQuestions={questions.length}
         motivationalTexts={motivationalTexts}
       />
 

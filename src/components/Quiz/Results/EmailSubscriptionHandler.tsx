@@ -1,9 +1,9 @@
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useQuiz, getSkinTypeFormatted } from "../QuizContext";
-import { getSkinTypeText, getSkinTypeDetails } from "./utils/SkinTypeDetails";
+import { useQuiz } from "../QuizContext";
 import { useBrevoIntegration } from "./hooks/useBrevoIntegration";
+import { captureCampaignAttribution } from "@/utils/campaignAttribution";
 
 export const useEmailSubscription = () => {
   const { state, dispatch } = useQuiz();
@@ -28,67 +28,31 @@ export const useEmailSubscription = () => {
     }
 
     setIsLoading(true);
-    console.log("🚀 SOUMISSION FORMULAIRE - Données collectées:", {
-      email,
-      firstName,
-      hormoneProfile: state.hormoneProfile,
-      answers: state.answers,
-      answersCount: Object.keys(state.answers || {}).length
-    });
-
     try {
       dispatch({ type: "SET_EMAIL", payload: email });
       dispatch({ type: "SET_FIRST_NAME", payload: firstName });
 
-      const formattedSkinType = getSkinTypeFormatted(state.result);
-      const skinTypeInFrench = getSkinTypeText(formattedSkinType);
-
-      // Données enrichies du quiz hormonal
-      const skinType = state.hormoneProfile?.type || formattedSkinType;
-      const skinState = null; // Plus de skinState dans le système hormonal
-      const characteristics = state.hormoneProfile?.characteristics || [];
-      const concerns = state.hormoneProfile?.concerns || [];
-
-      console.log("📊 DONNÉES PROFIL HORMONAL ANALYSÉES:", {
-        skinType,
-        characteristics: characteristics.length,
-        concerns: concerns.length,
-        confidence: state.hormoneProfile?.confidence
-      });
-
-      // Envoi à Brevo avec toutes les données
-      const brevoResult = await subscribeToNewsletter(
+      if (!state.hormoneProfile) throw new Error("Missing hormone profile");
+      await subscribeToNewsletter({
         email,
         firstName,
-        skinType,
-        skinState,
-        state.answers,
-        characteristics,
-        concerns
-      );
+        profile: state.hormoneProfile,
+        answers: state.answers,
+        attribution: captureCampaignAttribution(),
+        gdprConsent,
+      });
 
-      if (brevoResult.success) {
-        console.log("✅ BREVO SUCCESS:", brevoResult);
-        toast({
-          title: "Parfait ! 💝",
-          description: "Ta routine personnalisée arrive bientôt dans ta boîte mail 💌",
-        });
-      } else {
-        console.warn("⚠️ BREVO WARNING:", brevoResult.error);
-        // On continue quand même pour l'utilisateur
-        toast({
-          title: "Données sauvegardées ! 💝",
-          description: "Ta routine personnalisée va arriver dans ta boîte mail 💌",
-        });
-      }
+      toast({
+        title: "Parfait ! 💝",
+        description: "Ton guide personnalisé arrive bientôt dans ta boîte mail 💌",
+      });
 
       setIsSubscribed(true);
 
     } catch (error) {
-      console.error("❌ ERREUR GÉNÉRALE:", error);
       toast({
         title: "Oups !",
-        description: "Une erreur est survenue. Merci de réessayer dans quelques instants.",
+        description: "Ton inscription n'a pas pu être enregistrée. Vérifie ta connexion puis réessaie.",
         variant: "destructive",
       });
     } finally {

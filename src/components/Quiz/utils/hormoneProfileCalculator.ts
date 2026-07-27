@@ -1,4 +1,6 @@
-// Hormone Profile Calculator v2 — 5 profiles scoring system
+import { ProgramRecommendation, recommendProgram } from "./programRecommendation";
+
+// 5 profils éditoriaux + une recommandation commerciale indépendante.
 
 export interface HormoneProfile {
   type: string;
@@ -8,6 +10,7 @@ export interface HormoneProfile {
   concerns: string[];
   hormonalPattern: string;
   lifestyle: string[];
+  recommendation: ProgramRecommendation;
 }
 
 // 5 profiles
@@ -182,7 +185,8 @@ export const calculateHormoneProfile = (answers: Record<string, string>): Hormon
     characteristics: getProfileCharacteristics(finalProfile),
     concerns: getProfileConcerns(finalProfile),
     hormonalPattern: getHormonalPattern(finalProfile),
-    lifestyle: getLifestyleRecommendations(finalProfile)
+    lifestyle: getLifestyleRecommendations(finalProfile),
+    recommendation: recommendProgram(answers),
   };
 };
 
@@ -211,7 +215,7 @@ const getProfileConcerns = (profile: string): string[] => {
 const getHormonalPattern = (profile: string): string => {
   const map: Record<string, string> = {
     "réactive_pression": "Cortisol élevé → inflammation cutanée",
-    "fatiguée_survie": "Épuisement surrénalien → peau en mode économie",
+    "fatiguée_survie": "Fatigue et récupération insuffisante → peau en manque d'éclat",
     "controlleuse_débordée": "Sur-stimulation cutanée → barrière fragilisée",
     "cyclique_subit": "Fluctuations hormonales cycliques → peau en montagnes russes",
     "sensible_caméléon": "Hypersensibilité neuro-cutanée → réactions imprévisibles"

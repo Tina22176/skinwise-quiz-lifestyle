@@ -2,11 +2,8 @@
 import { Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 const GuaranteeSection = () => {
-  const navigate = useNavigate();
-  
   return (
     <div className="py-16 px-4">
       <div className="max-w-4xl mx-auto">
@@ -52,7 +49,7 @@ const GuaranteeSection = () => {
 
             <div className="text-center mt-8">
               <Button
-                onClick={() => navigate("/")}
+                onClick={() => window.location.assign("/")}
                 className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold px-8 py-6 rounded-full text-lg h-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               >
                 <Heart className="w-5 h-5" />

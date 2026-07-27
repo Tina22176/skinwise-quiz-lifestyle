@@ -64,6 +64,23 @@ This project is built with .
 
 Simply open [Lovable](https://lovable.dev/projects/124d9cea-9859-4918-9296-6957c8a505d6) and click on Share -> Publish.
 
+### Secure lead capture on Netlify
+
+The quiz submits leads to the serverless function in `netlify/functions/quiz-leads.mjs`.
+Before deploying the custom domain, configure these environment variables in Netlify:
+
+- `BREVO_API_KEY`: a server-only Brevo API key; never prefix it with `VITE_`.
+- `BREVO_LIST_ID`: the destination list ID (defaults to `9`).
+
+Create the following Brevo contact attributes before enabling the form:
+`SKIN_PROFILE`, `RECOMMENDED_PROGRAM`, `SECONDARY_PROGRAM`, `LEAD_TEMPERATURE`,
+`PROFILE_CONFIDENCE`, `CYCLE_RELEVANCE`, `QUIZ_SOURCE`, `UTM_SOURCE`,
+`UTM_MEDIUM`, `UTM_CAMPAIGN`, `UTM_CONTENT`, `QUIZ_ANSWERS`,
+`QUIZ_COMPLETED`, `QUIZ_DATE`, and `ORIGIN`.
+
+If an API key has ever been committed to Git, revoke it in Brevo before deployment;
+removing it from the current source does not invalidate copies in Git history.
+
 ## I want to use a custom domain - is that possible?
 
 We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)

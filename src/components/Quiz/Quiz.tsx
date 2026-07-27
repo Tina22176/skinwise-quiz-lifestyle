@@ -24,6 +24,7 @@ const QuizContent = () => {
     if (state.currentQuestion >= questions.length) {
       console.log('🏁 Quiz completed, showing results');
       setStage("results");
+      window.scrollTo({ top: 0, behavior: "auto" });
       // Track quiz completion with hormone profile if available
       if (state.hormoneProfile?.type) {
         trackQuizComplete(state.hormoneProfile.type);

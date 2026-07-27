@@ -16,7 +16,7 @@ import { getProfileIcon, getProfileTheme } from "./utils/profileVisuals";
 
 /* ── Visuel hero : photo fournie par le client (/public/hero.jpg).
    Fallback décoratif élégant si l'image est absente afin de ne jamais casser la page. ── */
-import heroImage from "@/assets/hero-majoliepeau.png.asset.json";
+const heroImage = "/hero-skinwise-v2.png";
 
 const HeroVisual = () => {
   const [failed, setFailed] = useState(false);
@@ -26,11 +26,11 @@ const HeroVisual = () => {
     <div className="relative">
       {/* halo derrière le visuel */}
       <div className="absolute -inset-6 bg-rose-glow/40 rounded-[40px] blur-3xl -z-10" aria-hidden="true" />
-      <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto rounded-xl overflow-hidden border border-border shadow-lg">
+      <div className="relative aspect-[4/5] w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[420px] mx-auto rounded-xl overflow-hidden border border-border shadow-lg">
         {!failed ? (
           <img
-            src={heroImage.url}
-            alt="Routine de soin Majoliepeau"
+            src={heroImage}
+            alt="Soin visage, quartz rose et fleurs dans l'univers Majoliepeau"
             loading="eager"
             decoding="async"
             onError={() => setFailed(true)}
@@ -145,7 +145,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
               variants={fadeUp}
               className="text-base lg:text-lg text-muted-foreground mb-8 max-w-md mx-auto lg:mx-0 leading-relaxed font-body"
             >
-              6 questions. 2 minutes. Un profil personnalisé avec les gestes qui te
+              8 questions. 2 minutes. Un profil personnalisé avec les gestes qui te
               correspondent — pas ceux de TikTok.
             </motion.p>
 
@@ -162,7 +162,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="order-first lg:order-last"
+            className="mt-2 lg:mt-0"
           >
             <HeroVisual />
           </motion.div>
@@ -255,7 +255,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
           viewport={{ once: true }}
           className="text-center text-muted-foreground font-body mt-7 italic"
         >
-          Réponds à 6 questions pour révéler le tien.
+          Réponds à 8 questions pour révéler le tien.
         </motion.p>
       </section>
 

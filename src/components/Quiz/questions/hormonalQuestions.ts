@@ -62,7 +62,7 @@ export const hormonalQuestions: QuizQuestion[] = [
   },
   {
     id: "energie",
-    display: "Dernière question, promis.",
+    display: "Ton rythme compte aussi.",
     question: "Ton énergie en ce moment ?",
     options: [
       { value: "fatiguee_reveil", label: "Je me réveille déjà fatiguée", description: "" },
@@ -70,6 +70,26 @@ export const hormonalQuestions: QuizQuestion[] = [
       { value: "speed", label: "Je suis speed non-stop, dur de ralentir", description: "" },
       { value: "stable", label: "Plutôt stable, ça va", description: "" },
       { value: "dort_mal", label: "Je dors mal (insomnies, réveils nocturnes)", description: "" }
+    ]
+  },
+  {
+    id: "primary_goal",
+    display: "On passe à ce dont tu as vraiment besoin.",
+    question: "Aujourd'hui, tu aimerais surtout…",
+    options: [
+      { value: "simplifier", label: "Simplifier rapidement ma routine", description: "Retrouver des bases claires sans me surcharger" },
+      { value: "stabiliser", label: "Réparer et stabiliser ma peau", description: "Comprendre ses réactions et construire une routine durable" },
+      { value: "comprendre_cycle", label: "Comprendre le lien peau, cycle et énergie", description: "Anticiper mes variations au lieu de les subir" }
+    ]
+  },
+  {
+    id: "support_level",
+    display: "Dernière question, promis.",
+    question: "Quel rythme d'accompagnement te conviendrait le mieux ?",
+    options: [
+      { value: "declic", label: "Un déclic simple sur quelques jours", description: "Je veux commencer léger" },
+      { value: "mois", label: "Un cadre guidé pendant un mois", description: "J'ai besoin d'une vraie remise à plat" },
+      { value: "plusieurs_cycles", label: "Un accompagnement sur plusieurs cycles", description: "Je veux observer, anticiper et progresser dans la durée" }
     ]
   }
 ];

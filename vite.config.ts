@@ -40,10 +40,6 @@ export default defineConfig(({ mode }) => ({
       'recharts',
       'lucide-react',
     ],
-    // Optimisations des dépendances
-    esbuildOptions: {
-      target: 'esnext',
-    },
   },
   build: {
     // Configuration de build simplifiée et stable
@@ -76,7 +72,7 @@ export default defineConfig(({ mode }) => ({
       // Tree-shaking plus conservateur
       treeshake: {
         moduleSideEffects: 'no-external',
-        propertyReadSideEffects: true,
+        propertyReadSideEffects: 'always',
         unknownGlobalSideEffects: true,
       },
     },

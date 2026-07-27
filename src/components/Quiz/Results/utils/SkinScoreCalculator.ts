@@ -30,7 +30,7 @@ export const calculateImprovedSkinCharacteristics = (answers: Record<string, str
 
 // Legacy implementation kept for reference (can be removed after migration)
 const calculateSkinCharacteristicsLegacy = (answers: Record<string, string>): SkinCharacteristic[] => {
-  let scores = {
+  const scores = {
     hydratation: 50,
     sensibilite: 30,
     sebum: 40,

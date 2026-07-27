@@ -132,7 +132,7 @@ export const ProfileTeaserGate = ({
               className="mt-1 accent-primary"
             />
             <span className="text-muted-foreground">
-              J'accepte de recevoir mes résultats et mon guide personnalisé par email.
+              Je souhaite recevoir mon résultat et mon guide personnalisé par email. Je pourrai me désinscrire des conseils et offres en un clic.
             </span>
           </label>
 

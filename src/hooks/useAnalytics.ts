@@ -3,12 +3,12 @@ import { useCallback } from 'react';
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag: (...args: unknown[]) => void;
   }
 }
 
 export const useAnalytics = () => {
-  const trackEvent = useCallback((eventName: string, parameters?: Record<string, any>) => {
+  const trackEvent = useCallback((eventName: string, parameters?: Record<string, unknown>) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', eventName, parameters);
     }
