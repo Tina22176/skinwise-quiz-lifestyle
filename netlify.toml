@@ -8,64 +8,7 @@
   to = "/.netlify/functions/quiz-leads"
   status = 200
 
-# Routes applicatives connues : elles restent accessibles en navigation directe.
 [[redirects]]
-  from = "/promo"
+  from = "/*"
   to = "/index.html"
   status = 200
-
-[[redirects]]
-  from = "/promo/"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/garantie"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/garantie/"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/results"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/results/"
-  to = "/index.html"
-  status = 200
-
-# Les pages utilitaires du quiz ne doivent pas entrer dans l'index Google.
-[[headers]]
-  for = "/promo"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
-
-[[headers]]
-  for = "/promo/"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
-
-[[headers]]
-  for = "/garantie"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
-
-[[headers]]
-  for = "/garantie/"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
-
-[[headers]]
-  for = "/results"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
-
-[[headers]]
-  for = "/results/"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
