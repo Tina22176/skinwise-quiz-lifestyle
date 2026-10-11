@@ -11,8 +11,8 @@ interface ProfileTeaserGateProps {
   firstName: string;
   setFirstName: (name: string) => void;
   isLoading: boolean;
-  gdprConsent: boolean;
-  setGdprConsent: (consent: boolean) => void;
+  marketingConsent: boolean;
+  setMarketingConsent: (consent: boolean) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   onSkip?: () => void;
 }
@@ -24,8 +24,8 @@ export const ProfileTeaserGate = ({
   firstName,
   setFirstName,
   isLoading,
-  gdprConsent,
-  setGdprConsent,
+  marketingConsent,
+  setMarketingConsent,
   handleSubmit,
   onSkip,
 }: ProfileTeaserGateProps) => {
@@ -123,22 +123,26 @@ export const ProfileTeaserGate = ({
             className="w-full font-body text-[15px] py-3.5 px-5 rounded-sm surface-soft text-foreground border-[1.5px] border-border transition-colors outline-none focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20"
           />
 
+          <p className="text-[13px] text-muted-foreground font-body leading-relaxed">
+            Je t&apos;envoie ton résultat et ton guide personnalisé à cette adresse.
+          </p>
+
+          {/* Facultative et décochée : le guide part dans tous les cas. */}
           <label className="flex items-start gap-2 text-sm cursor-pointer font-body">
             <input
               type="checkbox"
-              checked={gdprConsent}
-              onChange={(e) => setGdprConsent(e.target.checked)}
-              required
+              checked={marketingConsent}
+              onChange={(e) => setMarketingConsent(e.target.checked)}
               className="mt-1 accent-primary"
             />
             <span className="text-muted-foreground">
-              Je souhaite recevoir mon résultat et mon guide personnalisé par email. Je pourrai me désinscrire des conseils et offres en un clic.
+              Je veux aussi recevoir les conseils et offres Majoliepeau par email. Je peux me désinscrire en un clic.
             </span>
           </label>
 
           <button
             type="submit"
-            disabled={isLoading || !email || !firstName || !gdprConsent}
+            disabled={isLoading || !email || !firstName}
             className="w-full font-body text-base font-bold text-primary-foreground bg-brand-gradient rounded-full py-4 shadow-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30"
           >
             {isLoading ? "..." : "Voir mon plan complet"}

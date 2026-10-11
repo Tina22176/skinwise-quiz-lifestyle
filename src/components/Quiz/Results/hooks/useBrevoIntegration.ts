@@ -9,7 +9,8 @@ interface LeadPayload {
   profile: HormoneProfile;
   answers: Record<string, string>;
   attribution: CampaignAttribution;
-  gdprConsent: boolean;
+  /** Conseils et offres : choix séparé, facultatif. Le guide part sans. */
+  marketingConsent: boolean;
 }
 
 export const useBrevoIntegration = () => {
@@ -19,7 +20,7 @@ export const useBrevoIntegration = () => {
     profile,
     answers,
     attribution,
-    gdprConsent,
+    marketingConsent,
   }: LeadPayload) => {
     const response = await fetch(LEAD_CAPTURE_ENDPOINT, {
       method: "POST",
@@ -27,7 +28,7 @@ export const useBrevoIntegration = () => {
       body: JSON.stringify({
         email,
         firstName,
-        gdprConsent,
+        marketingConsent: marketingConsent === true,
         skinProfile: profile.type,
         recommendedProgram: profile.recommendation.id,
         secondaryProgram: profile.recommendation.secondaryId,

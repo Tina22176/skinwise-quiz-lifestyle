@@ -70,9 +70,16 @@ The quiz submits leads to the serverless function in `netlify/functions/quiz-lea
 Before deploying the custom domain, configure these environment variables in Netlify:
 
 - `BREVO_API_KEY`: a server-only Brevo API key; never prefix it with `VITE_`.
-- `BREVO_LIST_ID`: the destination list ID (defaults to `9`).
+- `BREVO_LIST_ID`: the quiz list, used only to send the guide the person asked for (defaults to `9`, « Quiz majoliepeau »).
+- `BREVO_MARKETING_LIST_ID`: the marketing list (defaults to `10`, « Newsletters MJP »). A contact joins it only when the optional « conseils et offres » box is ticked (`marketingConsent === true`); the contact then also gets `CONSENT_MARKETING = yes`.
+- `BREVO_QUIZ_ATTRIBUTES`: set to `true` once the attributes below exist in Brevo. Until then only `PRENOM` (and `CONSENT_MARKETING`) are sent.
 
-Create the following Brevo contact attributes before enabling the form:
+Consent rules (guarded by `tests/quizLeads.test.ts`):
+- giving an email gets the guide; it never subscribes to marketing;
+- never send campaigns to the quiz list, only the guide;
+- the function never sends `emailBlacklisted`: an unsubscribed person stays unsubscribed.
+
+Brevo contact attributes to create (text, except `PROFILE_CONFIDENCE` and `CYCLE_RELEVANCE`: number, `QUIZ_COMPLETED`: boolean, `QUIZ_DATE`: date):
 `SKIN_PROFILE`, `RECOMMENDED_PROGRAM`, `SECONDARY_PROGRAM`, `LEAD_TEMPERATURE`,
 `PROFILE_CONFIDENCE`, `CYCLE_RELEVANCE`, `QUIZ_SOURCE`, `UTM_SOURCE`,
 `UTM_MEDIUM`, `UTM_CAMPAIGN`, `UTM_CONTENT`, `QUIZ_ANSWERS`,
