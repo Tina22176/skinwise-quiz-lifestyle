@@ -25,6 +25,16 @@ const json = (status, body) => ({
 const clean = (value, max = 180) =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
 
+// Attribut catégorie SKIN_TYPE de Brevo : il aiguille l'automation « Ton
+// profil peau » (un email par profil). Identifiants relevés dans le compte.
+export const SKIN_TYPE_IDS = {
+  "réactive_pression": 1,
+  "fatiguée_survie": 2,
+  "controlleuse_débordée": 3,
+  "cyclique_subit": 4,
+  "sensible_caméléon": 5,
+};
+
 const listId = (raw, fallback) => {
   const n = Number(raw || fallback);
   return Number.isInteger(n) && n > 0 ? n : null;
@@ -49,9 +59,12 @@ export function buildBrevoContact(input, env = {}, now = new Date()) {
   // Seul `true` vaut un oui : ni "true", ni 1, ni l'ancien `gdprConsent`.
   const marketing = input?.marketingConsent === true;
 
-  // PRENOM existe dans le compte. Les attributs du quiz ne partent qu'une fois
+  // PRENOM et SKIN_TYPE existent dans le compte. Les autres attributs ne partent qu'une fois
   // créés dans Brevo (BREVO_QUIZ_ATTRIBUTES=true), pour ne pas risquer un refus.
   const attributes = { PRENOM: firstName };
+  // Le profil choisit l'email du guide : il part pour tout lead.
+  const skinType = SKIN_TYPE_IDS[clean(input?.skinProfile, 80)];
+  if (skinType) attributes.SKIN_TYPE = skinType;
   if (marketing) attributes.CONSENT_MARKETING = "yes";
   if (env.BREVO_QUIZ_ATTRIBUTES === "true") {
     Object.assign(attributes, {

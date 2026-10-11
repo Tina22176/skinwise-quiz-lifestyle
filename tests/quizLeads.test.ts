@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { buildBrevoContact } from "../netlify/functions/quiz-leads.mjs";
+import { SKIN_TYPE_IDS, buildBrevoContact } from "../netlify/functions/quiz-leads.mjs";
 
 /**
  * Le guide par email et les conseils sont deux choix distincts : donner son
@@ -12,7 +12,7 @@ const lead = {
   email: " Lea@Example.com ",
   firstName: "Léa",
   recommendedProgram: "mini-glow",
-  skinProfile: "reactive",
+  skinProfile: "réactive_pression",
   answers: { a: "b" },
   utm: { source: "instagram" },
 };
@@ -51,8 +51,21 @@ test("ne touche jamais à la liste noire", () => {
   assert.doesNotMatch(source, /(email|sms)Blacklisted\s*:/);
 });
 
+test("SKIN_TYPE aiguille le guide : il part pour chaque profil", () => {
+  const profiles = readFileSync(
+    new URL("../src/components/Quiz/Results/utils/HormoneProfileDetails.ts", import.meta.url),
+    "utf8",
+  );
+  const ids = [...new Set([...profiles.matchAll(/^\s{2}"?([^\s":]+)"?\s*:\s*\{/gm)].map((m) => m[1]))].sort();
+  assert.deepEqual(ids, Object.keys(SKIN_TYPE_IDS).sort());
+  for (const [profile, id] of Object.entries(SKIN_TYPE_IDS)) {
+    assert.equal(buildBrevoContact({ ...lead, skinProfile: profile }, {}).contact.attributes.SKIN_TYPE, id);
+  }
+  assert.ok(!("SKIN_TYPE" in buildBrevoContact({ ...lead, skinProfile: "inconnu" }, {}).contact.attributes));
+});
+
 test("attributs du quiz seulement une fois créés dans Brevo", () => {
-  assert.deepEqual(Object.keys(buildBrevoContact(lead, {}).contact.attributes), ["PRENOM"]);
+  assert.deepEqual(Object.keys(buildBrevoContact(lead, {}).contact.attributes), ["PRENOM", "SKIN_TYPE"]);
   const withAttrs = buildBrevoContact(lead, { BREVO_QUIZ_ATTRIBUTES: "true" }, new Date("2026-10-11T10:00:00Z"));
   assert.equal(withAttrs.contact.attributes.RECOMMENDED_PROGRAM, "mini-glow");
   assert.equal(withAttrs.contact.attributes.QUIZ_DATE, "2026-10-11");
