@@ -24,7 +24,7 @@ export const HORMONE_PROFILE_DETAILS: Record<string, HormoneProfileDetail> = {
     gestes: [
       "Simplifie ta routine à 3 gestes max — nettoyant doux, hydratant, protection",
       "Quand ta peau réagit, résiste à l'envie d'ajouter un produit — attends 48h",
-      "Le soir, 3 respirations profondes avant ta routine — ça change la circulation"
+      "Le soir, 3 respirations profondes avant ta routine — tu ralentis avant de toucher ta peau"
     ],
     program: "Skin Reboot",
     programPrice: "99€",
