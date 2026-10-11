@@ -132,8 +132,8 @@ export const SimpleHormoneResults = ({
           </p>
         </motion.div>
 
-        {/* Email reminder */}
-        <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
+        {/* Email reminder : seulement si une adresse a été donnée. */}
+        {hasSubscribed && <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
           <p className="text-foreground font-medium mb-3 font-body">Tu recevras aussi par email :</p>
           <ul className="space-y-2 text-muted-foreground font-body">
             {["Ton profil détaillé", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
@@ -147,7 +147,7 @@ export const SimpleHormoneResults = ({
             <Mail className="w-4 h-4 flex-shrink-0" />
             Pas prête ? Pas de souci. Le guide arrive dans ta boîte.
           </p>
-        </motion.div>
+        </motion.div>}
 
         {/* Reset */}
         <motion.div variants={itemVariants} className="text-center pb-2">

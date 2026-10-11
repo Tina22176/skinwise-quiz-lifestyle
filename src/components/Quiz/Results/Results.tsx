@@ -14,7 +14,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
     email, setEmail,
     firstName, setFirstName,
     isSubscribed, isLoading,
-    gdprConsent, setGdprConsent,
+    marketingConsent, setMarketingConsent,
     handleSubmit
   } = useEmailSubscription();
 
@@ -70,8 +70,8 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
           firstName={firstName}
           setFirstName={setFirstName}
           isLoading={isLoading}
-          gdprConsent={gdprConsent}
-          setGdprConsent={setGdprConsent}
+          marketingConsent={marketingConsent}
+          setMarketingConsent={setMarketingConsent}
           handleSubmit={handleSubmit}
           onSkip={handleSkipEmail}
         />

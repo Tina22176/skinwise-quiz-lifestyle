@@ -11,22 +11,13 @@ export const useEmailSubscription = () => {
   const [firstName, setFirstName] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [gdprConsent, setGdprConsent] = useState(false);
+  // Case « conseils et offres » : facultative, décochée. Le guide part sans.
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const { toast } = useToast();
   const { subscribeToNewsletter } = useBrevoIntegration();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!gdprConsent) {
-      toast({
-        title: "Consentement requis",
-        description: "Merci d'accepter les conditions pour recevoir ta routine personnalisée.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsLoading(true);
     try {
       dispatch({ type: "SET_EMAIL", payload: email });
@@ -39,7 +30,7 @@ export const useEmailSubscription = () => {
         profile: state.hormoneProfile,
         answers: state.answers,
         attribution: captureCampaignAttribution(),
-        gdprConsent,
+        marketingConsent,
       });
 
       toast({
@@ -67,8 +58,8 @@ export const useEmailSubscription = () => {
     setFirstName,
     isSubscribed,
     isLoading,
-    gdprConsent,
-    setGdprConsent,
+    marketingConsent,
+    setMarketingConsent,
     handleSubmit
   };
 };
