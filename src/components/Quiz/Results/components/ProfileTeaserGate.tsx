@@ -17,6 +17,9 @@ interface ProfileTeaserGateProps {
   onSkip?: () => void;
 }
 
+const fieldClass =
+  "w-full font-body text-[16px] px-4 py-3.5 bg-background text-foreground border border-foreground/25 rounded-none outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/25";
+
 export const ProfileTeaserGate = ({
   hormoneProfile,
   email,
@@ -43,9 +46,10 @@ export const ProfileTeaserGate = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="px-6 py-10 lg:py-16"
+      className="pb-12 lg:pb-16"
     >
-      <div className="max-w-[560px] mx-auto">
+      {/* ── Ton profil ── */}
+      <div className="max-w-[560px] mx-auto px-6 pt-10 lg:pt-16">
         <div className="flex justify-between items-baseline border-b border-foreground pb-3 mb-10">
           <span className="eyebrow">Ton résultat</span>
           <span className="eyebrow">1 / 2</span>
@@ -63,24 +67,29 @@ export const ProfileTeaserGate = ({
         <p className="font-body text-[17px] leading-relaxed text-foreground first-letter:font-heading first-letter:text-[3.2rem] first-letter:leading-[0.8] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-primary">
           {profile.tuEs}
         </p>
+      </div>
 
-        <div className="mt-12 border-t border-foreground pt-8">
-          <h2 className="font-heading text-[1.8rem] leading-tight font-semibold text-foreground mb-2">
+      {/* ── La suite, par écrit : bande rose poudré bord à bord ── */}
+      <div className="mt-12 bg-secondary border-y border-foreground/20">
+        <div className="max-w-[560px] mx-auto px-6 py-12 lg:py-14">
+          <p className="eyebrow mb-3">Dernière étape</p>
+          <h2 className="font-heading text-[1.9rem] leading-tight font-semibold text-foreground mb-3">
             La suite, <span className="italic font-normal">par écrit</span>
           </h2>
-          <p className="font-body text-[15px] text-muted-foreground mb-6">
+          <p className="font-body text-[15px] leading-relaxed text-muted-foreground mb-7">
             Laisse ton prénom et ton email pour lire la suite ici et la recevoir dans ta boîte :
           </p>
-          <ul className="mb-8">
+
+          <ul className="mb-9">
             {locked.map((item, i) => (
-              <li key={item} className="flex gap-4 py-3 border-b border-border font-body text-[15px] text-foreground">
+              <li key={item} className="flex gap-4 py-3 border-b border-foreground/15 font-body text-[15px] text-foreground last:border-0">
                 <span className="font-heading italic text-primary w-6">0{i + 1}</span>
                 {item}
               </li>
             ))}
           </ul>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
               placeholder="Ton prénom"
@@ -88,7 +97,7 @@ export const ProfileTeaserGate = ({
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="w-full font-body text-[16px] py-3 bg-transparent text-foreground border-0 border-b border-foreground rounded-none outline-none placeholder:text-muted-foreground focus-visible:border-primary"
+              className={fieldClass}
             />
             <input
               type="email"
@@ -97,15 +106,15 @@ export const ProfileTeaserGate = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full font-body text-[16px] py-3 bg-transparent text-foreground border-0 border-b border-foreground rounded-none outline-none placeholder:text-muted-foreground focus-visible:border-primary"
+              className={fieldClass}
             />
-            <label className="flex items-start gap-3 text-[13px] cursor-pointer font-body pt-2">
+            <label className="flex items-start gap-3 text-[13px] cursor-pointer font-body pt-3">
               <input
                 type="checkbox"
                 checked={gdprConsent}
                 onChange={(e) => setGdprConsent(e.target.checked)}
                 required
-                className="mt-0.5 accent-primary"
+                className="mt-0.5 h-4 w-4 accent-primary"
               />
               <span className="text-muted-foreground leading-relaxed">
                 J'accepte de recevoir mon résultat par email, puis des conseils et offres Majoliepeau. Désinscription en un clic.
@@ -114,25 +123,25 @@ export const ProfileTeaserGate = ({
             <button
               type="submit"
               disabled={isLoading || !email || !firstName || !gdprConsent}
-              className="w-full inline-flex items-center justify-center gap-3 bg-foreground text-background font-body text-[15px] font-medium tracking-wide py-4 rounded-sm transition-colors hover:bg-primary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="w-full mt-2 inline-flex items-center justify-center gap-3 bg-foreground text-background font-body text-[15px] font-medium tracking-wide py-4 rounded-sm transition-colors hover:bg-primary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
             >
               {isLoading ? "Un instant…" : "Lire la suite"}
               {!isLoading && <ArrowRight className="w-4 h-4" />}
             </button>
           </form>
-
-          {onSkip && (
-            <div className="text-center mt-6">
-              <button
-                onClick={onSkip}
-                className="text-[13px] text-muted-foreground underline underline-offset-4 hover:text-foreground transition-colors font-body"
-              >
-                Continuer sans email
-              </button>
-            </div>
-          )}
         </div>
       </div>
+
+      {onSkip && (
+        <div className="max-w-[560px] mx-auto px-6 text-center mt-7">
+          <button
+            onClick={onSkip}
+            className="text-[13px] text-muted-foreground underline underline-offset-4 hover:text-foreground transition-colors font-body"
+          >
+            Continuer sans email
+          </button>
+        </div>
+      )}
     </motion.div>
   );
 };
