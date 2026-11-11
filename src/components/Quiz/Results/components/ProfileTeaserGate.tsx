@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
 import { PROFILE_ILLUSTRATIONS } from "../utils/profileIllustrations";
@@ -69,10 +70,9 @@ export const ProfileTeaserGate = ({
         </p>
       </div>
 
-      {/* ── La suite, par écrit : bande rose poudré bord à bord ── */}
-      <div className="mt-12 bg-secondary border-y border-foreground/20">
-        <div className="max-w-[560px] mx-auto px-6 py-12 lg:py-14">
-          <p className="eyebrow mb-3">Dernière étape</p>
+      {/* ── Les conseils restent sur le fond de page ── */}
+      <div className="mt-12">
+        <div className="max-w-[560px] mx-auto px-6">
           <h2 className="font-heading text-[1.9rem] leading-tight font-semibold text-foreground mb-3">
             La suite, <span className="italic font-normal">par écrit</span>
           </h2>
@@ -89,25 +89,35 @@ export const ProfileTeaserGate = ({
             ))}
           </ul>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5 bg-secondary border-y border-primary/25 px-5 py-7 sm:px-7">
+            <label htmlFor="result-first-name" className="block font-body text-[14px] font-medium text-foreground">
+              Ton prénom
             <input
+              id="result-first-name"
               type="text"
+              autoComplete="given-name"
               placeholder="Ton prénom"
               aria-label="Ton prénom"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className={fieldClass}
+              className={`${fieldClass} mt-2`}
             />
+            </label>
+            <label htmlFor="result-email" className="block font-body text-[14px] font-medium text-foreground">
+              Ton email
             <input
+              id="result-email"
               type="email"
+              autoComplete="email"
               placeholder="ton@email.com"
               aria-label="Ton email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className={fieldClass}
+              className={`${fieldClass} mt-2`}
             />
+            </label>
             <label className="flex items-start gap-3 text-[13px] cursor-pointer font-body pt-3">
               <input
                 type="checkbox"
@@ -120,26 +130,27 @@ export const ProfileTeaserGate = ({
                 J'accepte de recevoir mon résultat par email, puis des conseils et offres Majoliepeau. Désinscription en un clic.
               </span>
             </label>
-            <button
+            <Button
               type="submit"
               disabled={isLoading || !email || !firstName || !gdprConsent}
-              className="w-full mt-2 inline-flex items-center justify-center gap-3 bg-foreground text-background font-body text-[15px] font-medium tracking-wide py-4 rounded-sm transition-colors hover:bg-primary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
+              className="w-full h-auto mt-2 gap-3 bg-foreground text-background font-body text-[15px] font-medium py-4 rounded-sm hover:bg-primary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-offset-secondary"
             >
               {isLoading ? "Un instant…" : "Lire la suite"}
               {!isLoading && <ArrowRight className="w-4 h-4" />}
-            </button>
+            </Button>
           </form>
         </div>
       </div>
 
       {onSkip && (
         <div className="max-w-[560px] mx-auto px-6 text-center mt-7">
-          <button
+          <Button
+            variant="link"
             onClick={onSkip}
             className="text-[13px] text-muted-foreground underline underline-offset-4 hover:text-foreground transition-colors font-body"
           >
             Continuer sans email
-          </button>
+          </Button>
         </div>
       )}
     </motion.div>
