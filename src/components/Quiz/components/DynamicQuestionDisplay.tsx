@@ -16,7 +16,7 @@ export const DynamicQuestionDisplay = ({ question, selectedAnswer, onSelect }: D
       exit={{ opacity: 0, y: -20 }}
       className="mb-6"
     >
-      <div className="space-y-4">
+      <div className="border-t border-foreground">
         {question.options.map((option, index) => (
           <EnhancedAnswerOption
             key={option.value}

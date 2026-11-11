@@ -6,7 +6,7 @@ import { QuizProgressBar } from "./QuizProgressBar";
 import { calculateHormoneProfile } from "./utils/hormoneProfileCalculator";
 import { DynamicQuestionDisplay } from "./components/DynamicQuestionDisplay";
 import { motivationalTexts } from "./constants/quizTexts";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export const EnhancedQuizQuestion = () => {
   const { state, dispatch } = useQuiz();
@@ -93,16 +93,16 @@ export const EnhancedQuizQuestion = () => {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.4 }}
-        className="text-center mb-6"
+        className="mb-8"
       >
         {/* Display text = petit texte emotionnel (DM Sans, italic, rose) */}
         {currentQuestion.display && (
-          <p className="text-[15px] italic font-body mb-2 text-primary">
+          <p className="font-heading italic text-[17px] mb-3 text-primary">
             {currentQuestion.display}
           </p>
         )}
         {/* Titre principal (Cormorant, bold) */}
-        <h2 className="font-heading text-[22px] lg:text-[26px] font-bold text-foreground">
+        <h2 className="font-heading text-[2rem] lg:text-[2.5rem] leading-[1.05] font-semibold text-foreground">
           {currentQuestion.question}
         </h2>
       </motion.div>
@@ -113,19 +113,6 @@ export const EnhancedQuizQuestion = () => {
         onSelect={handleAnswer}
       />
 
-      {selectedAnswer && (
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.3 }}
-          className="mt-6 flex justify-center"
-        >
-          <div className="flex items-center gap-2 text-primary font-medium font-body">
-            <span>Parfait ! Prochaine question</span>
-            <ArrowRight className="h-4 w-4 animate-bounce" />
-          </div>
-        </motion.div>
-      )}
     </motion.div>
   );
 };
