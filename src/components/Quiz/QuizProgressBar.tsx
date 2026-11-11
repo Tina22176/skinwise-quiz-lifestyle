@@ -14,7 +14,7 @@ export const QuizProgressBar = ({
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
 
   return (
-    <div className="mb-6">
+    <div className="mb-4">
       {/* Progress info */}
       <div className="flex justify-between items-center mb-2">
         <p className="eyebrow">

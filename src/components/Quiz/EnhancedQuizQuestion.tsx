@@ -70,7 +70,13 @@ export const EnhancedQuizQuestion = () => {
       exit="exit"
       className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto px-6 py-6 sm:py-8"
     >
-      <div className="flex justify-between items-center mb-3 min-h-[28px]">
+      <QuizProgressBar 
+        currentQuestion={state.currentQuestion} 
+        totalQuestions={questions.length}
+        motivationalTexts={motivationalTexts}
+      />
+
+      <div className="flex justify-between items-center -mt-2 mb-8 min-h-[28px]">
         {state.currentQuestion > 0 ? (
           <button
             onClick={() => {
@@ -85,12 +91,6 @@ export const EnhancedQuizQuestion = () => {
           </button>
         ) : <span />}
       </div>
-
-      <QuizProgressBar 
-        currentQuestion={state.currentQuestion} 
-        totalQuestions={questions.length}
-        motivationalTexts={motivationalTexts}
-      />
 
       <motion.div
         initial={{ opacity: 0, y: 15 }}
