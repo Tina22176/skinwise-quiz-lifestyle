@@ -12,14 +12,14 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <header
-        className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border"
+        className="fixed top-0 left-0 right-0 z-50 bg-foreground border-b border-gold/45"
         role="banner"
       >
         <div className="max-w-[1100px] mx-auto px-6 h-16 flex justify-between items-center">
           <a href="https://majoliepeau.com" aria-label="Majoliepeau, retour au site">
-            <img src="/brand/majoliepeau-wordmark.svg" alt="" width={1166} height={310} className="h-8 w-auto" />
+            <img src="/brand/majoliepeau-wordmark-light.svg" alt="" width={1166} height={310} className="h-8 w-auto" />
           </a>
-          <span className="eyebrow">Diagnostic peau</span>
+          <span className="eyebrow-invert">Diagnostic peau</span>
         </div>
       </header>
 
