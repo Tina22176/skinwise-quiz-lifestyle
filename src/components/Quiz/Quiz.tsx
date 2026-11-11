@@ -9,6 +9,7 @@ import { AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { InstallPWA } from "../PWA/InstallPWA";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const QuizContent = () => {
   
@@ -45,10 +46,13 @@ const QuizContent = () => {
     : "min-h-screen py-6 sm:py-8 lg:py-10";
 
   return (
-    <div className={containerClasses} >
+    <div className={stage === "welcome" ? "pt-4 sm:pt-6 lg:pt-10" : containerClasses} >
       <AnimatePresence mode="wait">
         {stage === "welcome" && (
-          <Welcome onStart={handleStartQuiz} />
+          <div key="welcome">
+            <Welcome onStart={handleStartQuiz} />
+            <SiteFooter />
+          </div>
         )}
         {stage === "questions" && state.currentQuestion < questions.length && (
           <EnhancedQuizQuestion />
