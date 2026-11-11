@@ -18,7 +18,7 @@ export const SimpleHormoneResults = ({
   hasSubscribed,
   onUnlock,
 }: SimpleHormoneResultsProps) => {
-  const profile = getHormoneProfileDetails(hormoneProfile.type);
+  const profile = getHormoneProfileDetails(hormoneProfile.type, hormoneProfile.cycleContext);
   const recommendation = hormoneProfile.recommendation;
   const illustration = PROFILE_ILLUSTRATIONS[hormoneProfile.type];
   const secondaryProgram = getProgram(recommendation.secondaryId);
@@ -65,6 +65,12 @@ export const SimpleHormoneResults = ({
             {profile.tuEs}
           </p>
         </motion.header>
+
+        <p className="mt-6 font-body text-[13px] leading-relaxed text-muted-foreground">
+          Ce profil reflète tes réponses du moment : il ne mesure pas tes hormones.
+          Ces gestes ne remplacent pas un suivi médical ni un traitement prescrit.
+          Si une irritation persiste ou s’aggrave, demande un avis médical.
+        </p>
 
         <motion.section variants={itemVariants} className="mt-12 border-t border-foreground pt-8">
           <p className="eyebrow mb-3">Chapitre 1</p>
@@ -143,7 +149,7 @@ export const SimpleHormoneResults = ({
             onClick={onResetQuiz}
             className="text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4 text-[13px] font-body"
           >
-            Refaire le diagnostic
+            Refaire le quiz
           </button>
         </motion.div>
       </article>

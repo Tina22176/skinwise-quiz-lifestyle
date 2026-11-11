@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { recommendProgram } from "../src/components/Quiz/utils/programRecommendation.ts";
 
-test("oriente une recherche simple vers Mini Glow", () => {
+test("oriente une recherche simple vers Glow Express", () => {
   const result = recommendProgram({
     primary_goal: "simplifier",
     support_level: "declic",

@@ -33,7 +33,7 @@ export const ProfileTeaserGate = ({
   handleSubmit,
   onSkip,
 }: ProfileTeaserGateProps) => {
-  const profile = getHormoneProfileDetails(hormoneProfile.type);
+  const profile = getHormoneProfileDetails(hormoneProfile.type, hormoneProfile.cycleContext);
 
   const locked = [
     "Tes trois premiers gestes",

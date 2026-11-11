@@ -14,10 +14,10 @@ const GuaranteeSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
-            Garantie Glow
+            Accès et conditions
           </h2>
           <h3 className="text-2xl md:text-3xl font-medium text-gray-700 mt-2">
-            Zéro Risque, 100% Confiance !
+            Des repères clairs avant de choisir
           </h3>
         </motion.div>
 
@@ -32,10 +32,10 @@ const GuaranteeSection = () => {
               <Heart className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
               <div>
                 <h4 className="text-xl font-medium mb-2">
-                  Satisfait(e) ou accompagné(e) !
+                  Achat unique ou abonnement
                 </h4>
                 <p className="text-gray-600">
-                  Si après 30 jours, tu ne constates aucune amélioration sur ta peau, contacte-moi et je t'accompagnerai personnellement pour ajuster ta routine et maximiser tes résultats.
+                  Glow Express et Skin Reboot se paient une fois, avec 12 mois d’accès. Glow & Cycle est un abonnement à renouvellement automatique, résiliable depuis ton espace : l’accès continue jusqu’à la fin de la période payée.
                 </p>
               </div>
             </div>
@@ -43,7 +43,7 @@ const GuaranteeSection = () => {
             <div className="flex items-center gap-4">
               <Sparkles className="w-6 h-6 text-pink-500 flex-shrink-0" />
               <p className="text-xl font-medium">
-                Ton glow est ma priorité ! ✨
+                Tant que tu n’as pas ouvert le premier jour, tu peux demander l’annulation et le remboursement. Une fois le premier jour ouvert, le contenu délivré n’est plus remboursable selon les conditions du shop. En cas de problème technique ou de situation particulière, contacte Majoliepeau.
               </p>
             </div>
 
@@ -53,7 +53,7 @@ const GuaranteeSection = () => {
                 className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold px-8 py-6 rounded-full text-lg h-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               >
                 <Heart className="w-5 h-5" />
-                Je commence ma transformation aujourd'hui !
+                Revenir au quiz
               </Button>
             </div>
           </div>

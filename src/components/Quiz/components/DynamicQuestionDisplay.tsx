@@ -5,10 +5,11 @@ import { QuizQuestion } from "../questions/types";
 interface DynamicQuestionDisplayProps {
   question: QuizQuestion;
   selectedAnswer: string | null;
+  disabled?: boolean;
   onSelect: (answer: string) => void;
 }
 
-export const DynamicQuestionDisplay = ({ question, selectedAnswer, onSelect }: DynamicQuestionDisplayProps) => {
+export const DynamicQuestionDisplay = ({ question, selectedAnswer, disabled = false, onSelect }: DynamicQuestionDisplayProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -23,7 +24,7 @@ export const DynamicQuestionDisplay = ({ question, selectedAnswer, onSelect }: D
             option={option}
             index={index}
             isSelected={selectedAnswer === option.value}
-            selectedAnswer={selectedAnswer}
+            disabled={disabled}
             onSelect={onSelect}
           />
         ))}
