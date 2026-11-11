@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import { ArrowRight, Clock, Heart, Mail } from "lucide-react"
 
 const features = [
@@ -30,13 +29,13 @@ const QuizPromo = () => (
         ))}
       </div>
 
-      <Link
-        to="/"
+      <a
+        href="/"
         className="group bg-brand-gradient text-primary-foreground rounded-full px-8 py-4 text-[17px] font-bold shadow-glow inline-flex items-center gap-2"
       >
         Je découvre mon profil
         <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-      </Link>
+      </a>
       <p className="text-sm text-muted-foreground mt-4">100% gratuit · 2 min · Sans spam</p>
     </div>
   </div>
