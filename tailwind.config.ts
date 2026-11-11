@@ -86,11 +86,11 @@ export default {
         body: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        xs: "6px",
-        sm: "10px",
-        md: "14px",
-        lg: "20px",
-        xl: "28px",
+        xs: "1px",
+        sm: "2px",
+        md: "3px",
+        lg: "4px",
+        xl: "6px",
       },
       boxShadow: {
         sm: "0 1px 3px rgba(61, 43, 69, 0.05), 0 1px 2px rgba(61, 43, 69, 0.06)",
