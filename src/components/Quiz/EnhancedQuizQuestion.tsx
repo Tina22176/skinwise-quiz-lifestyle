@@ -66,22 +66,21 @@ export const EnhancedQuizQuestion = () => {
       exit="exit"
       className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto px-6 py-6 sm:py-8"
     >
-      {/* No card container — content directly on bg per mockup */}
-      {state.currentQuestion > 0 && (
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => {
-            dispatch({ type: "PREV_QUESTION" });
-            setSelectedAnswer(null);
-            setShowNextQuestion(false);
-          }}
-          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 font-body"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Retour</span>
-        </motion.button>
-      )}
+      <div className="flex justify-between items-center mb-3 min-h-[28px]">
+        {state.currentQuestion > 0 ? (
+          <button
+            onClick={() => {
+              dispatch({ type: "PREV_QUESTION" });
+              setSelectedAnswer(null);
+              setShowNextQuestion(false);
+            }}
+            className="inline-flex items-center gap-2 font-body text-[13px] font-medium text-foreground underline underline-offset-4 decoration-foreground/30 hover:decoration-primary hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Question précédente
+          </button>
+        ) : <span />}
+      </div>
 
       <QuizProgressBar 
         currentQuestion={state.currentQuestion} 
@@ -109,7 +108,7 @@ export const EnhancedQuizQuestion = () => {
 
       <DynamicQuestionDisplay
         question={currentQuestion}
-        selectedAnswer={selectedAnswer}
+        selectedAnswer={selectedAnswer ?? (state.answers[currentQuestion.id] as string | undefined) ?? null}
         onSelect={handleAnswer}
       />
 
