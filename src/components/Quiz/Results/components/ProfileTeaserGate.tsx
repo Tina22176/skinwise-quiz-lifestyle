@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
+import { PROFILE_ILLUSTRATIONS } from "../utils/profileIllustrations";
 
 interface ProfileTeaserGateProps {
   hormoneProfile: HormoneProfile;
@@ -54,6 +55,11 @@ export const ProfileTeaserGate = ({
         <h1 className="font-heading font-semibold text-[2.6rem] lg:text-[3.4rem] leading-[1] tracking-[-0.01em] text-foreground mb-6">
           {profile.title}
         </h1>
+        {PROFILE_ILLUSTRATIONS[hormoneProfile.type] && (
+          <figure className="mb-8 -mx-6 sm:mx-0">
+            <img src={PROFILE_ILLUSTRATIONS[hormoneProfile.type]} alt={`Illustration : ${profile.title}`} width={1024} height={768} className="w-full h-auto block" />
+          </figure>
+        )}
         <p className="font-body text-[17px] leading-relaxed text-foreground first-letter:font-heading first-letter:text-[3.2rem] first-letter:leading-[0.8] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-primary">
           {profile.tuEs}
         </p>
