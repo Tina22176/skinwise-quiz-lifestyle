@@ -11,38 +11,19 @@ import { ArrowLeft } from "lucide-react";
 export const EnhancedQuizQuestion = () => {
   const { state, dispatch } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showNextQuestion, setShowNextQuestion] = useState(false);
-
   const currentQuestion = questions[state.currentQuestion];
 
-  const handleAnswer = (answer: string) => {
-    setSelectedAnswer(answer);
-    
-    setTimeout(() => {
-      dispatch({
-        type: "SET_ANSWER",
-        questionId: currentQuestion.id,
-        answer: answer,
-      });
-
-      const updatedAnswers = { ...state.answers, [currentQuestion.id]: answer };
-      const hormoneProfile = calculateHormoneProfile(updatedAnswers);
-      dispatch({ type: "SET_HORMONE_PROFILE", payload: hormoneProfile });
-      
-      setShowNextQuestion(true);
-    }, 250);
-  };
-
   useEffect(() => {
-    if (showNextQuestion) {
-      const timer = setTimeout(() => {
-        dispatch({ type: "NEXT_QUESTION" });
-        setSelectedAnswer(null);
-        setShowNextQuestion(false);
-      }, 150);
-      return () => clearTimeout(timer);
-    }
-  }, [showNextQuestion, dispatch]);
+    if (selectedAnswer === null || !currentQuestion) return;
+    const timer = setTimeout(() => {
+      const answers = { ...state.answers, [currentQuestion.id]: selectedAnswer };
+      dispatch({ type: "SET_ANSWER", questionId: currentQuestion.id, answer: selectedAnswer });
+      dispatch({ type: "SET_HORMONE_PROFILE", payload: calculateHormoneProfile(answers) });
+      dispatch({ type: "NEXT_QUESTION" });
+      setSelectedAnswer(null);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [selectedAnswer, currentQuestion, state.answers, dispatch]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -97,7 +78,8 @@ export const EnhancedQuizQuestion = () => {
       <DynamicQuestionDisplay
         question={currentQuestion}
         selectedAnswer={selectedAnswer ?? (state.answers[currentQuestion.id] as string | undefined) ?? null}
-        onSelect={handleAnswer}
+        onSelect={setSelectedAnswer}
+        disabled={selectedAnswer !== null}
       />
 
       <div className="flex justify-between items-center mt-8 min-h-[28px]">
@@ -106,7 +88,6 @@ export const EnhancedQuizQuestion = () => {
             onClick={() => {
               dispatch({ type: "PREV_QUESTION" });
               setSelectedAnswer(null);
-              setShowNextQuestion(false);
             }}
             className="inline-flex items-center gap-2 font-body text-[13px] font-medium text-foreground underline underline-offset-4 decoration-foreground/30 hover:decoration-primary hover:text-primary transition-colors"
           >

@@ -9,7 +9,7 @@ interface EnhancedAnswerOptionProps {
   };
   index: number;
   isSelected: boolean;
-  selectedAnswer: string | null;
+  disabled?: boolean;
   onSelect: (answer: string) => void;
 }
 
@@ -17,7 +17,7 @@ export const EnhancedAnswerOption = ({
   option,
   index,
   isSelected,
-  selectedAnswer,
+  disabled = false,
   onSelect,
 }: EnhancedAnswerOptionProps) => {
   const itemVariants = {
@@ -29,7 +29,7 @@ export const EnhancedAnswerOption = ({
     },
   };
 
-  const locked = selectedAnswer !== null;
+  const locked = disabled;
   const isOther = locked && !isSelected;
 
   return (

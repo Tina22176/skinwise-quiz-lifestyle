@@ -16,64 +16,80 @@ export interface ProgramRecommendation {
 const PROGRAMS: Record<ProgramId, Omit<ProgramRecommendation, "secondaryId" | "leadTemperature" | "cycleRelevance" | "scores">> = {
   "mini-glow": {
     id: "mini-glow",
-    name: "Mini Glow",
-    price: "49€",
+    name: "Glow Express",
+    price: "49 € · paiement unique",
     slug: "/programmes/mini-glow",
     reason: "7 jours pour simplifier ta routine, retrouver des repères clairs et passer à l'action sans te surcharger.",
-    reassurance: "7 jours · Format essentiel · Accès immédiat",
+    reassurance: "7 jours guidés · Programme digital · Accès 12 mois",
   },
   "skin-reboot": {
     id: "skin-reboot",
     name: "Skin Reboot",
-    price: "99€",
+    price: "149 € · paiement unique",
     slug: "/programmes/skin-reboot",
     reason: "28 jours pour stabiliser ta peau, reconstruire une routine cohérente et apprendre à observer ses réactions.",
-    reassurance: "28 jours · Approche In & Out · Accès immédiat",
+    reassurance: "28 jours guidés · Programme digital · Accès 12 mois",
   },
   "glow-and-cycle": {
     id: "glow-and-cycle",
     name: "Glow & Cycle",
-    price: "299€",
+    price: "19,99 €/mois",
     slug: "/programmes/glow-and-cycle",
-    reason: "Un accompagnement sur plusieurs cycles pour anticiper les variations de ta peau, de ton énergie et de ton bien-être.",
-    reassurance: "12 mois · Suivi cyclique · Garantie 30 jours",
+    reason: "Un compagnon quotidien pour observer ce qui revient dans ta peau, ton énergie, ton sommeil et tes envies. Un geste adapté à tes observations, des idées de repas, des rituels et The Glow Edit.",
+    reassurance: "Également 49 €/trimestre ou 149 €/an. Même contenu dans les trois formules. Renouvellement automatique, résiliable depuis ton espace ; accès conservé jusqu’à la fin de la période payée.",
   },
 };
 
+// Les choix exprimés priment sur les symptômes. En cas d'égalité :
+// objectif, puis rythme choisi, puis ordre explicite ci-dessous.
+const GOALS: Record<string, ProgramId> = {
+  simplifier: "mini-glow", stabiliser: "skin-reboot", comprendre_cycle: "glow-and-cycle",
+};
+const SUPPORT: Record<string, ProgramId> = {
+  declic: "mini-glow", mois: "skin-reboot", plusieurs_cycles: "glow-and-cycle",
+};
+const ORDER: ProgramId[] = ["skin-reboot", "mini-glow", "glow-and-cycle"];
+
 export const recommendProgram = (answers: Record<string, string>): ProgramRecommendation => {
+  const goal = GOALS[answers.primary_goal];
+  const support = SUPPORT[answers.support_level];
   const scores: Record<ProgramId, number> = {
-    "mini-glow": 0,
-    "skin-reboot": 1,
-    "glow-and-cycle": 0,
+    "mini-glow": 0, "skin-reboot": 0, "glow-and-cycle": 0,
   };
+  if (goal) scores[goal] += 8;
+  if (support) scores[support] += 4;
 
-  if (answers.primary_goal === "simplifier") scores["mini-glow"] += 5;
-  if (answers.primary_goal === "stabiliser") scores["skin-reboot"] += 5;
-  if (answers.primary_goal === "comprendre_cycle") scores["glow-and-cycle"] += 5;
+  // Irrégularité et localisation des boutons ne prouvent pas une récurrence.
+  // Conserver spm pour les réponses de l'ancien questionnaire.
+  const cycleRelevance = Number(answers.boutons_pattern === "avant_regles") +
+    Number(["recurrent", "spm"].includes(answers.cycle_signals) || answers.cycle === "spm");
+  scores["glow-and-cycle"] += cycleRelevance;
+  if (["touche_pas", "changeante"].includes(answers.skin_daily)) scores["skin-reboot"] += 1;
+  if (["explose", "rougit", "hypersensible"].includes(answers.skin_stress)) scores["skin-reboot"] += 1;
 
-  if (answers.support_level === "declic") scores["mini-glow"] += 4;
-  if (answers.support_level === "mois") scores["skin-reboot"] += 4;
-  if (answers.support_level === "plusieurs_cycles") scores["glow-and-cycle"] += 4;
-
-  const cycleSignals = [answers.cycle, answers.boutons_pattern];
-  if (["irregulier", "spm"].includes(answers.cycle)) scores["glow-and-cycle"] += 4;
-  if (["avant_regles", "microkystes"].includes(answers.boutons_pattern)) scores["glow-and-cycle"] += 3;
-  if (answers.skin_daily === "changeante") scores["glow-and-cycle"] += 2;
-
-  if (["touche_pas", "changeante"].includes(answers.skin_daily)) scores["skin-reboot"] += 2;
-  if (["explose", "rougit", "hypersensible"].includes(answers.skin_stress)) scores["skin-reboot"] += 2;
-  if (answers.skin_daily === "brille" && answers.skin_stress === "rien") scores["mini-glow"] += 1;
-
-  const ranked = (Object.entries(scores) as Array<[ProgramId, number]>).sort((a, b) => b[1] - a[1]);
+  const ranked = [...ORDER].sort((a, b) =>
+    scores[b] - scores[a] || Number(b === goal) - Number(a === goal) ||
+    Number(b === support) - Number(a === support) || ORDER.indexOf(a) - ORDER.indexOf(b));
   const [primary, secondary] = ranked;
-  const cycleRelevance = cycleSignals.reduce((score, signal) => {
-    return score + (["irregulier", "spm", "avant_regles", "microkystes"].includes(signal) ? 1 : 0);
-  }, 0);
+  const reasons: string[] = [];
+  if (goal === primary) reasons.push({
+    "mini-glow": "Tu souhaites simplifier ta routine : un cadre de 7 jours te permet de poser des bases claires.",
+    "skin-reboot": "Tu souhaites stabiliser ta routine : 28 jours guidés te donnent un cadre pour observer, tester et ancrer tes habitudes.",
+    "glow-and-cycle": "Tu souhaites explorer les liens entre peau, cycle et énergie : le suivi quotidien t’aide à observer ce qui revient chez toi.",
+  }[primary]);
+  if (support === primary) reasons.push({
+    "mini-glow": "Le format court correspond au déclic que tu recherches.",
+    "skin-reboot": "Le format sur un mois correspond au rythme que tu as choisi.",
+    "glow-and-cycle": "L’abonnement correspond à ton souhait d’observer tes ressentis dans la durée.",
+  }[primary]);
+  if (!reasons.length && primary === "glow-and-cycle") reasons.push("Tu as signalé des variations récurrentes : un suivi peut t’aider à voir si elles se répètent, sans présumer leur cause.");
+  if (!reasons.length && primary === "skin-reboot" && scores[primary] > 0) reasons.push("Tu décris une peau réactive ou changeante : un cadre progressif peut t’aider à observer ses réactions et ajuster ta routine.");
 
   return {
-    ...PROGRAMS[primary[0]],
-    secondaryId: secondary[0],
-    leadTemperature: primary[1] >= 9 ? "hot" : primary[1] >= 6 ? "warm" : "discovery",
+    ...PROGRAMS[primary],
+    reason: reasons.join(" ") || PROGRAMS[primary].reason,
+    secondaryId: secondary,
+    leadTemperature: scores[primary] >= 12 ? "hot" : scores[primary] >= 8 ? "warm" : "discovery",
     cycleRelevance,
     scores,
   };

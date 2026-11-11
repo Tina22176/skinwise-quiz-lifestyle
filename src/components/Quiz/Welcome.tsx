@@ -1,3 +1,4 @@
+import { questions } from "./questions/index";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HORMONE_PROFILE_DETAILS } from "./Results/utils/HormoneProfileDetails";
@@ -17,8 +18,8 @@ const StartButton = ({ onStart, label }: { onStart: () => void; label: string })
 
 const takeaways = [
   {
-    title: "Ton profil, parmi cinq",
-    text: "Pas un « type de peau » de plus. Une lecture de ce qui la fait réagir : ton stress, ton sommeil, ton cycle.",
+    title: "Des repères pour ta peau",
+    text: "Pas un « type de peau » de plus. Une lecture de tes observations : ta routine, ton stress, ton sommeil, ton cycle. Si aucune tendance ne ressort, tu gardes des repères simples.",
   },
   {
     title: "Trois gestes, pas douze",
@@ -30,7 +31,7 @@ const takeaways = [
   },
 ];
 
-const profiles = Object.values(HORMONE_PROFILE_DETAILS).map((p) => p.title);
+const profiles = Object.entries(HORMONE_PROFILE_DETAILS).filter(([id]) => id !== "à_observer").map(([, p]) => p.title);
 
 export const Welcome = ({ onStart }: { onStart: () => void }) => {
   const reduce = useReducedMotion();
@@ -43,7 +44,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
     <div>
       {/* ── Couverture ── */}
       <motion.section initial="hidden" animate="visible" variants={fadeUp} className="max-w-[1100px] mx-auto px-6 pt-8 pb-14 lg:pt-14 lg:pb-20">
-        <p className="eyebrow mb-6 lg:mb-10">8 questions · 2 min</p>
+        <p className="eyebrow mb-6 lg:mb-10">{questions.length} questions · environ 3 min</p>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-end">
           <div className="lg:col-span-7">
@@ -53,7 +54,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
               <span className="italic font-normal text-primary">Apprends à l'écouter.</span>
             </h1>
             <p className="mt-7 font-body text-[17px] leading-relaxed text-muted-foreground max-w-[30rem]">
-              Huit questions sur ton rythme, ton stress et ton cycle. Tu repars avec ton profil
+              Des questions sur ta routine, ton rythme, ton stress et ton cycle. Tu repars avec ton profil
               et trois gestes simples pour commencer cette semaine.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row sm:items-center gap-5">
