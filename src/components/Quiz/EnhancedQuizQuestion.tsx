@@ -44,6 +44,10 @@ export const EnhancedQuizQuestion = () => {
     }
   }, [showNextQuestion, dispatch]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [state.currentQuestion]);
+
   if (state.currentQuestion >= questions.length) {
     return null;
   }
