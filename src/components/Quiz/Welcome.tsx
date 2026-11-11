@@ -2,7 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HORMONE_PROFILE_DETAILS } from "./Results/utils/HormoneProfileDetails";
 
-const heroImage = "/hero-skinwise-v2.webp";
+const heroImage = "/hero-illustration.webp";
 const ROMAN = ["I", "II", "III", "IV", "V"];
 
 const StartButton = ({ onStart, label }: { onStart: () => void; label: string }) => (
