@@ -13,17 +13,17 @@ const Index = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Header — matches mockup exactly */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border"
+        className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-foreground"
         style={{ minHeight: '56px' }}
         role="banner"
       >
         <div className="container mx-auto px-4 py-3 flex justify-between items-center" style={{ minHeight: '56px' }}>
-          <span className="font-heading text-[20px] italic text-violet-deep">
+          <span className="font-heading text-[22px] italic text-foreground">
             Majoliepeau
           </span>
 
-          <span className="inline-flex items-center gap-1.5 bg-rose-whisper text-primary text-[13px] font-semibold font-body px-3 py-1 rounded-full">
-            Diagnostic gratuit
+          <span className="eyebrow">
+            Le diagnostic peau
           </span>
         </div>
       </header>
@@ -35,7 +35,7 @@ const Index = () => {
       
       {/* Footer — simple, matches mockup */}
       <footer 
-        className="py-6 border-t border-border bg-card/50"
+        className="py-6 border-t border-foreground"
         role="contentinfo"
       >
         <div className="container mx-auto px-4">

@@ -5,41 +5,41 @@
 @layer base {
   :root {
     /* ═══ FONDATIONS — from mockup reference ═══ */
-    --background:          270 40% 97%;    /* #F8F3FC — lavender-tinted */
-    --foreground:          282 20% 17%;    /* #2E2233 */
+    --background:          38 33% 96%;    /* #F8F3FC — lavender-tinted */
+    --foreground:          330 18% 11%;    /* #2E2233 */
 
     /* ═══ ROSE MAJOLIEPEAU ═══ */
-    --primary:             340 65% 58%;    /* #D4649A — vrai rose */
+    --primary:             330 57% 61%;    /* #D4649A — vrai rose */
     --primary-foreground:  0 0% 100%;
 
     /* ═══ SURFACES ═══ */
-    --secondary:           280 20% 93%;    /* #F0EAF3 — lineSoft */
-    --muted:               280 18% 90%;    /* close to #E6DCE9 */
-    --muted-foreground:    275 10% 40%;    /* #665A70 */
-    --accent:              280 20% 93%;    /* #F0EAF3 */
-    --accent-foreground:   282 20% 17%;   /* same as foreground */
+    --secondary:           34 25% 91%;    /* #F0EAF3 — lineSoft */
+    --muted:               34 20% 89%;    /* close to #E6DCE9 */
+    --muted-foreground:    330 6% 38%;    /* #665A70 */
+    --accent:              34 25% 91%;    /* #F0EAF3 */
+    --accent-foreground:   330 18% 11%;   /* same as foreground */
 
     /* ═══ FONCTIONNELS ═══ */
     --destructive:         0 65% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border:              286 18% 89%;    /* #E6DCE9 */
-    --input:               280 20% 93%;    /* #F0EAF3 — lineSoft */
-    --ring:                340 65% 58%;
+    --border:              30 14% 80%;    /* #E6DCE9 */
+    --input:               30 14% 80%;    /* #F0EAF3 — lineSoft */
+    --ring:                330 57% 61%;
 
     /* ═══ RADIUS ═══ */
-    --radius:              0.875rem;
+    --radius:              0.125rem;
 
     /* ═══ CARDS ═══ */
-    --card:                0 0% 100%;      /* pure white #FFFFFF */
-    --card-foreground:     282 20% 17%;
+    --card:                40 40% 98%;      /* pure white #FFFFFF */
+    --card-foreground:     330 18% 11%;
 
     /* ═══ POPOVER ═══ */
     --popover:             0 0% 100%;
-    --popover-foreground:  282 20% 17%;
+    --popover-foreground:  330 18% 11%;
 
     /* ═══ SURFACES DOUCES + TEXTE ═══ */
-    --surface-soft:        280 33% 96%;    /* #F5F0FA — wash lilas */
-    --text-soft:           275 12% 60%;    /* #9B8FA3 — texte tertiaire */
+    --surface-soft:        36 28% 93%;    /* #F5F0FA — wash lilas */
+    --text-soft:           330 5% 52%;    /* #9B8FA3 — texte tertiaire */
   }
 
   body {
@@ -60,6 +60,13 @@
 }
 
 @layer utilities {
+  .eyebrow {
+    @apply font-body uppercase text-[11px] tracking-[0.22em] font-medium text-muted-foreground;
+  }
+  .rule {
+    @apply border-t border-foreground;
+  }
+
   .glass {
     @apply backdrop-blur-md bg-white/80 border border-border/50 shadow-sm;
   }
@@ -91,19 +98,16 @@
 
   /* ═══ GRADIENT DE MARQUE — réutilisable (CTA, accents) ═══ */
   .bg-brand-gradient {
-    background-image: linear-gradient(135deg, #D4649A 0%, #C45589 100%);
+    background-color: hsl(var(--primary));
   }
 
   .bg-brand-soft {
-    background-image: linear-gradient(135deg, #FBEAF2 0%, #F5F0FA 100%);
+    background-color: hsl(var(--surface-soft));
   }
 
   .text-brand-gradient {
-    background-image: linear-gradient(135deg, #D4649A 0%, #C45589 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: hsl(var(--primary));
+    font-style: italic;
   }
 
   .surface-soft {
