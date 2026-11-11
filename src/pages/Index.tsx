@@ -17,7 +17,7 @@ const Index = () => {
       >
         <div className="max-w-[1100px] mx-auto px-6 h-16 flex justify-between items-center">
           <a href="https://majoliepeau.com" aria-label="Majoliepeau, retour au site">
-            <img src="/brand/majoliepeau-wordmark.svg" alt="" width={1166} height={310} className="h-7 w-auto" />
+            <img src="/brand/majoliepeau-wordmark.svg" alt="" width={1166} height={310} className="h-8 w-auto" />
           </a>
           <span className="eyebrow">Diagnostic peau</span>
         </div>
