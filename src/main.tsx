@@ -19,10 +19,6 @@ if ('serviceWorker' in navigator) {
   }
 }
 
-// Import debugger en mode développement
-if (import.meta.env.DEV) {
-  import('./utils/brevoDebugger');
-}
 
 const root = document.getElementById('root')
 
