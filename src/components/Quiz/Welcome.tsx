@@ -40,13 +40,10 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
   };
 
   return (
-    <div className="max-w-[1100px] mx-auto px-6">
+    <div>
       {/* ── Couverture ── */}
-      <motion.section initial="hidden" animate="visible" variants={fadeUp} className="pt-6 pb-14 lg:pt-12 lg:pb-20">
-        <div className="flex justify-between items-baseline border-b border-foreground pb-3 mb-8 lg:mb-12">
-          <span className="eyebrow">N° 01 · Diagnostic</span>
-          <span className="eyebrow">8 questions · 2 min</span>
-        </div>
+      <motion.section initial="hidden" animate="visible" variants={fadeUp} className="max-w-[1100px] mx-auto px-6 pt-8 pb-14 lg:pt-14 lg:pb-20">
+        <p className="eyebrow mb-6 lg:mb-10">8 questions · 2 min</p>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-end">
           <div className="lg:col-span-7">
@@ -88,8 +85,9 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeUp}
-        className="py-14 border-t border-foreground grid lg:grid-cols-12 gap-8"
+        className="bg-secondary"
       >
+        <div className="max-w-[1100px] mx-auto px-6 py-16 grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4">
           <p className="eyebrow mb-3">Au sommaire</p>
           <h2 className="font-heading text-[2.2rem] lg:text-[2.8rem] leading-[1.02] font-semibold text-foreground">
@@ -98,7 +96,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         </div>
         <ol className="lg:col-span-8">
           {takeaways.map((t, i) => (
-            <li key={t.title} className="grid grid-cols-[3rem_1fr] gap-4 py-6 border-b border-border first:pt-0">
+            <li key={t.title} className="grid grid-cols-[3rem_1fr] gap-4 py-6 border-b border-foreground/15 last:border-0 first:pt-0">
               <span className="font-heading text-[2rem] leading-none text-primary">0{i + 1}</span>
               <div>
                 <h3 className="font-heading text-[1.5rem] font-semibold text-foreground leading-tight mb-2">{t.title}</h3>
@@ -107,6 +105,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
             </li>
           ))}
         </ol>
+        </div>
       </motion.section>
 
       {/* ── Les cinq profils ── */}
@@ -115,22 +114,24 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeUp}
-        className="py-14 border-t border-foreground grid lg:grid-cols-12 gap-8"
+        className="bg-foreground text-background"
       >
+        <div className="max-w-[1100px] mx-auto px-6 py-16 grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4">
-          <p className="eyebrow mb-3">Les cinq profils</p>
-          <h2 className="font-heading text-[2.2rem] lg:text-[2.8rem] leading-[1.02] font-semibold text-foreground">
+          <p className="eyebrow mb-3 !text-gold">Les cinq profils</p>
+          <h2 className="font-heading text-[2.2rem] lg:text-[2.8rem] leading-[1.02] font-semibold text-background">
             Laquelle <span className="italic font-normal">es-tu</span> ?
           </h2>
         </div>
         <ul className="lg:col-span-8">
           {profiles.map((title, i) => (
-            <li key={title} className="flex items-baseline gap-6 py-4 border-b border-border first:pt-0">
+            <li key={title} className="flex items-baseline gap-6 py-4 border-b border-background/15 last:border-0 first:pt-0">
               <span className="font-heading italic text-[15px] text-gold w-8">{ROMAN[i]}</span>
-              <span className="font-heading text-[1.6rem] lg:text-[1.9rem] leading-tight text-foreground">{title}</span>
+              <span className="font-heading text-[1.6rem] lg:text-[1.9rem] leading-tight text-background">{title}</span>
             </li>
           ))}
         </ul>
+        </div>
       </motion.section>
 
       {/* ── Fin ── */}
@@ -139,7 +140,7 @@ export const Welcome = ({ onStart }: { onStart: () => void }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeUp}
-        className="py-16 lg:py-24 border-t border-foreground text-center"
+        className="max-w-[1100px] mx-auto px-6 py-16 lg:py-24 text-center"
       >
         <p className="font-heading italic text-[1.9rem] lg:text-[2.6rem] leading-tight text-foreground max-w-[40rem] mx-auto">
           « On ne soigne bien que ce qu'on comprend. »
