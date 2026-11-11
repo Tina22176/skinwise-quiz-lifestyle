@@ -1,117 +1,44 @@
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { ArrowRight, Sparkles, Heart, Star } from "lucide-react"
+import { ArrowRight, Clock, Heart, Mail } from "lucide-react"
 
-const QuizPromo = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
-      {/* Hero Section */}
-      <section className="py-6 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center space-y-3"
-          >
-            <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-400 via-pink-500 to-pink-400 text-transparent bg-clip-text">
-              Découvre ta Routine Skincare Idéale
-            </h1>
-            <p className="text-lg text-gray-600 max-w-xl mx-auto">
-              Un quiz personnalisé pour révéler tous les secrets de ta peau et obtenir des conseils sur-mesure ✨
-            </p>
-          </motion.div>
-        </div>
-      </section>
+const features = [
+  { icon: Clock, title: "2 minutes chrono", text: "8 questions simples, sans jargon." },
+  { icon: Heart, title: "Ton profil à toi", text: "On décode ce que ta peau essaie de te dire." },
+  { icon: Mail, title: "Tes conseils par email", text: "Ton profil détaillé et 3 gestes adaptés." },
+]
 
-      {/* Features Section */}
-      <section className="py-6 px-4 bg-white/50">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="bg-white p-4 rounded-xl shadow-[0_4px_12px_rgba(255,192,203,0.15)] hover:shadow-[0_8px_16px_rgba(255,192,203,0.2)] transition-all duration-300"
-            >
-              <div className="h-8 w-8 bg-pink-100 rounded-lg flex items-center justify-center mb-2">
-                <Sparkles className="h-4 w-4 text-pink-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-1">2 Minutes Chrono</h3>
-              <p className="text-sm text-gray-600">
-                Un quiz rapide et efficace pour découvrir ton type de peau
-              </p>
-            </motion.div>
+const QuizPromo = () => (
+  <div className="min-h-screen bg-background font-body px-5 py-14">
+    <div className="max-w-3xl mx-auto text-center">
+      <h1 className="font-heading text-[2.4rem] md:text-[3.2rem] font-bold leading-tight mb-4">
+        <span className="text-violet-deep">Et si ta peau</span><br />
+        <span className="text-brand-gradient italic">pouvait parler ?</span>
+      </h1>
+      <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
+        Fais le quiz gratuit et découvre enfin ce qui se passe vraiment sous ta peau. Pas de jugement, c'est entre nous ✨
+      </p>
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white p-4 rounded-xl shadow-[0_4px_12px_rgba(255,192,203,0.15)] hover:shadow-[0_8px_16px_rgba(255,192,203,0.2)] transition-all duration-300"
-            >
-              <div className="h-8 w-8 bg-pink-100 rounded-lg flex items-center justify-center mb-2">
-                <Heart className="h-4 w-4 text-pink-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-1">100% Personnalisé</h3>
-              <p className="text-sm text-gray-600">
-                Des conseils adaptés à TA peau et à TON mode de vie
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-white p-4 rounded-xl shadow-[0_4px_12px_rgba(255,192,203,0.15)] hover:shadow-[0_8px_16px_rgba(255,192,203,0.2)] transition-all duration-300"
-            >
-              <div className="h-8 w-8 bg-pink-100 rounded-lg flex items-center justify-center mb-2">
-                <Star className="h-4 w-4 text-pink-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-1">Routine Sur-Mesure</h3>
-              <p className="text-sm text-gray-600">
-                Reçois ta routine beauté personnalisée par email
-              </p>
-            </motion.div>
+      <div className="grid md:grid-cols-3 gap-6 mb-12 text-left md:text-center">
+        {features.map(({ icon: Icon, title, text }) => (
+          <div key={title} className="flex md:flex-col items-start md:items-center gap-3">
+            <Icon className="h-6 w-6 text-primary shrink-0" />
+            <div>
+              <h2 className="font-heading text-xl font-semibold text-foreground">{title}</h2>
+              <p className="text-sm text-muted-foreground">{text}</p>
+            </div>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
 
-      {/* CTA Section */}
-      <section className="py-6 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-pink-50 to-pink-100 p-6 rounded-2xl shadow-[0_4px_16px_rgba(255,192,203,0.12)]"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              Prête à découvrir ta routine idéale ? 💖
-            </h2>
-            <p className="text-lg text-gray-600 mb-4 max-w-lg mx-auto">
-              Rejoins des milliers de personnes qui ont déjà trouvé leur routine parfaite grâce à notre quiz !
-            </p>
-            <a 
-              href="https://quiz.majoliepeau.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <Button
-                className="group bg-black hover:bg-black/90 text-white px-6 py-4 rounded-lg text-base font-medium transition-all duration-300"
-              >
-                Je découvre mon type de peau
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </a>
-          </motion.div>
-        </div>
-      </section>
+      <a
+        href="/"
+        className="group bg-brand-gradient text-primary-foreground rounded-full px-8 py-4 text-[17px] font-bold shadow-glow inline-flex items-center gap-2"
+      >
+        Je découvre mon profil
+        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+      </a>
+      <p className="text-sm text-muted-foreground mt-4">100% gratuit · 2 min · Sans spam</p>
     </div>
-  );
-};
+  </div>
+)
 
-export default QuizPromo;
+export default QuizPromo
