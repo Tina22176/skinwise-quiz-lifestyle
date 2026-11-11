@@ -81,6 +81,7 @@ export const Results = ({ onResetQuiz }: { onResetQuiz: () => void }) => {
           hormoneProfile={state.hormoneProfile}
           onResetQuiz={onResetQuiz}
           hasSubscribed={isSubscribed}
+          onUnlock={() => setPhase("email")}
         />
       ) : null}
     </AnimatePresence>

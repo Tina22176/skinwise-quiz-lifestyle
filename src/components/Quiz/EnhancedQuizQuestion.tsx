@@ -76,22 +76,6 @@ export const EnhancedQuizQuestion = () => {
         motivationalTexts={motivationalTexts}
       />
 
-      <div className="flex justify-between items-center -mt-2 mb-8 min-h-[28px]">
-        {state.currentQuestion > 0 ? (
-          <button
-            onClick={() => {
-              dispatch({ type: "PREV_QUESTION" });
-              setSelectedAnswer(null);
-              setShowNextQuestion(false);
-            }}
-            className="inline-flex items-center gap-2 font-body text-[13px] font-medium text-foreground underline underline-offset-4 decoration-foreground/30 hover:decoration-primary hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Question précédente
-          </button>
-        ) : <span />}
-      </div>
-
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -115,6 +99,23 @@ export const EnhancedQuizQuestion = () => {
         selectedAnswer={selectedAnswer ?? (state.answers[currentQuestion.id] as string | undefined) ?? null}
         onSelect={handleAnswer}
       />
+
+      <div className="flex justify-between items-center mt-8 min-h-[28px]">
+        {state.currentQuestion > 0 ? (
+          <button
+            onClick={() => {
+              dispatch({ type: "PREV_QUESTION" });
+              setSelectedAnswer(null);
+              setShowNextQuestion(false);
+            }}
+            className="inline-flex items-center gap-2 font-body text-[13px] font-medium text-foreground underline underline-offset-4 decoration-foreground/30 hover:decoration-primary hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Question précédente
+          </button>
+        ) : <span />}
+      </div>
+
 
     </motion.div>
   );

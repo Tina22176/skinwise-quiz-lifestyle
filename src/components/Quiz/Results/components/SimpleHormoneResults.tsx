@@ -3,20 +3,24 @@ import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
 import { ArrowRight } from "lucide-react";
 import { getProgram } from "../../utils/programRecommendation";
+import { PROFILE_ILLUSTRATIONS } from "../utils/profileIllustrations";
 
 interface SimpleHormoneResultsProps {
   hormoneProfile: HormoneProfile;
   onResetQuiz: () => void;
   hasSubscribed: boolean;
+  onUnlock?: () => void;
 }
 
 export const SimpleHormoneResults = ({
   hormoneProfile,
   onResetQuiz,
   hasSubscribed,
+  onUnlock,
 }: SimpleHormoneResultsProps) => {
   const profile = getHormoneProfileDetails(hormoneProfile.type);
   const recommendation = hormoneProfile.recommendation;
+  const illustration = PROFILE_ILLUSTRATIONS[hormoneProfile.type];
   const secondaryProgram = getProgram(recommendation.secondaryId);
 
   const containerVariants = {
@@ -52,6 +56,11 @@ export const SimpleHormoneResults = ({
           <h1 className="font-heading font-semibold text-[2.6rem] lg:text-[3.6rem] leading-[1] tracking-[-0.01em] text-foreground mb-8">
             {profile.title}
           </h1>
+          {illustration && (
+            <figure className="mb-8 -mx-6 sm:mx-0">
+              <img src={illustration} alt={`Illustration : ${profile.title}`} width={1024} height={768} className="w-full h-auto block" />
+            </figure>
+          )}
           <p className="font-body text-[17px] leading-relaxed text-foreground first-letter:font-heading first-letter:text-[3.2rem] first-letter:leading-[0.8] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-primary">
             {profile.tuEs}
           </p>
@@ -64,6 +73,25 @@ export const SimpleHormoneResults = ({
           </h2>
           <p className="font-body text-[16px] leading-relaxed text-muted-foreground">{profile.besoin}</p>
         </motion.section>
+
+        {!hasSubscribed && onUnlock && (
+          <motion.section variants={itemVariants} className="mt-12 bg-secondary px-6 py-8 sm:px-10">
+            <p className="eyebrow mb-3">Chapitre 2</p>
+            <h2 className="font-heading text-[2rem] leading-tight font-semibold text-foreground mb-3">
+              Tes trois <span className="italic font-normal">premiers gestes</span>
+            </h2>
+            <p className="font-body text-[16px] leading-relaxed text-foreground mb-6">
+              Ils sont réservés à celles qui laissent leur email. Tu as changé d'avis ? Il est encore temps.
+            </p>
+            <button
+              onClick={onUnlock}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-foreground text-background font-body text-[15px] font-medium tracking-wide px-8 py-4 rounded-sm transition-colors hover:bg-primary"
+            >
+              Recevoir mes trois gestes
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </motion.section>
+        )}
 
         {hasSubscribed && (
           <motion.section variants={itemVariants} className="mt-12 border-t border-foreground pt-8">
@@ -104,7 +132,9 @@ export const SimpleHormoneResults = ({
 
         <motion.section variants={itemVariants} className="mt-12 border-t border-foreground pt-8">
           <p className="font-heading italic text-[1.4rem] leading-snug text-foreground">
-            Pas prête ? Aucun souci. Ton profil détaillé, tes trois gestes et quelques ressources t'attendent dans ta boîte mail.
+            {hasSubscribed
+              ? "Pas prête ? Aucun souci. Ton profil détaillé, tes trois gestes et quelques ressources t'attendent dans ta boîte mail."
+              : "Pas prête ? Aucun souci. Prends le temps d'observer ta peau, elle a beaucoup à te dire."}
           </p>
         </motion.section>
 
