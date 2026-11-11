@@ -39,31 +39,27 @@ export const EnhancedAnswerOption = ({
         disabled={locked}
         className={[
           "w-full text-left font-body text-[15px] font-medium text-foreground",
-          "relative overflow-hidden rounded-md border-2 px-5 py-4",
-          "transition-all duration-300",
-          "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25",
-          isSelected
-            ? "border-primary bg-brand-soft scale-[1.02] shadow-[0_4px_16px_rgba(212,100,154,0.18)]"
-            : "border-secondary bg-card shadow-sm hover:border-lilas hover:bg-surface-soft",
+          "relative grid grid-cols-[2rem_1fr] gap-3 border-b border-border px-1 py-5",
+          "transition-colors duration-200",
+          "focus-visible:outline-none focus-visible:bg-secondary",
+          isSelected ? "bg-secondary" : "hover:bg-secondary/60",
           isOther ? "opacity-40" : "opacity-100",
           locked ? "cursor-default" : "cursor-pointer",
         ].join(" ")}
       >
+        <span className={`font-heading italic text-[17px] leading-6 ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
+          {String.fromCharCode(97 + index)}.
+        </span>
+        <span className="block pr-8">
+          <span className="block text-[16px] leading-6">{option.label}</span>
+          {option.description && (
+            <span className="block mt-1 text-[13px] font-normal leading-relaxed text-muted-foreground">
+              {option.description}
+            </span>
+          )}
+        </span>
         {isSelected && (
-          <motion.span
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
-          >
-            <Check className="w-3.5 h-3.5" strokeWidth={3} />
-          </motion.span>
-        )}
-        <span className="block pr-8">{option.label}</span>
-        {option.description && (
-          <span className="block pr-8 mt-1 text-[13px] font-normal leading-relaxed text-muted-foreground">
-            {option.description}
-          </span>
+          <Check className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" strokeWidth={2.5} />
         )}
       </button>
     </motion.div>

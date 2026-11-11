@@ -11,18 +11,14 @@ import { InstallPWA } from "../PWA/InstallPWA";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
 const QuizContent = () => {
-  console.log('🎯 QuizContent rendering...');
   
   const { state, resetQuiz } = useQuiz();
   const [stage, setStage] = useState<"welcome" | "questions" | "results">("welcome");
   const isMobile = useIsMobile();
   const { trackQuizStart, trackQuizComplete } = useAnalytics();
 
-  console.log('📊 Quiz state:', { stage, currentQuestion: state.currentQuestion, questionsLength: questions.length });
-
   useEffect(() => {
     if (state.currentQuestion >= questions.length) {
-      console.log('🏁 Quiz completed, showing results');
       setStage("results");
       window.scrollTo({ top: 0, behavior: "auto" });
       // Track quiz completion with hormone profile if available
@@ -35,13 +31,11 @@ const QuizContent = () => {
   }, [state.currentQuestion, state.hormoneProfile, state.result, trackQuizComplete]);
 
   const handleStartQuiz = () => {
-    console.log('▶️ Starting quiz...');
     trackQuizStart();
     setStage("questions");
   };
 
   const handleResetQuiz = () => {
-    console.log('🔄 Resetting quiz...');
     resetQuiz();
     setStage("welcome");
   };
@@ -51,7 +45,7 @@ const QuizContent = () => {
     : "min-h-screen py-6 sm:py-8 lg:py-10";
 
   return (
-    <div className={containerClasses} style={{ background: 'linear-gradient(180deg, #F8F3FC 0%, #FDF2F7 60%, #FBEAF2 100%)' }}>
+    <div className={containerClasses} >
       <AnimatePresence mode="wait">
         {stage === "welcome" && (
           <Welcome onStart={handleStartQuiz} />
@@ -68,7 +62,6 @@ const QuizContent = () => {
 };
 
 export const Quiz = () => {
-  console.log('🎮 Quiz component rendering...');
   
   return (
     <QuizProvider>
