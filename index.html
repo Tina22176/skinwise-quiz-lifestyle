@@ -68,52 +68,71 @@
     />
 
     <style>
-      #root > .seo-fallback {
-        max-width: 760px;
-        margin: 0 auto;
-        padding: 72px 24px;
-        text-align: center;
+      .app-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #fbf9f6;
         font-family: "DM Sans", system-ui, sans-serif;
         color: #3e2e45;
       }
-      #root > .seo-fallback h1 {
-        margin: 0 0 18px;
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(2.4rem, 6vw, 4rem);
-        line-height: 1.05;
+      .app-loader img {
+        width: 180px;
+        max-width: 60vw;
+        height: auto;
+        animation: loader-breathe 2.2s ease-in-out infinite;
       }
-      #root > .seo-fallback p {
-        margin: 0 auto 16px;
-        max-width: 620px;
-        line-height: 1.7;
+      .app-loader .loader-rule {
+        width: 48px;
+        height: 1px;
+        background: #c9a87c;
+        margin: 22px 0 14px;
       }
-      #root > .seo-fallback ul {
-        display: inline-block;
-        margin: 12px auto 0;
-        padding-left: 22px;
-        text-align: left;
-        line-height: 1.8;
+      .app-loader p {
+        margin: 0;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #8a7a92;
+      }
+      @keyframes loader-breathe {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.55; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .app-loader img { animation: none; }
       }
     </style>
   </head>
 
   <body>
     <div id="root">
-      <main class="seo-fallback">
-        <h1>Quiz type de peau : mieux comprendre ton profil en 2 minutes</h1>
-        <p>
+      <div class="app-loader" aria-hidden="true">
+        <img src="/brand/majoliepeau-wordmark.svg" alt="" />
+        <div class="loader-rule"></div>
+        <p>Diagnostic peau</p>
+      </div>
+    </div>
+    <noscript>
+      <main style="max-width: 760px; margin: 0 auto; padding: 72px 24px; text-align: center; font-family: 'DM Sans', system-ui, sans-serif; color: #3e2e45;">
+        <h1 style="margin: 0 0 18px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.6rem; line-height: 1.05;">
+          Quiz type de peau : mieux comprendre ton profil en 2 minutes
+        </h1>
+        <p style="margin: 0 auto 16px; max-width: 620px; line-height: 1.7;">
           Réponds à 8 questions sur ta peau, ses réactions, ton cycle, ton énergie et
           tes besoins du moment. À la fin, tu obtiens un profil personnalisé et des
           pistes simples pour mieux adapter tes gestes au quotidien.
         </p>
-        <ul>
+        <ul style="display: inline-block; margin: 12px auto 0; padding-left: 22px; text-align: left; line-height: 1.8;">
           <li>Diagnostic gratuit</li>
           <li>8 questions</li>
           <li>Résultats immédiats</li>
           <li>Conseils adaptés à ton profil</li>
         </ul>
       </main>
-    </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
