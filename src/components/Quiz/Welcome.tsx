@@ -16,7 +16,7 @@ import { getProfileIcon, getProfileTheme } from "./utils/profileVisuals";
 
 /* ── Visuel hero : photo fournie par le client (/public/hero.jpg).
    Fallback décoratif élégant si l'image est absente afin de ne jamais casser la page. ── */
-const heroImage = "/hero-skinwise-v2.png";
+const heroImage = "/hero-skinwise-v2.webp";
 
 const HeroVisual = () => {
   const [failed, setFailed] = useState(false);

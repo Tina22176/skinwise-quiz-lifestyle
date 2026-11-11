@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://quiz.majoliepeau.com/sitemap.xml
+Sitemap: https://diagnostic-peau.majoliepeau.com/sitemap.xml
