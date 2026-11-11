@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Lock, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
-import { getProfileIcon, getProfileTheme } from "../../utils/profileVisuals";
 
 interface ProfileTeaserGateProps {
   hormoneProfile: HormoneProfile;
@@ -30,146 +29,103 @@ export const ProfileTeaserGate = ({
   onSkip,
 }: ProfileTeaserGateProps) => {
   const profile = getHormoneProfileDetails(hormoneProfile.type);
-  const theme = getProfileTheme(profile.colorTheme);
-  const ProfileIcon = getProfileIcon(profile.icon);
 
   const locked = [
-    "Tes 3 premiers gestes sur-mesure",
-    "Ta recommandation programme personnalisée",
-    "Ton guide complet, envoyé par email",
+    "Tes trois premiers gestes",
+    "Le programme qui te correspond",
+    "Un récap à garder dans ta boîte mail",
   ];
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex items-center justify-center px-6 py-12 min-h-[calc(100vh-140px)]"
+      className="px-6 py-10 lg:py-16"
     >
-      <div className="max-w-[480px] w-full bg-card border border-border rounded-xl shadow-md p-8 space-y-6">
+      <div className="max-w-[560px] mx-auto">
+        <div className="flex justify-between items-baseline border-b border-foreground pb-3 mb-10">
+          <span className="eyebrow">Ton résultat</span>
+          <span className="eyebrow">1 / 2</span>
+        </div>
 
-        {/* ── Révélation du profil (gratuit) ── */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.4 }}
-          className="text-center"
-        >
-          <p className="font-body uppercase text-[13px] text-soft tracking-[1.5px] mb-4">
-            Ton profil peau
-          </p>
-          <div className="mb-4 flex justify-center">
-            <div
-              className="w-[72px] h-[72px] rounded-full flex items-center justify-center"
-              style={{ background: theme.halo, boxShadow: `0 0 0 9px ${theme.ring}` }}
-            >
-              <ProfileIcon className="w-8 h-8" style={{ color: theme.icon }} strokeWidth={1.75} />
-            </div>
-          </div>
-          <h1 className="font-heading text-[1.7rem] lg:text-[2rem] font-bold text-foreground mb-3">
-            {profile.title}
-          </h1>
-          <p className="text-muted-foreground text-[15px] leading-relaxed font-body">
-            {profile.tuEs}
-          </p>
-        </motion.div>
+        <p className="font-heading italic text-[18px] text-primary mb-2">Tu es…</p>
+        <h1 className="font-heading font-semibold text-[2.6rem] lg:text-[3.4rem] leading-[1] tracking-[-0.01em] text-foreground mb-6">
+          {profile.title}
+        </h1>
+        <p className="font-body text-[17px] leading-relaxed text-foreground first-letter:font-heading first-letter:text-[3.2rem] first-letter:leading-[0.8] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-primary">
+          {profile.tuEs}
+        </p>
 
-        {/* ── Ce qui reste à débloquer ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.4 }}
-          className="bg-brand-soft rounded-lg p-5"
-        >
-          <p className="font-body text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary" />
-            Débloque ton plan complet
+        <div className="mt-12 border-t border-foreground pt-8">
+          <h2 className="font-heading text-[1.8rem] leading-tight font-semibold text-foreground mb-2">
+            La suite, <span className="italic font-normal">par écrit</span>
+          </h2>
+          <p className="font-body text-[15px] text-muted-foreground mb-6">
+            Laisse ton prénom et ton email pour lire la suite ici et la recevoir dans ta boîte :
           </p>
-          <ul className="space-y-2.5">
-            {locked.map((item) => (
-              <li key={item} className="flex items-center gap-2.5 font-body text-[14px] text-muted-foreground">
-                <Lock className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                <span>{item}</span>
+          <ul className="mb-8">
+            {locked.map((item, i) => (
+              <li key={item} className="flex gap-4 py-3 border-b border-border font-body text-[15px] text-foreground">
+                <span className="font-heading italic text-primary w-6">0{i + 1}</span>
+                {item}
               </li>
             ))}
           </ul>
-        </motion.div>
 
-        {/* ── Formulaire email ── */}
-        <motion.form
-          onSubmit={handleSubmit}
-          className="space-y-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.4 }}
-        >
-          <input
-            type="text"
-            placeholder="Ton prénom"
-            aria-label="Ton prénom"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-sm surface-soft text-foreground border-[1.5px] border-border transition-colors outline-none focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20"
-          />
-          <input
-            type="email"
-            placeholder="ton@email.com"
-            aria-label="Ton email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full font-body text-[15px] py-3.5 px-5 rounded-sm surface-soft text-foreground border-[1.5px] border-border transition-colors outline-none focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20"
-          />
-
-          <label className="flex items-start gap-2 text-sm cursor-pointer font-body">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <input
-              type="checkbox"
-              checked={gdprConsent}
-              onChange={(e) => setGdprConsent(e.target.checked)}
+              type="text"
+              placeholder="Ton prénom"
+              aria-label="Ton prénom"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               required
-              className="mt-1 accent-primary"
+              className="w-full font-body text-[16px] py-3 bg-transparent text-foreground border-0 border-b border-foreground rounded-none outline-none placeholder:text-muted-foreground focus-visible:border-primary"
             />
-            <span className="text-muted-foreground">
-              Je souhaite recevoir mon résultat et mon guide personnalisé par email. Je pourrai me désinscrire des conseils et offres en un clic.
-            </span>
-          </label>
-
-          <button
-            type="submit"
-            disabled={isLoading || !email || !firstName || !gdprConsent}
-            className="w-full font-body text-base font-bold text-primary-foreground bg-brand-gradient rounded-full py-4 shadow-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30"
-          >
-            {isLoading ? "..." : "Voir mon plan complet"}
-            {!isLoading && <ArrowRight className="w-5 h-5" />}
-          </button>
-        </motion.form>
-
-        <motion.p
-          className="text-xs text-soft font-body text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          Pas de spam. Tu peux te désinscrire en 1 clic.
-        </motion.p>
-
-        {onSkip && (
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
+            <input
+              type="email"
+              placeholder="ton@email.com"
+              aria-label="Ton email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full font-body text-[16px] py-3 bg-transparent text-foreground border-0 border-b border-foreground rounded-none outline-none placeholder:text-muted-foreground focus-visible:border-primary"
+            />
+            <label className="flex items-start gap-3 text-[13px] cursor-pointer font-body pt-2">
+              <input
+                type="checkbox"
+                checked={gdprConsent}
+                onChange={(e) => setGdprConsent(e.target.checked)}
+                required
+                className="mt-0.5 accent-primary"
+              />
+              <span className="text-muted-foreground leading-relaxed">
+                J'accepte de recevoir mon résultat par email, puis des conseils et offres Majoliepeau. Désinscription en un clic.
+              </span>
+            </label>
             <button
-              onClick={onSkip}
-              className="text-[13px] text-soft/80 underline hover:text-foreground transition-colors font-body"
+              type="submit"
+              disabled={isLoading || !email || !firstName || !gdprConsent}
+              className="w-full inline-flex items-center justify-center gap-3 bg-foreground text-background font-body text-[15px] font-medium tracking-wide py-4 rounded-sm transition-colors hover:bg-primary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              Voir un aperçu sans mon email
+              {isLoading ? "Un instant…" : "Lire la suite"}
+              {!isLoading && <ArrowRight className="w-4 h-4" />}
             </button>
-          </motion.div>
-        )}
+          </form>
+
+          {onSkip && (
+            <div className="text-center mt-6">
+              <button
+                onClick={onSkip}
+                className="text-[13px] text-muted-foreground underline underline-offset-4 hover:text-foreground transition-colors font-body"
+              >
+                Continuer sans email
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </motion.div>
   );

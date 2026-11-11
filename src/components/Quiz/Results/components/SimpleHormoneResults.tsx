@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { HormoneProfile } from "../../utils/hormoneProfileCalculator";
 import { getHormoneProfileDetails } from "../utils/HormoneProfileDetails";
-import { getProfileIcon, getProfileTheme } from "../../utils/profileVisuals";
-import { ArrowRight, Check, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getProgram } from "../../utils/programRecommendation";
 
 interface SimpleHormoneResultsProps {
@@ -17,8 +16,6 @@ export const SimpleHormoneResults = ({
   hasSubscribed,
 }: SimpleHormoneResultsProps) => {
   const profile = getHormoneProfileDetails(hormoneProfile.type);
-  const theme = getProfileTheme(profile.colorTheme);
-  const ProfileIcon = getProfileIcon(profile.icon);
   const recommendation = hormoneProfile.recommendation;
   const secondaryProgram = getProgram(recommendation.secondaryId);
 
@@ -44,121 +41,82 @@ export const SimpleHormoneResults = ({
   };
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="show"
-      className="px-6 py-8"
-    >
-      <div className="max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto space-y-5">
-
-        {/* Profile header — halo coloré selon le profil */}
-        <motion.div variants={itemVariants} className="text-center">
-          <p className="font-body uppercase text-[13px] text-soft tracking-[1.5px] mb-3">
-            Ton profil peau
-          </p>
-          <div className="mb-4 flex justify-center">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center"
-              style={{ background: theme.halo, boxShadow: `0 0 0 10px ${theme.ring}` }}
-            >
-              <ProfileIcon className="w-9 h-9" style={{ color: theme.icon }} strokeWidth={1.75} />
-            </div>
+    <motion.div variants={containerVariants} initial="hidden" animate="show" className="px-6 py-10 lg:py-16">
+      <article className="max-w-[640px] mx-auto">
+        <motion.header variants={itemVariants}>
+          <div className="flex justify-between items-baseline border-b border-foreground pb-3 mb-10">
+            <span className="eyebrow">Ton profil peau</span>
+            <span className="eyebrow">2 / 2</span>
           </div>
-          <h1 className="font-heading text-[28px] lg:text-[32px] font-bold text-foreground">
+          <p className="font-heading italic text-[18px] text-primary mb-2">Tu es…</p>
+          <h1 className="font-heading font-semibold text-[2.6rem] lg:text-[3.6rem] leading-[1] tracking-[-0.01em] text-foreground mb-8">
             {profile.title}
           </h1>
-        </motion.div>
-
-        {/* Description card */}
-        <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
-          <p className="text-foreground leading-relaxed text-base font-body">
+          <p className="font-body text-[17px] leading-relaxed text-foreground first-letter:font-heading first-letter:text-[3.2rem] first-letter:leading-[0.8] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:text-primary">
             {profile.tuEs}
           </p>
-        </motion.div>
+        </motion.header>
 
-        {/* Needs card */}
-        <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
-          <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
-            Ce dont ta peau a besoin
+        <motion.section variants={itemVariants} className="mt-12 border-t border-foreground pt-8">
+          <p className="eyebrow mb-3">Chapitre 1</p>
+          <h2 className="font-heading text-[2rem] leading-tight font-semibold text-foreground mb-4">
+            Ce dont ta peau <span className="italic font-normal">a besoin</span>
           </h2>
-          <p className="text-muted-foreground leading-relaxed font-body">
-            {profile.besoin}
-          </p>
-        </motion.div>
+          <p className="font-body text-[16px] leading-relaxed text-muted-foreground">{profile.besoin}</p>
+        </motion.section>
 
-        {/* 3 Steps card */}
-        {hasSubscribed && <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
-          <h2 className="font-heading text-xl font-semibold text-foreground mb-4">
-            Tes 3 premiers gestes
-          </h2>
-          <div className="space-y-4">
-            {profile.gestes.map((geste, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold font-body">
-                  {index + 1}
-                </span>
-                <p className="text-foreground leading-relaxed pt-0.5 font-body text-[15px]">{geste}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>}
+        {hasSubscribed && (
+          <motion.section variants={itemVariants} className="mt-12 border-t border-foreground pt-8">
+            <p className="eyebrow mb-3">Chapitre 2</p>
+            <h2 className="font-heading text-[2rem] leading-tight font-semibold text-foreground mb-4">
+              Tes trois <span className="italic font-normal">premiers gestes</span>
+            </h2>
+            <ol>
+              {profile.gestes.map((geste, index) => (
+                <li key={index} className="grid grid-cols-[3rem_1fr] gap-3 py-5 border-b border-border">
+                  <span className="font-heading text-[2rem] leading-none text-primary">0{index + 1}</span>
+                  <p className="font-body text-[16px] leading-relaxed text-foreground">{geste}</p>
+                </li>
+              ))}
+            </ol>
+          </motion.section>
+        )}
 
-        {/* Product CTA — gradient de marque */}
-        <motion.div variants={itemVariants} className="p-6 rounded-lg border border-border bg-brand-soft shadow-md">
-          <p className="font-body uppercase text-[13px] text-soft tracking-[1.5px] mb-2">
-            Pour aller plus loin
-          </p>
-          <h2 className="font-heading text-xl font-bold text-foreground mb-1">
-            {recommendation.name} — {recommendation.price}
+        <motion.section variants={itemVariants} className="mt-12 bg-foreground text-background px-6 py-10 sm:px-10">
+          <p className="font-body uppercase text-[11px] tracking-[0.22em] font-medium text-gold mb-4">Pour aller plus loin</p>
+          <h2 className="font-heading text-[2.2rem] lg:text-[2.6rem] leading-[1.02] font-semibold mb-1">
+            {recommendation.name}
           </h2>
-          <p className="text-muted-foreground mb-5 font-body text-[15px]">
-            {recommendation.reason}
-          </p>
-          <motion.button
+          <p className="font-heading italic text-[20px] text-gold mb-5">{recommendation.price}</p>
+          <p className="font-body text-[16px] leading-relaxed opacity-80 mb-8">{recommendation.reason}</p>
+          <button
             onClick={handleDiscoverProgram}
-            className="w-full font-body text-base font-bold text-primary-foreground bg-brand-gradient py-3.5 rounded-full shadow-glow flex items-center justify-center gap-2 transition-all duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground font-body text-[15px] font-medium tracking-wide px-8 py-4 rounded-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
           >
             Découvrir {recommendation.name}
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
-          <p className="text-xs text-center mt-3 text-soft font-body">
-            {recommendation.reassurance}
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+          <p className="font-body text-[13px] opacity-70 mt-5">{recommendation.reassurance}</p>
+          <p className="font-body text-[13px] opacity-70 mt-2">
+            Sinon, il y a aussi {secondaryProgram.name}, selon ton rythme et ton budget.
           </p>
-          <p className="text-xs text-center mt-3 text-muted-foreground font-body">
-            Alternative possible : {secondaryProgram.name}, selon ton rythme et ton budget.
-          </p>
-        </motion.div>
+        </motion.section>
 
-        {/* Email reminder */}
-        <motion.div variants={itemVariants} className="bg-card p-6 rounded-lg border border-border shadow-md">
-          <p className="text-foreground font-medium mb-3 font-body">Tu recevras aussi par email :</p>
-          <ul className="space-y-2 text-muted-foreground font-body">
-            {["Ton profil détaillé", "3 conseils adaptés", "Ressources gratuites"].map((item) => (
-              <li key={item} className="flex items-center gap-2.5">
-                <Check className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={3} />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-sm mt-4 italic text-soft font-body flex items-center gap-2">
-            <Mail className="w-4 h-4 flex-shrink-0" />
-            Pas prête ? Pas de souci. Le guide arrive dans ta boîte.
+        <motion.section variants={itemVariants} className="mt-12 border-t border-foreground pt-8">
+          <p className="font-heading italic text-[1.4rem] leading-snug text-foreground">
+            Pas prête ? Aucun souci. Ton profil détaillé, tes trois gestes et quelques ressources t'attendent dans ta boîte mail.
           </p>
-        </motion.div>
+        </motion.section>
 
-        {/* Reset */}
-        <motion.div variants={itemVariants} className="text-center pb-2">
+        <motion.div variants={itemVariants} className="text-center mt-12">
           <button
             onClick={onResetQuiz}
-            className="text-soft hover:text-foreground transition-colors underline text-sm font-body"
+            className="text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4 text-[13px] font-body"
           >
-            Refaire le quiz →
+            Refaire le diagnostic
           </button>
         </motion.div>
-      </div>
+      </article>
     </motion.div>
   );
 };
