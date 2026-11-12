@@ -44,7 +44,7 @@ export const handler = async (event) => {
   }
 
   const attributes = {
-    FIRSTNAME: firstName,
+    PRENOM: firstName,
     SKIN_PROFILE: clean(input.skinProfile, 80),
     RECOMMENDED_PROGRAM: recommendation,
     SECONDARY_PROGRAM: clean(input.secondaryProgram, 40),
